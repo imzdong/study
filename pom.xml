@@ -11,6 +11,8 @@
   <modules>
     <module>spring</module>
     <module>spring-boot</module>
+      <module>design</module>
+      <module>ticket</module>
   </modules>
 
   <name>study</name>

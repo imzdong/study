@@ -1,4 +1,4 @@
-package org.imzdong.study.springboot.day04single;
+package org.imzdong.study.design.singleton;
 
 /**
  * @description:
