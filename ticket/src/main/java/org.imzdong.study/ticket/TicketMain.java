@@ -1,9 +1,19 @@
 package org.imzdong.study.ticket;
 
-import sun.net.www.http.HttpClient;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Proxy;
+import java.io.IOException;
 import java.net.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -12,8 +22,10 @@ import java.util.*;
  * @time: 2019/12/18
  */
 public class TicketMain {
+    private final static Logger log = LoggerFactory.getLogger(TicketMain.class);
     private static String host = "https://kyfw.12306.cn";
-    private static HttpClient build;
+    //private static HttpClient build;
+    private static CloseableHttpClient httpclient = HttpClients.createDefault();
     private static String GET = "GET";
     private static String POST = "POST";
     private static String params = null;
@@ -91,10 +103,10 @@ public class TicketMain {
                 log.info("代理失败!");
             }
         };
-        build = HttpClient.newBuilder()
+        /*build = HttpClient.newBuilder()
                 .cookieHandler(CookieHandler.getDefault())
                 //.proxy(proxySelector)
-                .build();
+                .build();*/
         log.info("1、初始化登陆：/otn/leftTicket/init");
         oneInitLogin();
         log.info("2、获取验证码：/passport/captcha/captcha-image");
@@ -233,7 +245,7 @@ public class TicketMain {
      * @return
      */
     public static JSONObject tranPassenger(List<PassengerDTO> passenger,
-                                           String seatName,String[] ticketPass) throws Exception{
+                                           String seatName, String[] ticketPass) throws Exception{
         String seatType = seatNo.get(seatName);
         String passengerTicketStr = seatType+",";
         String oldPassengerStr = "";
@@ -766,13 +778,13 @@ public class TicketMain {
                     ,""
                     ,globalToken
                     ,"dc"
-                    ,new Date().getTime());
+                    ,System.currentTimeMillis());
             String response = httpUtil(checkUserUrl,body,GET,type);
             log.info("第14步确认订单状态：{}",response);
             Thread.sleep(3000L);
             JSONObject queryOrderResult = new JSONObject(response);
             if(queryOrderResult.getBoolean("status")&&queryOrderResult.getJSONObject("data")!=null
-                    &&StringUtils.isNotBlank(queryOrderResult.getJSONObject("data").getString("orderId"))){
+                    && StringUtils.isNotBlank(queryOrderResult.getJSONObject("data").getString("orderId"))){
                 orderId = queryOrderResult.getJSONObject("data").getString("orderId");
             }
         }
