@@ -1,3 +1,4 @@
+/*
 package org.imzdong.study.ticket;
 
 import com.alibaba.fastjson.JSONArray;
@@ -8,6 +9,8 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.imzdong.study.ticket.dto.PassengerDTO;
+import org.imzdong.study.ticket.dto.TicketInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,11 +19,13 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+*/
 /**
  * @description:
  * @author: Winter
  * @time: 2019/12/18
- */
+ *//*
+
 public class TicketMain {
     private final static Logger log = LoggerFactory.getLogger(TicketMain.class);
     private static String host = "https://kyfw.12306.cn";
@@ -58,7 +63,8 @@ public class TicketMain {
         seatNo.put("动卧","1");
     }
 
-    /**
+    */
+/**
      * 1、https://kyfw.12306.cn/otn/leftTicket/init   （left_ticket_init）
      * 2、https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&{0}  （getCodeImg）
      * 2.1、https://kyfw.12306.cn/passport/web/auth/uamtk   "appid": "otn"  （auth） 登录认证接口
@@ -70,7 +76,8 @@ public class TicketMain {
      *  "password": passwd,
      *  "appid": "otn"
      * }   登录成功
-     */
+     *//*
+
     public static void main(String[] args)throws Exception{
         String userName = "12306账号";
         String password = "12306密码";
@@ -103,10 +110,12 @@ public class TicketMain {
                 log.info("代理失败!");
             }
         };
-        /*build = HttpClient.newBuilder()
+        */
+/*build = HttpClient.newBuilder()
                 .cookieHandler(CookieHandler.getDefault())
                 //.proxy(proxySelector)
-                .build();*/
+                .build();*//*
+
         log.info("1、初始化登陆：/otn/leftTicket/init");
         oneInitLogin();
         log.info("2、获取验证码：/passport/captcha/captcha-image");
@@ -235,7 +244,8 @@ public class TicketMain {
         log.info("end:{}",new Date());
     }
 
-    /**
+    */
+/**
      *
      * {"passengerTicketStr":"3,0,1,乘客01,1,身份证xxx01,,N_3,0,1,乘客02,1,身份证xxx02,,N",
      * "oldPassengerStr":"乘客01,1,身份证xxx01,1_乘客02,1,身份证xxx02,1"}
@@ -243,7 +253,8 @@ public class TicketMain {
      * passengerTicketStr	O,0,1,文贤平,1,43052419950223XXXX,15618715583,N_O,0,1,梁敏,1,43052719920118XXXX,,N
      * oldPassengerStr	文贤平,1,43052719920118XXXX,1_梁敏,1,43052719920118XXXX,1
      * @return
-     */
+     *//*
+
     public static JSONObject tranPassenger(List<PassengerDTO> passenger,
                                            String seatName, String[] ticketPass) throws Exception{
         String seatType = seatNo.get(seatName);
@@ -273,9 +284,11 @@ public class TicketMain {
         return passJson;
     }
 
-    /**
+    */
+/**
      * 第一步初始化登录
-     */
+     *//*
+
     private static void oneInitLogin(){
         String loginInitUrl = host + "/otn/leftTicket/init";
         //loginInitUrl = "https://www.baidu.com";
@@ -283,11 +296,13 @@ public class TicketMain {
         log.info("第一步：初始化登录：statusCode:{}",response);
         //,response.body());
     }
-    /**
+    */
+/**
      * 第二步
      * 下载验证码
      * 获取登录验证码存储本地
-     */
+     *//*
+
     private static void secondGetCode(){
         Random random = new Random();//默认构造方法
         String randomNum = random.nextInt(1000000)+"";
@@ -297,9 +312,11 @@ public class TicketMain {
         log.info("第二步：下载验证码：statusCode：{}",response);
     }
 
-    /**
+    */
+/**
      * 第2.1步认证
-     */
+     *//*
+
     private static String secondOAuth(){
         String authUrl = host + "/passport/web/auth/uamtk";
         String body = "appid=otn";
@@ -325,9 +342,11 @@ public class TicketMain {
         return response;
     }
 
-    /**
+    */
+/**
      * 第五步初始化登录
-     */
+     *//*
+
     private static String fiveWebLogin(String name,String pwd) {
         String loginWebUrl = host + "/passport/web/login";
         String body = String.format("username=%s&password=%s&appid=otn"
@@ -342,11 +361,13 @@ public class TicketMain {
         return null;
     }
 
-    /**
+    */
+/**
      * 第六步获取用户名
      * @param uamtk
      * @return
-     */
+     *//*
+
     private static String getUser(String uamtk){
         String getUserUrl = host + "/otn/uamauthclient";
         //{"tk": uamtk}
@@ -357,10 +378,12 @@ public class TicketMain {
         return response;
     }
 
-    /**
+    */
+/**
      * 第七步检查用户是否登录
      * @return
-     */
+     *//*
+
     private static String checkUser(){
         String checkUserUrl = host + "/otn/login/checkUser";
         //data = {"_json_att": ""}
@@ -371,11 +394,13 @@ public class TicketMain {
         return response;
     }
 
-    /**
+    */
+/**
      *  第八步查询余票
      * @return
      * @throws Exception
-     */
+     *//*
+
     private static List<TicketInfoDTO> queryTicket(String ticketDate,
                                                    String from_station, String to_station) throws Exception{
         ///otn/leftTicket/queryZ?leftTicketDTO.train_date={0}&leftTicketDTO.from_station={1}&leftTicketDTO.to_station={2}&purpose_codes=ADULT
@@ -449,11 +474,13 @@ public class TicketMain {
         return listTransTicket;
     }
 
-    /**
+    */
+/**
      * 获取乘客信息
      * @param token
      * @return
-     */
+     *//*
+
     private static List<PassengerDTO> getPassenger(String token) {
         String getPassengerUrl = host + "/otn/confirmPassenger/getPassengerDTOs";
         String body = String.format("REPEAT_SUBMIT_TOKEN=%s",token);
@@ -482,11 +509,13 @@ public class TicketMain {
         return passList;
     }
 
-    /**
+    */
+/**
      * 提交订单
      * @param secretStr
      * @return
-     */
+     *//*
+
     private static boolean submitOrder(String secretStr,String train_date,
                                        String query_from_station_name, String query_to_station_name) {
         String submitOrderUrl = host + "/otn/leftTicket/submitOrderRequest";
@@ -564,13 +593,15 @@ public class TicketMain {
         return null;
     }
 
-    /**
+    */
+/**
      * 检查支付订单，需要提交REPEAT_SUBMIT_TOKEN
      *         passengerTicketStr : 座位编号,0,票类型,乘客名,证件类型,证件号,手机号码,保存常用联系人(Y或N)
      *         oldPassengersStr: 乘客名,证件类型,证件号,乘客类型
      * @param token
      * @return
-     */
+     *//*
+
     private static String checkOrder(String token,String passengerTicketStr
             ,String oldPassengerStr) {
         String checkOrderUrl = host + "/otn/confirmPassenger/checkOrderInfo";
@@ -605,13 +636,15 @@ public class TicketMain {
         return response;
     }
 
-    /**
+    */
+/**
      * 模拟查询当前的列车排队人数的方法
      * 剩余余票数
      * @param submitToken
      * @param seatType
      * @return
-     */
+     *//*
+
     private static String getQueueCount(JSONObject submitToken
             ,String seatType,String trainDate) throws Exception{
         String getQueueCount = host + "/otn/confirmPassenger/getQueueCount";
@@ -660,10 +693,12 @@ public class TicketMain {
         //body = body.getBytes("UTF-8")
         //body = URLDecoder.decode(URLEncoder.encode(body, "UTF-8"),"UTF-8");
         //编码
-        /*byte[] bytes = body.getBytes("UTF-8");
+        */
+/*byte[] bytes = body.getBytes("UTF-8");
         String decodeStr = new String(bytes);
         body = decodeStr.replaceAll("%2B","+").replaceAll("GMT+0800","GMT%2B0800")
-                .replaceAll("%28","(").replaceAll("%29",")");*/
+                .replaceAll("%28","(").replaceAll("%29",")");*//*
+
         //end
         while(num<5||status) {
             num++;
@@ -709,7 +744,8 @@ public class TicketMain {
         return null;
     }
 
-    /**
+    */
+/**
      * 确认订单
      * @param submitToken
      * @param passengerTicketStr
@@ -717,7 +753,8 @@ public class TicketMain {
      * @param randCode
      * @return
      * @throws Exception
-     */
+     *//*
+
     private static String confirmSingleForQueue(JSONObject submitToken
             ,String passengerTicketStr,String oldPassengerStr,String randCode) throws Exception{
         String confirmQueue = host + "/otn/confirmPassenger/confirmSingleForQueue";
@@ -759,11 +796,13 @@ public class TicketMain {
         return response;
     }
 
-    /**
+    */
+/**
      * 确认订单状态
      * @param globalToken
      * @return
-     */
+     *//*
+
     private static String queryOrderWaitTime(String globalToken) throws Exception{
         String checkUserUrl = host + "/otn/confirmPassenger/queryOrderWaitTime";
         String orderId = null;
@@ -791,13 +830,15 @@ public class TicketMain {
         return orderId;
     }
 
-    /**
+    */
+/**
      * 确认真实订单状态
      * @param globalToken
      * @param orderId
      * @return
      * @throws Exception
-     */
+     *//*
+
     private static boolean resultOrderForDcQueue(String globalToken,String orderId) throws Exception{
         String checkUserUrl = host + "/otn/confirmPassenger/resultOrderForDcQueue";
         String body = String.format("_json_att=%s" +
@@ -816,11 +857,13 @@ public class TicketMain {
         return false;
     }
 
-    /**
+    */
+/**
      * 获取订单详情
      * @return
      * @throws Exception
-     */
+     *//*
+
     private static String queryMyOrderNoComplete() throws Exception{
         String checkUserUrl = host + "/otn/queryOrder/queryMyOrderNoComplete";
         String body = String.format("_json_att=%s"
@@ -833,9 +876,12 @@ public class TicketMain {
 
     private static String httpUtil(String httpUrl
             ,String body,String method, String type){
-        HttpRequest httpRequest;
+        */
+/*HttpRequest httpRequest;
         HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(httpUrl))
-                .header("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+                .header("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");*//*
+
+        httpclient.
         String resultBody = null;
         try {
             if("POST".equals(method)){
@@ -870,11 +916,13 @@ public class TicketMain {
         return resultBody;
     }
 
-    /**
+    */
+/**
      * 转换code
      * @param result
      * @return
-     */
+     *//*
+
     private static String resultToCode(String result){
         char[] chars = result.toCharArray();
         StringBuffer post = new StringBuffer();
@@ -925,3 +973,4 @@ public class TicketMain {
         return codeStr;
     }
 }
+*/
