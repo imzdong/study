@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
-
 /**
  * @description:
  * @author: Winter
@@ -23,7 +22,7 @@ public class Login {
     /*
      * 第一步初始化登录
      */
-    private static void firstInit(){
+    public static void firstInit(){
         logger.info("1：初始化登录");
         String initPath = "/otn/leftTicket/init";
         HttpClientUtil.httpRequest(initPath,httpGet);
@@ -33,19 +32,19 @@ public class Login {
      * 下载验证码
      * 获取登录验证码存储本地
      */
-    private static void secondGetCode(){
+    public static void secondGetCode(){
         logger.info("2：下载验证码");
         Random random = new Random();//默认构造方法
         int randomNum = random.nextInt(1000000);
         String codePath = String.format("/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&%d",randomNum);
-        HttpClientUtil.httpRequest(codePath,httpGet);
+        HttpClientUtil.httpRequestImage(codePath,httpGet,"D:\\WorkSpace\\result\\20191221\\random.png");
     }
     /*
      * 转换code
      * @param result
      * @return
      */
-    private static String thirdInputCode(String result){
+    public static String thirdInputCode(String result){
         logger.info("3：手动输入验证码");
         char[] chars = result.toCharArray();
         StringBuilder post = new StringBuilder();
@@ -96,7 +95,7 @@ public class Login {
         return codeStr;
     }
 
-    private static int fourthCheckCode(String code) {
+    public static int fourthCheckCode(String code) {
         logger.info("4：校验验证码");
         String checkCodePath = "/passport/captcha/captcha-check";
         HttpPost httpPost = new HttpPost();
@@ -121,7 +120,7 @@ public class Login {
     /*
      * 第五步初始化登录
      */
-    private static String fifthWebLogin(String name,String pwd) {
+    public static String fifthWebLogin(String name,String pwd) {
         logger.info("5：用户名密码登陆");
         String loginPath = "/passport/web/login";
         JSONObject params = new JSONObject();
@@ -143,7 +142,7 @@ public class Login {
     /*
      * 第6步认证,刷新umk
      */
-    private static String sixAuth(){
+    public static String sixAuth(){
         logger.info("6：校验uamtk");
         String authPath = "/passport/web/auth/uamtk";
         JSONObject params = new JSONObject();
@@ -165,7 +164,7 @@ public class Login {
      * @param uamtk
      * @return
      */
-    private static void sevenUamAuth(String uamtk){
+    public static void sevenUamAuth(String uamtk){
         logger.info("7：校验newapptk");
         String uamAuthPath = "/otn/uamauthclient";
         JSONObject params = new JSONObject();
@@ -175,5 +174,20 @@ public class Login {
         HttpPost httpPost = new HttpPost();
         httpPost.setEntity(entity);
         HttpClientUtil.httpRequest(uamAuthPath,httpPost);
+    }
+
+    /*
+     * 第七步检查用户是否登录
+     * @return
+     */
+    public static String eightCheckUser(){
+        String checkUserUrl = "/otn/login/checkUser";
+        //data = {"_json_att": ""}
+        String body = String.format("_json_att=%s"
+                ,"");
+        HttpPost httpPost = new HttpPost();
+        httpPost.setEntity(new StringEntity(body, "UTF-8"));
+        String response = HttpClientUtil.httpRequest(checkUserUrl,httpPost);
+        return response;
     }
 }

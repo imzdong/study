@@ -2,10 +2,16 @@ package org.imzdong.study.ticket.core;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.imzdong.study.ticket.dto.PassengerDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description:
@@ -14,17 +20,35 @@ import java.util.List;
  */
 public class Passenger {
 
+    private final static Logger logger = LoggerFactory.getLogger(Passenger.class);
+    private static Map<String,String> seatNo = new HashMap<>();
+    static {
+        seatNo.put("一等座","M");
+        seatNo.put("特等座","P");
+        seatNo.put("二等座","O");
+        seatNo.put("商务座","9");
+        seatNo.put("硬座","1");
+        seatNo.put("无座","1");
+        seatNo.put("软座","2");
+        seatNo.put("软卧","4");
+        seatNo.put("硬卧","3");
+        seatNo.put("动卧","1");
+    }
     /**
      * 获取乘客
      * @param token
      * @return
      */
-    private static List<PassengerDTO> fourthGetPassenger(String token) {
-        String getPassengerUrl = host + "/otn/confirmPassenger/getPassengerDTOs";
-        String body = String.format("REPEAT_SUBMIT_TOKEN=%s",token);
-        String response = httpUtil(getPassengerUrl,body,POST,type);
-        log.info("第九步获取乘客：{}",response);
-        JSONObject passengerJson = new JSONObject(response);
+    public static List<PassengerDTO> firstGetPassenger(String token) {
+        String getPassengerPath = "/otn/confirmPassenger/getPassengerDTOs";
+        HttpPost httpPost = new HttpPost();
+        JSONObject params = new JSONObject();
+        params.put("REPEAT_SUBMIT_TOKEN",token);
+        StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
+        httpPost.setEntity(entity);
+        String response = HttpClientUtil.httpRequest(getPassengerPath,httpPost);
+        logger.info("第九步获取乘客：{}",response);
+        JSONObject passengerJson = JSONObject.parseObject(response);
         boolean status = passengerJson.getBoolean("status");
         List<PassengerDTO> passList = new ArrayList<>();
         if(status){
@@ -46,7 +70,6 @@ public class Passenger {
         }
         return passList;
     }
-
     /*
      *
      * {"passengerTicketStr":"3,0,1,乘客01,1,身份证xxx01,,N_3,0,1,乘客02,1,身份证xxx02,,N",
@@ -56,7 +79,7 @@ public class Passenger {
      * oldPassengerStr	文贤平,1,43052719920118XXXX,1_梁敏,1,43052719920118XXXX,1
      * @return
      */
-    public static JSONObject tranPassenger(List<PassengerDTO> passenger,
+    public static JSONObject secondTranPassenger(List<PassengerDTO> passenger,
                                            String seatName, String[] ticketPass) throws Exception{
         String seatType = seatNo.get(seatName);
         String passengerTicketStr = seatType+",";
@@ -78,8 +101,8 @@ public class Passenger {
         JSONObject passJson = new JSONObject();
         passengerTicketStr = passengerTicketStr.substring(0,passengerTicketStr.length()-3);
         oldPassengerStr = oldPassengerStr.substring(0,oldPassengerStr.length()-1);
-        log.info("passengerTicketStr:{}",passengerTicketStr);
-        log.info("oldPassengerStr:{}",oldPassengerStr);
+        logger.info("passengerTicketStr:{}",passengerTicketStr);
+        logger.info("oldPassengerStr:{}",oldPassengerStr);
         passJson.put("passengerTicketStr",passengerTicketStr);
         passJson.put("oldPassengerStr",oldPassengerStr);
         return passJson;

@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.imzdong.study.ticket.dto.PassengerDTO;
 import org.imzdong.study.ticket.dto.TicketInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +24,7 @@ public class Ticket {
 
     private final static Logger logger = LoggerFactory.getLogger(Ticket.class);
     private final static HttpGet httpGet = new HttpGet();
-    private static Map<String,String> seatMap = new HashMap<>();
-    private static Map<String,String> seatNo = new HashMap<>();
+    public static Map<String,String> seatMap = new HashMap<>();
     static{
         seatMap.put("商务座","32");
         seatMap.put("一等座","31");
@@ -37,16 +35,6 @@ public class Ticket {
         seatMap.put("硬座","29");
         seatMap.put("无座","26");
         seatMap.put("动卧","33");
-        seatNo.put("一等座","M");
-        seatNo.put("特等座","P");
-        seatNo.put("二等座","O");
-        seatNo.put("商务座","9");
-        seatNo.put("硬座","1");
-        seatNo.put("无座","1");
-        seatNo.put("软座","2");
-        seatNo.put("软卧","4");
-        seatNo.put("硬卧","3");
-        seatNo.put("动卧","1");
     }
 
     /**
@@ -57,7 +45,7 @@ public class Ticket {
      * @return
      * @throws Exception
      */
-    private static List<TicketInfoDTO> firstQueryTicket(String ticketDate,
+    public static List<TicketInfoDTO> firstQueryTicket(String ticketDate,
                                                         String from_station,
                                                         String to_station) throws Exception{
         ///otn/leftTicket/queryZ?leftTicketDTO.train_date={0}&leftTicketDTO.from_station={1}&leftTicketDTO.to_station={2}&purpose_codes=ADULT
@@ -115,7 +103,7 @@ public class Ticket {
         }
         return transTicket(listTicket);
     }
-    private static List<TicketInfoDTO> transTicket(List<TicketInfoDTO> listTicket) throws Exception{
+    public static List<TicketInfoDTO> transTicket(List<TicketInfoDTO> listTicket) throws Exception{
         List<TicketInfoDTO> listTransTicket = new ArrayList<>();
         for(TicketInfoDTO tto:listTicket){
             //is_ticket_pass != '' and is_ticket_pass != '无' and is_ticket_pass != '*'
@@ -137,7 +125,7 @@ public class Ticket {
      * @param queryToStationName
      * @return
      */
-    private static boolean secondConfirmStation(String secretStr,String trainDate,
+    public static boolean secondConfirmStation(String secretStr,String trainDate,
                                                       String queryFromStationName,
                                                       String queryToStationName) {
         String confirmStationPath = "/otn/leftTicket/submitOrderRequest";
@@ -178,7 +166,7 @@ public class Ticket {
      * @param secretStr
      * @return
      */
-    private static JSONObject thirdConfirmSubmitToken() throws Exception{
+    public static JSONObject thirdConfirmSubmitToken() throws Exception{
         String confirmSubmitTokenPath = "/otn/confirmPassenger/initDc";
         String response = HttpClientUtil.httpRequest(confirmSubmitTokenPath,httpGet);
         logger.info("获取提交订单Token：{}",response);
@@ -224,6 +212,59 @@ public class Ticket {
             return submitJson;
         }
         return null;
+    }
+
+    /*
+     * 确认订单
+     * @param submitToken
+     * @param passengerTicketStr
+     * @param oldPassengerStr
+     * @param randCode
+     * @return
+     * @throws Exception
+     */
+    public static String fourthConfirmSingleForQueue(JSONObject submitToken
+            ,String passengerTicketStr,String oldPassengerStr,String randCode) throws Exception{
+        String confirmQueue = "/otn/confirmPassenger/confirmSingleForQueue";
+        JSONObject ticketInfoForPassengerForm = submitToken.getJSONObject("ticketInfoForPassengerForm");
+        String purpose_codes = ticketInfoForPassengerForm.getString("purpose_codes");
+        String key_check_isChange = ticketInfoForPassengerForm.getString("key_check_isChange");
+        String leftTicketStr = ticketInfoForPassengerForm.getString("leftTicketStr");
+        String train_location = ticketInfoForPassengerForm.getString("train_location");
+        String body = String.format("passengerTicketStr=%s" +
+                        "&oldPassengerStr=%s" +
+                        "&purpose_codes=%s" +
+                        "&key_check_isChange=%s" +
+                        "&leftTicketStr=%s" +
+                        "&train_location=%s" +
+                        "&seatDetailType=%s" +
+                        "&roomType=%s"+
+                        "&dwAll=%s"+
+                        "&whatsSelect=%s"+
+                        "&_json_at=%s"+
+                        "&randCode=%s"+
+                        "&choose_seats=%s"+
+                        "&REPEAT_SUBMIT_TOKEN=%s",
+                passengerTicketStr,
+                oldPassengerStr,
+                purpose_codes,
+                key_check_isChange,
+                leftTicketStr,
+                train_location,
+                "",
+                "00",
+                "N",
+                "1",
+                "",
+                randCode,
+                "",
+                submitToken.getString("globalRepeatSubmitToken"));
+        HttpPost httpPost = new HttpPost();
+        StringEntity entity = new StringEntity(body,"UTF");
+        httpPost.setEntity(entity);
+        String response = HttpClientUtil.httpRequest(confirmQueue,httpPost);
+        logger.info("第13步确认队列提交订单：{}",response);
+        return response;
     }
 
 }

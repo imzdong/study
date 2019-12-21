@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.CodingErrorAction;
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.net.ssl.SSLContext;
 
@@ -71,6 +72,26 @@ public class HttpClientDemo {
         //customeHttpClient();
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
+    }
+
+    public static String getGMT(String date){
+        String str="";
+        TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
+        TimeZone.setDefault(tz);
+        Calendar cal = Calendar.getInstance(new SimpleTimeZone(0, "GMT"));
+        Date dd;
+        SimpleDateFormat shortSdf = new SimpleDateFormat("yyyy-MM-dd");;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'", Locale.US);
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            dd = shortSdf.parse(date);
+            cal.setTime(dd);
+            str = sdf.format(cal.getTime());
+            return str+"+0800 (中国标准时间)";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static CookieStore firstLoginGetCookie(CloseableHttpClient httpclient) throws Exception{
