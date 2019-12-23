@@ -13,6 +13,7 @@
     <module>spring-boot</module>
       <module>design</module>
       <module>ticket</module>
+      <module>performance</module>
   </modules>
 
   <name>study</name>
@@ -131,6 +132,12 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.10</version>
+    </dependency>
+    <!--mysql驱动-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.17</version>
     </dependency>
   </dependencies>
 </dependencyManagement>
