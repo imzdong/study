@@ -44,9 +44,12 @@ public class TicketMain {
         log.info("start:{}",new Date());
         log.info("1、初始化登陆：/otn/leftTicket/init");
         Login.firstInit();
-        Login.first2UmtStatic();
-        Login.first3LoginConf();
+        //Login.secondGetCode();
+        String algID = Login.first2GetJs();
+        String logDeviceParams = Login.first4GetLogDeviceParams();
+        Login.first3LogDevice(algID, logDeviceParams);
         log.info("2、获取验证码：/passport/captcha/captcha-image");
+        //Login.first5Conf();
         Login.secondGetCode();
         //secondOAuth();
         Scanner scan = new Scanner(System.in);
