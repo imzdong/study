@@ -357,6 +357,7 @@ public class LunarCalendar {
                     break;
                 }
             }
+            n++;
         }
         Map<String,Object> result = new HashMap<>();
         result.put("sFeast",sFeast);
