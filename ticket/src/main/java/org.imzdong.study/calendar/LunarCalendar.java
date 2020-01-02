@@ -26,10 +26,16 @@ public class LunarCalendar {
     private static String get8Zi(int nGreYear,int nGreMonth,int nGreDay,
                                int nHour,int nMinute){
         Map<String, Object> lunar2Map = gregorian2Lunar(nGreYear, nGreMonth, nGreDay);
-        Integer nLunYear = (Integer) lunar2Map.get("nLunYear");
-        Integer nLunMonth = (Integer) lunar2Map.get("nLunMonth");
-        Integer nLunDay = (Integer) lunar2Map.get("nLunDay");
+        Integer nLunYear = (Integer) lunar2Map.get("wLunarYear");
+        Integer nLunMonth = (Integer) lunar2Map.get("wLunarMonth");
+        Integer nLunDay = (Integer) lunar2Map.get("wLunarDay");
         Boolean bEmbolism = (Boolean) lunar2Map.get("embolism");
+        /**
+         * lunar2.put("wLunarYear",wLunarYear);
+         *         lunar2.put("wLunarMonth",wLunarMonth);
+         *         lunar2.put("wLunarDay",wLunarDay);
+         *         lunar2.put("embolism",embolism);
+         */
         Map<String, String> lunarString = getLunarString(nLunYear, nLunMonth, nLunDay, bEmbolism);
         String sShuxiang = lunarString.get("sShuxiang");
         String sTianGan = lunarString.get("sTianGan");
