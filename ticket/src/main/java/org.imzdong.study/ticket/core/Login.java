@@ -110,7 +110,7 @@ public class Login {
             logger.error("编码失败",e);
         }
         dataMap.put("webSmartID","f4e3b7b14cc647e30a6267028ad54c56");
-        Map<String,String> dataTransMap = new HashMap();
+        Map<String,String> dataTransMap = new HashMap<>();
         dataTransMap.put("browserVersion","d435");
         dataTransMap.put("touchSupport","wNLf");
         dataTransMap.put("systemLanguage","e6OK");
