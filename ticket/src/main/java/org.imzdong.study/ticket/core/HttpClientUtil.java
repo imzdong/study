@@ -3,6 +3,7 @@ package org.imzdong.study.ticket.core;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -47,6 +48,7 @@ public class HttpClientUtil {
     private final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36";
     private HttpClientUtil(){}
     static {
+        int timeOut = 30000;
         headers = new ArrayList<>();
         headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE,CONTENT_TYPE));
         headers.add(new BasicHeader(HttpHeaders.ACCEPT,"application/json, text/plain, */*"));
@@ -55,10 +57,16 @@ public class HttpClientUtil {
         headers.add(new BasicHeader(HttpHeaders.ACCEPT_ENCODING,"gzip, deflate"));
         globalConfig = RequestConfig.custom()
                 .setCookieSpec(CookieSpecs.DEFAULT)
+                // get connection time out
+                .setConnectTimeout(timeOut)
+                // request time out
+                .setConnectionRequestTimeout(timeOut)
+                // socket time out
+                .setSocketTimeout(timeOut)
                 .build();
         cookieStore = new BasicCookieStore();
         httpClient = HttpClients.custom()
-                .setDefaultHeaders(headers)
+                //.setDefaultHeaders(headers)
                 .setDefaultCookieStore(cookieStore)
                 .setDefaultRequestConfig(globalConfig)
                 .build();
@@ -73,7 +81,9 @@ public class HttpClientUtil {
      */
     public static String httpRequest(String requestPath, HttpRequestBase request) {
         try {
-            request.setURI(new URI(HOST+requestPath));
+            if(StringUtils.isNotBlank(requestPath)) {
+                request.setURI(new URI(HOST + requestPath));
+            }
             CloseableHttpResponse execute = httpClient.execute(request);
             List<Cookie> cookies = cookieStore.getCookies();
             for (int i = 0; i < cookies.size(); i++) {
@@ -147,11 +157,17 @@ public class HttpClientUtil {
      */
     public static void httpRequestImage(String requestPath, HttpRequestBase request, String imagePth) {
         try {
-            request.setURI(new URI(HOST+requestPath));
+            if(StringUtils.isNotBlank(requestPath)) {
+                request.setURI(new URI(HOST + requestPath));
+            }
             httpClient.execute(request,response->{
                 logger.info("执行http结果：{}",response);
                 int status = response.getStatusLine().getStatusCode();
                 if (status >= 200 && status < 300) {
+                    List<Cookie> cookies = cookieStore.getCookies();
+                    for (int i = 0; i < cookies.size(); i++) {
+                        logger.info("httpRequestImage cookie:{}",JSONObject.toJSONString(cookies.get(i)));
+                    }
                     HttpEntity entity = response.getEntity();
                     String body = EntityUtils.toString(entity);
                     logger.info(body);

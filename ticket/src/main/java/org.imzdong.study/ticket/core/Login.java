@@ -9,12 +9,15 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -29,7 +32,35 @@ public class Login {
 
     private final static Logger logger = LoggerFactory.getLogger(Login.class);
     private final static HttpGet httpGet = new HttpGet();
-    private final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36";
+    private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36";
+    private static final String HOST = "kyfw.12306.cn";
+
+    public static void main(String[] args)throws Exception {
+        //firstInit();
+        //String first2GetJs = first2GetJs();
+        //first3LogDevice(first2GetJs);
+        String RAIL_EXPIRATION = "1578243162867";//"1576651914389";
+        String RAIL_DEVICEID = "m2xe4uXpazTrfygBW8zccA_CVOci_EpUt1arq6IZRCAf_4wJP4SPIQEtnvJkPg0-V_jwCN5_PtzXF8NFBTR99t8jyP3D0vkWA3tfcLvmmYObBklp-obu80KQsOaCuqIn_qBjy7vKF1p9puTrDK4LG8xrOG6y_bLv";//"lBJStCNl0YGo_HVkGtwOo2LWziXcwzpIk5gc2vAILNYdRfaeZ04nJtZ1JZwgQIssMDksn10rAz6Hz-bekeufhAusaKJId8f2BCg05ocgrzc8-chv8h4IB-lQ9H04XjLXr2fbnHw-SLZga3PewEfgPz2s-mhp7NAz";
+        HttpClientUtil.addRailCookies(RAIL_EXPIRATION,RAIL_DEVICEID);
+        first5Conf();
+        first6LoginBanner();
+        first7UamtkStatic();
+        secondGetCode();
+        Scanner scan = new Scanner(System.in);
+        System.out.print("输入整数：");
+        String codeInput = "";
+        while((scan.hasNextLine())){
+            String code = scan.next();
+            if("closed".equals(code)){
+                break;
+            }
+            codeInput = thirdInputCode(code);//fourCheckCode(code);
+            //{"result_message":"验证码校验成功","result_code":"4"}
+            //result12306 = Login.fourthCheckCode(s,callBack,nums);
+            fourthCheckCode(codeInput);
+        }
+        fifthWebLogin("xx","xx",codeInput);
+    }
 
     /*
      * 第一步初始化登录
@@ -39,7 +70,10 @@ public class Login {
     public static void firstInit(){
         logger.info("1：初始化登录");
         String initPath = "/otn/leftTicket/init";
-        HttpClientUtil.httpRequest(initPath,httpGet);
+        HttpGet httpGetInit = new HttpGet();
+        httpGetInit.addHeader("User-Agent", USER_AGENT);
+        httpGetInit.addHeader("Host", HOST);
+        HttpClientUtil.httpRequest(initPath, httpGetInit);
     }
     /*
      * 第一步初始化登录
@@ -49,7 +83,11 @@ public class Login {
     public static String first2GetJs(){
         logger.info("2.3：初始化静态页面");
         String initPath = "/otn/HttpZF/GetJS";
-        String jsStr = HttpClientUtil.httpRequest(initPath, httpGet);
+        HttpGet httpGetInit = new HttpGet();
+        httpGetInit.addHeader("User-Agent", USER_AGENT);
+        httpGetInit.addHeader("Host", HOST);
+        httpGetInit.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
+        String jsStr = HttpClientUtil.httpRequest(initPath, httpGetInit);
         String reg = "algID\\\\x3d(.*?)\\\\x26";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(jsStr);
@@ -62,13 +100,26 @@ public class Login {
      * @return
      * /otn/login/conf
      */
-    public static void first3LogDevice(String algID, String otherParams){
+    public static void first3LogDevice(String algID) throws Exception{
         logger.info("1.2：初始化登录");
-        String logDevice = String.format("/otn/HttpZF/logdevice?" +
-                "algID=%s&timestamp=%d%s", algID,
-                System.currentTimeMillis(), otherParams);
+        String logUrl = "https://kyfw.12306.cn/otn/HttpZF/logdevice";
+        URIBuilder uriBuilder = new URIBuilder(logUrl);
+        /*String logDevice = String.format("/otn/HttpZF/logdevice?"
+                +"algID=%s&timestamp=%d%s", algID,
+                System.currentTimeMillis(), first4GetLogDeviceParams());*/
         //{"validateMessagesShowId":"_validatorMessage","status":true,"httpstatus":200,"data":{"isstudentDate":false,"is_login_passCode":"Y","is_sweep_login":"Y","psr_qr_code_result":"N","login_url":"resources/login.html","studentDate":["2019-06-01","2019-09-30","2019-12-01","2019-12-31","2020-01-01","2020-03-31"],"stu_control":30,"is_uam_login":"Y","is_login":"N","other_control":30},"messages":[],"validateMessages":{}}
-        String logDevices = HttpClientUtil.httpRequest(logDevice, httpGet);
+        uriBuilder.addParameter("algID",algID);
+        first4GetLogDeviceParams(uriBuilder);
+        uriBuilder.addParameter("timestamp",String.valueOf(System.currentTimeMillis()));
+        HttpGet httpGetLog = new HttpGet();
+        httpGetLog.addHeader("User-Agent", USER_AGENT);
+        httpGetLog.addHeader("Host", HOST);
+        httpGetLog.addHeader("X-Requested-With", "XMLHttpRequest");
+        httpGetLog.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
+        String timeValue = String.valueOf(System.currentTimeMillis());
+        //httpGetLog.setURI(logDeviceUri("https://kyfw.12306.cn/otn/HttpZF/logdevice",timeValue));
+        httpGetLog.setURI(uriBuilder.build());
+        String logDevices = HttpClientUtil.httpRequest(null, httpGetLog);
         if(logDevices.contains("callbackFunction")){
             String str = logDevices.substring(logDevices.indexOf("{"),
                     logDevices.indexOf("}")+1);
@@ -76,40 +127,70 @@ public class Login {
             HttpClientUtil.addRailCookies(obj.getString("exp"), obj.getString("dfp"));
         }
     }
+    private static URI logDeviceUri(String url, String timeValue){
+        URI uri;
+        try{
+            uri = new URIBuilder(url)
+                    .setParameter("algID", "n92OblAvAq")
+                    .setParameter("hashCode", "JS_FQ3BTVLvWMwH8qILnJjjT3w1Yy1yoRWlF6QkC6Vs")
+                    .setParameter("FMQw", "0")
+                    .setParameter("q4f3", "zh-CN")
+                    .setParameter("VySQ", "FGHk8hqpvc5Q_Z7mhyp31spb7lnu9gYr")
+                    .setParameter("VPIf", "1")
+                    .setParameter("custID", "133")
+                    .setParameter("VEek", "unknown")
+                    .setParameter("dzuS", "0")
+                    .setParameter("yD16", "0")
+                    .setParameter("EOQP", "8f58b1186770646318a429cb33977d8c")
+                    .setParameter("lEnu", "3232235976")
+                    .setParameter("jp76", "52d67b2a5aa5e031084733d5006cc664")
+                    .setParameter("hAqN", "Win32")
+                    .setParameter("platform", "WEB")
+                    .setParameter("ks0Q", "d22ca0b81584fbea62237b14bd04c866")
+                    .setParameter("TeRS", "1040x1920")
+                    .setParameter("tOHY", "24xx1080x1920")
+                    .setParameter("Fvje", "i1l1o1s1")
+                    .setParameter("q5aJ", "-2")
+                    .setParameter("wNLf", "99115dfb07133750ba677d055874de87")
+                    .setParameter("0aew", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36")
+                    .setParameter("E3gR", "a0be7d173523aca243213e9d8aa434c9")
+                    .setParameter("timestamp", timeValue)
+                    .build();
+            return uri;
+        }catch (URISyntaxException e){
+            return null;
+        }
+    }
     /**
      * 获取device参数
      * @return
      */
-    public static String first4GetLogDeviceParams(){
-        Map<String,String> dataMap = new HashMap();
-        dataMap.put("adblock","0");
-        dataMap.put("browserLanguage","en-US");
-        dataMap.put("jsFonts","c227b88b01f5c513710d4b9f16a5ce52");
-        dataMap.put("javaEnabled","0");
-        dataMap.put("flashVersion","0");
-        dataMap.put("doNotTrack","unknown");
-        dataMap.put("custID","133");
-        dataMap.put("cookieEnabled","1");
-        dataMap.put("plugins","d22ca0b81584fbea62237b14bd04c866");
-        dataMap.put("platform","WEB");
-        dataMap.put("os","MacIntel");
-        dataMap.put("mimeTypes","52d67b2a5aa5e031084733d5006cc664");
-        dataMap.put("localCode","3232236206");
-        dataMap.put("scrAvailSize",new Random().nextInt(1000)+"x1920");
-        dataMap.put("srcScreenSize","24xx1080x1920");
-        dataMap.put("storeDb","i1l1o1s1");
-        dataMap.put("timeZone","-8");
-        dataMap.put("touchSupport","99115dfb07133750ba677d055874de87");
-        try {
-            dataMap.put("userAgent",
-                    URLEncoder.encode(USER_AGENT
-                            /*"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0." +
-                    new Random().nextInt(7000)+".0 Safari/537.36"*/
-                            ,"UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            logger.error("编码失败",e);
-        }
-        dataMap.put("webSmartID","f4e3b7b14cc647e30a6267028ad54c56");
+    public static void first4GetLogDeviceParams(URIBuilder uriBuilder){
+        Random random = new Random();
+        Map<String,String> dataMap = new LinkedHashMap();
+        dataMap.put("adblock", "0");
+        dataMap.put("browserLanguage", "en-US");
+        dataMap.put("cookieEnabled", "1");
+        dataMap.put("custID", "133");
+        dataMap.put("doNotTrack", "unknown");
+        dataMap.put("flashVersion", "0");
+        dataMap.put("javaEnabled", "0");
+        dataMap.put("jsFonts", "c227b88b01f5c513710d4b9f16a5ce52");
+        dataMap.put("localCode", "3232236206");
+        dataMap.put("mimeTypes", "52d67b2a5aa5e031084733d5006cc664");
+        dataMap.put("os", "MacIntel");
+        dataMap.put("platform", "WEB");
+        dataMap.put("plugins", "d22ca0b81584fbea62237b14bd04c866");
+        dataMap.put("scrAvailSize", (random.nextInt(1000) % (501) + 500) + "x1920");
+        dataMap.put("srcScreenSize", "24xx1080x1920");
+        dataMap.put("storeDb", "i1l1o1s1");
+        dataMap.put("timeZone", "-8");
+        dataMap.put("touchSupport", "99115dfb07133750ba677d055874de87");
+        USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML); like Gecko) Chrome/75.0." +
+                (random.nextInt(7000) % (2001) + 5000)+ ".0 Safari/537.36";
+        dataMap.put("userAgent", USER_AGENT);
+        dataMap.put("webSmartID", "f4e3b7b14cc647e30a6267028ad54c56");
+
         Map<String,String> dataTransMap = new HashMap<>();
         dataTransMap.put("browserVersion","d435");
         dataTransMap.put("touchSupport","wNLf");
@@ -154,14 +235,13 @@ public class Login {
         dataTransMap.put("historyList","kU5z");
         dataTransMap.put("scrColorDepth","qmyu");
         String d = "";
-        Map<String, String> params = new HashMap<>();
         Set<Map.Entry<String, String>> entries = dataMap.entrySet();
         for(Map.Entry<String,String> entry:entries){
             String key = entry.getKey();
             String item = entry.getValue();
             d += (key + item);
             key = dataTransMap.get(key)!=null?dataTransMap.get(key):key;
-            params.put(key,item);
+            uriBuilder.addParameter(key,item);
         }
 
         int dl = d.length();
@@ -180,12 +260,7 @@ public class Login {
         d = data2Str(d);
         d = data2Str(d);
         String dataStr = encodeStr(d);
-        params.put("hashCode",dataStr);
-        StringBuffer paramsStr = new StringBuffer();
-        for(Map.Entry<String,String> entry:params.entrySet()){
-            paramsStr.append("&").append(entry.getKey()).append("=").append(entry.getValue());
-        }
-        return paramsStr.toString();
+        uriBuilder.addParameter("hashCode",dataStr);
     }
     private static String encodeStr(String dStr){
         String encodeS = Base64.encodeBase64String(DigestUtils.sha256(dStr.getBytes()));
@@ -212,7 +287,44 @@ public class Login {
     public static void first5Conf(){
         logger.info("1：初始化登录");
         String initPath = "/otn/login/conf";
-        HttpClientUtil.httpRequest(initPath,httpGet);
+        HttpPost httpPost = new HttpPost();
+        httpPost.addHeader("Origin", "https://kyfw.12306.cn");
+        httpPost.addHeader("User-Agent", USER_AGENT);
+        httpPost.addHeader("Host", HOST);
+        httpPost.addHeader("X-Requested-With", "XMLHttpRequest");
+        httpPost.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
+        String confStr = HttpClientUtil.httpRequest(initPath, httpPost);
+        logger.info("first5Conf:{}",confStr);
+    }
+
+    public static void first6LoginBanner(){
+        logger.info("1：初始化登录");
+        String initPath = "/otn/index12306/getLoginBanner";
+        HttpGet httpPost = new HttpGet();
+        httpPost.addHeader("User-Agent", USER_AGENT);
+        httpPost.addHeader("Host", HOST);
+        httpPost.addHeader("X-Requested-With", "XMLHttpRequest");
+        httpPost.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
+        String confStr = HttpClientUtil.httpRequest(initPath, httpPost);
+        logger.info("first6LoginBanner:{}",confStr);
+    }
+    public static void first7UamtkStatic(){
+        logger.info("1：初始化登录");
+        String initPath = "/passport/web/auth/uamtk-static";
+        HttpPost httpPost = new HttpPost();
+        httpPost.addHeader("User-Agent", USER_AGENT);
+        httpPost.addHeader("Host", HOST);
+        httpPost.addHeader("X-Requested-With", "XMLHttpRequest");
+        httpPost.addHeader("Origin", "https://kyfw.12306.cn");
+        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        httpPost.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
+        //appid=otn
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("appid", "otn"));
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, Consts.UTF_8);
+        httpPost.setEntity(entity);
+        String confStr = HttpClientUtil.httpRequest(initPath, httpPost);
+        logger.info("first7UamtkStatic:{}",confStr);
     }
 
     /*
@@ -229,12 +341,45 @@ public class Login {
      */
     public static void secondGetCode(){
         logger.info("2：下载验证码");
-        String codePath = String.format("/passport/captcha/captcha-image64?" +
+        /*String codePath = String.format("/passport/captcha/captcha-image64?" +
                 "login_site=E&module=login&rand=sjrand&%d" +
                 "&callback=jQuery191025909781158866285_1577623706238&_=%d",
-                System.currentTimeMillis(),System.currentTimeMillis());
-        HttpClientUtil.httpRequestImage(codePath,httpGet,"D:\\WorkSpace\\result\\20191221\\random.png");
+                System.currentTimeMillis(),System.currentTimeMillis());*/
+        String timeValue = String.valueOf(System.currentTimeMillis());
+        String paramsCallback = getCheckCode() + "_" + timeValue;
+        HttpGet httpGetCode = new HttpGet();
+        httpGetCode.addHeader("User-Agent", USER_AGENT);
+        httpGetCode.addHeader("Host", HOST);
+        httpGetCode.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        httpGetCode.setURI(doUri(timeValue,paramsCallback));
+        HttpClientUtil.httpRequestImage(null, httpGetCode,"D:\\WorkSpace\\result\\20191221\\random.png");
         //HttpClientUtil.httpRequest(codePath,httpGet);
+    }
+    private static String getCheckCode(){
+        Random random = new Random();
+        String checkCode = "jQuery1910";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i=0; i<16; i++){
+            stringBuilder.append(random.nextInt(9));
+        }
+        checkCode += stringBuilder;
+        return checkCode;
+    }
+    private static URI doUri(String timeValue, String paramsCallback){
+        URI uri;
+        try{
+            uri = new URIBuilder("https://kyfw.12306.cn/passport/captcha/captcha-image64")
+                    .setParameter("login_site", "E")
+                    .setParameter("module", "login")
+                    .setParameter("rand", "sjrand")
+                    .setParameter(String.valueOf(Long.valueOf(timeValue) + 100000L), "")
+                    .setParameter("callback", paramsCallback)
+                    .setParameter("_ ", timeValue)
+                    .build();
+            return uri;
+        }catch (URISyntaxException e){
+            return null;
+        }
     }
 
     /*
@@ -307,7 +452,11 @@ public class Login {
                 "callback=jQuery191025909781158866285_1577623706238&&answer=" +
                 "%s&rand=sjrand&login_site=E&_=%d",
                 code, new Random().nextInt(1000000));
-        String response = HttpClientUtil.httpRequest(checkCodePath, httpGet);
+        HttpGet httpGetCode = new HttpGet();
+        httpGetCode.addHeader("User-Agent", USER_AGENT);
+        httpGetCode.addHeader("Host", HOST);
+        httpGetCode.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        String response = HttpClientUtil.httpRequest(checkCodePath, httpGetCode);
         logger.info("4：转换12306验证码{}验证body:{}",code,response);
         ///**/jQuery191025909781158866285_1577623706238({"result_message":"验证码校验成功","result_code":"4"});
         if(response.contains("result_code")){
@@ -332,16 +481,20 @@ public class Login {
         params.put("appid","otn");
         params.put("answer",code);*/
         //StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", name));
         params.add(new BasicNameValuePair("password", pwd));
         params.add(new BasicNameValuePair("appid", "otn"));
         params.add(new BasicNameValuePair("answer", code));
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, Consts.UTF_8);
         HttpPost httpPost = new HttpPost();
+        httpPost.addHeader("User-Agent", USER_AGENT);
+        httpPost.addHeader("Host", HOST);
+        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         httpPost.setEntity(entity);
         String response=  HttpClientUtil.httpRequest(loginPath,httpPost);
         //{"result_message":"登录成功","result_code":0,"uamtk":"yYyKPBEQh8re5T4otBKA5Mj7GCOF1R5cl65R9Qafh2h0"}
+        logger.info("login:{}",response);
         JSONObject loginJson = JSONObject.parseObject(response);
         if(StringUtils.isNotBlank(loginJson.getString("uamtk"))){
             return loginJson.getString("uamtk");

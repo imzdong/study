@@ -1,5 +1,5 @@
 (function () {
-    function Qa() {
+    function Ra() {
         if (-1 == G("RAIL_EXPIRATION")) for (var a = 0; 10 > a; a++) H(function () {
             (new ja).getFingerPrint()
         }, 20 + 2E3 * Math.pow(a, 2)); else (new ja).getFingerPrint();
@@ -47,7 +47,7 @@
         }, 500)
     }
 
-    function Ra(a) {
+    function Sa(a) {
         for (var b = a.length, c = a.split(""), d = 0; d < parseInt(b / 2); d++) if (0 == d % 2) {
             var e = a.charAt(d);
             c[d] = c[b - 1 - d];
@@ -56,7 +56,7 @@
         return c.join("")
     }
 
-    function Sa(a) {
+    function za(a) {
         var b = a.length, c = 0 == b % 3 ? parseInt(b / 3) : parseInt(b / 3) + 1;
         if (3 > b) return a;
         var d = a.substring(0, 1 * c), e = a.substring(1 * c, 2 * c);
@@ -75,19 +75,6 @@
         return a
     }
 
-    function za(a) {
-        if (!a) return "";
-        if (rb(a)) return a.replace(/\s/g, "");
-        -1 != a.indexOf("://") && (a = a.substr(a.indexOf("://") + 3));
-        var b = "com net org gov edu mil biz name info mobi pro travel museum int areo post rec".split(" "),
-            c = a.split(".");
-        if (1 >= c.length || !isNaN(c[c.length - 1])) return a;
-        for (a = 0; a < b.length && b[a] != c[c.length - 1];) a++;
-        if (a != b.length) return "." + c[c.length - 2] + "." + c[c.length - 1];
-        for (a = 0; a < b.length && b[a] != c[c.length - 2];) a++;
-        return a == b.length ? c[c.length - 2] + "." + c[c.length - 1] : "." + c[c.length - 3] + "." + c[c.length - 2] + "." + c[c.length - 1]
-    }
-
     function Ta(a) {
         return null != /[\\\"<>\.;]/.exec(a) && "undefined" != typeof encodeURIComponent ? encodeURIComponent(a) : a
     }
@@ -102,7 +89,8 @@
     function Va(a, b, c, d) {
         if (!g.ie || !g.mac) {
             var e = q.getElementsByTagName("head")[0];
-            e && (c = c && "string" == typeof c ? c : "screen", d && (Aa = L = null), L && Aa == c || (d = q.createElement("style"), d.setAttribute("type", "text/css"), d.setAttribute("media", c), L = e.appendChild(d), g.ie && g.win && "undefined" != typeof q.styleSheets && 0 < q.styleSheets.length && (L = q.styleSheets[q.styleSheets.length - 1]), Aa = c), g.ie && g.win ? L && "object" == typeof L.addRule && L.addRule(a, b) : L && "undefined" != typeof q.createTextNode && L.appendChild(q.createTextNode(a + " {" + b + "}")))
+            e && (c = c && "string" == typeof c ?
+                c : "screen", d && (Aa = L = null), L && Aa == c || (d = q.createElement("style"), d.setAttribute("type", "text/css"), d.setAttribute("media", c), L = e.appendChild(d), g.ie && g.win && "undefined" != typeof q.styleSheets && 0 < q.styleSheets.length && (L = q.styleSheets[q.styleSheets.length - 1]), Aa = c), g.ie && g.win ? L && "object" == typeof L.addRule && L.addRule(a, b) : L && "undefined" != typeof q.createTextNode && L.appendChild(q.createTextNode(a + " {" + b + "}")))
         }
     }
 
@@ -111,7 +99,8 @@
         a = a.split(".");
         a[0] = parseInt(a[0], 10);
         a[1] = parseInt(a[1], 10) || 0;
-        a[2] = parseInt(a[2], 10) || 0;
+        a[2] =
+            parseInt(a[2], 10) || 0;
         return b[0] > a[0] || b[0] == a[0] && b[1] > a[1] || b[0] == a[0] && b[1] == a[1] && b[2] >= a[2] ? !0 : !1
     }
 
@@ -140,14 +129,14 @@
     function Ba(a, b, c) {
         var d, e = K(c);
         if (g.wk && 312 > g.wk) return d;
-        if (e) if ("undefined" == typeof a.id && (a.id = c), g.ie && g.win) {
+        if (e) if ("undefined" ==
+        typeof a.id && (a.id = c), g.ie && g.win) {
             var f = "", h;
             for (h in a) a[h] != Object.prototype[h] && ("data" == h.toLowerCase() ? b.movie = a[h] : "styleclass" == h.toLowerCase() ? f += ' class\x3d"' + a[h] + '"' : "classid" != h.toLowerCase() && (f += " " + h + '\x3d"' + a[h] + '"'));
             h = "";
             for (var m in b) b[m] != Object.prototype[m] && (h += '\x3cparam name\x3d"' + m + '" value\x3d"' + b[m] + '" /\x3e');
             e.outerHTML = '\x3cobject classid\x3d"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"' + f + "\x3e" + h + "\x3c/object\x3e";
-            la[la.length] =
-                a.id;
+            la[la.length] = a.id;
             d = K(a.id)
         } else {
             m = q.createElement("object");
@@ -162,11 +151,12 @@
 
     function Ca(a) {
         var b = q.createElement("div");
-        if (g.win && g.ie) b.innerHTML = a.innerHTML; else if (a = a.getElementsByTagName("object")[0]) if (a = a.childNodes) for (var c = a.length, d = 0; d < c; d++) 1 == a[d].nodeType && "PARAM" == a[d].nodeName || 8 == a[d].nodeType || b.appendChild(a[d].cloneNode(!0));
+        if (g.win && g.ie) b.innerHTML = a.innerHTML;
+        else if (a = a.getElementsByTagName("object")[0]) if (a = a.childNodes) for (var c = a.length, d = 0; d < c; d++) 1 == a[d].nodeType && "PARAM" == a[d].nodeName || 8 == a[d].nodeType || b.appendChild(a[d].cloneNode(!0));
         return b
     }
 
-    function sb(a) {
+    function rb(a) {
         if (g.ie && g.win && 4 != a.readyState) {
             var b = q.createElement("div");
             a.parentNode.insertBefore(b, a);
@@ -175,14 +165,13 @@
             (function d() {
                 4 == a.readyState ? a.parentNode.removeChild(a) : H(d, 10)
             })()
-        } else a.parentNode.replaceChild(Ca(a),
-            a)
+        } else a.parentNode.replaceChild(Ca(a), a)
     }
 
     function Da(a, b, c, d) {
         ma = !0;
         Ea = d || null;
-        Xa = {id: c, success: !1};
+        Xa = {success: !1, id: c};
         var e = K(c);
         if (e) {
             "OBJECT" == e.nodeName ? (Y = Ca(e), na = null) : (Y = e, na = c);
@@ -191,8 +180,8 @@
             if ("undefined" == typeof a.height || !/%$/.test(a.height) && 137 > parseInt(a.height, 10)) a.height = "137";
             q.title = q.title.slice(0, 47) + " - Flash Player Installation";
             d = g.ie && g.win ? "ActiveX" : "PlugIn";
-            d = "MMredirectURL\x3d" + J.location.toString().replace(/&/g, "%26") + "\x26MMplayerType\x3d" +
-                d + "\x26MMdoctitle\x3d" + q.title;
+            d = "MMredirectURL\x3d" + J.location.toString().replace(/&/g, "%26") + "\x26MMplayerType\x3d" + d + "\x26MMdoctitle\x3d" +
+                q.title;
             b.flashvars = "undefined" != typeof b.flashvars ? b.flashvars + ("\x26" + d) : d;
             g.ie && g.win && 4 != e.readyState && (d = q.createElement("div"), c += "SWFObjectNew", d.setAttribute("id", c), e.parentNode.insertBefore(d, e), e.style.display = "none", function h() {
                 4 == e.readyState ? e.parentNode.removeChild(e) : H(h, 10)
@@ -207,15 +196,15 @@
 
     function Ga(a) {
         var b = null;
-        (a = K(a)) && "OBJECT" == a.nodeName && ("undefined" != typeof a.SetVariable ? b = a :
-            (a = a.getElementsByTagName("object")[0]) && (b = a));
+        (a = K(a)) && "OBJECT" == a.nodeName && ("undefined" != typeof a.SetVariable ? b = a : (a = a.getElementsByTagName("object")[0]) &&
+            (b = a));
         return b
     }
 
     function Ha() {
         var a = M.length;
         if (0 < a) for (var b = 0; b < a; b++) {
-            var c = M[b].id, d = M[b].callbackFn, e = {success: !1, id: c};
+            var c = M[b].id, d = M[b].callbackFn, e = {id: c, success: !1};
             if (0 < g.pv[0]) {
                 var f = K(c);
                 if (f) if (!ka(M[b].swfVersion) || g.wk && 312 > g.wk) if (M[b].expressInstall && Fa()) {
@@ -225,18 +214,18 @@
                     e.height = f.getAttribute("height") || "0";
                     f.getAttribute("class") && (e.styleclass = f.getAttribute("class"));
                     f.getAttribute("align") && (e.align = f.getAttribute("align"));
-                    for (var h =
-                        {}, f = f.getElementsByTagName("param"), m = f.length, k = 0; k < m; k++) "movie" != f[k].getAttribute("name").toLowerCase() && (h[f[k].getAttribute("name")] = f[k].getAttribute("value"));
+                    for (var h = {}, f = f.getElementsByTagName("param"),
+                             m = f.length, k = 0; k < m; k++) "movie" != f[k].getAttribute("name").toLowerCase() && (h[f[k].getAttribute("name")] = f[k].getAttribute("value"));
                     Da(e, h, c, d)
-                } else sb(f), d && d(e); else P(c, !0), d && (e.success = !0, e.ref = Ga(c), d(e))
+                } else rb(f), d && d(e); else P(c, !0), d && (e.success = !0, e.ref = Ga(c), d(e))
             } else P(c, !0), d && ((c = Ga(c)) && "undefined" != typeof c.SetVariable && (e.success = !0, e.ref = c), d(e))
         }
     }
 
     function Ya(a) {
-        if ("undefined" != typeof J.addEventListener) J.addEventListener("load", a, !1); else if ("undefined" != typeof q.addEventListener) q.addEventListener("load",
-            a, !1); else if ("undefined" != typeof J.attachEvent) {
-            var b = J;
+        if ("undefined" != typeof J.addEventListener) J.addEventListener("load", a, !1); else if ("undefined" != typeof q.addEventListener) q.addEventListener("load", a, !1); else if ("undefined" != typeof J.attachEvent) {
+            var b =
+                J;
             b.attachEvent("onload", a);
             T[T.length] = [b, "onload", a]
         } else if ("function" == typeof J.onload) {
@@ -265,22 +254,42 @@
         }
     }
 
+    function Ia(a) {
+        if (!a) return "";
+        if (sb(a)) return a.replace(/\s/g, "");
+        -1 != a.indexOf("://") && (a = a.substr(a.indexOf("://") + 3));
+        var b = "com net org gov edu mil biz name info mobi pro travel museum int areo post rec".split(" "),
+            c = a.split(".");
+        if (1 >= c.length || !isNaN(c[c.length - 1])) return a;
+        for (a = 0; a < b.length && b[a] != c[c.length - 1];) a++;
+        if (a != b.length) return "." + c[c.length - 2] + "." + c[c.length - 1];
+        for (a = 0; a < b.length && b[a] != c[c.length - 2];) a++;
+        return a == b.length ? c[c.length - 2] + "." + c[c.length - 1] : "." + c[c.length - 3] + "." + c[c.length - 2] + "." + c[c.length - 1]
+    }
+
     function $a(a) {
         return 4294967296 * (a - (a | 0)) | 0
     }
 
     function Z(a) {
-        if (!(this instanceof
-            Z)) return new Z(a);
+        if (!(this instanceof Z)) return new Z(a);
         this.options = this.extend(a, {
-            detectScreenOrientation: !0,
             swfContainerId: "fingerprintjs2",
             swfPath: "flash/compiled/FontList.swf",
             userDefinedFonts: [],
-            sortPluginsFor: [/palemoon/i]
+            sortPluginsFor: [/palemoon/i],
+            detectScreenOrientation: !0
         });
         this.nativeForEach = Array.prototype.forEach;
         this.nativeMap = Array.prototype.map
+    }
+
+    function pa(a, b) {
+        return a << b | a >>> 32 - b
+    }
+
+    function B(a, b, c, d, e, f, h) {
+        return z(pa(z(z(a, c ^ (b | ~d)), z(e, h)), f), b)
     }
 
     function z(a, b) {
@@ -288,21 +297,9 @@
         return (a >> 16) + (b >> 16) + (c >> 16) << 16 | c & 65535
     }
 
-    function B(a, b, c, d, e, f, h) {
-        return z(pa(z(z(a, c ^ (b | ~d)), z(e, h)), f), b)
-    }
-
     function C(a, b, c, d, e, f, h) {
-        return z(pa(z(z(a, b & d | c & ~d), z(e, h)), f), b)
-    }
-
-    function pa(a,
-                b) {
-        return a << b | a >>> 32 - b
-    }
-
-    function D(a, b, c, d, e, f, h) {
-        return z(pa(z(z(a, b ^ c ^ d), z(e, h)), f), b)
+        return z(pa(z(z(a, b ^ c ^ d), z(e, h)),
+            f), b)
     }
 
     function aa(a) {
@@ -313,57 +310,54 @@
         a = 1732584193;
         for (var c = -271733879, d = -1732584194, e = 271733878, f = 0; f < b.length; f += 16) {
             var h = a, m = c, k = d, g = e;
-            a = E(a, c, d, e, b[f + 0], 7, -680876936);
-            e = E(e, a, c, d, b[f + 1], 12, -389564586);
-            d = E(d, e, a, c, b[f + 2], 17, 606105819);
-            c = E(c, d, e, a, b[f + 3], 22, -1044525330);
-            a = E(a, c, d, e, b[f + 4],
-                7, -176418897);
-            e = E(e, a, c, d, b[f + 5], 12, 1200080426);
-            d = E(d, e, a, c, b[f + 6], 17, -1473231341);
-            c = E(c, d, e, a, b[f + 7], 22, -45705983);
-            a = E(a, c, d, e, b[f + 8], 7, 1770035416);
-            e = E(e, a, c, d, b[f + 9], 12, -1958414417);
-            d = E(d, e, a, c, b[f + 10], 17, -42063);
-            c = E(c, d, e, a, b[f + 11], 22, -1990404162);
-            a = E(a, c, d, e, b[f + 12], 7, 1804603682);
-            e = E(e, a, c, d, b[f + 13], 12, -40341101);
-            d = E(d, e, a, c, b[f + 14], 17, -1502002290);
-            c = E(c, d, e, a, b[f + 15], 22, 1236535329);
-            a = C(a, c, d, e, b[f + 1], 5, -165796510);
-            e = C(e, a, c, d, b[f + 6], 9, -1069501632);
-            d = C(d, e, a, c, b[f + 11], 14, 643717713);
-            c = C(c, d, e,
-                a, b[f + 0], 20, -373897302);
-            a = C(a, c, d, e, b[f + 5], 5, -701558691);
-            e = C(e, a, c, d, b[f + 10], 9, 38016083);
-            d = C(d, e, a, c, b[f + 15], 14, -660478335);
-            c = C(c, d, e, a, b[f + 4], 20, -405537848);
-            a = C(a, c, d, e, b[f + 9], 5, 568446438);
-            e = C(e, a, c, d, b[f + 14], 9, -1019803690);
-            d = C(d, e, a, c, b[f + 3], 14, -187363961);
-            c = C(c, d, e, a, b[f + 8], 20, 1163531501);
-            a = C(a, c, d, e, b[f + 13], 5, -1444681467);
-            e = C(e, a, c, d, b[f + 2], 9, -51403784);
-            d = C(d, e, a, c, b[f + 7], 14, 1735328473);
-            c = C(c, d, e, a, b[f + 12], 20, -1926607734);
-            a = D(a, c, d, e, b[f + 5], 4, -378558);
-            e = D(e, a, c, d, b[f + 8], 11, -2022574463);
-            d = D(d,
-                e, a, c, b[f + 11], 16, 1839030562);
-            c = D(c, d, e, a, b[f + 14], 23, -35309556);
-            a = D(a, c, d, e, b[f + 1], 4, -1530992060);
-            e = D(e, a, c, d, b[f + 4], 11, 1272893353);
-            d = D(d, e, a, c, b[f + 7], 16, -155497632);
-            c = D(c, d, e, a, b[f + 10], 23, -1094730640);
-            a = D(a, c, d, e, b[f + 13], 4, 681279174);
-            e = D(e, a, c, d, b[f + 0], 11, -358537222);
-            d = D(d, e, a, c, b[f + 3], 16, -722521979);
-            c = D(c, d, e, a, b[f + 6], 23, 76029189);
-            a = D(a, c, d, e, b[f + 9], 4, -640364487);
-            e = D(e, a, c, d, b[f + 12], 11, -421815835);
-            d = D(d, e, a, c, b[f + 15], 16, 530742520);
-            c = D(c, d, e, a, b[f + 2], 23, -995338651);
+            a = D(a, c, d, e, b[f + 0], 7, -680876936);
+            e = D(e, a, c, d, b[f + 1], 12, -389564586);
+            d = D(d, e, a, c, b[f + 2], 17, 606105819);
+            c = D(c, d, e, a, b[f + 3], 22, -1044525330);
+            a = D(a, c, d, e, b[f + 4], 7, -176418897);
+            e = D(e, a, c, d, b[f + 5], 12, 1200080426);
+            d = D(d, e, a, c, b[f + 6], 17, -1473231341);
+            c = D(c, d, e, a, b[f + 7], 22, -45705983);
+            a = D(a, c, d, e, b[f + 8], 7, 1770035416);
+            e = D(e, a, c, d, b[f + 9], 12, -1958414417);
+            d = D(d, e, a, c, b[f + 10], 17, -42063);
+            c = D(c, d, e, a, b[f + 11], 22, -1990404162);
+            a = D(a, c, d, e, b[f + 12], 7, 1804603682);
+            e = D(e, a, c, d, b[f + 13], 12, -40341101);
+            d = D(d, e, a, c, b[f + 14], 17, -1502002290);
+            c = D(c, d, e, a, b[f + 15], 22, 1236535329);
+            a = E(a, c, d, e, b[f + 1], 5, -165796510);
+            e = E(e, a, c, d, b[f + 6], 9, -1069501632);
+            d = E(d, e, a, c, b[f + 11], 14, 643717713);
+            c = E(c, d, e, a, b[f + 0], 20, -373897302);
+            a = E(a, c, d, e, b[f + 5], 5, -701558691);
+            e = E(e, a, c, d, b[f + 10], 9, 38016083);
+            d = E(d, e, a, c, b[f + 15], 14, -660478335);
+            c = E(c, d, e, a, b[f + 4], 20, -405537848);
+            a = E(a, c, d, e, b[f + 9], 5, 568446438);
+            e = E(e, a, c, d, b[f + 14], 9, -1019803690);
+            d = E(d, e, a, c, b[f + 3], 14, -187363961);
+            c = E(c, d, e, a, b[f + 8], 20, 1163531501);
+            a = E(a, c, d, e, b[f + 13], 5, -1444681467);
+            e = E(e, a, c, d, b[f + 2], 9, -51403784);
+            d = E(d, e, a, c, b[f + 7], 14, 1735328473);
+            c = E(c, d, e, a, b[f + 12], 20, -1926607734);
+            a = C(a, c, d, e, b[f + 5], 4, -378558);
+            e = C(e, a, c, d, b[f + 8], 11, -2022574463);
+            d = C(d, e, a, c, b[f + 11], 16, 1839030562);
+            c = C(c, d, e, a, b[f + 14], 23, -35309556);
+            a = C(a, c, d, e, b[f + 1], 4, -1530992060);
+            e = C(e, a, c, d, b[f + 4], 11, 1272893353);
+            d = C(d, e, a, c, b[f + 7], 16, -155497632);
+            c = C(c, d, e, a, b[f + 10], 23, -1094730640);
+            a = C(a, c, d, e, b[f + 13], 4, 681279174);
+            e = C(e, a, c, d, b[f + 0], 11, -358537222);
+            d = C(d, e, a, c, b[f + 3], 16, -722521979);
+            c = C(c, d, e, a, b[f + 6], 23, 76029189);
+            a = C(a, c, d, e, b[f + 9], 4, -640364487);
+            e = C(e, a, c, d, b[f + 12], 11, -421815835);
+            d = C(d, e, a, c, b[f + 15], 16, 530742520);
+            c = C(c, d, e, a, b[f + 2], 23, -995338651);
             a = B(a, c, d, e, b[f + 0], 6, -198630844);
             e = B(e, a, c, d, b[f + 7], 10, 1126891415);
             d = B(d, e, a, c, b[f + 14], 15, -1416354905);
@@ -379,21 +373,25 @@
             a = B(a, c, d, e, b[f + 4], 6, -145523070);
             e = B(e, a, c, d, b[f + 11], 10, -1120210379);
             d = B(d, e, a, c, b[f + 2], 15, 718787259);
-            c = B(c, d, e, a, b[f + 9], 21,
-                -343485551);
+            c = B(c, d, e, a, b[f + 9], 21, -343485551);
             a = z(a, h);
             c = z(c, m);
             d = z(d, k);
             e = z(e, g)
         }
         b = [a, c, d, e];
-        a = "";
-        for (c = 0; c < 4 * b.length; c++) a += "0123456789abcdef".charAt(b[c >> 2] >> c % 4 * 8 + 4 & 15) + "0123456789abcdef".charAt(b[c >> 2] >> c % 4 * 8 & 15);
-        return a
+        a = tb ? "0123456789ABCDEF" : "0123456789abcdef";
+        c = "";
+        for (d = 0; d < 4 * b.length; d++) c += a.charAt(b[d >> 2] >> d % 4 * 8 + 4 & 15) + a.charAt(b[d >> 2] >> d % 4 * 8 & 15);
+        return c
+    }
+
+    function D(a, b, c, d, e, f, h) {
+        return z(pa(z(z(a, b & c | ~b & d), z(e, h)), f), b)
     }
 
     function E(a, b, c, d, e, f, h) {
-        return z(pa(z(z(a, b & c | ~b & d), z(e, h)), f), b)
+        return z(pa(z(z(a, b & d | c & ~d), z(e, h)), f), b)
     }
 
     function G(a) {
@@ -401,20 +399,18 @@
         for (b = 0; b < e.length; b++) if (c = e[b].substr(0, e[b].indexOf("\x3d")), d = e[b].substr(e[b].indexOf("\x3d") + 1), c = c.replace(/^\s+|\s+$/g, ""), a = a.replace(/^\s+|\s+$/g, ""), c == a) return unescape(d)
     }
 
-    function V(a,
-               b, c, d, e, f) {
+    function V(a, b, c, d, e, f) {
         var h = new Date;
         h.setTime(h.getTime());
         -1 != c ? (c *= 864E5, h = new Date(h.getTime() + c), cookieString = a + "\x3d" + escape(b) + (c ? ";expires\x3d" + h.toGMTString() : "") + (d ? ";path\x3d" + d : "") + (e ? ";domain\x3d" + e : "") + (f ? ";secure" : "")) : (h = -1, cookieString = a + "\x3d" + escape(b) + (c ? ";expires\x3d" + h : "") + (d ? ";path\x3d" + d : "") + (e ? ";domain\x3d" + e : "") + (f ? ";secure" : ""));
         v.cookie = cookieString
     }
 
-    function rb(a) {
+    function sb(a) {
         a = a.replace(/\s/g, "");
         if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(a)) {
             a = a.split(".");
-            if (0 == parseInt(parseFloat(a[0])) ||
-                0 == parseInt(parseFloat(a[3]))) return !1;
+            if (0 == parseInt(parseFloat(a[0])) || 0 == parseInt(parseFloat(a[3]))) return !1;
             for (var b = 0; b < a.length; b++) if (255 < parseInt(parseFloat(a[b]))) return !1;
             return !0
         }
@@ -429,13 +425,13 @@
     function V(a, b, c) {
         var d = new Date;
         d.setTime(d.getTime() + 864E5 * Number(c));
-        v.cookie = a + "\x3d" + b + "; path\x3d/;expires \x3d " + d.toGMTString() + ";domain\x3d" + za(r.location.host.split(":")[0])
+        v.cookie = a + "\x3d" + b + "; path\x3d/;expires \x3d " + d.toGMTString() + ";domain\x3d" + Ia(r.location.host.split(":")[0])
     }
 
-    function Ia() {
+    function Ja() {
         var a = k.userAgent.toLowerCase();
-        return 0 <= a.indexOf("windows phone") ? "WindowsPhone" : 0 <= a.indexOf("win") ? "Windows" : 0 <= a.indexOf("android") ?
-            "Android" : 0 <= a.indexOf("linux") ? "Linux" : 0 <= a.indexOf("iphone") || 0 <= a.indexOf("ipad") ? "iOS" : 0 <= a.indexOf("mac") ? "Mac" : "Other"
+        return 0 <= a.indexOf("windows phone") ? "WindowsPhone" : 0 <= a.indexOf("win") ? "Windows" : 0 <= a.indexOf("android") ? "Android" : 0 <= a.indexOf("linux") ? "Linux" :
+            0 <= a.indexOf("iphone") || 0 <= a.indexOf("ipad") ? "iOS" : 0 <= a.indexOf("mac") ? "Mac" : "Other"
     }
 
     function ja() {
@@ -446,43 +442,43 @@
         this.moreInfoArray = []
     }
 
-    var v = document, r = window, k = navigator, x = screen, H = setTimeout, tb = top, ub = location, vb = parent;
-    debug = !1;
-    var ab = {
-        removeElem: function (a) {
-            var b = a.parentNode;
-            if (b) try {
-                b.removeChild(a)
-            } catch (c) {
+    var v = document, r = window, k = navigator, x = screen, H = setTimeout, ub = top, vb = location, wb = parent,
+        ab = {
+            parseData: function (a) {
+                var b = "";
+                if ("string" === typeof a) b = a; else if ("object" === typeof a) for (var c in a) b += "\x26" + c + "\x3d" + encodeURIComponent(a[c]);
+                b += "\x26_time\x3d" + this.now();
+                return b = b.substr(1)
+            }, rand: function () {
+                return Math.random().toString().substr(2)
+            },
+            getJSON: function (a, b, c) {
+                b = v.createElement("script");
+                b.type = "text/javascript";
+                b.src = a;
+                b.id = "id_callbackFunction";
+                r.callbackFunction = function (a) {
+                    r.callbackFunction = void 0;
+                    var b = v.getElementById("id_callbackFunction");
+                    b && ab.removeElem(b);
+                    c(a)
+                };
+                (a = v.getElementsByTagName("head")) && a[0] && a[0].appendChild(b)
+            }, removeElem: function (a) {
+                var b = a.parentNode;
+                if (b) try {
+                    b.removeChild(a)
+                } catch (c) {
+                }
+            }, now: function () {
+                return (new Date).getTime()
             }
-        }, rand: function () {
-            return Math.random().toString().substr(2)
-        }, getJSON: function (a,
-                              b, c) {
-            b = v.createElement("script");
-            b.type = "text/javascript";
-            b.src = a;
-            b.id = "id_callbackFunction";
-            r.callbackFunction = function (a) {
-                r.callbackFunction = void 0;
-                var b = v.getElementById("id_callbackFunction");
-                b && ab.removeElem(b);
-                c(a)
-            };
-            (a = v.getElementsByTagName("head")) && a[0] && a[0].appendChild(b)
-        }, now: function () {
-            return (new Date).getTime()
-        }, parseData: function (a) {
-            var b = "";
-            if ("string" === typeof a) b = a; else if ("object" === typeof a) for (var c in a) b += "\x26" + c + "\x3d" + encodeURIComponent(a[c]);
-            b += "\x26_time\x3d" + this.now();
-            return b = b.substr(1)
-        }
-    };
+        }, bb = ["WEB", "WAP"];
     "object" != typeof JSON && (JSON = {});
     (function () {
         function a(a) {
-            return 10 > a ? "0" + a : a
+            return 10 >
+            a ? "0" + a : a
         }
 
         function b() {
@@ -513,9 +509,9 @@
                         for (u = 0; F > u; u += 1) l[u] = d(u, p) || "null";
                         return y = 0 === l.length ? "[]" : e ? "[\n" + e + l.join(",\n" + e) + "\n" + k + "]" : "[" + l.join(",") + "]", e = k, y
                     }
-                    if (m && "object" == typeof m) for (F = m.length, u = 0; F > u; u += 1) "string" == typeof m[u] && (h = m[u], y = d(h, p), y && l.push(c(h) + (e ? ": " : ":") + y)); else for (h in p) Object.prototype.hasOwnProperty.call(p,
-                        h) && (y = d(h, p), y && l.push(c(h) + (e ? ": " : ":") + y));
-                    return y = 0 === l.length ? "{}" : e ? "{\n" + e + l.join(",\n" + e) + "\n" + k + "}" : "{" + l.join(",") + "}", e = k, y
+                    if (m && "object" == typeof m) for (F = m.length, u = 0; F > u; u += 1) "string" == typeof m[u] && (h = m[u], y = d(h, p), y && l.push(c(h) + (e ? ": " : ":") + y)); else for (h in p) Object.prototype.hasOwnProperty.call(p, h) && (y = d(h, p), y && l.push(c(h) + (e ? ": " : ":") + y));
+                    return y = 0 === l.length ? "{}" : e ? "{\n" + e +
+                        l.join(",\n" + e) + "\n" + k + "}" : "{" + l.join(",") + "}", e = k, y
             }
         }
 
@@ -523,21 +519,22 @@
             N = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, l = /(?:^|:|,)(?:\s*\[)+/g,
             p = /[\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
             n = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
-        "function" != typeof Date.prototype.toJSON && (Date.prototype.toJSON = function () {
+        "function" != typeof Date.prototype.toJSON &&
+        (Date.prototype.toJSON = function () {
             return isFinite(this.valueOf()) ? this.getUTCFullYear() + "-" + a(this.getUTCMonth() + 1) + "-" + a(this.getUTCDate()) + "T" + a(this.getUTCHours()) + ":" + a(this.getUTCMinutes()) + ":" + a(this.getUTCSeconds()) + "Z" : null
         }, Boolean.prototype.toJSON = b, Number.prototype.toJSON = b, String.prototype.toJSON = b);
         "function" != typeof JSON.stringify && (h = {
-            "\b": "\\b",
+            '"': '\\"',
+            "   ": "\\t",
             "\n": "\\n",
-            "\\": "\\\\",
+            "\b": "\\b",
             "\f": "\\f",
             "\r": "\\r",
-            '"': '\\"',
-            "   ": "\\t"
-        }, JSON.stringify = function (a, b,
-                                      c) {
+            "\\": "\\\\"
+        }, JSON.stringify = function (a, b, c) {
             var u;
-            if (e = "", f = "", "number" == typeof c) for (u = 0; c > u; u += 1) f += " "; else "string" == typeof c && (f = c);
+            if (e = "", f = "", "number" == typeof c) for (u =
+                                                               0; c > u; u += 1) f += " "; else "string" == typeof c && (f = c);
             if (m = b, b && "function" != typeof b && ("object" != typeof b || "number" != typeof b.length)) throw Error("JSON.stringify");
             return d("", {"": a})
         });
@@ -549,14 +546,14 @@
             }
 
             var d;
-            if (a = String(a), n.lastIndex = 0, n.test(a) &&
-            (a = a.replace(n, function (a) {
-                return "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4)
+            if (a = String(a), n.lastIndex = 0, n.test(a) && (a = a.replace(n, function (a) {
+                return "\\u" + ("0000" +
+                    a.charCodeAt(0).toString(16)).slice(-4)
             })), k.test(a.replace(g, "@").replace(N, "]").replace(l, ""))) return d = eval("(" + a + ")"), "function" == typeof b ? c({"": d}, "") : d;
             throw new SyntaxError("JSON.parse");
         })
     })();
-    var bb = ["WEB", "WAP"];
+    debug = !1;
     Array.prototype.indexOf || (Array.prototype.indexOf = function (a, b) {
         var c;
         if (null == this) throw new TypeError("'this' is null or undefined");
@@ -566,79 +563,80 @@
         Infinity === Math.abs(c) && (c = 0);
         if (c >= e) return -1;
         for (c = Math.max(0 <= c ? c : e - Math.abs(c), 0); c < e;) {
-            if (c in d && d[c] === a) return c;
+            if (c in
+                d && d[c] === a) return c;
             c++
         }
         return -1
     });
-    var Ja;
-    if (!(Ja = ca)) {
+    var Ka;
+    if (!(Ka = ca)) {
         var da = Math, qa = {}, ra = qa.lib = {}, cb = function () {
         }, ea = ra.Base = {
-            extend: function (a) {
-                cb.prototype = this;
-                var b = new cb;
-                a && b.mixIn(a);
-                b.hasOwnProperty("init") || (b.init = function () {
-                    b.$super.init.apply(this, arguments)
-                });
-                b.init.prototype = b;
-                b.$super = this;
-                return b
+            init: function () {
+            }, clone: function () {
+                return this.init.prototype.extend(this)
             }, create: function () {
                 var a = this.extend();
                 a.init.apply(a, arguments);
                 return a
-            }, clone: function () {
-                return this.init.prototype.extend(this)
-            }, init: function () {
-            },
-            mixIn: function (a) {
+            }, mixIn: function (a) {
                 for (var b in a) a.hasOwnProperty(b) && (this[b] = a[b]);
                 a.hasOwnProperty("toString") && (this.toString = a.toString)
+            }, extend: function (a) {
+                cb.prototype = this;
+                var b = new cb;
+                a && b.mixIn(a);
+                b.hasOwnProperty("init") || (b.init = function () {
+                    b.$super.init.apply(this,
+                        arguments)
+                });
+                b.init.prototype = b;
+                b.$super = this;
+                return b
             }
         }, fa = ra.WordArray = ea.extend({
-            concat: function (a) {
-                var b = this.words, c = a.words, d = this.sigBytes;
-                a = a.sigBytes;
-                this.clamp();
-                if (d % 4) for (var e = 0; e < a; e++) b[d + e >>> 2] |= (c[e >>> 2] >>> 24 - e % 4 * 8 & 255) << 24 - (d + e) % 4 * 8; else if (65535 < c.length) for (e = 0; e < a; e += 4) b[d + e >>> 2] = c[e >>> 2]; else b.push.apply(b, c);
-                this.sigBytes += a;
-                return this
-            }, init: function (a, b) {
+            init: function (a, b) {
                 a = this.words = a || [];
-                this.sigBytes = void 0 != b ? b : 4 *
-                    a.length
+                this.sigBytes = void 0 != b ? b : 4 * a.length
             }, clamp: function () {
                 var a = this.words, b = this.sigBytes;
                 a[b >>> 2] &= 4294967295 << 32 - b % 4 * 8;
                 a.length = da.ceil(b / 4)
+            }, concat: function (a) {
+                var b = this.words, c = a.words, d = this.sigBytes;
+                a = a.sigBytes;
+                this.clamp();
+                if (d % 4) for (var e = 0; e < a; e++) b[d + e >>> 2] |= (c[e >>> 2] >>> 24 - e % 4 * 8 & 255) << 24 - (d + e) % 4 * 8; else if (65535 < c.length) for (e = 0; e < a; e += 4) b[d + e >>> 2] = c[e >>> 2]; else b.push.apply(b,
+                    c);
+                this.sigBytes += a;
+                return this
+            }, toString: function (a) {
+                return (a || xb).stringify(this)
             }, random: function (a) {
                 for (var b = [], c = 0; c < a; c += 4) b.push(4294967296 * da.random() | 0);
                 return new fa.init(b, a)
-            }, toString: function (a) {
-                return (a || wb).stringify(this)
             }, clone: function () {
                 var a = ea.clone.call(this);
                 a.words = this.words.slice(0);
                 return a
             }
-        }), Ka = qa.enc = {}, wb = Ka.Hex = {
+        }), La = qa.enc = {}, xb = La.Hex = {
             parse: function (a) {
                 for (var b = a.length, c = [], d = 0; d < b; d += 2) c[d >>> 3] |= parseInt(a.substr(d, 2), 16) << 24 - d % 8 * 4;
-                return new fa.init(c, b /
-                    2)
+                return new fa.init(c, b / 2)
             }, stringify: function (a) {
                 var b = a.words;
                 a = a.sigBytes;
                 for (var c = [], d = 0; d < a; d++) {
-                    var e = b[d >>> 2] >>> 24 - d % 4 * 8 & 255;
+                    var e =
+                        b[d >>> 2] >>> 24 - d % 4 * 8 & 255;
                     c.push((e >>> 4).toString(16));
                     c.push((e & 15).toString(16))
                 }
                 return c.join("")
             }
-        }, db = Ka.Latin1 = {
+        }, db = La.Latin1 = {
             parse: function (a) {
                 for (var b = a.length, c = [], d = 0; d < b; d++) c[d >>> 2] |= (a.charCodeAt(d) & 255) << 24 - d % 4 * 8;
                 return new fa.init(c, b)
@@ -648,21 +646,21 @@
                 for (var c = [], d = 0; d < a; d++) c.push(String.fromCharCode(b[d >>> 2] >>> 24 - d % 4 * 8 & 255));
                 return c.join("")
             }
-        }, xb = Ka.Utf8 = {
-            stringify: function (a) {
+        }, yb = La.Utf8 = {
+            parse: function (a) {
+                return db.parse(unescape(encodeURIComponent(a)))
+            }, stringify: function (a) {
                 try {
                     return decodeURIComponent(escape(db.stringify(a)))
                 } catch (b) {
                     throw Error("Malformed UTF-8 data");
                 }
-            }, parse: function (a) {
-                return db.parse(unescape(encodeURIComponent(a)))
             }
         }, eb = ra.BufferedBlockAlgorithm = ea.extend({
             reset: function () {
                 this._data = new fa.init;
                 this._nDataBytes = 0
-            }, _process: function (a) {
+            }, _minBufferSize: 0, _process: function (a) {
                 var b = this._data, c = b.words, d = b.sigBytes, e = this.blockSize, f = d / (4 * e),
                     f = a ? da.ceil(f) : da.max((f | 0) - this._minBufferSize, 0);
                 a = f * e;
@@ -673,48 +671,49 @@
                     b.sigBytes -= d
                 }
                 return new fa.init(h, d)
-            }, _minBufferSize: 0, clone: function () {
-                var a = ea.clone.call(this);
-                a._data = this._data.clone();
-                return a
             }, _append: function (a) {
-                "string" == typeof a && (a = xb.parse(a));
+                "string" == typeof a && (a = yb.parse(a));
                 this._data.concat(a);
                 this._nDataBytes += a.sigBytes
+            }, clone: function () {
+                var a =
+                    ea.clone.call(this);
+                a._data = this._data.clone();
+                return a
             }
         });
         ra.Hasher = eb.extend({
             _createHmacHelper: function (a) {
                 return function (b, c) {
-                    return (new yb.HMAC.init(a, c)).finalize(b)
+                    return (new zb.HMAC.init(a, c)).finalize(b)
                 }
             }, init: function (a) {
                 this.cfg = this.cfg.extend(a);
                 this.reset()
-            }, reset: function () {
+            }, _createHelper: function (a) {
+                return function (b, c) {
+                    return (new a.init(c)).finalize(b)
+                }
+            }, blockSize: 16, reset: function () {
                 eb.reset.call(this);
                 this._doReset()
-            }, blockSize: 16, finalize: function (a) {
+            }, cfg: ea.extend(), finalize: function (a) {
                 a && this._append(a);
                 return this._doFinalize()
             }, update: function (a) {
                 this._append(a);
                 this._process();
                 return this
-            }, _createHelper: function (a) {
-                return function (b, c) {
-                    return (new a.init(c)).finalize(b)
-                }
-            }, cfg: ea.extend()
+            }
         });
-        var yb = qa.algo = {};
-        Ja = qa
+        var zb = qa.algo = {};
+        Ka = qa
     }
-    for (var ca = Ja, sa = Math, ta = ca, R = ta.lib, zb = R.WordArray, ua = R.Hasher, R = ta.algo, fb = [], gb = [], va = 2, ga = 0; 64 > ga;) {
+    for (var ca = Ka, sa = Math, ta = ca, R = ta.lib, Ab = R.WordArray, ua = R.Hasher, R = ta.algo, fb = [], gb = [], va = 2, ga = 0; 64 > ga;) {
         var W;
         a:{
             W = va;
-            for (var Ab = sa.sqrt(W), La = 2; La <= Ab; La++) if (!(W % La)) {
+            for (var Bb = sa.sqrt(W), Ma = 2; Ma <= Bb; Ma++) if (!(W % Ma)) {
                 W = !1;
                 break a
             }
@@ -724,17 +723,13 @@
         va++
     }
     var S = [], R = R.SHA256 = ua.extend({
-        _doFinalize: function () {
-            var a = this._data, b = a.words, c = 8 * this._nDataBytes,
-                d = 8 * a.sigBytes;
-            b[d >>> 5] |= 128 << 24 - d % 32;
-            b[(d + 64 >>> 9 << 4) + 14] = sa.floor(c / 4294967296);
-            b[(d + 64 >>> 9 << 4) + 15] = c;
-            a.sigBytes = 4 * b.length;
-            this._process();
-            return this._hash
+        clone: function () {
+            var a = ua.clone.call(this);
+            a._hash = this._hash.clone();
+            return a
         }, _doProcessBlock: function (a, b) {
-            for (var c = this._hash.words, d = c[0], e = c[1], f = c[2], h = c[3], m = c[4], k = c[5], g = c[6], N = c[7], l = 0; 64 > l; l++) {
+            for (var c = this._hash.words, d = c[0], e = c[1], f = c[2],
+                     h = c[3], m = c[4], k = c[5], g = c[6], N = c[7], l = 0; 64 > l; l++) {
                 if (16 > l) S[l] = a[b + l] | 0; else {
                     var p = S[l - 15], n = S[l - 2];
                     S[l] = ((p << 25 | p >>> 7) ^ (p << 14 | p >>> 18) ^ p >>> 3) + S[l - 7] + ((n << 15 | n >>> 17) ^ (n << 13 | n >>> 19) ^ n >>> 10) + S[l - 16]
@@ -759,42 +754,146 @@
             c[6] = c[6] + g | 0;
             c[7] = c[7] + N | 0
         }, _doReset: function () {
-            this._hash = new zb.init(fb.slice(0))
-        }, clone: function () {
-            var a = ua.clone.call(this);
-            a._hash = this._hash.clone();
-            return a
+            this._hash =
+                new Ab.init(fb.slice(0))
+        }, _doFinalize: function () {
+            var a = this._data, b = a.words, c = 8 * this._nDataBytes, d = 8 * a.sigBytes;
+            b[d >>> 5] |= 128 << 24 - d % 32;
+            b[(d + 64 >>> 9 << 4) + 14] = sa.floor(c / 4294967296);
+            b[(d + 64 >>> 9 << 4) + 15] = c;
+            a.sigBytes = 4 * b.length;
+            this._process();
+            return this._hash
         }
     });
     ta.SHA256 = ua._createHelper(R);
     ta.HmacSHA256 = ua._createHmacHelper(R);
-    var hb = ca, Bb = hb.lib.WordArray;
+    var hb = ca, Cb = hb.lib.WordArray;
     hb.enc.Base64 = {
-        _map: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
         parse: function (a) {
             var b = a.length, c = this._map, d = c.charAt(64);
             d && (d = a.indexOf(d), -1 != d && (b = d));
             for (var d = [], e = 0, f = 0; f < b; f++) if (f % 4) {
-                var h = c.indexOf(a.charAt(f - 1)) << f % 4 * 2, m = c.indexOf(a.charAt(f)) >>> 6 - f % 4 * 2;
+                var h =
+                    c.indexOf(a.charAt(f - 1)) << f % 4 * 2, m = c.indexOf(a.charAt(f)) >>> 6 - f % 4 * 2;
                 d[e >>> 2] |= (h | m) << 24 - e % 4 * 8;
                 e++
             }
-            return Bb.create(d, e)
-        }, stringify: function (a) {
+            return Cb.create(d, e)
+        }, _map: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", stringify: function (a) {
             var b = a.words, c = a.sigBytes, d = this._map;
             a.clamp();
             a = [];
-            for (var e = 0; e < c; e += 3) for (var f = (b[e >>> 2] >>> 24 - e % 4 * 8 & 255) << 16 | (b[e + 1 >>> 2] >>> 24 - (e + 1) % 4 * 8 & 255) << 8 | b[e + 2 >>> 2] >>> 24 - (e + 2) % 4 * 8 & 255, h = 0; 4 > h && e + .75 * h < c; h++) a.push(d.charAt(f >>>
-                6 * (3 - h) & 63));
+            for (var e = 0; e < c; e += 3) for (var f = (b[e >>> 2] >>> 24 - e % 4 * 8 & 255) << 16 | (b[e + 1 >>> 2] >>> 24 - (e + 1) % 4 * 8 & 255) << 8 | b[e + 2 >>> 2] >>> 24 - (e + 2) % 4 * 8 & 255, h = 0; 4 > h && e + .75 * h < c; h++) a.push(d.charAt(f >>> 6 * (3 - h) & 63));
             if (b = d.charAt(64)) for (; a.length % 4;) a.push(b);
             return a.join("")
         }
     };
+    var Db = ["scrDeviceXDPI", "scrColorDepth", "scrWidth", "scrHeight"];
     Z.prototype = {
-        isIE: function () {
-            return "Microsoft Internet Explorer" === k.appName || "Netscape" === k.appName && /Trident/.test(k.userAgent) ? !0 : !1
-        }, x64Xor: function (a, b) {
-            return [a[0] ^ b[0], a[1] ^ b[1]]
+        pixelRatioKey: function (a) {
+            this.options.excludePixelRatio || a.push({key: "pixel_ratio", value: this.getPixelRatio()});
+            return a
+        }, indexedDbKey: function (a) {
+            !this.options.excludeIndexedDB && this.hasIndexedDB() && a.push({value: 1, key: "indexed_db"});
+            return a
+        }, getHasLiedResolution: function () {
+            return x.width < x.availWidth || x.height < x.availHeight ? !0 : !1
+        }, getTouchSupport: function () {
+            var a = 0, b = !1;
+            "undefined" !== typeof k.maxTouchPoints ? a = k.maxTouchPoints :
+                "undefined" !== typeof k.msMaxTouchPoints && (a = k.msMaxTouchPoints);
+            try {
+                v.createEvent("TouchEvent"), b = !0
+            } catch (c) {
+            }
+            return [a, b, "ontouchstart" in r]
+        }, pluginsShouldBeSorted: function () {
+            for (var a = !1, b = 0, c = this.options.sortPluginsFor.length; b < c; b++) if (k.userAgent.match(this.options.sortPluginsFor[b])) {
+                a = !0;
+                break
+            }
+            return a
+        }, extend: function (a, b) {
+            if (null == a) return b;
+            for (var c in a) null != a[c] && b[c] !== a[c] && (b[c] = a[c]);
+            return b
+        }, getNavigatorCpuClass: function () {
+            return k.cpuClass ? k.cpuClass : "unknown"
+        }, adBlockKey: function (a) {
+            this.options.excludeAdBlock ||
+            a.push({key: "adblock", value: this.getAdBlock()});
+            return a
+        }, hasLiedBrowserKey: function (a) {
+            this.options.excludeHasLiedBrowser || a.push({key: "has_lied_browser", value: this.getHasLiedBrowser()});
+            return a
+        }, addBehaviorKey: function (a) {
+            v.body && !this.options.excludeAddBehavior && v.body.addBehavior && a.push({key: "add_behavior", value: 1});
+            return a
+        }, webglKey: function (a) {
+            if (this.options.excludeWebGL || !this.isWebGlSupported()) return a;
+            a.push({key: "webgl", value: this.getWebglFp()});
+            return a
+        }, getHasLiedOs: function () {
+            var a =
+                    k.userAgent.toLowerCase(), b = k.oscpu, c = k.platform.toLowerCase(),
+                a = 0 <= a.indexOf("windows phone") ? "Windows Phone" : 0 <= a.indexOf("win") ? "Windows" : 0 <= a.indexOf("android") ? "Android" : 0 <= a.indexOf("linux") ? "Linux" : 0 <= a.indexOf("iphone") || 0 <= a.indexOf("ipad") ? "iOS" : 0 <= a.indexOf("mac") ? "Mac" : "Other";
+            return ("ontouchstart" in r || 0 < k.maxTouchPoints || 0 < k.msMaxTouchPoints) && "Windows Phone" !== a && "Android" !== a && "iOS" !== a && "Other" !== a || "undefined" !== typeof b && (b = b.toLowerCase(), 0 <= b.indexOf("win") && "Windows" !== a && "Windows Phone" !==
+            a || 0 <= b.indexOf("linux") && "Linux" !== a && "Android" !== a || 0 <= b.indexOf("mac") && "Mac" !== a && "iOS" !== a || 0 === b.indexOf("win") && 0 === b.indexOf("linux") && 0 <= b.indexOf("mac") && "other" !== a) ? !0 : 0 <= c.indexOf("win") && "Windows" !== a && "Windows Phone" !== a || (0 <= c.indexOf("linux") || 0 <= c.indexOf("android") || 0 <= c.indexOf("pike")) && "Linux" !== a && "Android" !== a || (0 <= c.indexOf("mac") || 0 <= c.indexOf("ipad") || 0 <= c.indexOf("ipod") || 0 <= c.indexOf("iphone")) && "Mac" !== a && "iOS" !== a || 0 === c.indexOf("win") && 0 === c.indexOf("linux") && 0 <= c.indexOf("mac") &&
+            "other" !== a ? !0 : "undefined" === typeof k.plugins && "Windows" !== a && "Windows Phone" !== a ? !0 : !1
+        }, getRegularPlugins: function () {
+            for (var a = [], b = 0, c = k.plugins.length; b < c; b++) a.push(k.plugins[b]);
+            this.pluginsShouldBeSorted() && (a = a.sort(function (a, b) {
+                return a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+            }));
+            return this.map(a, function (a) {
+                var b = this.map(a, function (a) {
+                    return [a.type, a.suffixes].join("~")
+                }).join(",");
+                return [a.name, a.description, b].join("::")
+            }, this)
+        }, hasLiedResolutionKey: function (a) {
+            this.options.excludeHasLiedResolution ||
+            a.push({key: "has_lied_resolution", value: this.getHasLiedResolution()});
+            return a
+        }, cpuClassKey: function (a) {
+            this.options.excludeCpuClass || a.push({key: "cpu_class", value: this.getNavigatorCpuClass()});
+            return a
+        }, sessionStorageKey: function (a) {
+            !this.options.excludeSessionStorage && this.hasSessionStorage() && a.push({
+                value: 1,
+                key: "session_storage"
+            });
+            return a
+        }, openDatabaseKey: function (a) {
+            !this.options.excludeOpenDatabase && r.openDatabase && a.push({key: "open_database", value: 1});
+            return a
+        }, hasSessionStorage: function () {
+            try {
+                return !!r.sessionStorage
+            } catch (a) {
+                return !0
+            }
+        },
+        getIEPlugins: function () {
+            var a = [];
+            if (Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(r, "ActiveXObject") || "ActiveXObject" in r) a = this.map("AcroPDF.PDF;Adodb.Stream;AgControl.AgControl;DevalVRXCtrl.DevalVRXCtrl.1;MacromediaFlashPaper.MacromediaFlashPaper;Msxml2.DOMDocument;Msxml2.XMLHTTP;PDF.PdfCtrl;QuickTime.QuickTime;QuickTimeCheckObject.QuickTimeCheck.1;RealPlayer;RealPlayer.RealPlayer(tm) ActiveX Control (32-bit);RealVideo.RealVideo(tm) ActiveX Control (32-bit);Scripting.Dictionary;SWCtl.SWCtl;Shell.UIHelper;ShockwaveFlash.ShockwaveFlash;Skype.Detection;TDCCtl.TDCCtl;WMPlayer.OCX;rmocx.RealPlayer G2 Control;rmocx.RealPlayer G2 Control.1".split(";"),
+                function (a) {
+                    try {
+                        return new ActiveXObject(a), a
+                    } catch (c) {
+                        return null
+                    }
+                });
+            k.plugins && (a = a.concat(this.getRegularPlugins()));
+            return a
+        }, getHasLiedLanguages: function () {
+            if ("undefined" !== typeof k.languages) try {
+                if (k.languages[0].substr(0, 2) !== k.language.substr(0, 2)) return !0
+            } catch (a) {
+                return !0
+            }
+            return !1
         }, jsFontsKey: function (a, b) {
             var c = this;
             return H(function () {
@@ -804,7 +903,8 @@
                     a.style.left = "-9999px";
                     a.style.fontSize = "72px";
                     a.style.lineHeight = "normal";
-                    a.innerHTML = "mmmmmmmmmmlli";
+                    a.innerHTML =
+                        "mmmmmmmmmmlli";
                     return a
                 }
 
@@ -847,17 +947,10 @@
                 }
                 h.removeChild(k);
                 h.removeChild(m);
-                a.push({value: p, key: "js_fonts"});
+                a.push({key: "js_fonts", value: p});
                 b(a)
             }, 1)
-        }, doNotTrackKey: function (a) {
-            this.options.excludeDoNotTrack || a.push({value: this.getDoNotTrack(), key: "do_not_track"});
-            return a
-        }, isCanvasSupported: function () {
-            var a = v.createElement("canvas");
-            return !(!a.getContext || !a.getContext("2d"))
-        },
-        getWebglCanvas: function () {
+        }, getWebglCanvas: function () {
             var a = v.createElement("canvas"), b = null;
             try {
                 b = a.getContext("webgl") || a.getContext("experimental-webgl")
@@ -874,70 +967,30 @@
                 b = !1
             }
             return !!r.WebGLRenderingContext && !!b
-        }, webglKey: function (a) {
-            if (this.options.excludeWebGL || !this.isWebGlSupported()) return a;
-            a.push({
-                value: this.getWebglFp(),
-                key: "webgl"
+        }, availableScreenResolutionKey: function (a) {
+            return this.options.excludeAvailableScreenResolution ? a : this.getAvailableScreenResolution(a)
+        }, screenResolutionKey: function (a) {
+            return this.options.excludeScreenResolution ? a : this.getScreenResolution(a)
+        }, map: function (a, b, c) {
+            var d = [];
+            if (null == a) return d;
+            if (this.nativeMap && a.map === this.nativeMap) return a.map(b,
+                c);
+            this.each(a, function (a, f, h) {
+                d[d.length] = b.call(c, a, f, h)
             });
+            return d
+        }, platformKey: function (a) {
+            this.options.excludePlatform || a.push({key: "navigator_platform", value: this.getNavigatorPlatform()});
             return a
-        }, hasSessionStorage: function () {
-            try {
-                return !!r.sessionStorage
-            } catch (a) {
-                return !0
-            }
-        }, getTouchSupport: function () {
-            var a = 0, b = !1;
-            "undefined" !== typeof k.maxTouchPoints ? a = k.maxTouchPoints : "undefined" !== typeof k.msMaxTouchPoints && (a = k.msMaxTouchPoints);
-            try {
-                v.createEvent("TouchEvent"), b = !0
-            } catch (c) {
-            }
-            return [a, b, "ontouchstart" in r]
-        }, getPixelRatio: function () {
-            return r.devicePixelRatio || ""
-        }, getCanvasFp: function () {
-            var a = [], b = v.createElement("canvas");
-            b.width = 2E3;
-            b.height = 200;
-            b.style.display = "inline";
-            var c = b.getContext("2d");
-            c.rect(0, 0, 10, 10);
-            c.rect(2, 2, 6, 6);
-            a.push("canvas winding:" + (!1 === c.isPointInPath(5, 5, "evenodd") ? "yes" : "no"));
-            c.textBaseline = "alphabetic";
-            c.fillStyle = "#f60";
-            c.fillRect(125, 1, 62, 20);
-            c.fillStyle = "#069";
-            c.font = this.options.dontUseFakeFontInCanvas ? "11pt Arial" : "11pt no-real-font-123";
-            c.fillText("Cwm fjordbank glyphs vext quiz, \ud83d\ude03", 2, 15);
-            c.fillStyle = "rgba(102, 204, 0, 0.2)";
-            c.font = "18pt Arial";
-            c.fillText("Cwm fjordbank glyphs vext quiz, \ud83d\ude03", 4, 45);
-            c.globalCompositeOperation =
-                "multiply";
-            c.fillStyle = "rgb(255,0,255)";
-            c.beginPath();
-            c.arc(50, 50, 50, 0, 2 * Math.PI, !0);
-            c.closePath();
-            c.fill();
-            c.fillStyle = "rgb(0,255,255)";
-            c.beginPath();
-            c.arc(100, 50, 50, 0, 2 * Math.PI, !0);
-            c.closePath();
-            c.fill();
-            c.fillStyle = "rgb(255,255,0)";
-            c.beginPath();
-            c.arc(75, 100, 50, 0, 2 * Math.PI, !0);
-            c.closePath();
-            c.fill();
-            c.fillStyle = "rgb(255,0,255)";
-            c.arc(75, 75, 75, 0, 2 * Math.PI, !0);
-            c.arc(75, 75, 25, 0, 2 * Math.PI, !0);
-            c.fill("evenodd");
-            a.push("canvas fp:" + b.toDataURL());
-            return a.join("~")
+        }, x64Fmix: function (a) {
+            a = this.x64Xor(a, [0, a[0] >>> 1]);
+            a = this.x64Multiply(a, [4283543511, 3981806797]);
+            a = this.x64Xor(a, [0, a[0] >>> 1]);
+            a = this.x64Multiply(a, [3301882366, 444984403]);
+            return a = this.x64Xor(a, [0, a[0] >>> 1])
+        }, hasMinFlashInstalled: function () {
+            return X.hasFlashPlayerVersion("9.0.0")
         }, getHasLiedBrowser: function () {
             var a =
                     k.userAgent.toLowerCase(), b = k.productSub,
@@ -956,215 +1009,68 @@
                 }
             }
             return c && "Firefox" !== a && "Other" !== a ? !0 : !1
-        }, extend: function (a, b) {
-            if (null == a) return b;
-            for (var c in a) null != a[c] && b[c] !== a[c] && (b[c] = a[c]);
-            return b
-        }, getAvailableScreenResolution: function (a) {
-            var b;
-            x.availWidth && x.availHeight && (b = this.options.detectScreenOrientation ? x.availHeight > x.availWidth ? [x.availHeight, x.availWidth] : [x.availWidth, x.availHeight] : [x.availHeight, x.availWidth]);
-            "undefined" !== typeof b && a.push({key: "available_resolution", value: b});
-            return a
-        },
-        hasLiedOsKey: function (a) {
-            this.options.excludeHasLiedOs || a.push({value: this.getHasLiedOs(), key: "has_lied_os"});
-            return a
-        }, hasIndexedDB: function () {
-            return !!r.indexedDB
-        }, hasMinFlashInstalled: function () {
-            return X.hasFlashPlayerVersion("9.0.0")
-        }, x64Fmix: function (a) {
-            a = this.x64Xor(a, [0, a[0] >>> 1]);
-            a = this.x64Multiply(a, [4283543511, 3981806797]);
-            a = this.x64Xor(a, [0, a[0] >>> 1]);
-            a = this.x64Multiply(a, [3301882366, 444984403]);
-            return a = this.x64Xor(a, [0, a[0] >>> 1])
-        }, getHasLiedResolution: function () {
-            return x.width < x.availWidth ||
-            x.height < x.availHeight ? !0 : !1
-        }, hasLocalStorage: function () {
-            try {
-                return !!r.localStorage
-            } catch (a) {
-                return !0
-            }
-        }, canvasKey: function (a) {
-            !this.options.excludeCanvas && this.isCanvasSupported() && a.push({
-                value: this.getCanvasFp(),
-                key: "canvas"
-            });
-            return a
-        }, x64LeftShift: function (a, b) {
-            b %= 64;
-            return 0 === b ? a : 32 > b ? [a[0] << b | a[1] >>> 32 - b, a[1] << b] : [a[1] << b - 32, 0]
-        }, loadSwfAndDetectFonts: function (a) {
-            r.___fp_swf_loaded = function (b) {
-                a(b)
-            };
-            var b = this.options.swfContainerId;
-            this.addFlashDivNode();
-            X.embedSWF(this.options.swfPath, b, "1",
-                "1", "9.0.0", !1, {onReady: "___fp_swf_loaded"}, {allowScriptAccess: "always", menu: "false"}, {})
-        }, x64Rotl: function (a, b) {
-            b %= 64;
-            if (32 === b) return [a[1], a[0]];
-            if (32 > b) return [a[0] << b | a[1] >>> 32 - b, a[1] << b | a[0] >>> 32 - b];
-            b -= 32;
-            return [a[1] << b | a[0] >>> 32 - b, a[0] << b | a[1] >>> 32 - b]
-        }, openDatabaseKey: function (a) {
-            !this.options.excludeOpenDatabase && r.openDatabase && a.push({key: "open_database", value: 1});
-            return a
-        }, pluginsShouldBeSorted: function () {
-            for (var a = !1, b = 0, c = this.options.sortPluginsFor.length; b < c; b++) if (k.userAgent.match(this.options.sortPluginsFor[b])) {
-                a =
-                    !0;
-                break
-            }
-            return a
-        }, cpuClassKey: function (a) {
-            this.options.excludeCpuClass || a.push({key: "cpu_class", value: this.getNavigatorCpuClass()});
-            return a
-        }, each: function (a, b, c) {
-            if (null !== a) if (this.nativeForEach && a.forEach === this.nativeForEach) a.forEach(b, c); else if (a.length === +a.length) for (var d = 0, e = a.length; d < e && b.call(c, a[d], d, a) !== {}; d++) ; else for (d in a) if (a.hasOwnProperty(d) && b.call(c, a[d], d, a) === {}) break
-        }, hasLiedBrowserKey: function (a) {
-            this.options.excludeHasLiedBrowser || a.push({key: "has_lied_browser", value: this.getHasLiedBrowser()});
-            return a
-        }, getNavigatorPlatform: function () {
-            return k.platform ? k.platform : "unknown"
-        }, x64hash128: function (a, b) {
-            a = a || "";
-            b = b || 0;
-            for (var c = a.length % 16, d = a.length - c, e = [0, b], f = [0, b], h, m, k = [2277735313, 289559509], n = [1291169091, 658871167], g = 0; g < d; g += 16) h = [a.charCodeAt(g + 4) & 255 | (a.charCodeAt(g + 5) & 255) << 8 | (a.charCodeAt(g + 6) & 255) << 16 | (a.charCodeAt(g + 7) & 255) << 24, a.charCodeAt(g) & 255 | (a.charCodeAt(g + 1) & 255) << 8 | (a.charCodeAt(g + 2) & 255) << 16 | (a.charCodeAt(g + 3) & 255) << 24], m = [a.charCodeAt(g + 12) & 255 | (a.charCodeAt(g + 13) & 255) <<
-            8 | (a.charCodeAt(g + 14) & 255) << 16 | (a.charCodeAt(g + 15) & 255) << 24, a.charCodeAt(g + 8) & 255 | (a.charCodeAt(g + 9) & 255) << 8 | (a.charCodeAt(g + 10) & 255) << 16 | (a.charCodeAt(g + 11) & 255) << 24], h = this.x64Multiply(h, k), h = this.x64Rotl(h, 31), h = this.x64Multiply(h, n), e = this.x64Xor(e, h), e = this.x64Rotl(e, 27), e = this.x64Add(e, f), e = this.x64Add(this.x64Multiply(e, [0, 5]), [0, 1390208809]), m = this.x64Multiply(m, n), m = this.x64Rotl(m, 33), m = this.x64Multiply(m, k), f = this.x64Xor(f, m), f = this.x64Rotl(f, 31), f = this.x64Add(f, e), f = this.x64Add(this.x64Multiply(f,
-                [0, 5]), [0, 944331445]);
-            h = [0, 0];
-            m = [0, 0];
-            switch (c) {
-                case 15:
-                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 14)], 48));
-                case 14:
-                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 13)], 40));
-                case 13:
-                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 12)], 32));
-                case 12:
-                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 11)], 24));
-                case 11:
-                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 10)], 16));
-                case 10:
-                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 9)], 8));
-                case 9:
-                    m = this.x64Xor(m, [0, a.charCodeAt(g +
-                        8)]), m = this.x64Multiply(m, n), m = this.x64Rotl(m, 33), m = this.x64Multiply(m, k), f = this.x64Xor(f, m);
-                case 8:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 7)], 56));
-                case 7:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 6)], 48));
-                case 6:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 5)], 40));
-                case 5:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 4)], 32));
-                case 4:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 3)], 24));
-                case 3:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 2)], 16));
-                case 2:
-                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 1)], 8));
-                case 1:
-                    h = this.x64Xor(h, [0, a.charCodeAt(g)]), h = this.x64Multiply(h, k), h = this.x64Rotl(h, 31), h = this.x64Multiply(h, n), e = this.x64Xor(e, h)
-            }
-            e = this.x64Xor(e, [0, a.length]);
-            f = this.x64Xor(f, [0, a.length]);
-            e = this.x64Add(e, f);
-            f = this.x64Add(f, e);
-            e = this.x64Fmix(e);
-            f = this.x64Fmix(f);
-            e = this.x64Add(e, f);
-            f = this.x64Add(f, e);
-            return ("00000000" + (e[0] >>> 0).toString(16)).slice(-8) + ("00000000" + (e[1] >>> 0).toString(16)).slice(-8) + ("00000000" + (f[0] >>> 0).toString(16)).slice(-8) +
-                ("00000000" + (f[1] >>> 0).toString(16)).slice(-8)
-        }, hasSwfObjectLoaded: function () {
-            return "undefined" !== typeof r.swfobject
-        }, sessionStorageKey: function (a) {
-            !this.options.excludeSessionStorage && this.hasSessionStorage() && a.push({
-                key: "session_storage",
-                value: 1
-            });
-            return a
+        }, x64Xor: function (a, b) {
+            return [a[0] ^ b[0], a[1] ^ b[1]]
         }, userAgentKey: function (a) {
             this.options.excludeUserAgent || a.push({key: "user_agent", value: this.getUserAgent()});
+            return a
+        }, localStorageKey: function (a) {
+            !this.options.excludeSessionStorage && this.hasLocalStorage() && a.push({key: "local_storage", value: 1});
             return a
         }, getUserAgent: function () {
             var a = k.userAgent;
             return a = a.replace(/\&|\+|\?|\%|\#|\/|\=/g, "")
-        }, screenResolutionKey: function (a) {
-            return this.options.excludeScreenResolution ?
-                a : this.getScreenResolution(a)
-        }, pixelRatioKey: function (a) {
-            this.options.excludePixelRatio || a.push({key: "pixel_ratio", value: this.getPixelRatio()});
-            return a
-        }, flashFontsKey: function (a, b) {
-            if (this.options.excludeFlashFonts || !this.hasSwfObjectLoaded() || !this.hasMinFlashInstalled() || "undefined" === typeof this.options.swfPath) return b(a);
-            this.loadSwfAndDetectFonts(function (c) {
-                a.push({key: "swf_fonts", value: c.join(";")});
-                b(a)
-            })
-        }, getNavigatorCpuClass: function () {
-            return k.cpuClass ? k.cpuClass : "unknown"
-        }, availableScreenResolutionKey: function (a) {
-            return this.options.excludeAvailableScreenResolution ?
-                a : this.getAvailableScreenResolution(a)
-        }, hasLiedResolutionKey: function (a) {
-            this.options.excludeHasLiedResolution || a.push({
-                key: "has_lied_resolution",
-                value: this.getHasLiedResolution()
-            });
-            return a
         }, colorDepthKey: function (a) {
-            this.options.excludeColorDepth || a.push({key: "color_depth", value: x.colorDepth || -1});
+            this.options.excludeColorDepth ||
+            a.push({key: "color_depth", value: x.colorDepth || -1});
             return a
-        }, timezoneOffsetKey: function (a) {
-            this.options.excludeTimezoneOffset || a.push({
-                value: (new Date).getTimezoneOffset(),
-                key: "timezone_offset"
+        }, fontsKey: function (a, b) {
+            return this.options.excludeJsFonts ? this.flashFontsKey(a, b) : this.jsFontsKey(a, b)
+        }, x64LeftShift: function (a, b) {
+            b %= 64;
+            return 0 === b ? a : 32 > b ? [a[0] << b | a[1] >>> 32 - b, a[1] << b] : [a[1] << b - 32, 0]
+        }, addFlashDivNode: function () {
+            var a = v.createElement("div");
+            a.setAttribute("id", this.options.swfContainerId);
+            v.body.appendChild(a)
+        }, doNotTrackKey: function (a) {
+            this.options.excludeDoNotTrack || a.push({value: this.getDoNotTrack(), key: "do_not_track"});
+            return a
+        }, touchSupportKey: function (a) {
+            this.options.excludeTouchSupport || a.push({key: "touch_support", value: this.getTouchSupport()});
+            return a
+        }, pluginsKey: function (a) {
+            this.options.excludePlugins || (this.isIE() ? this.options.excludeIEPlugins || a.push({
+                key: "ie_plugins",
+                value: this.getIEPlugins()
+            }) : a.push({value: this.getRegularPlugins(), key: "regular_plugins"}));
+            return a
+        }, getAdBlock: function () {
+            var a = v.createElement("div");
+            a.innerHTML = "\x26nbsp;";
+            a.className = "adsbox";
+            var b = "0";
+            try {
+                v.body.appendChild(a), 0 === v.getElementsByClassName("adsbox")[0].offsetHeight &&
+                (b = "1"), v.body.removeChild(a)
+            } catch (c) {
+                b = "0"
+            }
+            return b
+        }, languageKey: function (a) {
+            this.options.excludeLanguage || a.push({
+                value: k.language || k.userLanguage || k.browserLanguage || k.systemLanguage || "",
+                key: "language"
             });
             return a
-        }, addBehaviorKey: function (a) {
-            v.body && !this.options.excludeAddBehavior &&
-            v.body.addBehavior && a.push({key: "add_behavior", value: 1});
-            return a
-        }, x64Add: function (a, b) {
-            a = [a[0] >>> 16, a[0] & 65535, a[1] >>> 16, a[1] & 65535];
-            b = [b[0] >>> 16, b[0] & 65535, b[1] >>> 16, b[1] & 65535];
-            var c = [0, 0, 0, 0];
-            c[3] += a[3] + b[3];
-            c[2] += c[3] >>> 16;
-            c[3] &= 65535;
-            c[2] += a[2] + b[2];
-            c[1] += c[2] >>> 16;
-            c[2] &= 65535;
-            c[1] += a[1] + b[1];
-            c[0] += c[1] >>> 16;
-            c[1] &= 65535;
-            c[0] += a[0] + b[0];
-            c[0] &= 65535;
-            return [c[0] << 16 | c[1], c[2] << 16 | c[3]]
-        }, getDoNotTrack: function () {
-            return k.doNotTrack ? k.doNotTrack : k.msDoNotTrack ? k.msDoNotTrack : r.doNotTrack ? r.doNotTrack :
-                "unknown"
-        }, getHasLiedLanguages: function () {
-            if ("undefined" !== typeof k.languages) try {
-                if (k.languages[0].substr(0, 2) !== k.language.substr(0, 2)) return !0
-            } catch (a) {
-                return !0
-            }
-            return !1
         }, get: function (a) {
             var b = [], b = this.userAgentKey(b), b = this.languageKey(b), b = this.colorDepthKey(b),
                 b = this.pixelRatioKey(b), b = this.screenResolutionKey(b), b = this.availableScreenResolutionKey(b),
                 b = this.timezoneOffsetKey(b), b = this.sessionStorageKey(b), b = this.localStorageKey(b),
-                b = this.indexedDbKey(b), b = this.addBehaviorKey(b), b = this.openDatabaseKey(b),
-                b = this.cpuClassKey(b), b = this.platformKey(b), b = this.doNotTrackKey(b), b = this.pluginsKey(b),
-                b = this.canvasKey(b), b = this.webglKey(b), b = this.adBlockKey(b), b = this.hasLiedLanguagesKey(b),
+                b = this.indexedDbKey(b),
+                b = this.addBehaviorKey(b), b = this.openDatabaseKey(b), b = this.cpuClassKey(b),
+                b = this.platformKey(b), b = this.doNotTrackKey(b), b = this.pluginsKey(b), b = this.canvasKey(b),
+                b = this.webglKey(b), b = this.adBlockKey(b), b = this.hasLiedLanguagesKey(b),
                 b = this.hasLiedResolutionKey(b), b = this.hasLiedOsKey(b), b = this.hasLiedBrowserKey(b),
                 b = this.touchSupportKey(b), c = this;
             this.fontsKey(b, function (b) {
@@ -1174,28 +1080,218 @@
                     "undefined" !== typeof a.value.join && (b = a.value.join(";"));
                     d.push(b)
                 });
-                var f = c.x64hash128(d.join("~~~"), 31);
+                var f = c.x64hash128(d.join("~~~"),
+                    31);
                 return a(f, b)
             })
-        }, indexedDbKey: function (a) {
-            !this.options.excludeIndexedDB &&
-            this.hasIndexedDB() && a.push({key: "indexed_db", value: 1});
-            return a
-        }, adBlockKey: function (a) {
-            this.options.excludeAdBlock || a.push({value: this.getAdBlock(), key: "adblock"});
-            return a
+        }, getCanvasFp: function () {
+            var a = [], b = v.createElement("canvas");
+            b.width = 2E3;
+            b.height = 200;
+            b.style.display = "inline";
+            var c = b.getContext("2d");
+            c.rect(0, 0, 10, 10);
+            c.rect(2, 2, 6, 6);
+            a.push("canvas winding:" + (!1 === c.isPointInPath(5, 5, "evenodd") ? "yes" : "no"));
+            c.textBaseline = "alphabetic";
+            c.fillStyle = "#f60";
+            c.fillRect(125, 1, 62, 20);
+            c.fillStyle = "#069";
+            c.font = this.options.dontUseFakeFontInCanvas ? "11pt Arial" : "11pt no-real-font-123";
+            c.fillText("Cwm fjordbank glyphs vext quiz, \ud83d\ude03", 2, 15);
+            c.fillStyle =
+                "rgba(102, 204, 0, 0.2)";
+            c.font = "18pt Arial";
+            c.fillText("Cwm fjordbank glyphs vext quiz, \ud83d\ude03", 4, 45);
+            c.globalCompositeOperation = "multiply";
+            c.fillStyle = "rgb(255,0,255)";
+            c.beginPath();
+            c.arc(50, 50, 50, 0, 2 * Math.PI, !0);
+            c.closePath();
+            c.fill();
+            c.fillStyle = "rgb(0,255,255)";
+            c.beginPath();
+            c.arc(100, 50, 50, 0, 2 * Math.PI, !0);
+            c.closePath();
+            c.fill();
+            c.fillStyle = "rgb(255,255,0)";
+            c.beginPath();
+            c.arc(75, 100, 50, 0, 2 * Math.PI, !0);
+            c.closePath();
+            c.fill();
+            c.fillStyle = "rgb(255,0,255)";
+            c.arc(75, 75, 75, 0, 2 * Math.PI, !0);
+            c.arc(75,
+                75, 25, 0, 2 * Math.PI, !0);
+            c.fill("evenodd");
+            a.push("canvas fp:" + b.toDataURL());
+            return a.join("~")
+        }, getWebglFp: function () {
+            function a(a) {
+                b.clearColor(0, 0, 0, 1);
+                b.enable(b.DEPTH_TEST);
+                b.depthFunc(b.LEQUAL);
+                b.clear(b.COLOR_BUFFER_BIT | b.DEPTH_BUFFER_BIT);
+                return "[" + a[0] + ", " + a[1] + "]"
+            }
+
+            var b;
+            b = this.getWebglCanvas();
+            if (!b) return null;
+            var c = [], d = b.createBuffer();
+            b.bindBuffer(b.ARRAY_BUFFER, d);
+            var e = new Float32Array([-.2, -.9, 0, .4, -.26, 0, 0, .732134444, 0]);
+            b.bufferData(b.ARRAY_BUFFER, e, b.STATIC_DRAW);
+            d.itemSize = 3;
+            d.numItems =
+                3;
+            var e = b.createProgram(), f = b.createShader(b.VERTEX_SHADER);
+            b.shaderSource(f, "attribute vec2 attrVertex;varying vec2 varyinTexCoordinate;uniform vec2 uniformOffset;void main(){varyinTexCoordinate\x3dattrVertex+uniformOffset;gl_Position\x3dvec4(attrVertex,0,1);}");
+            b.compileShader(f);
+            var h = b.createShader(b.FRAGMENT_SHADER);
+            b.shaderSource(h, "precision mediump float;varying vec2 varyinTexCoordinate;void main() {gl_FragColor\x3dvec4(varyinTexCoordinate,0,1);}");
+            b.compileShader(h);
+            b.attachShader(e, f);
+            b.attachShader(e,
+                h);
+            b.linkProgram(e);
+            b.useProgram(e);
+            e.vertexPosAttrib = b.getAttribLocation(e, "attrVertex");
+            e.offsetUniform = b.getUniformLocation(e, "uniformOffset");
+            b.enableVertexAttribArray(e.vertexPosArray);
+            b.vertexAttribPointer(e.vertexPosAttrib, d.itemSize, b.FLOAT, !1, 0, 0);
+            b.uniform2f(e.offsetUniform, 1, 1);
+            b.drawArrays(b.TRIANGLE_STRIP, 0, d.numItems);
+            null != b.canvas && c.push(b.canvas.toDataURL());
+            c.push("extensions:" + b.getSupportedExtensions().join(";"));
+            c.push("webgl aliased line width range:" + a(b.getParameter(b.ALIASED_LINE_WIDTH_RANGE)));
+            c.push("webgl aliased point size range:" + a(b.getParameter(b.ALIASED_POINT_SIZE_RANGE)));
+            c.push("webgl alpha bits:" + b.getParameter(b.ALPHA_BITS));
+            c.push("webgl antialiasing:" + (b.getContextAttributes().antialias ? "yes" : "no"));
+            c.push("webgl blue bits:" + b.getParameter(b.BLUE_BITS));
+            c.push("webgl depth bits:" + b.getParameter(b.DEPTH_BITS));
+            c.push("webgl green bits:" + b.getParameter(b.GREEN_BITS));
+            c.push("webgl max anisotropy:" + function (a) {
+                var b,
+                    c = a.getExtension("EXT_texture_filter_anisotropic") || a.getExtension("WEBKIT_EXT_texture_filter_anisotropic") ||
+                        a.getExtension("MOZ_EXT_texture_filter_anisotropic");
+                return c ? (b = a.getParameter(c.MAX_TEXTURE_MAX_ANISOTROPY_EXT), 0 === b && (b = 2), b) : null
+            }(b));
+            c.push("webgl max combined texture image units:" + b.getParameter(b.MAX_COMBINED_TEXTURE_IMAGE_UNITS));
+            c.push("webgl max cube map texture size:" + b.getParameter(b.MAX_CUBE_MAP_TEXTURE_SIZE));
+            c.push("webgl max fragment uniform vectors:" + b.getParameter(b.MAX_FRAGMENT_UNIFORM_VECTORS));
+            c.push("webgl max render buffer size:" + b.getParameter(b.MAX_RENDERBUFFER_SIZE));
+            c.push("webgl max texture image units:" + b.getParameter(b.MAX_TEXTURE_IMAGE_UNITS));
+            c.push("webgl max texture size:" + b.getParameter(b.MAX_TEXTURE_SIZE));
+            c.push("webgl max varying vectors:" + b.getParameter(b.MAX_VARYING_VECTORS));
+            c.push("webgl max vertex attribs:" + b.getParameter(b.MAX_VERTEX_ATTRIBS));
+            c.push("webgl max vertex texture image units:" + b.getParameter(b.MAX_VERTEX_TEXTURE_IMAGE_UNITS));
+            c.push("webgl max vertex uniform vectors:" + b.getParameter(b.MAX_VERTEX_UNIFORM_VECTORS));
+            c.push("webgl max viewport dims:" +
+                a(b.getParameter(b.MAX_VIEWPORT_DIMS)));
+            c.push("webgl red bits:" + b.getParameter(b.RED_BITS));
+            c.push("webgl renderer:" + b.getParameter(b.RENDERER));
+            c.push("webgl shading language version:" + b.getParameter(b.SHADING_LANGUAGE_VERSION));
+            c.push("webgl stencil bits:" + b.getParameter(b.STENCIL_BITS));
+            c.push("webgl vendor:" + b.getParameter(b.VENDOR));
+            c.push("webgl version:" + b.getParameter(b.VERSION));
+            if (!b.getShaderPrecisionFormat) return c.join("~");
+            c.push("webgl vertex shader high float precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER,
+                b.HIGH_FLOAT).precision);
+            c.push("webgl vertex shader high float precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_FLOAT).rangeMin);
+            c.push("webgl vertex shader high float precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_FLOAT).rangeMax);
+            c.push("webgl vertex shader medium float precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_FLOAT).precision);
+            c.push("webgl vertex shader medium float precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER,
+                b.MEDIUM_FLOAT).rangeMin);
+            c.push("webgl vertex shader medium float precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_FLOAT).rangeMax);
+            c.push("webgl vertex shader low float precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_FLOAT).precision);
+            c.push("webgl vertex shader low float precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_FLOAT).rangeMin);
+            c.push("webgl vertex shader low float precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER,
+                b.LOW_FLOAT).rangeMax);
+            c.push("webgl fragment shader high float precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_FLOAT).precision);
+            c.push("webgl fragment shader high float precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_FLOAT).rangeMin);
+            c.push("webgl fragment shader high float precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_FLOAT).rangeMax);
+            c.push("webgl fragment shader medium float precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER,
+                b.MEDIUM_FLOAT).precision);
+            c.push("webgl fragment shader medium float precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_FLOAT).rangeMin);
+            c.push("webgl fragment shader medium float precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_FLOAT).rangeMax);
+            c.push("webgl fragment shader low float precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_FLOAT).precision);
+            c.push("webgl fragment shader low float precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER,
+                b.LOW_FLOAT).rangeMin);
+            c.push("webgl fragment shader low float precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_FLOAT).rangeMax);
+            c.push("webgl vertex shader high int precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_INT).precision);
+            c.push("webgl vertex shader high int precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_INT).rangeMin);
+            c.push("webgl vertex shader high int precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_INT).rangeMax);
+            c.push("webgl vertex shader medium int precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_INT).precision);
+            c.push("webgl vertex shader medium int precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_INT).rangeMin);
+            c.push("webgl vertex shader medium int precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_INT).rangeMax);
+            c.push("webgl vertex shader low int precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_INT).precision);
+            c.push("webgl vertex shader low int precision rangeMin:" +
+                b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_INT).rangeMin);
+            c.push("webgl vertex shader low int precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_INT).rangeMax);
+            c.push("webgl fragment shader high int precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_INT).precision);
+            c.push("webgl fragment shader high int precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_INT).rangeMin);
+            c.push("webgl fragment shader high int precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER,
+                b.HIGH_INT).rangeMax);
+            c.push("webgl fragment shader medium int precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_INT).precision);
+            c.push("webgl fragment shader medium int precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_INT).rangeMin);
+            c.push("webgl fragment shader medium int precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_INT).rangeMax);
+            c.push("webgl fragment shader low int precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER,
+                b.LOW_INT).precision);
+            c.push("webgl fragment shader low int precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_INT).rangeMin);
+            c.push("webgl fragment shader low int precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_INT).rangeMax);
+            return c.join("~")
+        }, hasLocalStorage: function () {
+            try {
+                return !!r.localStorage
+            } catch (a) {
+                return !0
+            }
+        }, flashFontsKey: function (a, b) {
+            if (this.options.excludeFlashFonts || !this.hasSwfObjectLoaded() || !this.hasMinFlashInstalled() || "undefined" ===
+                typeof this.options.swfPath) return b(a);
+            this.loadSwfAndDetectFonts(function (c) {
+                a.push({value: c.join(";"), key: "swf_fonts"});
+                b(a)
+            })
+        }, each: function (a, b, c) {
+            if (null !== a) if (this.nativeForEach && a.forEach === this.nativeForEach) a.forEach(b, c); else if (a.length === +a.length) for (var d = 0, e = a.length; d < e && b.call(c, a[d], d, a) !== {}; d++) ; else for (d in a) if (a.hasOwnProperty(d) && b.call(c, a[d], d, a) === {}) break
         }, getScreenResolution: function (a) {
             var b;
-            b = this.options.detectScreenOrientation ? x.height > x.width ? [x.height, x.width] : [x.width, x.height] : [x.width, x.height];
-            "undefined" !== typeof b && a.push({key: "resolution", value: b});
+            b = this.options.detectScreenOrientation ? x.height > x.width ? [x.height, x.width] :
+                [x.width, x.height] : [x.width, x.height];
+            "undefined" !== typeof b && a.push({value: b, key: "resolution"});
             return a
-        }, hasLiedLanguagesKey: function (a) {
-            this.options.excludeHasLiedLanguages || a.push({
-                key: "has_lied_languages",
-                value: this.getHasLiedLanguages()
-            });
-            return a
-        }, x64Multiply: function (a, b) {
+        }, getDoNotTrack: function () {
+            return k.doNotTrack ? k.doNotTrack : k.msDoNotTrack ? k.msDoNotTrack : r.doNotTrack ? r.doNotTrack : "unknown"
+        }, isIE: function () {
+            return "Microsoft Internet Explorer" === k.appName || "Netscape" === k.appName && /Trident/.test(k.userAgent) ? !0 : !1
+        }, x64Rotl: function (a, b) {
+            b %= 64;
+            if (32 === b) return [a[1], a[0]];
+            if (32 > b) return [a[0] << b | a[1] >>> 32 - b, a[1] << b | a[0] >>> 32 - b];
+            b -= 32;
+            return [a[1] << b | a[0] >>> 32 - b,
+                a[0] << b | a[1] >>> 32 - b]
+        }, loadSwfAndDetectFonts: function (a) {
+            r.___fp_swf_loaded = function (b) {
+                a(b)
+            };
+            var b = this.options.swfContainerId;
+            this.addFlashDivNode();
+            X.embedSWF(this.options.swfPath, b, "1", "1", "9.0.0", !1, {onReady: "___fp_swf_loaded"}, {
+                allowScriptAccess: "always",
+                menu: "false"
+            }, {})
+        }, getPixelRatio: function () {
+            return r.devicePixelRatio || ""
+        }, getNavigatorPlatform: function () {
+            return k.platform ? k.platform : "unknown"
+        }, isCanvasSupported: function () {
+            var a = v.createElement("canvas");
+            return !(!a.getContext || !a.getContext("2d"))
+        },
+        x64Multiply: function (a, b) {
             a = [a[0] >>> 16, a[0] & 65535, a[1] >>> 16, a[1] & 65535];
             b = [b[0] >>> 16, b[0] & 65535, b[1] >>> 16, b[1] & 65535];
             var c = [0, 0, 0, 0];
@@ -1220,247 +1316,153 @@
             c[0] += a[0] * b[3] + a[1] * b[2] + a[2] * b[1] + a[3] * b[0];
             c[0] &= 65535;
             return [c[0] << 16 | c[1], c[2] << 16 | c[3]]
-        },
-        map: function (a, b, c) {
-            var d = [];
-            if (null == a) return d;
-            if (this.nativeMap && a.map === this.nativeMap) return a.map(b, c);
-            this.each(a, function (a, f, h) {
-                d[d.length] = b.call(c, a, f, h)
-            });
-            return d
-        }, languageKey: function (a) {
-            this.options.excludeLanguage || a.push({
-                key: "language",
-                value: k.language || k.userLanguage || k.browserLanguage || k.systemLanguage || ""
-            });
-            return a
-        }, pluginsKey: function (a) {
-            this.options.excludePlugins || (this.isIE() ? this.options.excludeIEPlugins || a.push({
-                key: "ie_plugins",
-                value: this.getIEPlugins()
-            }) : a.push({
-                value: this.getRegularPlugins(),
-                key: "regular_plugins"
-            }));
-            return a
-        }, getHasLiedOs: function () {
-            var a = k.userAgent.toLowerCase(), b = k.oscpu, c = k.platform.toLowerCase(),
-                a = 0 <= a.indexOf("windows phone") ? "Windows Phone" : 0 <= a.indexOf("win") ? "Windows" : 0 <= a.indexOf("android") ? "Android" : 0 <= a.indexOf("linux") ? "Linux" : 0 <= a.indexOf("iphone") || 0 <= a.indexOf("ipad") ? "iOS" : 0 <= a.indexOf("mac") ? "Mac" : "Other";
-            return ("ontouchstart" in r || 0 < k.maxTouchPoints || 0 < k.msMaxTouchPoints) && "Windows Phone" !== a && "Android" !== a && "iOS" !== a && "Other" !== a || "undefined" !== typeof b &&
-            (b = b.toLowerCase(), 0 <= b.indexOf("win") && "Windows" !== a && "Windows Phone" !== a || 0 <= b.indexOf("linux") && "Linux" !== a && "Android" !== a || 0 <= b.indexOf("mac") && "Mac" !== a && "iOS" !== a || 0 === b.indexOf("win") && 0 === b.indexOf("linux") && 0 <= b.indexOf("mac") && "other" !== a) ? !0 : 0 <= c.indexOf("win") && "Windows" !== a && "Windows Phone" !== a || (0 <= c.indexOf("linux") || 0 <= c.indexOf("android") || 0 <= c.indexOf("pike")) && "Linux" !== a && "Android" !== a || (0 <= c.indexOf("mac") || 0 <= c.indexOf("ipad") || 0 <= c.indexOf("ipod") || 0 <= c.indexOf("iphone")) &&
-            "Mac" !== a && "iOS" !== a || 0 === c.indexOf("win") && 0 === c.indexOf("linux") && 0 <= c.indexOf("mac") && "other" !== a ? !0 : "undefined" === typeof k.plugins && "Windows" !== a && "Windows Phone" !== a ? !0 : !1
-        }, getWebglFp: function () {
-            function a(a) {
-                b.clearColor(0, 0, 0, 1);
-                b.enable(b.DEPTH_TEST);
-                b.depthFunc(b.LEQUAL);
-                b.clear(b.COLOR_BUFFER_BIT | b.DEPTH_BUFFER_BIT);
-                return "[" + a[0] + ", " + a[1] + "]"
-            }
-
+        }, hasSwfObjectLoaded: function () {
+            return "undefined" !==
+                typeof r.swfobject
+        }, getAvailableScreenResolution: function (a) {
             var b;
-            b = this.getWebglCanvas();
-            if (!b) return null;
-            var c = [], d = b.createBuffer();
-            b.bindBuffer(b.ARRAY_BUFFER, d);
-            var e = new Float32Array([-.2, -.9, 0, .4,
-                -.26, 0, 0, .732134444, 0]);
-            b.bufferData(b.ARRAY_BUFFER, e, b.STATIC_DRAW);
-            d.itemSize = 3;
-            d.numItems = 3;
-            var e = b.createProgram(), f = b.createShader(b.VERTEX_SHADER);
-            b.shaderSource(f, "attribute vec2 attrVertex;varying vec2 varyinTexCoordinate;uniform vec2 uniformOffset;void main(){varyinTexCoordinate\x3dattrVertex+uniformOffset;gl_Position\x3dvec4(attrVertex,0,1);}");
-            b.compileShader(f);
-            var h = b.createShader(b.FRAGMENT_SHADER);
-            b.shaderSource(h, "precision mediump float;varying vec2 varyinTexCoordinate;void main() {gl_FragColor\x3dvec4(varyinTexCoordinate,0,1);}");
-            b.compileShader(h);
-            b.attachShader(e, f);
-            b.attachShader(e, h);
-            b.linkProgram(e);
-            b.useProgram(e);
-            e.vertexPosAttrib = b.getAttribLocation(e, "attrVertex");
-            e.offsetUniform = b.getUniformLocation(e, "uniformOffset");
-            b.enableVertexAttribArray(e.vertexPosArray);
-            b.vertexAttribPointer(e.vertexPosAttrib, d.itemSize, b.FLOAT, !1, 0, 0);
-            b.uniform2f(e.offsetUniform, 1, 1);
-            b.drawArrays(b.TRIANGLE_STRIP, 0, d.numItems);
-            null != b.canvas && c.push(b.canvas.toDataURL());
-            c.push("extensions:" + b.getSupportedExtensions().join(";"));
-            c.push("webgl aliased line width range:" +
-                a(b.getParameter(b.ALIASED_LINE_WIDTH_RANGE)));
-            c.push("webgl aliased point size range:" + a(b.getParameter(b.ALIASED_POINT_SIZE_RANGE)));
-            c.push("webgl alpha bits:" + b.getParameter(b.ALPHA_BITS));
-            c.push("webgl antialiasing:" + (b.getContextAttributes().antialias ? "yes" : "no"));
-            c.push("webgl blue bits:" + b.getParameter(b.BLUE_BITS));
-            c.push("webgl depth bits:" + b.getParameter(b.DEPTH_BITS));
-            c.push("webgl green bits:" + b.getParameter(b.GREEN_BITS));
-            c.push("webgl max anisotropy:" + function (a) {
-                var b, c = a.getExtension("EXT_texture_filter_anisotropic") ||
-                    a.getExtension("WEBKIT_EXT_texture_filter_anisotropic") || a.getExtension("MOZ_EXT_texture_filter_anisotropic");
-                return c ? (b = a.getParameter(c.MAX_TEXTURE_MAX_ANISOTROPY_EXT), 0 === b && (b = 2), b) : null
-            }(b));
-            c.push("webgl max combined texture image units:" + b.getParameter(b.MAX_COMBINED_TEXTURE_IMAGE_UNITS));
-            c.push("webgl max cube map texture size:" + b.getParameter(b.MAX_CUBE_MAP_TEXTURE_SIZE));
-            c.push("webgl max fragment uniform vectors:" + b.getParameter(b.MAX_FRAGMENT_UNIFORM_VECTORS));
-            c.push("webgl max render buffer size:" +
-                b.getParameter(b.MAX_RENDERBUFFER_SIZE));
-            c.push("webgl max texture image units:" + b.getParameter(b.MAX_TEXTURE_IMAGE_UNITS));
-            c.push("webgl max texture size:" + b.getParameter(b.MAX_TEXTURE_SIZE));
-            c.push("webgl max varying vectors:" + b.getParameter(b.MAX_VARYING_VECTORS));
-            c.push("webgl max vertex attribs:" + b.getParameter(b.MAX_VERTEX_ATTRIBS));
-            c.push("webgl max vertex texture image units:" + b.getParameter(b.MAX_VERTEX_TEXTURE_IMAGE_UNITS));
-            c.push("webgl max vertex uniform vectors:" + b.getParameter(b.MAX_VERTEX_UNIFORM_VECTORS));
-            c.push("webgl max viewport dims:" + a(b.getParameter(b.MAX_VIEWPORT_DIMS)));
-            c.push("webgl red bits:" + b.getParameter(b.RED_BITS));
-            c.push("webgl renderer:" + b.getParameter(b.RENDERER));
-            c.push("webgl shading language version:" + b.getParameter(b.SHADING_LANGUAGE_VERSION));
-            c.push("webgl stencil bits:" + b.getParameter(b.STENCIL_BITS));
-            c.push("webgl vendor:" + b.getParameter(b.VENDOR));
-            c.push("webgl version:" + b.getParameter(b.VERSION));
-            if (!b.getShaderPrecisionFormat) return c.join("~");
-            c.push("webgl vertex shader high float precision:" +
-                b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_FLOAT).precision);
-            c.push("webgl vertex shader high float precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_FLOAT).rangeMin);
-            c.push("webgl vertex shader high float precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_FLOAT).rangeMax);
-            c.push("webgl vertex shader medium float precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_FLOAT).precision);
-            c.push("webgl vertex shader medium float precision rangeMin:" +
-                b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_FLOAT).rangeMin);
-            c.push("webgl vertex shader medium float precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_FLOAT).rangeMax);
-            c.push("webgl vertex shader low float precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_FLOAT).precision);
-            c.push("webgl vertex shader low float precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_FLOAT).rangeMin);
-            c.push("webgl vertex shader low float precision rangeMax:" +
-                b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_FLOAT).rangeMax);
-            c.push("webgl fragment shader high float precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_FLOAT).precision);
-            c.push("webgl fragment shader high float precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_FLOAT).rangeMin);
-            c.push("webgl fragment shader high float precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_FLOAT).rangeMax);
-            c.push("webgl fragment shader medium float precision:" +
-                b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_FLOAT).precision);
-            c.push("webgl fragment shader medium float precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_FLOAT).rangeMin);
-            c.push("webgl fragment shader medium float precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_FLOAT).rangeMax);
-            c.push("webgl fragment shader low float precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_FLOAT).precision);
-            c.push("webgl fragment shader low float precision rangeMin:" +
-                b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_FLOAT).rangeMin);
-            c.push("webgl fragment shader low float precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_FLOAT).rangeMax);
-            c.push("webgl vertex shader high int precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_INT).precision);
-            c.push("webgl vertex shader high int precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.HIGH_INT).rangeMin);
-            c.push("webgl vertex shader high int precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER,
-                b.HIGH_INT).rangeMax);
-            c.push("webgl vertex shader medium int precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_INT).precision);
-            c.push("webgl vertex shader medium int precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_INT).rangeMin);
-            c.push("webgl vertex shader medium int precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.MEDIUM_INT).rangeMax);
-            c.push("webgl vertex shader low int precision:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_INT).precision);
-            c.push("webgl vertex shader low int precision rangeMin:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_INT).rangeMin);
-            c.push("webgl vertex shader low int precision rangeMax:" + b.getShaderPrecisionFormat(b.VERTEX_SHADER, b.LOW_INT).rangeMax);
-            c.push("webgl fragment shader high int precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_INT).precision);
-            c.push("webgl fragment shader high int precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_INT).rangeMin);
-            c.push("webgl fragment shader high int precision rangeMax:" +
-                b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.HIGH_INT).rangeMax);
-            c.push("webgl fragment shader medium int precision:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_INT).precision);
-            c.push("webgl fragment shader medium int precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_INT).rangeMin);
-            c.push("webgl fragment shader medium int precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.MEDIUM_INT).rangeMax);
-            c.push("webgl fragment shader low int precision:" +
-                b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_INT).precision);
-            c.push("webgl fragment shader low int precision rangeMin:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_INT).rangeMin);
-            c.push("webgl fragment shader low int precision rangeMax:" + b.getShaderPrecisionFormat(b.FRAGMENT_SHADER, b.LOW_INT).rangeMax);
-            return c.join("~")
-        }, getIEPlugins: function () {
-            var a = [];
-            if (Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(r, "ActiveXObject") || "ActiveXObject" in r) a = this.map("AcroPDF.PDF;Adodb.Stream;AgControl.AgControl;DevalVRXCtrl.DevalVRXCtrl.1;MacromediaFlashPaper.MacromediaFlashPaper;Msxml2.DOMDocument;Msxml2.XMLHTTP;PDF.PdfCtrl;QuickTime.QuickTime;QuickTimeCheckObject.QuickTimeCheck.1;RealPlayer;RealPlayer.RealPlayer(tm) ActiveX Control (32-bit);RealVideo.RealVideo(tm) ActiveX Control (32-bit);Scripting.Dictionary;SWCtl.SWCtl;Shell.UIHelper;ShockwaveFlash.ShockwaveFlash;Skype.Detection;TDCCtl.TDCCtl;WMPlayer.OCX;rmocx.RealPlayer G2 Control;rmocx.RealPlayer G2 Control.1".split(";"),
-                function (a) {
-                    try {
-                        return new ActiveXObject(a), a
-                    } catch (c) {
-                        return null
-                    }
-                });
-            k.plugins && (a = a.concat(this.getRegularPlugins()));
+            x.availWidth && x.availHeight && (b = this.options.detectScreenOrientation ? x.availHeight > x.availWidth ? [x.availHeight, x.availWidth] : [x.availWidth, x.availHeight] : [x.availHeight, x.availWidth]);
+            "undefined" !== typeof b && a.push({key: "available_resolution", value: b});
             return a
-        }, getRegularPlugins: function () {
-            for (var a = [], b = 0, c = k.plugins.length; b < c; b++) a.push(k.plugins[b]);
-            this.pluginsShouldBeSorted() && (a = a.sort(function (a, b) {
-                return a.name > b.name ? 1 : a.name < b.name ? -1 : 0
-            }));
-            return this.map(a, function (a) {
-                var b = this.map(a, function (a) {
-                    return [a.type, a.suffixes].join("~")
-                }).join(",");
-                return [a.name, a.description, b].join("::")
-            }, this)
-        }, fontsKey: function (a, b) {
-            return this.options.excludeJsFonts ?
-                this.flashFontsKey(a, b) : this.jsFontsKey(a, b)
-        }, platformKey: function (a) {
-            this.options.excludePlatform || a.push({key: "navigator_platform", value: this.getNavigatorPlatform()});
-            return a
-        }, localStorageKey: function (a) {
-            !this.options.excludeSessionStorage && this.hasLocalStorage() && a.push({value: 1, key: "local_storage"});
-            return a
-        }, getAdBlock: function () {
-            var a = v.createElement("div");
-            a.innerHTML = "\x26nbsp;";
-            a.className = "adsbox";
-            var b = "0";
-            try {
-                v.body.appendChild(a), 0 === v.getElementsByClassName("adsbox")[0].offsetHeight &&
-                (b = "1"), v.body.removeChild(a)
-            } catch (c) {
-                b = "0"
+        }, x64hash128: function (a, b) {
+            a = a || "";
+            b = b || 0;
+            for (var c = a.length % 16, d = a.length - c, e = [0, b], f = [0, b], h, m, k = [2277735313, 289559509], n = [1291169091, 658871167], g = 0; g < d; g += 16) h = [a.charCodeAt(g +
+                4) & 255 | (a.charCodeAt(g + 5) & 255) << 8 | (a.charCodeAt(g + 6) & 255) << 16 | (a.charCodeAt(g + 7) & 255) << 24, a.charCodeAt(g) & 255 | (a.charCodeAt(g + 1) & 255) << 8 | (a.charCodeAt(g + 2) & 255) << 16 | (a.charCodeAt(g + 3) & 255) << 24], m = [a.charCodeAt(g + 12) & 255 | (a.charCodeAt(g + 13) & 255) << 8 | (a.charCodeAt(g + 14) & 255) << 16 | (a.charCodeAt(g + 15) & 255) << 24, a.charCodeAt(g + 8) & 255 | (a.charCodeAt(g + 9) & 255) << 8 | (a.charCodeAt(g + 10) & 255) << 16 | (a.charCodeAt(g + 11) & 255) << 24], h = this.x64Multiply(h, k), h = this.x64Rotl(h, 31), h = this.x64Multiply(h, n), e = this.x64Xor(e, h),
+                e = this.x64Rotl(e, 27), e = this.x64Add(e, f), e = this.x64Add(this.x64Multiply(e, [0, 5]), [0, 1390208809]), m = this.x64Multiply(m, n), m = this.x64Rotl(m, 33), m = this.x64Multiply(m, k), f = this.x64Xor(f, m), f = this.x64Rotl(f, 31), f = this.x64Add(f, e), f = this.x64Add(this.x64Multiply(f, [0, 5]), [0, 944331445]);
+            h = [0, 0];
+            m = [0, 0];
+            switch (c) {
+                case 15:
+                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 14)], 48));
+                case 14:
+                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 13)], 40));
+                case 13:
+                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g +
+                        12)], 32));
+                case 12:
+                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 11)], 24));
+                case 11:
+                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 10)], 16));
+                case 10:
+                    m = this.x64Xor(m, this.x64LeftShift([0, a.charCodeAt(g + 9)], 8));
+                case 9:
+                    m = this.x64Xor(m, [0, a.charCodeAt(g + 8)]), m = this.x64Multiply(m, n), m = this.x64Rotl(m, 33), m = this.x64Multiply(m, k), f = this.x64Xor(f, m);
+                case 8:
+                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 7)], 56));
+                case 7:
+                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 6)], 48));
+                case 6:
+                    h = this.x64Xor(h,
+                        this.x64LeftShift([0, a.charCodeAt(g + 5)], 40));
+                case 5:
+                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 4)], 32));
+                case 4:
+                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 3)], 24));
+                case 3:
+                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 2)], 16));
+                case 2:
+                    h = this.x64Xor(h, this.x64LeftShift([0, a.charCodeAt(g + 1)], 8));
+                case 1:
+                    h = this.x64Xor(h, [0, a.charCodeAt(g)]), h = this.x64Multiply(h, k), h = this.x64Rotl(h, 31), h = this.x64Multiply(h, n), e = this.x64Xor(e, h)
             }
-            return b
-        }, addFlashDivNode: function () {
-            var a = v.createElement("div");
-            a.setAttribute("id", this.options.swfContainerId);
-            v.body.appendChild(a)
-        }, touchSupportKey: function (a) {
-            this.options.excludeTouchSupport || a.push({key: "touch_support", value: this.getTouchSupport()});
+            e = this.x64Xor(e, [0, a.length]);
+            f = this.x64Xor(f, [0, a.length]);
+            e = this.x64Add(e, f);
+            f = this.x64Add(f, e);
+            e = this.x64Fmix(e);
+            f = this.x64Fmix(f);
+            e = this.x64Add(e, f);
+            f = this.x64Add(f, e);
+            return ("00000000" + (e[0] >>> 0).toString(16)).slice(-8) + ("00000000" + (e[1] >>> 0).toString(16)).slice(-8) + ("00000000" + (f[0] >>> 0).toString(16)).slice(-8) + ("00000000" + (f[1] >>> 0).toString(16)).slice(-8)
+        }, x64Add: function (a, b) {
+            a = [a[0] >>> 16, a[0] & 65535, a[1] >>> 16, a[1] & 65535];
+            b = [b[0] >>> 16, b[0] & 65535, b[1] >>> 16, b[1] & 65535];
+            var c = [0, 0, 0, 0];
+            c[3] += a[3] + b[3];
+            c[2] += c[3] >>> 16;
+            c[3] &= 65535;
+            c[2] += a[2] + b[2];
+            c[1] +=
+                c[2] >>> 16;
+            c[2] &= 65535;
+            c[1] += a[1] + b[1];
+            c[0] += c[1] >>> 16;
+            c[1] &= 65535;
+            c[0] += a[0] + b[0];
+            c[0] &= 65535;
+            return [c[0] << 16 | c[1], c[2] << 16 | c[3]]
+        }, hasLiedOsKey: function (a) {
+            this.options.excludeHasLiedOs || a.push({value: this.getHasLiedOs(), key: "has_lied_os"});
             return a
+        }, canvasKey: function (a) {
+            !this.options.excludeCanvas && this.isCanvasSupported() && a.push({
+                value: this.getCanvasFp(),
+                key: "canvas"
+            });
+            return a
+        }, hasLiedLanguagesKey: function (a) {
+            this.options.excludeHasLiedLanguages || a.push({
+                key: "has_lied_languages",
+                value: this.getHasLiedLanguages()
+            });
+            return a
+        }, timezoneOffsetKey: function (a) {
+            this.options.excludeTimezoneOffset || a.push({
+                value: (new Date).getTimezoneOffset(),
+                key: "timezone_offset"
+            });
+            return a
+        }, hasIndexedDB: function () {
+            return !!r.indexedDB
         }
     };
-    var ib = {
-            appMinorVersion: "qBVW",
-            systemLanguage: "e6OK",
-            webSmartID: "E3gR",
-            userAgent: "0aew",
-            doNotTrack: "VEek",
-            touchSupport: "wNLf",
-            hasLiedBrowser: "2xC5",
-            adblock: "FMQw",
-            appcodeName: "qT7b",
-            historyList: "kU5z",
-            cookieEnabled: "VPIf",
-            timeZone: "q5aJ",
-            jsFonts: "EOQP",
-            openDatabase: "V8vl",
-            indexedDb: "3sw-",
-            scrWidth: "ssI5",
-            scrAvailSize: "TeRS",
-            plugins: "ks0Q",
-            hasLiedLanguages: "j5po",
-            online: "9vyE",
-            userLanguage: "hLzX",
-            browserVersion: "d435",
-            cookieCode: "VySQ",
-            scrAvailWidth: "E-lJ",
-            flashVersion: "dzuS",
-            hasLiedOs: "ci5c",
-            mimeTypes: "jp76",
-            storeDb: "Fvje",
-            scrAvailHeight: "88tV",
-            srcScreenSize: "tOHY",
-            localStorage: "XM7l",
-            javaEnabled: "yD16",
-            browserName: "-UVA",
-            hasLiedResolution: "3neK",
-            scrColorDepth: "qmyu",
-            scrHeight: "5Jwy",
-            os: "hAqN",
-            cpuClass: "Md7A",
-            scrDeviceXDPI: "3jCe",
-            sessionStorage: "HVia",
-            browserLanguage: "q4f3",
-            localCode: "lEnu"
-        }, X, J = r, q = v, O = k, jb = !1, oa = [function () {
+    var Eb = ["sessionStorage", "localStorage", "indexedDb", "openDatabase"], ib = {
+        appcodeName: "qT7b",
+        indexedDb: "3sw-",
+        os: "hAqN",
+        scrWidth: "ssI5",
+        plugins: "ks0Q",
+        scrColorDepth: "qmyu",
+        jsFonts: "EOQP",
+        scrDeviceXDPI: "3jCe",
+        storeDb: "Fvje",
+        javaEnabled: "yD16",
+        timeZone: "q5aJ",
+        appMinorVersion: "qBVW",
+        mimeTypes: "jp76",
+        hasLiedBrowser: "2xC5",
+        browserName: "-UVA",
+        webSmartID: "E3gR",
+        sessionStorage: "HVia",
+        historyList: "kU5z",
+        localCode: "lEnu",
+        flashVersion: "dzuS",
+        cookieEnabled: "VPIf",
+        scrHeight: "5Jwy",
+        systemLanguage: "e6OK",
+        localStorage: "XM7l",
+        cpuClass: "Md7A",
+        touchSupport: "wNLf",
+        hasLiedOs: "ci5c",
+        browserVersion: "d435",
+        scrAvailWidth: "E-lJ",
+        hasLiedLanguages: "j5po",
+        doNotTrack: "VEek",
+        scrAvailHeight: "88tV",
+        hasLiedResolution: "3neK",
+        online: "9vyE",
+        userLanguage: "hLzX",
+        adblock: "FMQw",
+        userAgent: "0aew",
+        browserLanguage: "q4f3",
+        openDatabase: "V8vl",
+        scrAvailSize: "TeRS",
+        srcScreenSize: "tOHY",
+        cookieCode: "VySQ"
+    };
+    Z.VERSION = "1.4.2";
+    var tb = 0, X, J = r, q = v, O = k, jb = !1, oa = [function () {
             if (jb) {
                 var a = q.getElementsByTagName("body")[0], b = q.createElement("object");
                 b.setAttribute("type", "application/x-shockwave-flash");
@@ -1473,8 +1475,7 @@
                             h && (h = h.split(" ")[1].split(","), g.pv = [parseInt(h[0], 10), parseInt(h[1], 10), parseInt(h[2], 10)])
                         } else if (10 > d) {
                             d++;
-                            H(f,
-                                10);
+                            H(f, 10);
                             return
                         }
                         a.removeChild(b);
@@ -1484,22 +1485,22 @@
                 } else Ha()
             } else Ha()
         }], M = [], la = [], T = [], Y, na, Ea, Xa, Q = !1, ma = !1, L, Aa, Ua = !0, g,
-        Cb = "undefined" != typeof q.getElementById && "undefined" != typeof q.getElementsByTagName && "undefined" != typeof q.createElement,
-        wa = O.userAgent.toLowerCase(), xa = O.platform.toLowerCase(), Db = xa ? /win/.test(xa) : /win/.test(wa),
-        Eb = xa ? /mac/.test(xa) : /mac/.test(wa),
-        Fb = /webkit/.test(wa) ? parseFloat(wa.replace(/^.*webkit\/(\d+(\.\d+)?).*$/, "$1")) : !1, Ma = !+"\x0B1",
+        Fb = "undefined" != typeof q.getElementById && "undefined" != typeof q.getElementsByTagName && "undefined" != typeof q.createElement,
+        wa = O.userAgent.toLowerCase(), xa = O.platform.toLowerCase(), Gb = xa ? /win/.test(xa) : /win/.test(wa),
+        Hb = xa ? /mac/.test(xa) : /mac/.test(wa),
+        Ib = /webkit/.test(wa) ? parseFloat(wa.replace(/^.*webkit\/(\d+(\.\d+)?).*$/, "$1")) : !1, Na = !+"\x0B1",
         ha = [0, 0, 0], I = null;
-    if ("undefined" != typeof O.plugins &&
-        "object" == typeof O.plugins["Shockwave Flash"]) !(I = O.plugins["Shockwave Flash"].description) || "undefined" != typeof O.mimeTypes && O.mimeTypes["application/x-shockwave-flash"] && !O.mimeTypes["application/x-shockwave-flash"].enabledPlugin || (jb = !0, Ma = !1, I = I.replace(/^.*\s+(\S+\s+\S+$)/, "$1"), ha[0] = parseInt(I.replace(/^(.*)\..*$/, "$1"), 10), ha[1] = parseInt(I.replace(/^.*\.(.*)\s.*$/, "$1"), 10), ha[2] = /[a-zA-Z]/.test(I) ? parseInt(I.replace(/^.*[a-zA-Z]+(.*)$/, "$1"), 10) : 0); else if ("undefined" != typeof J.ActiveXObject) try {
-        if (I =
-            (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")).GetVariable("$version")) Ma = !0, I = I.split(" ")[1].split(","), ha = [parseInt(I[0], 10), parseInt(I[1], 10), parseInt(I[2], 10)]
+    if ("undefined" != typeof O.plugins && "object" == typeof O.plugins["Shockwave Flash"]) !(I =
+        O.plugins["Shockwave Flash"].description) || "undefined" != typeof O.mimeTypes && O.mimeTypes["application/x-shockwave-flash"] && !O.mimeTypes["application/x-shockwave-flash"].enabledPlugin || (jb = !0, Na = !1, I = I.replace(/^.*\s+(\S+\s+\S+$)/, "$1"), ha[0] = parseInt(I.replace(/^(.*)\..*$/, "$1"), 10), ha[1] = parseInt(I.replace(/^.*\.(.*)\s.*$/, "$1"), 10), ha[2] = /[a-zA-Z]/.test(I) ? parseInt(I.replace(/^.*[a-zA-Z]+(.*)$/, "$1"), 10) : 0); else if ("undefined" != typeof J.ActiveXObject) try {
+        if (I = (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")).GetVariable("$version")) Na =
+            !0, I = I.split(" ")[1].split(","), ha = [parseInt(I[0], 10), parseInt(I[1], 10), parseInt(I[2], 10)]
     } catch (a) {
     }
-    g = {win: Db, wk: Fb, ie: Ma, w3: Cb, mac: Eb, pv: ha};
-    g.w3 && (("undefined" != typeof q.readyState && "complete" == q.readyState || "undefined" == typeof q.readyState && (q.getElementsByTagName("body")[0] || q.body)) && U(), Q || ("undefined" != typeof q.addEventListener && q.addEventListener("DOMContentLoaded", U, !1), g.ie && g.win && (q.attachEvent("onreadystatechange",
-        function b() {
-            "complete" == q.readyState && (q.detachEvent("onreadystatechange", b), U())
-        }), J == tb && function c() {
+    g = {win: Gb, wk: Ib, w3: Fb, mac: Hb, pv: ha, ie: Na};
+    g.w3 && (("undefined" != typeof q.readyState && "complete" == q.readyState || "undefined" == typeof q.readyState && (q.getElementsByTagName("body")[0] || q.body)) && U(), Q || ("undefined" != typeof q.addEventListener && q.addEventListener("DOMContentLoaded", U, !1), g.ie && g.win && (q.attachEvent("onreadystatechange", function b() {
+        "complete" == q.readyState && (q.detachEvent("onreadystatechange",
+            b), U())
+    }), J == ub && function c() {
         if (!Q) {
             try {
                 q.documentElement.doScroll("left")
@@ -1522,50 +1523,10 @@
         X = null
     });
     X = {
-        addDomLoadEvent: Za,
-        addLoadEvent: Ya, createSWF: function (a, b, c) {
-            if (g.w3) return Ba(a, b, c)
-        }, expressInstallCallback: function () {
-            if (ma) {
-                var a = K("SWFObjectExprInst");
-                a && Y && (a.parentNode.replaceChild(Y, a), na && (P(na, !0), g.ie && g.win && (Y.style.display = "block")), Ea && Ea(Xa));
-                ma = !1
-            }
-        }, getObjectById: function (a) {
-            if (g.w3) return Ga(a)
-        }, switchOffAutoHideShow: function () {
-            Ua = !1
-        }, removeSWF: function (a) {
-            g.w3 && Wa(a)
-        }, hasFlashPlayerVersion: ka, ua: g, getFlashPlayerVersion: function () {
-            return {release: g.pv[2], minor: g.pv[1], major: g.pv[0]}
-        }, getQueryParamValue: function (a) {
-            var b =
-                q.location.search || q.location.hash;
-            if (b) {
-                /\?/.test(b) && (b = b.split("?")[1]);
-                if (null == a) return Ta(b);
-                for (var b = b.split("\x26"), c = 0; c < b.length; c++) if (b[c].substring(0, b[c].indexOf("\x3d")) == a) return Ta(b[c].substring(b[c].indexOf("\x3d") + 1))
-            }
-            return ""
-        }, createCSS: function (a, b, c, d) {
-            g.w3 && Va(a, b, c, d)
-        }, showExpressInstall: function (a, b, c, d) {
-            g.w3 && Fa() && Da(a, b, c, d)
-        }, registerObject: function (a, b, c, d) {
-            if (g.w3 && a && b) {
-                var e = {};
-                e.id = a;
-                e.swfVersion = b;
-                e.expressInstall = c;
-                e.callbackFn = d;
-                M[M.length] = e;
-                P(a, !1)
-            } else d &&
-            d({success: !1, id: a})
-        }, embedSWF: function (a, b, c, d, e, f, h, m, k, n) {
-            var q = {success: !1, id: b};
-            g.w3 && !(g.wk && 312 > g.wk) && a && b && c && d && e ? (P(b, !1), Za(function () {
+        embedSWF: function (a, b, c, d, e, f, h, m, k, n) {
+            var q = {id: b, success: !1};
+            g.w3 && !(g.wk && 312 > g.wk) &&
+            a && b && c && d && e ? (P(b, !1), Za(function () {
                 c += "";
                 d += "";
                 var l = {};
@@ -1577,8 +1538,7 @@
                 if (m && "object" === typeof m) for (var r in m) g[r] = m[r];
                 if (h && "object" === typeof h) for (var t in h) g.flashvars = "undefined" != typeof g.flashvars ? g.flashvars + ("\x26" + t + "\x3d" + h[t]) : t + "\x3d" + h[t];
                 if (ka(e)) r = Ba(l, g, b), l.id == b && P(b, !0), q.success = !0, q.ref = r; else {
-                    if (f &&
-                        Fa()) {
+                    if (f && Fa()) {
                         l.data = f;
                         Da(l, g, b, n);
                         return
@@ -1587,16 +1547,53 @@
                 }
                 n && n(q)
             })) : n && n(q)
+        }, hasFlashPlayerVersion: ka, addDomLoadEvent: Za,
+        ua: g, expressInstallCallback: function () {
+            if (ma) {
+                var a = K("SWFObjectExprInst");
+                a && Y && (a.parentNode.replaceChild(Y, a), na && (P(na, !0), g.ie && g.win && (Y.style.display = "block")), Ea && Ea(Xa));
+                ma = !1
+            }
+        }, registerObject: function (a, b, c, d) {
+            if (g.w3 && a && b) {
+                var e = {};
+                e.id = a;
+                e.swfVersion = b;
+                e.expressInstall = c;
+                e.callbackFn = d;
+                M[M.length] = e;
+                P(a, !1)
+            } else d && d({success: !1, id: a})
+        }, getObjectById: function (a) {
+            if (g.w3) return Ga(a)
+        }, removeSWF: function (a) {
+            g.w3 && Wa(a)
+        }, addLoadEvent: Ya, createCSS: function (a, b, c, d) {
+            g.w3 && Va(a, b, c, d)
+        }, switchOffAutoHideShow: function () {
+            Ua =
+                !1
+        }, showExpressInstall: function (a, b, c, d) {
+            g.w3 && Fa() && Da(a, b, c, d)
+        }, createSWF: function (a, b, c) {
+            if (g.w3) return Ba(a, b, c)
+        }, getQueryParamValue: function (a) {
+            var b = q.location.search || q.location.hash;
+            if (b) {
+                /\?/.test(b) && (b = b.split("?")[1]);
+                if (null == a) return Ta(b);
+                for (var b = b.split("\x26"), c = 0; c < b.length; c++) if (b[c].substring(0, b[c].indexOf("\x3d")) == a) return Ta(b[c].substring(b[c].indexOf("\x3d") + 1))
+            }
+            return ""
+        }, getFlashPlayerVersion: function () {
+            return {major: g.pv[0], release: g.pv[2], minor: g.pv[1]}
         }
     };
-    Z.VERSION = "1.4.2";
-    var Gb = ["scrDeviceXDPI", "scrColorDepth", "scrWidth", "scrHeight"], Hb = ["scrAvailWidth", "scrAvailHeight"],
-        Ib = "appCodeName appMinorVersion appName cpuClass onLine systemLanguage userLanguage historyList hasLiedLanguages hasLiedResolution hasLiedOs hasLiedBrowser".split(" ");
+    var Jb = "appCodeName appMinorVersion appName cpuClass onLine systemLanguage userLanguage historyList hasLiedLanguages hasLiedResolution hasLiedOs hasLiedBrowser".split(" ");
     Array.prototype.indexOf || (Array.prototype.indexOf = function (a, b) {
         var c;
         if (null == this) throw new TypeError('"this" is null or not defined');
-        var d = Object(this),
-            e = d.length >>> 0;
+        var d = Object(this), e = d.length >>> 0;
         if (0 === e) return -1;
         c = +b || 0;
         Infinity === Math.abs(c) && (c = 0);
@@ -1607,34 +1604,35 @@
         }
         return -1
     });
-    var ba = 8, Jb = ["sessionStorage", "localStorage", "indexedDb", "openDatabase"];
+    var Kb = ["scrAvailWidth", "scrAvailHeight"], ba = 8;
     try {
-        var t = r, w = t.document, kb = t.Image, Na = t.globalStorage, lb = t.swfobject;
+        var t = r, w = t.document, kb = t.Image, Oa = t.globalStorage, lb = t.swfobject;
         try {
-            var Oa = t.localStorage
+            var Pa = t.localStorage
         } catch (a) {
         }
         try {
-            var Pa = t.sessionStorage
+            var Qa = t.sessionStorage
         } catch (a) {
         }
-        var ia, ya, mb = {
-            cacheCookieName: "evercookie_cache",
-            silverlight: !1,
-            pngPath: "/evercookie_png.php",
-            phpuri: "/php",
-            pngCookieName: "evercookie_png",
-            authPath: !1,
-            cachePath: "/evercookie_cache.php",
-            etagPath: "/evercookie_etag.php",
-            domain: za(t.location.host.split(":")[0]),
-            etagCookieName: "evercookie_etag",
-            asseturi: "/assets",
-            tests: 2,
-            baseurl: "",
-            history: !1,
-            java: !1
-        };
+        var ia,
+            ya, mb = {
+                silverlight: !1,
+                etagCookieName: "evercookie_etag",
+                pngCookieName: "evercookie_png",
+                phpuri: "/php",
+                domain: Ia(t.location.host.split(":")[0]),
+                cachePath: "/evercookie_cache.php",
+                history: !1,
+                pngPath: "/evercookie_png.php",
+                baseurl: "",
+                asseturi: "/assets",
+                etagPath: "/evercookie_etag.php",
+                cacheCookieName: "evercookie_cache",
+                tests: 2,
+                authPath: !1,
+                java: !1
+            };
         t._evercookie_flash_var = function (a) {
             ia = a;
             (a = w.getElementById("myswf")) && a.parentNode && a.parentNode.removeChild(a)
@@ -1646,8 +1644,7 @@
                 var d = a[c];
                 b[c] = "undefined" !== typeof d ? d : mb[c]
             }
-            "function" === typeof b.domain &&
-            (b.domain = b.domain(t));
+            "function" === typeof b.domain && (b.domain = b.domain(t));
             var e = b.history, f = b.java, h = b.tests, g = b.baseurl, k = b.asseturi, n = b.phpuri, q = b.domain,
                 l = this;
             this._ec = {};
@@ -1661,19 +1658,19 @@
             this._evercookie = function (a, c, d, g, k) {
                 void 0 === l._evercookie && (l = this);
                 void 0 === g && (g = 0);
-                0 === g && (l.evercookie_database_storage(a, d), l.evercookie_indexdb_storage(a, d), b.authPath && l.evercookie_auth(a, d), f && l.evercookie_java(a, d), l._ec.userData = l.evercookie_userdata(a,
-                    d), l._ec.cookieData = l.evercookie_cookie(a, d), l._ec.localData = l.evercookie_local_storage(a, d), l._ec.globalData = l.evercookie_global_storage(a, d), l._ec.sessionData = l.evercookie_session_storage(a, d), l._ec.windowData = l.evercookie_window(a, d), e && (l._ec.historyData = l.evercookie_history(a, d)));
+                0 === g && (l.evercookie_database_storage(a, d), l.evercookie_indexdb_storage(a,
+                    d), b.authPath && l.evercookie_auth(a, d), f && l.evercookie_java(a, d), l._ec.userData = l.evercookie_userdata(a, d), l._ec.cookieData = l.evercookie_cookie(a, d), l._ec.localData = l.evercookie_local_storage(a, d), l._ec.globalData = l.evercookie_global_storage(a, d), l._ec.sessionData = l.evercookie_session_storage(a, d), l._ec.windowData = l.evercookie_window(a, d), e && (l._ec.historyData = l.evercookie_history(a, d)));
                 if (void 0 !== d) ("undefined" === typeof ia || "undefined" === typeof ya) && g++ < h && H(function () {
-                    l._evercookie(a, c, d, g, k)
-                }, 300); else if ((t.openDatabase && "undefined" === typeof l._ec.dbData || ("indexedDB" in t || (t.indexedDB = t.indexedDB ||
-                    t.mozIndexedDB || t.webkitIndexedDB || t.msIndexedDB)) && ("undefined" === typeof l._ec.idbData || "" === l._ec.idbData) || "undefined" === typeof ia || "undefined" === typeof l._ec.etagData || "undefined" === typeof l._ec.cacheData || "undefined" === typeof l._ec.javaData || w.createElement("canvas").getContext && ("undefined" === typeof l._ec.pngData || "" === l._ec.pngData) || "undefined" === typeof ya) && g++ < h) H(function () {
-                    l._evercookie(a, c, d, g, k)
+                        l._evercookie(a, c, d, g, k)
+                    },
+                    300); else if ((t.openDatabase && "undefined" === typeof l._ec.dbData || ("indexedDB" in t || (t.indexedDB = t.indexedDB || t.mozIndexedDB || t.webkitIndexedDB || t.msIndexedDB)) && ("undefined" === typeof l._ec.idbData || "" === l._ec.idbData) || "undefined" === typeof ia || "undefined" === typeof l._ec.etagData || "undefined" === typeof l._ec.cacheData || "undefined" === typeof l._ec.javaData || w.createElement("canvas").getContext && ("undefined" === typeof l._ec.pngData || "" === l._ec.pngData) || "undefined" === typeof ya) && g++ < h) H(function () {
+                    l._evercookie(a,
+                        c, d, g, k)
                 }, 20); else {
                     l._ec.lsoData = l.getFromStr(a, ia);
                     ia = void 0;
                     l._ec.slData = l.getFromStr(a, ya);
-                    ya =
-                        void 0;
+                    ya = void 0;
                     var u = l._ec, y = [], F = 0, A, m;
                     l._ec = {};
                     for (m in u) u[m] && "null" !== u[m] && "undefined" !== u[m] && (y[u[m]] = void 0 === y[u[m]] ? 1 : y[u[m]] + 1);
@@ -1688,15 +1685,15 @@
                         var c;
                         var d = t.name;
                         if (-1 < d.indexOf("\x26" + a + "\x3d") || 0 === d.indexOf(a + "\x3d")) {
-                            var e = d.indexOf("\x26" + a + "\x3d"), f;
+                            var e = d.indexOf("\x26" + a + "\x3d"),
+                                f;
                             -1 === e && (e = d.indexOf(a + "\x3d"));
                             f = d.indexOf("\x26", e + 1);
-                            c = -1 !== f ? d.substr(0, e) + d.substr(f + (e ? 0 :
-                                1)) + "\x26" + a + "\x3d" + b : d.substr(0, e) + "\x26" + a + "\x3d" + b
+                            c = -1 !== f ? d.substr(0, e) + d.substr(f + (e ? 0 : 1)) + "\x26" + a + "\x3d" + b : d.substr(0, e) + "\x26" + a + "\x3d" + b
                         } else c = d + "\x26" + a + "\x3d" + b;
                         t.name = c
                     } else return this.getFromStr(a, t.name)
-                } catch (Kb) {
+                } catch (Lb) {
                 }
             };
             this.evercookie_userdata = function (a, b) {
@@ -1706,27 +1703,29 @@
                 } catch (F) {
                 }
             };
-            this.evercookie_cache = function (a, c) {
-                if (void 0 !== c) w.cookie = b.cacheCookieName + "\x3d" + c + "; path\x3d/; domain\x3d" + q, l.ajax({
-                    success: function () {
-                    },
-                    url: g + n + b.cachePath + "?name\x3d" + a + "\x26cookie\x3d" + b.cacheCookieName
-                }); else {
-                    var d = this.getFromStr(b.cacheCookieName, w.cookie);
-                    l._ec.cacheData = void 0;
-                    w.cookie = b.cacheCookieName + "\x3d; expires\x3dMon, 20 Sep 2010 00:00:00 UTC; path\x3d/; domain\x3d" + q;
-                    l.ajax({
-                        success: function (a) {
-                            w.cookie = b.cacheCookieName + "\x3d" + d + "; expires\x3dTue, 31 Dec 2030 00:00:00 UTC; path\x3d/; domain\x3d" + q;
-                            l._ec.cacheData = a
-                        }, url: g + n + b.cachePath + "?name\x3d" + a + "\x26cookie\x3d" + b.cacheCookieName
-                    })
-                }
-            };
-            this.evercookie_auth = function (a,
-                                             c) {
+            this.evercookie_cache =
+                function (a, c) {
+                    if (void 0 !== c) w.cookie = b.cacheCookieName + "\x3d" + c + "; path\x3d/; domain\x3d" + q, l.ajax({
+                        url: g + n + b.cachePath + "?name\x3d" + a + "\x26cookie\x3d" + b.cacheCookieName,
+                        success: function () {
+                        }
+                    }); else {
+                        var d = this.getFromStr(b.cacheCookieName, w.cookie);
+                        l._ec.cacheData = void 0;
+                        w.cookie = b.cacheCookieName + "\x3d; expires\x3dMon, 20 Sep 2010 00:00:00 UTC; path\x3d/; domain\x3d" + q;
+                        l.ajax({
+                            url: g + n + b.cachePath + "?name\x3d" + a + "\x26cookie\x3d" + b.cacheCookieName,
+                            success: function (a) {
+                                w.cookie = b.cacheCookieName + "\x3d" +
+                                    d + "; expires\x3dTue, 31 Dec 2030 00:00:00 UTC; path\x3d/; domain\x3d" + q;
+                                l._ec.cacheData = a
+                            }
+                        })
+                    }
+                };
+            this.evercookie_auth = function (a, c) {
                 if (void 0 !== c) {
-                    var d = "//" + c + "@" + ub.host + g + n + b.authPath + "?name\x3d" + a, e = new kb;
+                    var d = "//" + c + "@" + vb.host + g + n + b.authPath + "?name\x3d" + a, e = new kb;
                     e.style.visibility = "hidden";
                     e.style.position = "absolute";
                     e.src = d
@@ -1738,13 +1737,12 @@
             };
             this.evercookie_etag = function (a, c) {
                 if (void 0 !== c) w.cookie = b.etagCookieName + "\x3d" + c + "; path\x3d/; domain\x3d" + q, l.ajax({
-                    url: g + n + b.etagPath + "?name\x3d" + a + "\x26cookie\x3d" + b.etagCookieName,
                     success: function () {
-                    }
+                    }, url: g +
+                        n + b.etagPath + "?name\x3d" + a + "\x26cookie\x3d" + b.etagCookieName
                 }); else {
                     var d = this.getFromStr(b.etagCookieName, w.cookie);
-                    l._ec.etagData =
-                        void 0;
+                    l._ec.etagData = void 0;
                     w.cookie = b.etagCookieName + "\x3d; expires\x3dMon, 20 Sep 2010 00:00:00 UTC; path\x3d/; domain\x3d" + q;
                     l.ajax({
                         url: g + n + b.etagPath + "?name\x3d" + a + "\x26cookie\x3d" + b.etagCookieName,
@@ -1757,23 +1755,23 @@
             };
             this.evercookie_java = function (a, b) {
                 function c(c) {
-                    c = w.getElementById(c);
+                    c =
+                        w.getElementById(c);
                     void 0 !== b ? c.set(a, b) : l._ec.javaData = c.get(a)
                 }
 
                 var d = w.getElementById("ecAppletContainer");
-                "undefined" !==
-                typeof dtjava && (null !== d && void 0 !== d && d.length || (d = w.createElement("div"), d.setAttribute("id", "ecAppletContainer"), d.style.position = "absolute", d.style.top = "-3000px", d.style.left = "-3000px", d.style.width = "1px", d.style.height = "1px", w.body.appendChild(d)), "undefined" === typeof ecApplet ? dtjava.embed({
-                    width: "1px",
-                    height: "1px",
-                    url: g + k + "/evercookie.jnlp",
-                    id: "ecApplet",
-                    placeholder: "ecAppletContainer"
-                }, {}, {onJavascriptReady: c}) : c("ecApplet"))
+                "undefined" !== typeof dtjava && (null !== d && void 0 !== d && d.length || (d = w.createElement("div"), d.setAttribute("id", "ecAppletContainer"), d.style.position = "absolute", d.style.top = "-3000px", d.style.left = "-3000px", d.style.width = "1px", d.style.height = "1px", w.body.appendChild(d)), "undefined" === typeof ecApplet ? dtjava.embed({
+                        placeholder: "ecAppletContainer",
+                        height: "1px",
+                        width: "1px",
+                        id: "ecApplet",
+                        url: g + k + "/evercookie.jnlp"
+                    },
+                    {}, {onJavascriptReady: c}) : c("ecApplet"))
             };
             this.evercookie_lso = function (a, b) {
-                var c = w.getElementById("swfcontainer"),
-                    d = {}, e = {}, f = {};
+                var c = w.getElementById("swfcontainer"), d = {}, e = {}, f = {};
                 null !== c && void 0 !== c && c.length || (c = w.createElement("div"), c.setAttribute("id", "swfcontainer"), w.body.appendChild(c));
                 void 0 !== b && (d.everdata = a + "\x3d" + b);
                 e.swliveconnect = "true";
@@ -1783,19 +1781,19 @@
             };
             this.evercookie_png = function (a, c) {
                 var d = w.createElement("canvas"), e, f, h;
-                d.style.visibility = "hidden";
+                d.style.visibility =
+                    "hidden";
                 d.style.position = "absolute";
                 d.width = 200;
                 d.height = 1;
-                d && d.getContext && (e = new kb, e.style.visibility = "hidden",
-                    e.style.position = "absolute", void 0 !== c ? w.cookie = b.pngCookieName + "\x3d" + c + "; path\x3d/; domain\x3d" + q : (l._ec.pngData = void 0, f = d.getContext("2d"), h = this.getFromStr(b.pngCookieName, w.cookie), w.cookie = b.pngCookieName + "\x3d; expires\x3dMon, 20 Sep 2010 00:00:00 UTC; path\x3d/; domain\x3d" + q, e.onload = function () {
-                    w.cookie = b.pngCookieName + "\x3d" + h + "; expires\x3dTue, 31 Dec 2030 00:00:00 UTC; path\x3d/; domain\x3d" + q;
+                d && d.getContext && (e = new kb, e.style.visibility = "hidden", e.style.position = "absolute", void 0 !== c ? w.cookie = b.pngCookieName + "\x3d" + c + "; path\x3d/; domain\x3d" + q : (l._ec.pngData = void 0, f = d.getContext("2d"), h = this.getFromStr(b.pngCookieName, w.cookie), w.cookie = b.pngCookieName + "\x3d; expires\x3dMon, 20 Sep 2010 00:00:00 UTC; path\x3d/; domain\x3d" + q, e.onload = function () {
+                    w.cookie = b.pngCookieName + "\x3d" + h + "; expires\x3dTue, 31 Dec 2030 00:00:00 UTC; path\x3d/; domain\x3d" +
+                        q;
                     l._ec.pngData = "";
                     f.drawImage(e, 0, 0);
                     var a = f.getImageData(0, 0, 200, 1).data, c, d;
                     c = 0;
-                    for (d = a.length; c <
-                    d && 0 !== a[c]; c += 4) {
+                    for (d = a.length; c < d && 0 !== a[c]; c += 4) {
                         l._ec.pngData += String.fromCharCode(a[c]);
                         if (0 === a[c + 1]) break;
                         l._ec.pngData += String.fromCharCode(a[c + 1]);
@@ -1806,32 +1804,33 @@
             };
             this.evercookie_local_storage = function (a, b) {
                 try {
-                    if (Oa) if (void 0 !== b) Oa.setItem(a, b); else return Oa.getItem(a)
+                    if (Pa) if (void 0 !== b) Pa.setItem(a, b); else return Pa.getItem(a)
                 } catch (y) {
                 }
             };
-            this.evercookie_database_storage = function (a, b) {
-                try {
-                    if (t.openDatabase) {
-                        var c = t.openDatabase("sqlite_evercookie", "", "evercookie",
-                            1048576);
-                        void 0 !== b ? c.transaction(function (c) {
-                            c.executeSql("CREATE TABLE IF NOT EXISTS cache(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, value TEXT NOT NULL, UNIQUE (name))", [], function () {
-                            }, function () {
-                            });
-                            c.executeSql("INSERT OR REPLACE INTO cache(name, value) VALUES(?, ?)", [a, b], function () {
-                            }, function () {
+            this.evercookie_database_storage =
+                function (a, b) {
+                    try {
+                        if (t.openDatabase) {
+                            var c = t.openDatabase("sqlite_evercookie", "", "evercookie", 1048576);
+                            void 0 !== b ? c.transaction(function (c) {
+                                c.executeSql("CREATE TABLE IF NOT EXISTS cache(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, value TEXT NOT NULL, UNIQUE (name))", [], function () {
+                                }, function () {
+                                });
+                                c.executeSql("INSERT OR REPLACE INTO cache(name, value) VALUES(?, ?)", [a, b], function () {
+                                }, function () {
+                                })
+                            }) : c.transaction(function (b) {
+                                b.executeSql("SELECT value FROM cache WHERE name\x3d?",
+                                    [a], function (a, b) {
+                                        l._ec.dbData = 1 <= b.rows.length ? b.rows.item(0).value : ""
+                                    }, function () {
+                                    })
                             })
-                        }) : c.transaction(function (b) {
-                            b.executeSql("SELECT value FROM cache WHERE name\x3d?", [a], function (a, b) {
-                                l._ec.dbData = 1 <= b.rows.length ? b.rows.item(0).value : ""
-                            }, function () {
-                            })
-                        })
+                        }
+                    } catch (F) {
                     }
-                } catch (F) {
-                }
-            };
+                };
             this.evercookie_indexdb_storage = function (a, b) {
                 try {
                     if ("indexedDB" in t || (indexedDB = t.indexedDB || t.mozIndexedDB || t.webkitIndexedDB || t.msIndexedDB, IDBTransaction = t.IDBTransaction || t.webkitIDBTransaction || t.msIDBTransaction, IDBKeyRange = t.IDBKeyRange || t.webkitIDBKeyRange || t.msIDBKeyRange), indexedDB) {
@@ -1839,14 +1838,14 @@
                         c.onerror = function () {
                         };
                         c.onupgradeneeded = function (a) {
-                            a.target.result.createObjectStore("evercookie", {keyPath: "name", unique: !1})
+                            a.target.result.createObjectStore("evercookie",
+                                {unique: !1, keyPath: "name"})
                         };
                         c.onsuccess = void 0 !== b ? function (c) {
-                            c =
-                                c.target.result;
+                            c = c.target.result;
                             c.objectStoreNames.contains("evercookie") && c.transaction(["evercookie"], "readwrite").objectStore("evercookie").put({
-                                name: a,
-                                value: b
+                                value: b,
+                                name: a
                             });
                             c.close()
                         } : function (b) {
@@ -1863,18 +1862,18 @@
                 } catch (F) {
                 }
             };
-            this.evercookie_session_storage = function (a, b) {
-                try {
-                    if (Pa) if (void 0 !==
-                        b) Pa.setItem(a, b); else return Pa.getItem(a)
-                } catch (y) {
-                }
-            };
+            this.evercookie_session_storage =
+                function (a, b) {
+                    try {
+                        if (Qa) if (void 0 !== b) Qa.setItem(a, b); else return Qa.getItem(a)
+                    } catch (y) {
+                    }
+                };
             this.evercookie_global_storage = function (a, b) {
-                if (Na) {
+                if (Oa) {
                     var c = this.getHost();
                     try {
-                        if (void 0 !== b) Na[c][a] = b; else return Na[c][a]
+                        if (void 0 !== b) Oa[c][a] = b; else return Oa[c][a]
                     } catch (F) {
                     }
                 }
@@ -1956,7 +1955,7 @@
                 }
             };
             this.getHost = function () {
-                return za(t.location.host.split(":")[0])
+                return Ia(t.location.host.split(":")[0])
             };
             this.toHex = function (a) {
                 for (var b = "", c = a.length, d = 0, e; d < c;) {
@@ -2003,70 +2002,163 @@
     }
     var nb = {
         postMessage: function (a, b) {
-            b = b || vb;
+            b = b || wb;
             if (b.postMessage) b.postMessage(a, "*"); else if (a && "function" == typeof k.onData) k.onData(a)
         }
     };
     ja.prototype = {
-        NeedUpdate: function () {
-            V("fp_ver", "4.6.1", 0);
-            V("BSFIT_OKLJUJ", "", 0);
-            return !1
+        getTouchSupport: function (a) {
+            return new n("touchSupport", aa(a.replace(RegExp(",", "gm"), "#")))
+        }, getCookieEnabled: function () {
+            return new n("cookieEnabled",
+                k.cookieEnabled ? "1" : "0")
+        }, getUUID: function () {
+            return "" == G("RAIL_UUID") || null == G("RAIL_UUID") || void 0 == G("RAIL_UUID") ? new n("cookieCode", "new") : new n("UUID", G("RAIL_UUID"))
         }, checkOperaBroswer: function () {
             return r.opera
-        },
-        hashAlg: function (a, b, c) {
+        }, hashAlg: function (a, b, c) {
             a.sort(function (a, b) {
                 var c, d;
                 if ("object" === typeof a && "object" === typeof b && a && b) return c = a.key, d = b.key, c === d ? 0 : typeof c === typeof d ? c < d ? -1 : 1 : typeof c < typeof d ? -1 : 1;
                 throw"error";
             });
             for (var d = 0; d < a.length; d++) {
-                var e = a[d].key.replace(RegExp("%", "gm"), ""), f = "",
-                    f = "string" == typeof a[d].value ? a[d].value.replace(RegExp("%", "gm"), "") : a[d].value;
+                var e = a[d].key.replace(RegExp("%", "gm"), ""), f = "", f = "string" ==
+                typeof a[d].value ? a[d].value.replace(RegExp("%", "gm"), "") : a[d].value;
                 "" !== f && (c += e + f, b += "\x26" + (void 0 == ib[e] ? e : ib[e]) + "\x3d" + f)
             }
-            a = Ra(c);
-            a = Ra(a);
+            a = Sa(c);
+            a = za(a);
             a = Sa(a);
-            a = Sa(a);
-            c = "";
-            d = a.length;
-            for (e = 0; e < d; e++) f = a.charAt(e).charCodeAt(0),
-                c = 127 === f ? c + String.fromCharCode(0) : c + String.fromCharCode(f + 1);
+            a = za(a);
+            c = za(a);
             c = ca.SHA256(c).toString(ca.enc.Base64);
             return new n(b, c)
-        }, getOnLine: function () {
-            return new n("onLine", k.onLine.toString())
-        }, getSessionStorage: function (a) {
-            return new n("sessionStorage", a)
-        }, getScrHeight: function () {
-            return new n("scrHeight", r.screen.height.toString())
-        }, getHasLiedOs: function (a) {
-            return new n("hasLiedOs", a)
-        }, getMimeTypes: function () {
-            for (var a = k.mimeTypes, b = "", c = 0; c < a.length; c++) b += a[c].type + "#";
-            return new n("mimeTypes", aa(b.substr(0,
-                b.length - 1)))
+        }, getAppMinorVersion: function () {
+            var a;
+            a = "IE" == this.checkBroswer() ? k.appMinorVersion.toString() : "";
+            return new n("appMinorVersion", a)
+        }, getScrDeviceXDPI: function () {
+            var a;
+            a = "IE" == this.checkBroswer() ? r.screen.deviceXDPI.toString() : "";
+            return new n("scrDeviceXDPI", a)
+        }, getHasLiedLanguages: function (a) {
+            return new n("hasLiedLanguages",
+                a)
         }, getScrAvailWidth: function () {
             return new n("scrAvailWidth", r.screen.availWidth.toString())
-        }, getTouchSupport: function (a) {
-            return new n("touchSupport", aa(a.replace(RegExp(",", "gm"), "#")))
+        }, getOnLine: function () {
+            return new n("onLine", k.onLine.toString())
+        }, getOpenDatabase: function (a) {
+            return new n("openDatabase", a)
+        }, getLanguage: function () {
+            return null != k.language ? k.language.toString() : ""
+        }, checkWapOrWeb: function () {
+            return "WindowsPhone" == Ja() || "iOS" == Ja() || "Android" == Ja() ? !0 : !1
+        }, getFingerPrint: function () {
+            var a = this;
+            r.RTCPeerConnection || r.webkitRTCPeerConnection || r.mozRTCPeerConnection ? pb(function (b) {
+                    a.initEc(b)
+                }) :
+                a.initEc()
+        }, getCanvansCode: function (a) {
+            var b;
+            b = this.checkWapOrWeb() ? "wapSmartID" : "webSmartID";
+            return new n(b, a)
         }, getUserLanguage: function () {
             var a;
             a = "IE" == this.checkBroswer() || this.checkOperaBroswer() ? k.userLanguage.toString() : "";
             return new n("userLanguage", a)
-        }, getLocalStorage: function (a) {
-            return new n("localStorage", a)
+        }, getUserAgent: function () {
+            var a = k.userAgent, a = a.replace(/\&|\+/g, "");
+            return new n("userAgent", a.toString())
+        }, getDoNotTrack: function (a) {
+            return new n("doNotTrack", a)
+        }, initEc: function (a) {
+            var b = "", c = this, d = void 0 != a && void 0 != a.localAddr ? a.localAddr :
+                "";
+            c.checkWapOrWeb();
+            this.ec.get("RAIL_OkLJUJ", function (a) {
+                b = a;
+                c.getDfpMoreInfo(function () {
+                    if (!(9E5 < G("RAIL_EXPIRATION") - (new Date).getTime() & null != G("RAIL_DEVICEID") & void 0 != G("RAIL_DEVICEID") & !c.NeedUpdate())) {
+                        for (var a = "", e = "", g = c.getpackStr(b), k = [], q = [], t = [], l = [], p = 0; p < g.length; p++) "new" != g[p].value && -1 == Jb.indexOf(g[p].key) && (-1 != Eb.indexOf(g[p].key) ? q.push(g[p]) : -1 != Kb.indexOf(g[p].key) ? t.push(g[p]) : -1 != Db.indexOf(g[p].key) ? l.push(g[p]) : k.push(g[p]));
+                        g = "";
+                        for (p = 0; p < q.length; p++) g = g + q[p].key.charAt(0) +
+                            q[p].value;
+                        q = "";
+                        for (p = 0; p < l.length; p++) q = 0 == p ? q + l[p].value : q + "x" + l[p].value;
+                        l = "";
+                        for (p = 0; p < t.length; p++) l = 0 == p ? l + t[p].value : l + "x" + t[p].value;
+                        k.push(new n("storeDb", g));
+                        k.push(new n("srcScreenSize", q));
+                        k.push(new n("scrAvailSize", l));
+                        "" != d && k.push(new n("localCode", qb(d)));
+                        e = c.hashAlg(k, a, e);
+                        a = e.key;
+                        e = e.value;
+                        a += "\x26timestamp\x3d" + (new Date).getTime();
+                        ab.getJSON("https://kyfw.12306.cn/otn/HttpZF/logdevice" + ("?algID\x3dD822AhmG98\x26hashCode\x3d" + e + a), null, function (a) {
+                            var b = JSON.parse(a);
+                            void 0 != nb &&
+                            nb.postMessage(a, r.parent);
+                            for (var d in b) "dfp" == d ? G("RAIL_DEVICEID") != b[d] && (V("RAIL_DEVICEID", b[d], 1E3), c.deviceEc.set("RAIL_DEVICEID", b[d])) : "exp" == d ? V("RAIL_EXPIRATION", b[d], 1E3) : "cookieCode" == d && (c.ec.set("RAIL_OkLJUJ", b[d]), V("RAIL_OkLJUJ", "", 0))
+                        })
+                    }
+                })
+            }, 1)
+        }, getSystemLanguage: function () {
+            var a;
+            a = "IE" == this.checkBroswer() || this.checkOperaBroswer() ? k.systemLanguage.toString() : "";
+            return new n("systemLanguage", a)
+        }, getHistoryList: function () {
+            return new n("historyList", r.history.length)
+        }, getFlashVersion: function () {
+            var a =
+                0;
+            if ("IE" == this.checkBroswer()) var b = new ActiveXObject("ShockwaveFlash.ShockwaveFlash"),
+                a = Number(b.GetVariable("$version").split(" ")[1].replace(/,/g, ".").replace(/^(d+.d+).*$/, "$1")); else k.plugins && 0 < k.plugins.length && (b = k.plugins["Shockwave Flash"]) && (flashArr = b.description.split(" "), a = flashArr[2] + " " + flashArr[3]);
+            return new n("flashVersion", a)
+        }, getCookieCode: function () {
+            "" == G("RAIL_OkLJUJ") || null == G("RAIL_OkLJUJ") || void 0 == G("RAIL_OkLJUJ") || G("RAIL_OkLJUJ");
+            return new n("cookieCode", "new")
+        }, getPlatform: function () {
+            return new n("os",
+                k.platform.toString())
+        }, getScrWidth: function () {
+            return new n("scrWidth", r.screen.width.toString())
         }, getCpuClass: function () {
             var a;
             a = "IE" == this.checkBroswer() ? k.cpuClass.toString() : "";
-            return new n("cpuClass",
-                a)
+            return new n("cpuClass", a)
+        }, getJsFonts: function (a) {
+            return new n("jsFonts", aa(a.replace(RegExp(",", "gm"), "#")))
+        }, checkBroswer: function () {
+            k.userAgent.toString().indexOf("MSIE")
+        }, getCustId: function () {
+            return new n("custID", "133")
+        }, NeedUpdate: function () {
+            V("fp_ver", "4.6.1", 0);
+            V("BSFIT_OKLJUJ", "", 0);
+            return !1
+        }, getScrHeight: function () {
+            return new n("scrHeight",
+                r.screen.height.toString())
+        }, md5ScrColorDepth: function () {
+            return new n("scrColorDepth", r.screen.colorDepth.toString())
+        }, getHasLiedOs: function (a) {
+            return new n("hasLiedOs", a)
+        }, getBrowserLanguage: function () {
+            var a;
+            a = "IE" == this.checkBroswer() || this.checkOperaBroswer() ? k.browserLanguage.toString() : this.getLanguage();
+            return new n("browserLanguage", a)
         }, getIndexedDb: function (a) {
             return new n("indexedDb", a)
+        }, getScrAvailHeight: function () {
+            return new n("scrAvailHeight", r.screen.availHeight.toString())
         }, getpackStr: function (a) {
-            var b = [], b = [], b = this.getMachineCode(), b = b.concat(this.moreInfoArray);
+            var b =
+                [], b = [], b = this.getMachineCode(), b = b.concat(this.moreInfoArray);
             null != a && void 0 != a && "" != a && 32 == a.length && b.push(new n("cookieCode", a));
             b.sort(function (a, b) {
                 var c, d;
@@ -2074,40 +2166,14 @@
                 throw"error";
             });
             return b
-        }, checkBroswer: function () {
-            k.userAgent.toString().indexOf("MSIE")
-        }, getJsFonts: function (a) {
-            return new n("jsFonts",
-                aa(a.replace(RegExp(",", "gm"), "#")))
-        }, getBrowserLanguage: function () {
-            var a;
-            a = "IE" == this.checkBroswer() || this.checkOperaBroswer() ? k.browserLanguage.toString() : this.getLanguage();
-            return new n("browserLanguage", a)
-        }, md5ScrColorDepth: function () {
-            return new n("scrColorDepth", r.screen.colorDepth.toString())
-        }, getOpenDatabase: function (a) {
-            return new n("openDatabase", a)
-        }, getJavaEnabled: function () {
-            return new n("javaEnabled", k.javaEnabled() ? "1" : "0")
-        }, getCookieCode: function () {
-            "" == G("RAIL_OkLJUJ") || null == G("RAIL_OkLJUJ") ||
-            void 0 == G("RAIL_OkLJUJ") || G("RAIL_OkLJUJ");
-            return new n("cookieCode", "new")
-        }, getUserAgent: function () {
-            var a = k.userAgent, a = a.replace(/\&|\+/g, "");
-            return new n("userAgent", a.toString())
-        }, getHasLiedResolution: function (a) {
-            return new n("hasLiedResolution", a)
+        }, getAppName: function () {
+            return new n("appName", k.appName.toString())
         }, getTimeZone: function () {
             var a = (new Date).getTimezoneOffset() / 60;
             return new n("timeZone", a)
-        }, getCookieEnabled: function () {
-            return new n("cookieEnabled", k.cookieEnabled ? "1" : "0")
-        }, getHasLiedLanguages: function (a) {
-            return new n("hasLiedLanguages", a)
-        }, getAppName: function () {
-            return new n("appName",
-                k.appName.toString())
+        }, getHasLiedResolution: function (a) {
+            return new n("hasLiedResolution",
+                a)
         }, getDfpMoreInfo: function (a) {
             var b = this;
             this.moreInfoArray = [];
@@ -2162,113 +2228,43 @@
                 }
                 "function" == typeof a && a()
             })
-        }, getFingerPrint: function () {
-            var a = this;
-            r.RTCPeerConnection || r.webkitRTCPeerConnection || r.mozRTCPeerConnection ? pb(function (b) {
-                a.initEc(b)
-            }) : a.initEc()
-        }, getHasLiedBrowser: function (a) {
-            return new n("hasLiedBrowser", a)
-        }, getAppCodeName: function () {
-            return new n("appCodeName", k.appCodeName.toString())
-        }, getCanvansCode: function (a) {
-            var b;
-            b = this.checkWapOrWeb() ? "wapSmartID" : "webSmartID";
-            return new n(b, a)
         }, getMachineCode: function () {
-            return [this.getUUID(),
-                this.getCookieCode(), this.getUserAgent(), this.getScrHeight(), this.getScrWidth(), this.getScrAvailHeight(), this.getScrAvailWidth(), this.md5ScrColorDepth(), this.getScrDeviceXDPI(), this.getAppCodeName(), this.getAppName(), this.getJavaEnabled(), this.getMimeTypes(), this.getPlatform(), this.getAppMinorVersion(), this.getBrowserLanguage(), this.getCookieEnabled(), this.getCpuClass(), this.getOnLine(), this.getSystemLanguage(), this.getUserLanguage(), this.getTimeZone(), this.getFlashVersion(), this.getHistoryList(),
-                this.getCustId(), this.getSendPlatform()]
-        }, getScrAvailHeight: function () {
-            return new n("scrAvailHeight", r.screen.availHeight.toString())
-        }, getAppMinorVersion: function () {
-            var a;
-            a = "IE" == this.checkBroswer() ? k.appMinorVersion.toString() : "";
-            return new n("appMinorVersion", a)
+            return [this.getUUID(), this.getCookieCode(), this.getUserAgent(), this.getScrHeight(), this.getScrWidth(), this.getScrAvailHeight(), this.getScrAvailWidth(), this.md5ScrColorDepth(), this.getScrDeviceXDPI(), this.getAppCodeName(), this.getAppName(), this.getJavaEnabled(), this.getMimeTypes(), this.getPlatform(), this.getAppMinorVersion(), this.getBrowserLanguage(), this.getCookieEnabled(), this.getCpuClass(),
+                this.getOnLine(), this.getSystemLanguage(), this.getUserLanguage(), this.getTimeZone(), this.getFlashVersion(), this.getHistoryList(), this.getCustId(), this.getSendPlatform()]
+        }, getMimeTypes: function () {
+            for (var a = k.mimeTypes, b = "", c = 0; c < a.length; c++) b += a[c].type + "#";
+            return new n("mimeTypes", aa(b.substr(0, b.length - 1)))
+        }, getSessionStorage: function (a) {
+            return new n("sessionStorage", a)
         }, getAdblock: function (a) {
             return new n("adblock", a)
-        }, getDoNotTrack: function (a) {
-            return new n("doNotTrack", a)
-        }, getScrDeviceXDPI: function () {
-            var a;
-            a = "IE" == this.checkBroswer() ? r.screen.deviceXDPI.toString() : "";
-            return new n("scrDeviceXDPI", a)
-        },
-        getCustId: function () {
-            return new n("custID", "133")
-        }, checkWapOrWeb: function () {
-            return "WindowsPhone" == Ia() || "iOS" == Ia() || "Android" == Ia() ? !0 : !1
+        }, getHasLiedBrowser: function (a) {
+            return new n("hasLiedBrowser", a)
+        }, getLocalStorage: function (a) {
+            return new n("localStorage",
+                a)
+        }, getAppCodeName: function () {
+            return new n("appCodeName", k.appCodeName.toString())
+        }, getJavaEnabled: function () {
+            return new n("javaEnabled", k.javaEnabled() ? "1" : "0")
         }, getPlugins: function (a) {
             if ("IE" == this.checkBroswer()) return new n("plugins", aa(a.replace(RegExp(",", "gm"), "#")));
             a = k.plugins;
             var b = "";
             for (i = 0; i < a.length; i++) b += a[i].name.toString() + "#";
             return new n("plugins", aa(b))
-        }, initEc: function (a) {
-            var b = "", c = this, d = void 0 != a && void 0 != a.localAddr ? a.localAddr : "";
-            c.checkWapOrWeb();
-            this.ec.get("RAIL_OkLJUJ", function (a) {
-                b = a;
-                c.getDfpMoreInfo(function () {
-                    if (!(9E5 <
-                        G("RAIL_EXPIRATION") - (new Date).getTime() & null != G("RAIL_DEVICEID") & void 0 != G("RAIL_DEVICEID") & !c.NeedUpdate())) {
-                        for (var a = "", e = "", g = c.getpackStr(b), k = [], q = [], t = [], l = [], p = 0; p < g.length; p++) "new" != g[p].value && -1 == Ib.indexOf(g[p].key) && (-1 != Jb.indexOf(g[p].key) ? q.push(g[p]) : -1 != Hb.indexOf(g[p].key) ? t.push(g[p]) : -1 != Gb.indexOf(g[p].key) ? l.push(g[p]) : k.push(g[p]));
-                        g = "";
-                        for (p = 0; p < q.length; p++) g = g + q[p].key.charAt(0) + q[p].value;
-                        q = "";
-                        for (p = 0; p < l.length; p++) q = 0 == p ? q + l[p].value : q + "x" + l[p].value;
-                        l = "";
-                        for (p = 0; p <
-                        t.length; p++) l = 0 == p ? l + t[p].value : l + "x" + t[p].value;
-                        k.push(new n("storeDb", g));
-                        k.push(new n("srcScreenSize", q));
-                        k.push(new n("scrAvailSize", l));
-                        "" != d && k.push(new n("localCode", qb(d)));
-                        e = c.hashAlg(k, a, e);
-                        a = e.key;
-                        e = e.value;
-                        a += "\x26timestamp\x3d" + (new Date).getTime();
-                        ab.getJSON("https://kyfw.12306.cn/otn/HttpZF/logdevice" + ("?algID\x3dvUmsXA1VTo\x26hashCode\x3d" + e + a), null, function (a) {
-                            var b = JSON.parse(a);
-                            void 0 != nb && nb.postMessage(a, r.parent);
-                            for (var d in b) "dfp" == d ? G("RAIL_DEVICEID") != b[d] && (V("RAIL_DEVICEID",
-                                b[d], 1E3), c.deviceEc.set("RAIL_DEVICEID", b[d])) : "exp" == d ? V("RAIL_EXPIRATION", b[d], 1E3) : "cookieCode" == d && (c.ec.set("RAIL_OkLJUJ", b[d]), V("RAIL_OkLJUJ", "", 0))
-                        })
-                    }
-                })
-            }, 1)
-        }, getLanguage: function () {
-            return null != k.language ? k.language.toString() : ""
         }, getSendPlatform: function () {
             var a;
             a = this.checkWapOrWeb() ? bb[1] : bb[0];
             return new n("platform", a)
-        }, getPlatform: function () {
-            return new n("os", k.platform.toString())
-        }, getHistoryList: function () {
-            return new n("historyList", r.history.length)
-        }, getSystemLanguage: function () {
-            var a;
-            a = "IE" == this.checkBroswer() || this.checkOperaBroswer() ? k.systemLanguage.toString() : "";
-            return new n("systemLanguage", a)
-        }, getScrWidth: function () {
-            return new n("scrWidth", r.screen.width.toString())
-        }, getUUID: function () {
-            return "" == G("RAIL_UUID") || null == G("RAIL_UUID") || void 0 == G("RAIL_UUID") ? new n("cookieCode", "new") : new n("UUID", G("RAIL_UUID"))
-        }, getFlashVersion: function () {
-            var a = 0;
-            if ("IE" == this.checkBroswer()) var b = new ActiveXObject("ShockwaveFlash.ShockwaveFlash"),
-                a = Number(b.GetVariable("$version").split(" ")[1].replace(/,/g,
-                    ".").replace(/^(d+.d+).*$/, "$1")); else k.plugins && 0 < k.plugins.length && (b = k.plugins["Shockwave Flash"]) && (flashArr = b.description.split(" "), a = flashArr[2] + " " + flashArr[3]);
-            return new n("flashVersion", a)
         }
     };
     var ob = !1;
-    v.addEventListener ? v.addEventListener("DOMContentLoaded", function b() {
-        v.removeEventListener("DOMContentLoaded", b, !1);
-        Qa()
-    }, !1) : v.attachEvent && v.attachEvent("onreadystatechange", function c() {
-        ob || "interactive" != v.readyState && "complete" != v.readyState || (v.detachEvent("onreadystatechange", c),
-            Qa(), ob = !0)
+    v.addEventListener ?
+        v.addEventListener("DOMContentLoaded", function b() {
+            v.removeEventListener("DOMContentLoaded", b, !1);
+            Ra()
+        }, !1) : v.attachEvent && v.attachEvent("onreadystatechange", function c() {
+        ob || "interactive" != v.readyState && "complete" != v.readyState || (v.detachEvent("onreadystatechange", c), Ra(), ob = !0)
     })
 })();

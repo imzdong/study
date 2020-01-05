@@ -39,18 +39,20 @@ public class TicketMain {
         String[] ticketPass = {"xx","xx"};
         String from = "BJP";
         String to = "NFF";
-        String trainDate = "2019-12-31";
+        String trainDate = "2020-01-31";
         String trainCode = "K261";
         log.info("start:{}",new Date());
         log.info("1、初始化登陆：/otn/leftTicket/init");
+        String callBack = "jQuery191025909781158866285_1577623706238";
+        Long nums = System.currentTimeMillis();
         Login.firstInit();
-        //Login.secondGetCode();
-        String algID = Login.first2GetJs();
-        String logDeviceParams = Login.first4GetLogDeviceParams();
-        Login.first3LogDevice(algID, logDeviceParams);
+        //Login.secondGetCode(nums,callBack);
+        //String algID = Login.first2GetJs();
+        //String logDeviceParams = Login.first4GetLogDeviceParams();
+        //Login.first3LogDevice(algID, logDeviceParams);
         log.info("2、获取验证码：/passport/captcha/captcha-image");
         //Login.first5Conf();
-        Login.secondGetCode();
+        //Login.secondGetCode(nums,callBack);
         //secondOAuth();
         Scanner scan = new Scanner(System.in);
         System.out.print("输入整数：");
@@ -66,8 +68,11 @@ public class TicketMain {
             randCode = s;
             //{"result_message":"验证码校验成功","result_code":"4"}
             log.info("3、校验验证码：/passport/captcha/captcha-check");
-            result12306 = Login.fourthCheckCode(s);
+            //result12306 = Login.fourthCheckCode(s,callBack,nums);
         }
+        String algID = Login.first2GetJs();
+        //String logDeviceParams = Login.first4GetLogDeviceParams();
+        Login.first3LogDevice(algID);
         log.info("4、12306用户账号登陆：/passport/web/login");
         umktk = Login.fifthWebLogin(userName,password,randCode);
         log.info("umktk：{}",umktk);
