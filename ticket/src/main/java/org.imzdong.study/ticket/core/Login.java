@@ -15,10 +15,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,12 +33,38 @@ public class Login {
     private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36";
     private static final String HOST = "kyfw.12306.cn";
 
+
+    public void initLogin(){
+        GetJsCookie getJsCookie = new GetJsCookie();
+        String logDeviceUrl = getJsCookie.getCookieUrl(null, null);
+
+    }
+
+    public static boolean logDevice(String logDeviceUrl) throws Exception{
+        logger.info("初始化登录：1.2、设置cookie（RAIL_EXPIRATION+RAIL_DEVICEID）");
+        HttpGet httpGetLog = new HttpGet();
+        httpGetLog.addHeader("User-Agent", USER_AGENT);
+        httpGetLog.addHeader("Host", HOST);
+        httpGetLog.addHeader("X-Requested-With", "XMLHttpRequest");
+        httpGetLog.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
+        httpGetLog.setURI(new URI(logDeviceUrl));
+        String logDevices = HttpClientUtil.httpRequest(null, httpGetLog);
+        if(logDevices.contains("callbackFunction")){
+            String str = logDevices.substring(logDevices.indexOf("{"),
+                    logDevices.indexOf("}")+1);
+            JSONObject obj = JSONObject.parseObject(str);
+            HttpClientUtil.addRailCookies(obj.getString("exp"), obj.getString("dfp"));
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args)throws Exception {
         //firstInit();
         //String first2GetJs = first2GetJs();
         //first3LogDevice(first2GetJs);
         String logUrl = "https://kyfw.12306.cn/otn/HttpZF/logdevice?algID=L983yIjUNc&hashCode=99-NcrPjyraaQFW0p9teJtxXVpOviwD3_096cXysFDA&FMQw=0&q4f3=en-US&VPIf=1&custID=133&VEek=unknown&dzuS=0&yD16=0&EOQP=d41d8cd98f00b204e9800998ecf8427e&jp76=d41d8cd98f00b204e9800998ecf8427e&hAqN=Win32&platform=WEB&ks0Q=d41d8cd98f00b204e9800998ecf8427e&TeRS=768x1024&tOHY=24xx768x1024&Fvje=l1s1&q5aJ=-8&wNLf=99115dfb07133750ba677d055874de87&0aew=Mozilla/5.0%20(Windows%20NT%206.1;%20Win64;%20x64)%20AppleWebKit/537.36%20(KHTML,%20like%20Gecko)%20Chrome/76.0.3809.100%20Safari/537.36&E3gR=a7509a2229798830c663640943369109&timestamp=1578194481920";
-        first3LogDeviceNew(logUrl);
+        //first3LogDeviceNew(logUrl);
         /*String RAIL_EXPIRATION = "1578243162867";//"1576651914389";
         String RAIL_DEVICEID = "m2xe4uXpazTrfygBW8zccA_CVOci_EpUt1arq6IZRCAf_4wJP4SPIQEtnvJkPg0-V_jwCN5_PtzXF8NFBTR99t8jyP3D0vkWA3tfcLvmmYObBklp-obu80KQsOaCuqIn_qBjy7vKF1p9puTrDK4LG8xrOG6y_bLv";//"lBJStCNl0YGo_HVkGtwOo2LWziXcwzpIk5gc2vAILNYdRfaeZ04nJtZ1JZwgQIssMDksn10rAz6Hz-bekeufhAusaKJId8f2BCg05ocgrzc8-chv8h4IB-lQ9H04XjLXr2fbnHw-SLZga3PewEfgPz2s-mhp7NAz";
         HttpClientUtil.addRailCookies(RAIL_EXPIRATION,RAIL_DEVICEID);*/
@@ -99,22 +123,7 @@ public class Login {
         return null;
     }
 
-    public static void first3LogDeviceNew(String logUrl) throws Exception{
-        logger.info("1.2：初始化登录");
-        HttpGet httpGetLog = new HttpGet();
-        httpGetLog.addHeader("User-Agent", USER_AGENT);
-        httpGetLog.addHeader("Host", HOST);
-        httpGetLog.addHeader("X-Requested-With", "XMLHttpRequest");
-        httpGetLog.addHeader("Referer", "https://kyfw.12306.cn/otn/resources/login.html");
-        httpGetLog.setURI(new URI(logUrl));
-        String logDevices = HttpClientUtil.httpRequest(null, httpGetLog);
-        if(logDevices.contains("callbackFunction")){
-            String str = logDevices.substring(logDevices.indexOf("{"),
-                    logDevices.indexOf("}")+1);
-            JSONObject obj = JSONObject.parseObject(str);
-            HttpClientUtil.addRailCookies(obj.getString("exp"), obj.getString("dfp"));
-        }
-    }
+
 
     /**
      * @return

@@ -16,12 +16,11 @@ import java.io.IOException;
  */
 public class GetJsCookie {
     private Logger logger = LoggerFactory.getLogger(GetJsCookie.class);
-
-
     private String cookieUrl = null;
 
     public String getCookieUrl(String ip, String port) {
         WebClient wc = null;
+        logger.info("登录初始化：1.1、初始化/otn/HttpZF/logdevice请求地址");
         try {
             if (StringUtils.isNotBlank(ip)) {
                 wc = new WebClient(BrowserVersion.CHROME, ip, Integer.parseInt(port));
@@ -63,7 +62,6 @@ public class GetJsCookie {
                     }
 
             );
-
             HtmlPage page = wc.getPage("https://kyfw.12306.cn/otn/leftTicket/init?linktypeid=dc");
             wc.waitForBackgroundJavaScript(3 * 1000);
         } catch (Exception e) {
@@ -74,12 +72,5 @@ public class GetJsCookie {
             }
         }
         return cookieUrl;
-    }
-
-
-    public static void main(String[] args) {
-        GetJsCookie service = new GetJsCookie();
-        String url = service.getCookieUrl(null,null);
-        System.out.println(url);
     }
 }
