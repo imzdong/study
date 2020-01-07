@@ -6,9 +6,9 @@ package org.imzdong.study.ticket.util;
  * @time: 2020/1/4
  */
 public enum UrlConf {
-    GET_JS("https://kyfw.12306.cn/otn/HttpZF/GetJS","GET",false,"获取algID参数"),
-    LOG_DEVICE("https://kyfw.12306.cn/otn/HttpZF/logdevice","GET",false,"获取exp和dfp参数"),
-    LOGIN_CONF("https://kyfw.12306.cn/otn/login/conf","POST",false,"获取exp和dfp参数"),
+    GET_JS("https://kyfw.12306.cn/otn/HttpZF/GetJS",HttpUtil.GET,false,"获取algID参数"),
+    LOG_DEVICE("https://kyfw.12306.cn/otn/HttpZF/logdevice",HttpUtil.GET,false,"获取exp和dfp参数"),
+    LOGIN_CONF("https://kyfw.12306.cn/otn/login/conf",HttpUtil.POST,false,"获取exp和dfp参数"),
 
     ;
 

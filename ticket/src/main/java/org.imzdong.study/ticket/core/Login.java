@@ -6,6 +6,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -29,15 +30,15 @@ import java.util.regex.Pattern;
 public class Login {
 
     private final static Logger logger = LoggerFactory.getLogger(Login.class);
-    private final static HttpGet httpGet = new HttpGet();
-    private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36";
-    private static final String HOST = "kyfw.12306.cn";
 
-
-    public void initLogin(){
+    public boolean initLogin(HttpClient client){
         GetJsCookie getJsCookie = new GetJsCookie();
         String logDeviceUrl = getJsCookie.getCookieUrl(null, null);
+        if(StringUtils.isBlank(logDeviceUrl)){
+            return false;
+        }
 
+        return true;
     }
 
     public static boolean logDevice(String logDeviceUrl) throws Exception{
@@ -58,6 +59,13 @@ public class Login {
         }
         return false;
     }
+
+
+    private final static HttpGet httpGet = new HttpGet();
+    private static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36";
+    private static final String HOST = "kyfw.12306.cn";
+
+
 
     public static void main(String[] args)throws Exception {
         //firstInit();
