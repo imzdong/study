@@ -10,8 +10,18 @@ import org.apache.lucene.util.RamUsageEstimator;
  */
 public class StudentSize {
 
-    private int age;//12+4
-    private String name;//12+4+4（引用类型占）+4（长度int）  24
+    //private int age;//12+4
+    //private String name;//12+4+4（引用类型占）+4（补齐）  24
+    //private char[] arr;//12+4=16
+    private String name = "winter";
+    //12+4（引用类型占）+字符串(12+2*4+补齐（4）)+数组(12+4+6*2+补齐（4）)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * 64位压缩 UseCompressedOops 对象头（12b）=运行时数据-markWord（4b）+class指针（8b）
@@ -20,7 +30,10 @@ public class StudentSize {
      * @param args
      */
     public static void main(String[] args) {
-        //intObject();
+        intObject();
+    }
+
+    private static void StringSize(){
         String w = "winter";
         String humanSizeOf = RamUsageEstimator.humanSizeOf(w);
         long shallowSizeOf = RamUsageEstimator.shallowSizeOf(w);
@@ -46,6 +59,7 @@ public class StudentSize {
      */
     private static void intObject(){
         StudentSize studentSize = new StudentSize();
+        studentSize.setName("Winter_01");
         String humanSizeOf = RamUsageEstimator.humanSizeOf(studentSize);
         long shallowSizeOf = RamUsageEstimator.shallowSizeOf(studentSize);
         System.out.println("intHumanSizeOf:"+humanSizeOf);//intHumanSizeOf:16 bytes
