@@ -15,13 +15,17 @@ public enum UrlConf {
     CAPTCHA_IMAGE64("/passport/captcha/captcha-image64",HttpUtil.GET,false,true,"获取登录验证码"),
     CAPTCHA_CHECK("/passport/captcha/captcha-check",HttpUtil.GET,false,false,"验证登录验证码"),
     WEB_LOGIN("/passport/web/login",HttpUtil.POST,false,false,"登录"),
+
+    CHECK_USER("/otn/login/checkUser",HttpUtil.POST,true,false,"校验用户是否登录"),
+    QUERY_TICKET("/otn/leftTicket/queryA",HttpUtil.POST,false,true,"查询余票"),
+    SUBMIT_ORDER("/otn/leftTicket/submitOrderRequest",HttpUtil.POST,false,true,"提交订单"),
     ;
 
     private String requestPath;
+    private String type;
     private String desc;
     private boolean isJson;
     private boolean isXml;
-    private String type;
     UrlConf(String requestPath,String type,
             boolean isJson,boolean isXml,
             String desc){

@@ -3,13 +3,19 @@ package org.imzdong.study.ticket.core;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.imzdong.study.ticket.dto.TicketInfoDTO;
+import org.imzdong.study.ticket.util.HttpUtil;
+import org.imzdong.study.ticket.util.UrlConf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -23,7 +29,6 @@ import java.util.regex.Pattern;
 public class Ticket {
 
     private final static Logger logger = LoggerFactory.getLogger(Ticket.class);
-    private final static HttpGet httpGet = new HttpGet();
     public static Map<String,String> seatMap = new HashMap<>();
     static{
         seatMap.put("商务座","32");
@@ -36,38 +41,52 @@ public class Ticket {
         seatMap.put("无座","26");
         seatMap.put("动卧","33");
     }
+    private HttpClient httpClient;
+
+    public Ticket(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     /**
      * 查询余票
-     * @param ticketDate
-     * @param from_station
-     * @param to_station
+     * @param trainDate
+     * @param fromStation
+     * @param toStation
+     * @param purposeCode
      * @return
      * @throws Exception
      */
-    public static List<TicketInfoDTO> firstQueryTicket(String ticketDate,
-                                                        String from_station,
-                                                        String to_station) throws Exception{
+    public List<TicketInfoDTO> queryTicket(String trainDate,
+                                                  String fromStation,
+                                                  String toStation,
+                                                  String purposeCode) throws Exception{
         ///otn/leftTicket/queryZ?leftTicketDTO.train_date={0}&leftTicketDTO.from_station={1}&leftTicketDTO.to_station={2}&purpose_codes=ADULT
         //String ticketDate = "2019-01-28";
         //String from_station = "BJP";
         //String to_station = "NFF";
         String result = "";
         boolean queryUrlFlag = true;
+        HttpGet httpGet = new HttpGet();
         while (queryUrlFlag){
-            String realQuery = "leftTicket/queryA";
+            String realQuery = UrlConf.QUERY_TICKET.getRequestPath();
             if(result.contains("c_url")){
                 realQuery = JSONObject.parseObject(result).getString("c_url");
                 queryUrlFlag = false;
             }
-            Thread.sleep(1000L);
-            String queryPath = "/otn/"+realQuery+"?" + String.format(
-                            "leftTicketDTO.train_date=%s" +
-                            "&leftTicketDTO.from_station=%s" +
-                            "&leftTicketDTO.to_station=%s&purpose_codes=ADULT"
-                    ,ticketDate,from_station,to_station);
-            String response = HttpClientUtil.httpRequest(queryPath,httpGet);
-            logger.info("第八步查票：{}---{}",queryPath,response);
+            try{
+                URI queryUri = new URIBuilder(HttpUtil.REQUEST_HOST + realQuery + "?")
+                        .setParameter("leftTicketDTO.train_date", trainDate)
+                        .setParameter("leftTicketDTO.from_station", fromStation)
+                        .setParameter("leftTicketDTO.to_station", toStation)
+                        .setParameter("purpose_codes", purposeCode)
+                        .build();
+                httpGet.setURI(queryUri);
+            }catch (URISyntaxException e){
+                logger.error("查询余票异常：",e);
+            }
+
+            String response = HttpUtil.httpRequest(httpClient,httpGet);//HttpClientUtil.httpRequest(queryPath,httpGet);
+            logger.info("第八步查票：{}",response);
             result = response;
         }
         JSONObject ticketJson = JSONObject.parseObject(result);
@@ -125,10 +144,10 @@ public class Ticket {
      * @param queryToStationName
      * @return
      */
-    public static boolean secondConfirmStation(String secretStr,String trainDate,
-                                                      String queryFromStationName,
-                                                      String queryToStationName) {
-        String confirmStationPath = "/otn/leftTicket/submitOrderRequest";
+    public boolean submitOrder(String secretStr,
+                               String trainDate,
+                               String queryFromStationName,
+                               String queryToStationName) {
         //String seatType = seatNo.get(seatName);
         //String secretStr = ""; //字符串加密
         //String train_date = "2019-01-28";//出发时间
@@ -150,7 +169,7 @@ public class Ticket {
         params.put("query_to_station_name",queryToStationName);
         StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
         httpPost.setEntity(entity);
-        String response = HttpClientUtil.httpRequest(confirmStationPath,httpPost);
+        String response = HttpUtil.httpRequest(httpClient,httpPost);//HttpClientUtil.httpRequest(confirmStationPath,httpPost);
         //{"validateMessagesShowId":"_validatorMessage",
         // "status":true,"httpstatus":200,"data":"N","messages":[],"validateMessages":{}}
         JSONObject submitJson = JSONObject.parseObject(response);
@@ -168,7 +187,7 @@ public class Ticket {
      */
     public static JSONObject thirdConfirmSubmitToken() throws Exception{
         String confirmSubmitTokenPath = "/otn/confirmPassenger/initDc";
-        String response = HttpClientUtil.httpRequest(confirmSubmitTokenPath,httpGet);
+        String response = "";//HttpClientUtil.httpRequest(confirmSubmitTokenPath,httpGet);
         logger.info("获取提交订单Token：{}",response);
         //{"validateMessagesShowId":"_validatorMessage","status":true,"httpstatus":200,
         // "data":{"errMsg":"系统繁忙，请稍后重试！","submitStatus":false},"messages":[],"validateMessages":{}}
@@ -262,7 +281,7 @@ public class Ticket {
         HttpPost httpPost = new HttpPost();
         StringEntity entity = new StringEntity(body,"UTF");
         httpPost.setEntity(entity);
-        String response = HttpClientUtil.httpRequest(confirmQueue,httpPost);
+        String response = "";//HttpClientUtil.httpRequest(confirmQueue,httpPost);
         logger.info("第13步确认队列提交订单：{}",response);
         return response;
     }

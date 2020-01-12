@@ -52,7 +52,7 @@ public class Captcha {
         CaptchaResult captchaResult = new CaptchaResult();
         captchaResult.setSuccess(false);
         HttpGet httpGetCode = new HttpGet();
-        HttpUtil.setDefaultHeader(httpGetCode,UrlConf.CAPTCHA_CHECK);
+        HttpUtil.setDefaultHeader(httpGetCode,UrlConf.CAPTCHA_IMAGE64);
         try {
             URI uri = new URIBuilder(HttpUtil.REQUEST_HOST + UrlConf.CAPTCHA_IMAGE64.getRequestPath())
                     .setParameter("login_site", "E")
@@ -213,7 +213,7 @@ public class Captcha {
         StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
         HttpPost httpPost = new HttpPost();
         httpPost.setEntity(entity);
-        String response=  HttpClientUtil.httpRequest(authPath,httpPost);
+        String response=  "";//HttpClientUtil.httpRequest(authPath,httpPost);
         String umk=null;
         if(response.contains("newapptk")){
             JSONObject authJson = JSONObject.parseObject(response);
@@ -235,21 +235,7 @@ public class Captcha {
         StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
         HttpPost httpPost = new HttpPost();
         httpPost.setEntity(entity);
-        HttpClientUtil.httpRequest(uamAuthPath,httpPost);
+        //HttpClientUtil.httpRequest(uamAuthPath,httpPost);
     }
 
-    /*
-     * 第七步检查用户是否登录
-     * @return
-     */
-    private static String eightCheckUser(){
-        String checkUserUrl = "/otn/login/checkUser";
-        //data = {"_json_att": ""}
-        String body = String.format("_json_att=%s"
-                ,"");
-        HttpPost httpPost = new HttpPost();
-        httpPost.setEntity(new StringEntity(body, "UTF-8"));
-        String response = HttpClientUtil.httpRequest(checkUserUrl,httpPost);
-        return response;
-    }
 }

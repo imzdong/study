@@ -8,6 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.imzdong.study.ticket.dto.LoginResult;
 import org.imzdong.study.ticket.util.HttpUtil;
@@ -76,6 +77,26 @@ public class Login {
             loginResult.setSuccess(true);
         }
         return loginResult;
+    }
+
+    /*
+     * 检查用户是否登录
+     * @return
+     */
+    public boolean checkUser(){
+        String body = String.format("_json_att=%s","");
+        HttpPost httpPost = new HttpPost();
+        HttpUtil.setDefaultHeader(httpPost,UrlConf.CHECK_USER);
+        httpPost.setEntity(new StringEntity(body, "UTF-8"));
+        String response = HttpUtil.httpRequest(httpClient,httpPost);//HttpClientUtil.httpRequest(checkUserUrl,httpPost);
+        JSONObject responseJson = JSONObject.parseObject(response);
+        boolean status = responseJson.getBoolean("status");
+        boolean flag = responseJson.getJSONObject("data").getBoolean("flag");
+        // success
+        if (status && flag){
+            return true;
+        }
+        return false;
     }
     /**
      * 设置cookie

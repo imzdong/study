@@ -2,7 +2,6 @@ package org.imzdong.study.ticket;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.imzdong.study.ticket.core.Login;
 import org.imzdong.study.ticket.core.Order;
 import org.imzdong.study.ticket.core.Passenger;
 import org.imzdong.study.ticket.core.Ticket;

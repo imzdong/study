@@ -46,7 +46,7 @@ public class Passenger {
         params.put("REPEAT_SUBMIT_TOKEN",token);
         StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
         httpPost.setEntity(entity);
-        String response = HttpClientUtil.httpRequest(getPassengerPath,httpPost);
+        String response = "";//HttpClientUtil.httpRequest(getPassengerPath,httpPost);
         logger.info("第九步获取乘客：{}",response);
         JSONObject passengerJson = JSONObject.parseObject(response);
         boolean status = passengerJson.getBoolean("status");

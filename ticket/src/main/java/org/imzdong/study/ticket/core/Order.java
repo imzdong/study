@@ -48,7 +48,7 @@ public class Order {
         params.put("_json_att",_json_att);
         StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
         httpPost.setEntity(entity);
-        String response = HttpClientUtil.httpRequest(checkOrderUrl,httpPost);
+        String response = "";//HttpClientUtil.httpRequest(checkOrderUrl,httpPost);
         logger.info("第11步检查订单：{}",response);
         //{"validateMessagesShowId":"_validatorMessage","status":true,"httpstatus":200,
         // "data":{"errMsg":"系统繁忙，请稍后重试！","submitStatus":false},"messages":[],"validateMessages":{}}
@@ -121,7 +121,7 @@ public class Order {
         while(num<5||status) {
             num++;
             Thread.sleep(3000L);
-            String response = HttpClientUtil.httpRequest(getQueueCount, httpPost);
+            String response = "";//HttpClientUtil.httpRequest(getQueueCount, httpPost);
             logger.info("第12步模拟查询当前的列车排队人数的方法：{}",response);
             try{
                 if(StringUtils.isNotBlank(response)){
@@ -165,7 +165,7 @@ public class Order {
             HttpPost httpPost = new HttpPost();
             StringEntity entity = new StringEntity(body, "UTF-8");
             httpPost.setEntity(entity);
-            String response = HttpClientUtil.httpRequest(checkUserUrl,httpPost);
+            String response = "";//HttpClientUtil.httpRequest(checkUserUrl,httpPost);
             logger.info("第14步确认订单状态：{}",response);
             Thread.sleep(3000L);
             JSONObject queryOrderResult = JSONObject.parseObject(response);
@@ -194,7 +194,7 @@ public class Order {
                 ,orderId);
         HttpPost httpPost = new HttpPost();
         httpPost.setEntity(new StringEntity(body,"UTF-8"));
-        String response = HttpClientUtil.httpRequest(checkUserUrl,httpPost);
+        String response = "";//HttpClientUtil.httpRequest(checkUserUrl,httpPost);
         logger.info("第15步获取真正订单状态：{}",response);
         JSONObject queryOrderResult = JSONObject.parseObject(response);
         if(queryOrderResult.getBoolean("status")&&queryOrderResult.getJSONObject("data")!=null
@@ -216,7 +216,7 @@ public class Order {
                 ,"");
         HttpPost httpPost = new HttpPost();
         httpPost.setEntity(new StringEntity(body, "UTF-8"));
-        String response = HttpClientUtil.httpRequest(checkUserUrl, httpPost);
+        String response = "";//HttpClientUtil.httpRequest(checkUserUrl, httpPost);
         logger.info("第16步获取订单详情：{}",response);
         return response;
     }

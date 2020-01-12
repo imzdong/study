@@ -169,6 +169,23 @@
       <artifactId>lucene-core</artifactId>
       <version>4.0.0</version>
     </dependency>
+    <!--爬虫框架-->
+    <dependency>
+      <groupId>cn.edu.hfut.dmic.webcollector</groupId>
+      <artifactId>WebCollector</artifactId>
+      <version>2.73-alpha</version>
+    </dependency>
+    <!--
+            下面这些dependency用于JS数据抓取(selenium)。
+            如果希望使用这些功能，请将 <scope>provided</scope>删除，并重新构建项目。
+            注意这些dependency大约有几十M，国内使用最好使用开源中国的maven镜像,详细方法
+            参见：http://maven.oschina.net/help.html
+        -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.4.0</version>
+    </dependency>
   </dependencies>
 </dependencyManagement>
 
