@@ -45,7 +45,7 @@ public class TicketMain {
         log.info("1、初始化登陆：/otn/leftTicket/init");
         String callBack = "jQuery191025909781158866285_1577623706238";
         Long nums = System.currentTimeMillis();
-        Login.firstInit();
+        //Login.firstInit();
         //Login.secondGetCode(nums,callBack);
         //String algID = Login.first2GetJs();
         //String logDeviceParams = Login.first4GetLogDeviceParams();
@@ -64,17 +64,17 @@ public class TicketMain {
             if("closed".equals(code)){
                 break;
             }
-            String s = Login.thirdInputCode(code);//fourCheckCode(code);
+            String s = "";//Login.thirdInputCode(code);//fourCheckCode(code);
             randCode = s;
             //{"result_message":"验证码校验成功","result_code":"4"}
             log.info("3、校验验证码：/passport/captcha/captcha-check");
             //result12306 = Login.fourthCheckCode(s,callBack,nums);
         }
-        String algID = Login.first2GetJs();
+        String algID = "";//Login.first2GetJs();
         //String logDeviceParams = Login.first4GetLogDeviceParams();
-        Login.first3LogDevice(algID);
+        //Login.first3LogDevice(algID);
         log.info("4、12306用户账号登陆：/passport/web/login");
-        umktk = Login.fifthWebLogin(userName,password,randCode);
+        umktk = "";//Login.fifthWebLogin(userName,password,randCode);
         log.info("umktk：{}",umktk);
         if(StringUtils.isNotBlank(umktk)){
             log.info("5、12306获取用户apptk：/passport/web/auth/uamtk");

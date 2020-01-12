@@ -1,4 +1,4 @@
-package org.imzdong.study.ticket.core;
+package org.imzdong.study.ticket.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

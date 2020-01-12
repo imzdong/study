@@ -10,6 +10,15 @@ public class BaseResult {
     private boolean success;
     private String msg;
 
+    public BaseResult(){
+
+    }
+
+    public BaseResult(boolean success,String msg){
+        this.success = success;
+        this.msg = msg;
+    }
+
     public boolean isSuccess() {
         return success;
     }

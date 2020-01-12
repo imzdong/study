@@ -4,6 +4,8 @@ import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.WebConnectionWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.imzdong.study.ticket.util.HttpUtil;
+import org.imzdong.study.ticket.util.UrlConf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +29,6 @@ public class GetJsCookie {
             } else {
                 wc = new WebClient();
             }
-//           如果代理需要密码
-//            DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
-//            creds.addCredentials("username", "password");
-//            wc.setCredentialsProvider(creds);
             wc.getOptions().setTimeout(15000);
             wc.getOptions().setUseInsecureSSL(true);
             wc.getOptions().setJavaScriptEnabled(true);
@@ -53,7 +51,7 @@ public class GetJsCookie {
                         @Override
                         public WebResponse getResponse(WebRequest request) throws IOException {
                             WebResponse response = super.getResponse(request);
-                            if (request.getUrl().toExternalForm().contains("/otn/HttpZF/logdevice")) {
+                            if (request.getUrl().toExternalForm().contains(UrlConf.LOG_DEVICE.getRequestPath())) {
                                 cookieUrl = request.getUrl().toExternalForm();
                             }
                             return response;
@@ -62,7 +60,7 @@ public class GetJsCookie {
                     }
 
             );
-            HtmlPage page = wc.getPage("https://kyfw.12306.cn/otn/leftTicket/init?linktypeid=dc");
+            wc.getPage(HttpUtil.REQUEST_HOST+UrlConf.OTN_INIT.getRequestPath());
             wc.waitForBackgroundJavaScript(3 * 1000);
         } catch (Exception e) {
             logger.error("获取失败cookie url", e);
