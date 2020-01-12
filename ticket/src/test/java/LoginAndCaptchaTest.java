@@ -1,7 +1,7 @@
-package org.imzdong.study.ticket.core;
-
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.imzdong.study.ticket.core.Captcha;
+import org.imzdong.study.ticket.core.Login;
 import org.imzdong.study.ticket.dto.CaptchaResult;
 import org.imzdong.study.ticket.dto.LoginResult;
 import org.imzdong.study.ticket.util.HttpUtil;

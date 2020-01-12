@@ -83,7 +83,7 @@ public class TicketMain {
             //getUser(newAppTk);
             //checkUser();//校验是否登录
             log.info("7、查询余票：leftTicket/query");
-            List<TicketInfoDTO> ticketInfoDTOS = Ticket.firstQueryTicket(trainDate,from,to);
+            List<TicketInfoDTO> ticketInfoDTOS = new ArrayList<>();//Ticket.firstQueryTicket(trainDate,from,to);
             log.info("ticketInfoDTOS：{}",ticketInfoDTOS);
             log.info("ticketInfoDTOS size：{}",ticketInfoDTOS.size());
             ticketInfoDTOS = Ticket.transTicket(ticketInfoDTOS);
@@ -100,9 +100,9 @@ public class TicketMain {
             log.info("符合目标的车次：{}",resultDto);
             if(resultDto!=null){
                 log.info("8、点击预定：/otn/leftTicket/submitOrderRequest");
-                boolean reserveSubmitOrder = Ticket.secondConfirmStation(ticketInfoDTOS.get(0).getSecretStr(),
-                        trainDate,
-                        from, to);
+                boolean reserveSubmitOrder = true;//Ticket.secondConfirmStation(ticketInfoDTOS.get(0).getSecretStr(),
+                        //trainDate,
+                        //from, to);
                 if(reserveSubmitOrder){
                     log.info("9、进入预定单程页面：/otn/confirmPassenger/initDc");
                     JSONObject initDcSubmitToken = Ticket.thirdConfirmSubmitToken();

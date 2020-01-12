@@ -14,6 +14,7 @@ import org.imzdong.study.ticket.util.UrlConf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
@@ -59,7 +60,7 @@ public class Ticket {
     public List<TicketInfoDTO> queryTicket(String trainDate,
                                                   String fromStation,
                                                   String toStation,
-                                                  String purposeCode) throws Exception{
+                                                  String purposeCode) {
         ///otn/leftTicket/queryZ?leftTicketDTO.train_date={0}&leftTicketDTO.from_station={1}&leftTicketDTO.to_station={2}&purpose_codes=ADULT
         //String ticketDate = "2019-01-28";
         //String from_station = "BJP";
@@ -101,7 +102,12 @@ public class Ticket {
                 String seatIndex = seatMap.get(seatName);
                 String ticketNum = ticketArray[Integer.parseInt(seatIndex)];
                 String isLeftTicket = ticketArray[11];//是否有票 Y
-                String reserve = URLDecoder.decode(ticketArray[1], "UTF-8");//预定
+                String reserve = null;//预定
+                try {
+                    reserve = URLDecoder.decode(ticketArray[1], "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    logger.error("设置余票信息异常：",e);
+                }
                 TicketInfoDTO ticketInfoDTO = new TicketInfoDTO();
                 ticketInfoDTO.setSecretStr(ticketArray[0]);//加密串
                 ticketInfoDTO.setTrain_no(ticketArray[2]);//240000K58916
@@ -122,7 +128,8 @@ public class Ticket {
         }
         return transTicket(listTicket);
     }
-    public static List<TicketInfoDTO> transTicket(List<TicketInfoDTO> listTicket) throws Exception{
+
+    public static List<TicketInfoDTO> transTicket(List<TicketInfoDTO> listTicket){
         List<TicketInfoDTO> listTransTicket = new ArrayList<>();
         for(TicketInfoDTO tto:listTicket){
             //is_ticket_pass != '' and is_ticket_pass != '无' and is_ticket_pass != '*'
