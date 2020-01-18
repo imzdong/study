@@ -1,4 +1,4 @@
-package performance.size;
+package org.imzdong.study.performance.size;
 
 import org.apache.lucene.util.RamUsageEstimator;
 

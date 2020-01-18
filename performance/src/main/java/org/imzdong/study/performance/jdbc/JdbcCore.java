@@ -1,4 +1,4 @@
-package performance.jdbc;
+package org.imzdong.study.performance.jdbc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

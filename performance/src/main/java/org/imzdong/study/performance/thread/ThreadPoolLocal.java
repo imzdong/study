@@ -1,11 +1,8 @@
-package performance.thread;
-
-import org.jetbrains.annotations.NotNull;
+package org.imzdong.study.performance.thread;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 /**
  * @description:

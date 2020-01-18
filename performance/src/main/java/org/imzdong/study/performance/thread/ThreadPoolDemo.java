@@ -1,4 +1,4 @@
-package performance.thread;
+package org.imzdong.study.performance.thread;
 
 /**
  * @description: 测试局部线程池是否会被回收

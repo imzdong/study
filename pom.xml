@@ -14,6 +14,7 @@
       <module>design</module>
       <module>ticket</module>
       <module>performance</module>
+      <module>netty</module>
   </modules>
 
   <name>study</name>

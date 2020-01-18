@@ -1,4 +1,4 @@
-package performance.pool;
+package org.imzdong.study.performance.pool;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.slf4j.Logger;
