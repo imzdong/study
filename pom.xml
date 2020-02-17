@@ -150,7 +150,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid</artifactId>
-      <version>1.2.8.sec06</version>
+      <version>1.1.21</version>
     </dependency>
     <!--redis操作-->
     <dependency>

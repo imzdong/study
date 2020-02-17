@@ -35,9 +35,9 @@ public class StudentSize {
 
     private static void StringSize(){
         String w = "winter";
-        String humanSizeOf = RamUsageEstimator.humanSizeOf(w);
+        //String humanSizeOf = RamUsageEstimator.(w);
         long shallowSizeOf = RamUsageEstimator.shallowSizeOf(w);
-        System.out.println("wHumanSizeOf:"+humanSizeOf);
+        //System.out.println("wHumanSizeOf:"+humanSizeOf);
         //humanSizeOf:56 bytes = 12+2*4+对齐（4）+（12+4+5*2+补齐（6））
         System.out.println("wShallowSizeOf:"+shallowSizeOf);
         //shallowSizeOf:24
@@ -48,9 +48,9 @@ public class StudentSize {
      */
     private static void emptyObject(){
         StudentSize studentSize = new StudentSize();
-        String humanSizeOf = RamUsageEstimator.humanSizeOf(studentSize);
+        //String humanSizeOf = RamUsageEstimator.humanSizeOf(studentSize);
         long shallowSizeOf = RamUsageEstimator.shallowSizeOf(studentSize);
-        System.out.println("humanSizeOf:"+humanSizeOf);//humanSizeOf:16 bytes
+        //System.out.println("humanSizeOf:"+humanSizeOf);//humanSizeOf:16 bytes
         System.out.println("shallowSizeOf:"+shallowSizeOf);//shallowSizeOf:16
     }
 
@@ -60,9 +60,9 @@ public class StudentSize {
     private static void intObject(){
         StudentSize studentSize = new StudentSize();
         studentSize.setName("Winter_01");
-        String humanSizeOf = RamUsageEstimator.humanSizeOf(studentSize);
+        //String humanSizeOf = RamUsageEstimator.humanSizeOf(studentSize);
         long shallowSizeOf = RamUsageEstimator.shallowSizeOf(studentSize);
-        System.out.println("intHumanSizeOf:"+humanSizeOf);//intHumanSizeOf:16 bytes
+        //System.out.println("intHumanSizeOf:"+humanSizeOf);//intHumanSizeOf:16 bytes
         System.out.println("intShallowSizeOf:"+shallowSizeOf);//intShallowSizeOf:16
     }
     /**
@@ -88,9 +88,9 @@ public class StudentSize {
         class A{char a;}
         class B extends A{long c;short d;byte e;}
         B b = new B();
-        String strHumanSizeOf = RamUsageEstimator.humanSizeOf(b);
+        //String strHumanSizeOf = RamUsageEstimator.humanSizeOf(b);
         long strShallowSizeOf = RamUsageEstimator.shallowSizeOf(b);
-        System.out.println("bHumanSizeOf:"+strHumanSizeOf);//32
+        //System.out.println("bHumanSizeOf:"+strHumanSizeOf);//32
         System.out.println("bShallowSizeOf:"+strShallowSizeOf);//32
     }
 }
