@@ -10,7 +10,7 @@ import java.util.Date;
  * @author: Winter
  * @time: 2019年11月12日, 0012 13:45
  * @des: 相当于在xml配置
- *       <bean id="createDate"
+ *       <beans id="createDate"
  *       class="org.imzdong.springboot.day01.Date">
  */
 @Configuration

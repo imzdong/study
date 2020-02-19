@@ -21,7 +21,47 @@ IOC反转控制，
 外部化配置：属性配置、XML配置
 托管的资源（Java Beans或其他资源）：线程池配置
 # 4、IOC的实现
+Java SE实现
+     Java Beans Api
+     SPI
+     JNI
+Java EE实现
+     EJB
+     Servlet  
+开源项目
+• Apache Avalon（http://avalon.apache.org/closed.html） 
+• PicoContainer（http://picocontainer.com/） 
+• Google Guice（https://github.com/google/guice） 
+• Spring Framework（https://spring.io/projects/spring-framework）
 # 5、传统IOC容器实现
+• Java Beans 作为IoC 容器 
+• 特性 
+    • 依赖查找 
+    • 生命周期管理 
+    • 配置元信息 
+    • 事件 
+    • 自定义 
+    • 资源管理 
+    • 持久化 
+    • 规范 
+• JavaBeans：https://www.oracle.com/technetwork/java/javase/tech/index-jsp-138795.html 
+• BeanContext：https://docs.oracle.com/javase/8/docs/technotes/guides/beans/spec/beancontex
 # 6、轻量级IOC容器
+• Expert One-on-One™ J2EE™ Development without EJB™》认为轻量级容器的好处：
+• Escaping the monolithic container
+• Maximizing code reusability
+• Greater object orientation
+• Greater productivity
+• Better testability
 # 7、依赖查找 VS 依赖注入
+依赖查找  主动获取 相对繁琐 侵入业务逻辑 依赖容器API 良好
+依赖注入  被动提供 相对遍历 低侵入性    不依赖      一般
 # 8、构造器注入 VS Setter注入
+
+
+Spring IOC的优势
+答： 典型的IoC 管理，
+依赖查找和依赖注入 
+AOP抽象 事务抽象 
+事件机制 SPI 扩展 
+强大的第三方整合 易测试性 更好的面向对象
