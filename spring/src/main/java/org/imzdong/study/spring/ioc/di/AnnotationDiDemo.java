@@ -1,6 +1,5 @@
 package org.imzdong.study.spring.ioc.di;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
