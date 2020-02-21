@@ -103,6 +103,42 @@ FactoryBean创建Bean的方式，实现工厂Bean的方法就是继承FactoryBea
 Spring IOC启动准备那些东西？
 IOC配置元数据读取和解析，IOC容器生命周期，Spring事件发布，国际化等。
 
+# Spring Bean基础
+
+ 什么是BeanDefinition？ 
+• BeanDefinition 是Spring Framework 中定义Bean 的配置元信息接口，包含： 
+• Bean 的类名
+• Bean 行为配置元素，如作用域、自动绑定的模式，生命周期回调等
+• 其他Bean 引用，又可称作合作者（collaborators）或者依赖（dependencies）
+• 配置设置，比如Bean 属性（Properties）
+
+ BeanDefinition 元信息 
+ 属性（Property） 说明 
+ Class Bean 全类名，必须是具体类，不能用抽象类或接口 
+ Name Bean 的名称或者ID 
+ Scope Bean 的作用域（如：singleton、prototype 等） 
+ Constructor arguments Bean 构造器参数（用于依赖注入） 
+ Properties Bean 属性设置（用于依赖注入） 
+ Autowiring mode Bean 自动绑定模式（如：通过名称byName） 
+ Lazy initialization mode Bean 延迟初始化模式（延迟和非延迟） 
+ Initialization method Bean 初始化回调方法名称 
+ Destruction method Bean 销毁回调方法名称
+ 
+ BeanNameGenerator(Bean名称生成器)
+ 
+ 别名
+ Bean 别名（Alias）的价值 • 复用现有的BeanDefinition • 更具有场景化的命名方法，比如： <alias name="myApp-dataSource" alias="subsystemA-dataSource"/> <alias name="myApp-dataSource" alias="subsystemB-dataSource"/>
+ 
+ 注册Spring Bean
+ 
+  BeanDefinition 注册 
+  • XML 配置元信息 • <bean name=”...” ... /> 
+  • Java 注解配置元信息 • @Bean • @Component • @Import 
+  • Java API 配置元信息 • 命名方式：BeanDefinitionRegistry#registerBeanDefinition(String,BeanDefinition) • 非命名方式： BeanDefinitionReaderUtils#registerWithGeneratedName(AbstractBeanDefinition,Be anDefinitionRegistry) • 配置类方式：AnnotatedBeanDefinitionReader#register(Class...)
+ 
+
+
+
 
 
 
