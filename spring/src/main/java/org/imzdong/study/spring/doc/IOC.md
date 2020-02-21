@@ -100,6 +100,9 @@ BeanFactory和FactoryBean
 BeanFactory是IOC的底层容器
 FactoryBean创建Bean的方式，实现工厂Bean的方法就是继承FactoryBean
 
+Spring IOC启动准备那些东西？
+IOC配置元数据读取和解析，IOC容器生命周期，Spring事件发布，国际化等。
+
 
 
 
