@@ -1,5 +1,8 @@
 package org.imzdong.study.spring.ioc.di;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.ObjectFactory;
+
 /**
  * @description:
  * @author: Winter
@@ -13,6 +16,8 @@ public class User {
 
     private int id;
     private String name;
+    private BeanFactory beanFactory;
+    private ObjectFactory<User> objectFactory;
 
     public int getId() {
         return id;
@@ -30,11 +35,28 @@ public class User {
         this.name = name;
     }
 
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+
+    public ObjectFactory<User> getObjectFactory() {
+        return objectFactory;
+    }
+
+    public void setObjectFactory(ObjectFactory<User> objectFactory) {
+        this.objectFactory = objectFactory;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", beanFactory=" + beanFactory +
                 '}';
     }
 }

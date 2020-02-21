@@ -1,7 +1,9 @@
 package org.imzdong.study.spring.ioc.di;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.Environment;
 
 /**
  * @description:
@@ -25,9 +27,26 @@ public class XmlDiDemo {
     public static void main(String[] args) {
         String classPath = "classpath:META-INF/dependency-injection-content.xml";
         ApplicationContext context = new ClassPathXmlApplicationContext(classPath);
-        /*User user = context.getBean("user", User.class);
-        System.out.println(user);*/
-        ConstructorEntry constructorEntry = context.getBean("constructorEntry", ConstructorEntry.class);
-        System.out.println("constructorEntry:"+constructorEntry);
+        User user = context.getBean("user", User.class);
+        //依赖注入
+        System.out.println(user);
+        System.out.println(user.getObjectFactory().getObject());
+        //User{id=666, name='Winter', beanFactory=org.springframework.beans.factory.support.DefaultListableBeanFactory@2133814f:
+        // defining beans [student,constructorEntry,user]; root of factory hierarchy}
+        //依赖查找
+        //BeanFactory beanFactory = context.getBean(BeanFactory.class);
+        //System.out.println(beanFactory);//异常获取不到
+        /*ConstructorEntry constructorEntry = context.getBean("constructorEntry", ConstructorEntry.class);
+        System.out.println("constructorEntry:"+constructorEntry);*/
+        Environment environment = context.getBean(Environment.class);
+        System.out.println("容器内建Bean：environment" + environment);
+        /**
+         * 1、自定义Bean
+         *    User
+         * 2、容器内建Bean对象（可以查到）
+         *    Environment
+         * 3、容器内建依赖(通过getBean获取不到)
+         *    BeanFactory
+         */
     }
 }

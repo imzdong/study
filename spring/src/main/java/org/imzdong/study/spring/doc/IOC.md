@@ -65,3 +65,43 @@ Spring IOC的优势
 AOP抽象 事务抽象 
 事件机制 SPI 扩展 
 强大的第三方整合 易测试性 更好的面向对象
+
+# IOC配置元信息
+
+# IOC的真正容器：
+BeanFactory和Application谁才是真正的容器？
+Application就是BeanFactory，简化了AOP,应用级别上下文。
+配置元信息，资源管理，事件，国际化，注解，Environment抽象
+ConfigurableApplication Application BenFactory
+
+ConfigurableApplication组合BeanFactory
+BenFactory是一个底层的IOC，Application扩展了BeanFactory
+
+啥时候用BeanFactory和ApplicationContext？
+
+启动
+1、准备prepareRefresh
+2、获取obtainFreshBeanFactory
+3、prepareBeanFactory
+4、postProcessBeanFactory自定义扩展
+5、this.invokeBeanFactoryPostProcessors(beanFactory);
+6、this.registerBeanPostProcessors(beanFactory);
+7、this.initMessageSource();
+8、this.initApplicationEventMulticaster();
+9、this.onRefresh();
+10、this.registerListeners();
+11、this.finishBeanFactoryInitialization(beanFactory);
+12、this.finishRefresh();
+
+关闭
+close
+
+BeanFactory和FactoryBean
+BeanFactory是IOC的底层容器
+FactoryBean创建Bean的方式，实现工厂Bean的方法就是继承FactoryBean
+
+
+
+
+
+

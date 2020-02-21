@@ -10,7 +10,7 @@
         <!--<property name="user" ref="user"/>-->
     </bean>
     <!-- 默认spring启动就初始化 -->
-    <bean id="user" class="org.imzdong.study.spring.ioc.di.User">
+    <bean id="user" class="org.imzdong.study.spring.ioc.di.User" autowire="byType">
         <property name="id" value="666"/>
         <property name="name" value="Winter"/>
     </bean>
