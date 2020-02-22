@@ -37,4 +37,11 @@ public class Student {
                 ", sex='" + sex + '\'' +
                 '}';
     }
+
+    public static Student createStudent(){
+        Student student = new Student();
+        student.setAge(123);
+        student.setSex("create-by-factory");
+        return student;
+    }
 }
