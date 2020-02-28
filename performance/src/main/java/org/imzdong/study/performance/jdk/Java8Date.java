@@ -20,7 +20,11 @@ public class Java8Date {
         //3、日期工具类
         //testTemporalAdjusters();
         //4、日期转换
-        testFormatter();
+        //testFormatter();
+        int year = 2020;
+        int month = 12;
+        LocalDate localDate = LocalDate.of(year, month, 1);
+        System.out.println(LocalDate.of(year, month, 1).format(DateTimeFormatter.ofPattern("YYYYMM")));
     }
 
     private static void testFormatter(){
