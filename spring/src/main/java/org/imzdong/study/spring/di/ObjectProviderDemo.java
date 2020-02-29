@@ -2,7 +2,6 @@ package org.imzdong.study.spring.di;
 
 import org.imzdong.study.spring.ioc.di.User;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 
