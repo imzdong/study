@@ -40,6 +40,8 @@ public class DependencyInjectSetterDemo {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         BeanDefinitionBuilder studentHolderBuilder = BeanDefinitionBuilder.genericBeanDefinition(StudentHolder.class);
         studentHolderBuilder.addPropertyReference("student","studentBean");
+        //构造器
+        //studentHolderBuilder.addConstructorArgReference("studentBean");
         beanFactory.registerBeanDefinition("studentHolder",studentHolderBuilder.getBeanDefinition());
         BeanDefinitionBuilder studentBuilder = BeanDefinitionBuilder.genericBeanDefinition(Student.class);
         studentBuilder.addPropertyValue("sex","api依赖").addPropertyValue("age",123);
@@ -64,6 +66,7 @@ public class DependencyInjectSetterDemo {
     @Primary
     private StudentHolder initStudentHolder(Student student){
         StudentHolder studentHolder = new StudentHolder();
+        //构造器 new StudentHolder(student)
         studentHolder.setStudent(student);
         return studentHolder;
     }
