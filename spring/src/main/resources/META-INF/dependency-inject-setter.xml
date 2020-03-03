@@ -5,7 +5,7 @@
 
     <bean id="student" class="org.imzdong.study.spring.ioc.di.Student"/>
 
-    <bean id="studentHolder" class="org.imzdong.study.spring.di.StudentHolder" >
+    <bean id="studentHolder" class="org.imzdong.study.spring.di.model.StudentHolder" >
         <property name="student" ref="student" />
     </bean>
 

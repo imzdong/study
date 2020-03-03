@@ -1,5 +1,6 @@
 package org.imzdong.study.spring.di;
 
+import org.imzdong.study.spring.di.model.StudentHolder;
 import org.imzdong.study.spring.ioc.di.Student;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;

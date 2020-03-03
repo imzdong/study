@@ -1,20 +1,17 @@
-package org.imzdong.study.spring.bean.model;
+package org.imzdong.study.spring.di.model;
 
 import org.imzdong.study.spring.ioc.di.Student;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * @description: FactoryBean可以让我们自定义Bean的创建过程
+ * @description:
  * @author: Winter
- * @time: 2020/2/22
+ * @time: 2020年3月3日, 0003 14:13
  */
 public class StudentFactoryBean implements FactoryBean<Student> {
     @Override
     public Student getObject() throws Exception {
-        Student student = new Student();
-        student.setSex("StudentFactoryBean");
-        student.setAge(456);
-        return student;
+        return new Student(3,"我是StudentFactoryBean");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.imzdong.study.spring.di;
+package org.imzdong.study.spring.di.model;
 
 import org.imzdong.study.spring.ioc.di.Student;
 

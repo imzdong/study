@@ -11,6 +11,11 @@ public class Student {
         System.out.println("Student 初始化");
     }
 
+    public Student(int age, String sex) {
+        this.age = age;
+        this.sex = sex;
+    }
+
     private int age;
     private String sex;
 
