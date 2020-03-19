@@ -15,6 +15,7 @@
       <module>ticket</module>
       <module>performance</module>
       <module>netty</module>
+    <module>leetcode</module>
   </modules>
 
   <name>study</name>
