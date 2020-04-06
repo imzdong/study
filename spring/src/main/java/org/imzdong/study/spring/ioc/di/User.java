@@ -1,23 +1,28 @@
 package org.imzdong.study.spring.ioc.di;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.ObjectFactory;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * @description:
  * @author: Winter
  * @time: 2020/2/20
  */
-public class User {
+public class User implements BeanNameAware {
 
     public User(){
-        System.out.println("User 初始化");
+        //System.out.println("User 无参构造 初始化");
     }
 
     private int id;
     private String name;
     private BeanFactory beanFactory;
     private ObjectFactory<User> objectFactory;
+    private String beanName;
 
     public int getId() {
         return id;
@@ -58,5 +63,20 @@ public class User {
                 ", name='" + name + '\'' +
                 ", beanFactory=" + beanFactory +
                 '}';
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("User Bean [" + beanName + "] 初始化...");
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("User Bean [" + beanName + "] 销毁中...");
+    }
+
+    @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
     }
 }
