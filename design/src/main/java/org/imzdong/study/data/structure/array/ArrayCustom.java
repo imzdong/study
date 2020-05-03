@@ -44,17 +44,21 @@ public class ArrayCustom {
     }
 
     /**
-     * 添加
+     * 添加 插入不是替换
      * @param value
      * @return
      */
     public void insert(int index, int value){
-        if(length>=capacity){
-            //扩容
-            return;
+        if(index >= length){
+            throw new ArrayIndexOutOfBoundsException("数组越界");
         }
-        arrays[length] = value;
-        ++length;
+        if(capacity == length){
+            throw new RuntimeException("数组已满");
+        }
+        for(int n=index+1;n<length;n++){
+            arrays[n+1] = arrays[n];
+        }
+        arrays[index] = value;
     }
 
     /**
