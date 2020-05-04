@@ -11,14 +11,25 @@ import java.util.List;
 public class ArrayTest {
 
     public static void main(String[] args) {
+        int a = 10;
+        a = 10 + (10>>1);
+        System.out.println(a);
         ArrayCustom arrayCustom = new ArrayCustom(10);
         for(int num=0;num<12;num++){
             arrayCustom.add(num);
         }
         System.out.println(arrayCustom.length());
         System.out.println(arrayCustom);
+        System.out.println("--------------------------------");
+        arrayCustom.insert(9,234);
+        System.out.println(arrayCustom.length());
+        System.out.println(arrayCustom);
+        System.out.println("--------------------------------");
+        System.out.println(arrayCustom.get(10));
+        System.out.println("--------------------------------");
+        arrayCustom.delete(10);
+        System.out.println(arrayCustom.length());
+        System.out.println(arrayCustom);
 
-
-        List<String> list = new ArrayList();
     }
 }

@@ -36,8 +36,9 @@ public class ArrayCustom {
      */
     public void add(int value){
         if(length>=capacity){
+            capacity = capacity+(capacity>>1);
+            arrays = Arrays.copyOf(arrays,capacity);
             //扩容
-            return;
         }
         arrays[length] = value;
         ++length;
@@ -49,16 +50,17 @@ public class ArrayCustom {
      * @return
      */
     public void insert(int index, int value){
-        if(index >= length){
+        if(index >= length || index<0){
             throw new ArrayIndexOutOfBoundsException("数组越界");
         }
         if(capacity == length){
             throw new RuntimeException("数组已满");
         }
-        for(int n=index+1;n<length;n++){
-            arrays[n+1] = arrays[n];
+        for(int n=length;n>index;n--){
+            arrays[n] = arrays[n-1];
         }
         arrays[index] = value;
+        length++;
     }
 
     /**
@@ -73,11 +75,22 @@ public class ArrayCustom {
         return arrays[index];
     }
 
+    public boolean delete(int index){
+        if(index>=length || index<0){
+            throw new ArrayIndexOutOfBoundsException("数组越界");
+        }
+        for(int n=index;n<length;n++){
+            arrays[n] = arrays[n+1];
+        }
+        length--;
+        return true;
+    }
 
     @Override
     public String toString() {
         return "ArrayCustom{" +
-                "arrays=" + Arrays.toString(arrays) +
+                "arrays=" + Arrays.toString(Arrays.copyOf(arrays,length)) +
                 '}';
     }
+
 }
