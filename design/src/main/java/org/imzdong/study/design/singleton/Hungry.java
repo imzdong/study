@@ -8,7 +8,6 @@ package org.imzdong.study.design.singleton;
 public class Hungry {
 
     private Hungry(){
-
     }
 
     private Hungry hungry = new Hungry();

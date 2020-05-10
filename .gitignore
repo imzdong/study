@@ -1,4 +1,14 @@
+# idea配置
 .idea
 *.iws
 *.iml
 *.ipr
+# ignore Maven generated target folders
+target
+# IDE support files
+.project
+.classpath
+# maven配置
+.settings
+.factorypath
+.vscode
