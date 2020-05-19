@@ -2,8 +2,10 @@ package org.imzdong.study.performance.jdk;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.ValueRange;
 
 /**
  * @description: java8时间使用Demo
@@ -21,10 +23,31 @@ public class Java8Date {
         //testTemporalAdjusters();
         //4、日期转换
         //testFormatter();
-        int year = 2020;
+        /*int year = 2020;
         int month = 12;
         LocalDate localDate = LocalDate.of(year, month, 1);
-        System.out.println(LocalDate.of(year, month, 1).format(DateTimeFormatter.ofPattern("YYYYMM")));
+        System.out.println(LocalDate.of(year, month, 1).format(DateTimeFormatter.ofPattern("YYYYMM")));*/
+
+        between(202001,202103);
+    }
+
+    private static void between(Integer start, Integer end){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+        YearMonth startLocalDate = YearMonth.parse(start.toString(),formatter);
+        YearMonth endLocalDate = YearMonth.parse(end.toString(),formatter);
+        //Duration between = Duration.between(startLocalDate, endLocalDate);
+        System.out.println(startLocalDate);
+        System.out.println(endLocalDate);
+        //System.out.println(between);
+        //int months = between.
+        long until = startLocalDate.until(endLocalDate, ChronoUnit.MONTHS);
+        for(int num=0;num <= until;num++){
+            System.out.println(startLocalDate.plusMonths(num));
+        }
+       /* while (num<months) {
+            LocalDate localDate = startLocalDate.plusMonths(num++);
+            System.out.println(localDate);
+        }*/
     }
 
     private static void testFormatter(){
