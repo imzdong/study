@@ -30,13 +30,69 @@ public class Java8Date {
 
         //between(202001,202103);
         Integer start = 20200401;
-        Integer end = 20200407;
+        Integer end = 20190229;
         //period(start,end,1);
         //period(start,end,2);
         //period(start,end,3);
-        Integer[] prePeriod = prePeriod(start, end);
-        prePeriod = prePeriod(prePeriod[0], prePeriod[1]);
-        prePeriod = prePeriod(prePeriod[0], prePeriod[1]);
+        //Integer[] prePeriod = preYearPeriod(start, end);
+        //getYearFirstDay(end);
+        //getPreYearFirstDay(end);
+        getYear(end);
+    }
+
+    /**
+     * 获取本年第一天
+     * @param end
+     */
+    private static Integer[] getYear(Integer end){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate year = LocalDate.parse(end.toString(),formatter);
+        LocalDate firstDay = year.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate endDay = year.with(TemporalAdjusters.lastDayOfYear());
+        return new Integer[]{Integer.parseInt(firstDay.format(formatter)),Integer.parseInt(endDay.format(formatter))};
+    }
+
+    /**
+     * 获取本年第一天
+     * @param start
+     */
+    private static Integer[] getPreYearFirstDay(Integer start){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate startDate = LocalDate.parse(start.toString(),formatter).minusYears(1);
+        LocalDate plusStartDay = LocalDate.ofYearDay(startDate.getYear(),1);
+        System.out.println(plusStartDay+"~"+startDate);
+        System.out.println("----------------");
+        return new Integer[]{Integer.parseInt(plusStartDay.format(formatter)),Integer.parseInt(startDate.format(formatter))};
+    }
+
+    /**
+     * 获取本年第一天
+     * @param start
+     */
+    private static Integer[] getYearFirstDay(Integer start){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate startDate = LocalDate.parse(start.toString(),formatter);
+        LocalDate plusStartDay = LocalDate.ofYearDay(startDate.getYear(),1);
+        System.out.println(plusStartDay+"~"+startDate);
+        System.out.println("----------------");
+        return new Integer[]{Integer.parseInt(plusStartDay.format(formatter)),Integer.parseInt(startDate.format(formatter))};
+    }
+
+    /**
+     * 获取上一个同比周期
+     * @param start
+     * @param end
+     */
+    private static Integer[] preYearPeriod(Integer start,Integer end){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate startDate = LocalDate.parse(start.toString(),formatter);
+        LocalDate endDate = LocalDate.parse(end.toString(),formatter);
+        Period between = Period.between(startDate, endDate);
+        LocalDate plusStartDay = startDate.minusYears(1);
+        LocalDate plusEndDay = plusStartDay.plusDays(between.getDays());
+        System.out.println(plusStartDay+"~"+plusEndDay);
+        System.out.println("----------------");
+        return new Integer[]{Integer.parseInt(plusStartDay.format(formatter)),Integer.parseInt(plusEndDay.format(formatter))};
     }
 
     /**
