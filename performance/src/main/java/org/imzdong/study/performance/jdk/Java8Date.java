@@ -28,7 +28,50 @@ public class Java8Date {
         LocalDate localDate = LocalDate.of(year, month, 1);
         System.out.println(LocalDate.of(year, month, 1).format(DateTimeFormatter.ofPattern("YYYYMM")));*/
 
-        between(202001,202103);
+        //between(202001,202103);
+        Integer start = 20200401;
+        Integer end = 20200407;
+        //period(start,end,1);
+        //period(start,end,2);
+        //period(start,end,3);
+        Integer[] prePeriod = prePeriod(start, end);
+        prePeriod = prePeriod(prePeriod[0], prePeriod[1]);
+        prePeriod = prePeriod(prePeriod[0], prePeriod[1]);
+    }
+
+    /**
+     * 获取上一个周期区间
+     * @param start
+     * @param end
+     */
+    private static Integer[] prePeriod(Integer start,Integer end){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate startDate = LocalDate.parse(start.toString(),formatter);
+        LocalDate endDate = LocalDate.parse(end.toString(),formatter);
+        Period between = Period.between(startDate, endDate);
+        LocalDate plusEndDay = startDate.minusDays(1);
+        LocalDate plusStartDay = plusEndDay.minusDays(between.getDays());
+        System.out.println(plusStartDay+"~"+plusEndDay);
+        System.out.println("----------------");
+        return new Integer[]{Integer.parseInt(plusStartDay.format(formatter)),Integer.parseInt(plusEndDay.format(formatter))};
+    }
+
+    /**
+     * 获取上一个周期区间
+     * @param start
+     * @param end
+     * @param period
+     */
+    private static void period(Integer start,Integer end, int period){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate startDate = LocalDate.parse(start.toString(),formatter);
+        LocalDate endDate = LocalDate.parse(end.toString(),formatter);
+        Period between = Period.between(startDate, endDate);
+        int startPeriod = (period-1)*between.getDays()+period;
+        LocalDate plusEndDay = startDate.minusDays(startPeriod);
+        LocalDate plusStartDay = plusEndDay.minusDays(between.getDays());
+        System.out.println(plusStartDay+"~"+plusEndDay);
+        System.out.println("----------------");
     }
 
     private static void between(Integer start, Integer end){
