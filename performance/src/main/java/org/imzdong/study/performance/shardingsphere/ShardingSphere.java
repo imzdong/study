@@ -6,6 +6,7 @@ import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.StandardShardingStrategyConfiguration;
+import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.imzdong.study.performance.pool.DruidPool;
 import org.slf4j.Logger;
@@ -38,8 +39,8 @@ public class ShardingSphere {
         shardingRuleConfig.getTableRuleConfigs().add(tableRuleConfig);
         //根据性别分库，一共分为 2 个库
         shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("sex", "ds${sex % 2}"));
-        //根据用户 ID 分表，一共分为 2 张表
-        shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("id", "user${id % 2}"));
+        //根据用户 ID 分表，一共分为 2 张表//user${id % 2}
+        shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("id", null));
         //final Map<String, DataSource> dataSourceMap, final ShardingRuleConfiguration shardingRuleConfig, final Properties props
         DataSource realDataSource = ShardingDataSourceFactory.createDataSource(getMultipleDataSource(), shardingRuleConfig, new Properties());
         Connection connection = realDataSource.getConnection();

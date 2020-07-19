@@ -14,7 +14,7 @@
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/shard01" userId="root"
-                        password="zH&amp;646555448" />
+                        password="xxx" />
 
         <!-- 实体类的地址 targetProject + targetPackage == 生成文件所在位置  根据表结构生成的实体类就在项目的com.common.model中-->
         <javaModelGenerator targetPackage="org.imzdong.study.mybatis.generator.model"
