@@ -12,3 +12,4 @@ target
 .settings
 .factorypath
 .vscode
+.mvn
