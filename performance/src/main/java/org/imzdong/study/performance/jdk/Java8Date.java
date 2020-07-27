@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.ValueRange;
 
 /**
  * @description: java8时间使用Demo
@@ -37,7 +36,14 @@ public class Java8Date {
         //Integer[] prePeriod = preYearPeriod(start, end);
         //getYearFirstDay(end);
         //getPreYearFirstDay(end);
-        getYear(end);
+        //getYear(end);
+        //字符串-日期
+        LocalDateTime yyyyMMdd = LocalDateTime.parse("2020-01-12", DateTimeFormatter.ofPattern("yyyyMMdd"));
+        System.out.println(yyyyMMdd);
+        //日期-字符串
+        LocalDateTime now = LocalDateTime.now();
+        String mMdd = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        System.out.println(mMdd);
     }
 
     /**
