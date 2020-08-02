@@ -6,6 +6,10 @@ import java.io.*;
 
 public class TryCatchDemo {
 
+    public static void main(String[] args) {
+        tryCatch();
+    }
+
     private static void tryCatch(){
         // 1、try...catch
         try{
@@ -25,6 +29,14 @@ public class TryCatchDemo {
         }catch (RuntimeException r){
 
         }catch (Exception e){
+
+        }finally {
+
+        }
+        // 4、try...catch...catch...finally
+        try {
+
+        }catch (ArithmeticException | NullPointerException e){
 
         }finally {
 
