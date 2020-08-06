@@ -34,11 +34,11 @@ public class LockDemo {
         //ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(5,8,1000L,);
         CountDownLatch latch = new CountDownLatch(5);
         ExecutorService service = Executors.newCachedThreadPool(r->new Thread(r, "winter_pool_" + r.hashCode()));
-        service.execute(new DemoTask(unLockDemo, latch));
-        service.execute(new DemoTask(unLockDemo, latch));
-        service.execute(new DemoTask(unLockDemo, latch));
-        service.execute(new DemoTask(unLockDemo, latch));
-        service.execute(new DemoTask(unLockDemo, latch));
+        service.execute(new DemoTask(unLockDemo, latch,"1"));
+        service.execute(new DemoTask(unLockDemo, latch,"2"));
+        service.execute(new DemoTask(unLockDemo, latch,"3"));
+        service.execute(new DemoTask(unLockDemo, latch,"4"));
+        service.execute(new DemoTask(unLockDemo, latch,"5"));
         latch.await();
         System.out.println(unLockDemo.synGet());
         service.shutdown();
@@ -48,10 +48,12 @@ public class LockDemo {
 
         private LockDemo demo;
         private CountDownLatch latch;
+        private String name;
 
-        DemoTask(LockDemo demo, CountDownLatch latch){
+        DemoTask(LockDemo demo, CountDownLatch latch, String name){
             this.demo = demo;
             this.latch = latch;
+            this.name = name;
         }
 
         @Override
@@ -62,6 +64,15 @@ public class LockDemo {
             }
             latch.countDown();
             System.out.println(Thread.currentThread().getName()+": end");
+        }
+
+        @Override
+        public String toString() {
+            return "DemoTask{" +
+                    "demo=" + demo +
+                    ", latch=" + latch +
+                    ", name='" + name + '\'' +
+                    '}';
         }
     }
 }
