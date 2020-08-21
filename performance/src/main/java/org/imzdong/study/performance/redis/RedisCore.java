@@ -50,7 +50,10 @@ public class RedisCore {
          */
         @Override
         public void onMessage(String channel, String message) {
-            System.out.println(channel+"：我订阅了消息："+message);
+            System.out.println(channel + "：我订阅了消息：" + message);
+            if("over".equals(message)) {
+                this.unsubscribe(channel);
+            }
         }
 
         /**
