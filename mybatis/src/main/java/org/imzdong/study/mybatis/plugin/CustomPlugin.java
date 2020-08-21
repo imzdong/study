@@ -32,10 +32,13 @@ import java.util.Properties;
 public class CustomPlugin implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        return invocation.proceed();
+        // implement pre processing if need
+        Object returnObject = invocation.proceed();
+        // implement post processing if need
+        return returnObject;
     }
 
-    @Override
+   /* @Override
     public Object plugin(Object target) {
         return target;
     }
@@ -43,5 +46,5 @@ public class CustomPlugin implements Interceptor {
     @Override
     public void setProperties(Properties properties) {
 
-    }
+    }*/
 }
