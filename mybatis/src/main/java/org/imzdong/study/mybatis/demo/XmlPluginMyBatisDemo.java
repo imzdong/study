@@ -16,21 +16,16 @@ import java.io.InputStream;
  * @author: Winter
  * @time: 2020/4/6
  */
-public class XmlMyBatisDemo {
+public class XmlPluginMyBatisDemo {
 
     public static void main(String[] args) {
-        String resource = "mybatis-config.xml";
+        String resource = "mybatis-config-plugin.xml";
         try {
             InputStream resourceAsStream = Resources.getResourceAsStream(resource);
             SqlSessionFactory build = new SqlSessionFactoryBuilder().build(resourceAsStream);
             try (SqlSession session = build.openSession()) {
-                //User user = session.selectOne("org.imzdong.study.mybatis.domain.XmlUserMapper.selectUserById", 1);
-                XmlUserMapper mapper = session.getMapper(XmlUserMapper.class);
-                User user = mapper.selectUserById(1);
-                System.out.println("user: "+user);
-                AnnotationUserMapper annotationMapper = session.getMapper(AnnotationUserMapper.class);
-                User userAnnotation = annotationMapper.selectUserById(1);
-                System.out.println("userAnnotation: "+userAnnotation);
+                User user = session.selectOne("org.imzdong.study.mybatis.domain.XmlUserMapper.selectUserById", 1);
+                System.out.println("userAnnotation: "+user);
             }
 
         } catch (IOException e) {
