@@ -15,7 +15,7 @@
         <module>ticket</module>
         <module>performance</module>
         <module>netty</module>
-        <module>leetcode</module>
+        <module>msb_study</module>
         <module>mybatis</module>
         <module>quartz</module>
     </modules>

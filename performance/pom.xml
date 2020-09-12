@@ -46,9 +46,13 @@
             <artifactId>lucene-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+        </dependency>
+        <!--<dependency>
               <groupId>org.apache.shardingsphere</groupId>
               <artifactId>sharding-jdbc-core</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
 </project>
