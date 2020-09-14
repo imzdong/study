@@ -21,7 +21,7 @@ public class LruCache {
         map = new HashMap<>();
     }
 
-    private String get(String key){
+    public String get(String key){
         if(map.containsKey(key)){
             Node node = map.get(key);
             refresh(node);
@@ -34,20 +34,26 @@ public class LruCache {
         if(node.pre != null){
             //非头节点
             Node next= node.next;
+            Node pre = node.pre;
             node.next = head;
             head = node;
             if(next != null){
                 //非尾节点
-                node.pre.next = next;
-                next.pre = node.pre;
+                pre.next = next;
+                next.pre = pre;
+            }else{
+                pre.pre = tail;
+                tail = pre;
+                pre.next = null;
             }
         }//头节点
     }
 
-    private void put(String key,String val){
+    public void put(String key,String val){
         if(head == null){
             Node node = new Node(key, val);
             head = node;
+            tail = node;
             map.put(key,node);
             size++;
             return;
@@ -57,16 +63,15 @@ public class LruCache {
             node.val = val;
             refresh(node);
         }else {
+            Node node = new Node(key, val);
+            head.pre = node;
+            node.next = head;
+            head = node;
             if(size<capacity){
-                Node node = new Node(key, val);
-                head.pre = node;
-                node.next = head;
-                head = node;
                 size++;
             }else {
-                if(size == capacity){
-
-                }
+                tail = tail.pre;
+                tail.next = null;
             }
         }
     }
@@ -85,6 +90,26 @@ public class LruCache {
         @Override
         public String toString() {
             return "(" + key  + ", " + val + ')';
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        toHead(head, builder);
+        return "LruCache{" +
+                "capacity=" + capacity + ","+
+                "size=" + size + ","+
+                builder.toString() +
+                '}';
+    }
+
+    private void toHead(Node node, StringBuilder sb){
+        if(node !=null ){
+            sb.append(node.toString());
+            toHead(node.next, sb);
+        }else {
+            return;
         }
     }
 }

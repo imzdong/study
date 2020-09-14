@@ -14,6 +14,22 @@ public class LruDemo {
      * @param args
      */
     public static void main(String[] args) {
-
+        LruCache lruCache = new LruCache(3);
+        lruCache.put("1","1");
+        lruCache.put("2","2");
+        System.out.println(lruCache);
+        lruCache.put("1","3");
+        System.out.println(lruCache);
+        lruCache.put("4","4");
+        lruCache.put("5","5");
+        System.out.println(lruCache);
+        lruCache.get("1");
+        System.out.println(lruCache);
+        /**
+         * LruCache{capacity=3,size=2,(2, 2)(1, 1)}
+         * LruCache{capacity=3,size=2,(1, 3)(2, 2)}
+         * LruCache{capacity=3,size=3,(5, 5)(4, 4)(1, 3)}
+         * LruCache{capacity=3,size=3,(1, 3)(5, 5)(4, 4)}
+         */
     }
 }
