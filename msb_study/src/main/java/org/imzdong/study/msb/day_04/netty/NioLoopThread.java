@@ -39,7 +39,7 @@ public class NioLoopThread implements Runnable{
                         if(next.isAcceptable()){
                             acceptHandler(next);
                         }else if(next.isReadable()){
-                            System.out.println("read...");
+                            readHandler(next);
                         }
                     }
                 }else if(nums == 0){
@@ -64,6 +64,14 @@ public class NioLoopThread implements Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void readHandler(SelectionKey next) {
+        ByteBuffer buffer = (ByteBuffer) next.attachment();
+        SocketChannel client = (SocketChannel) next.channel();
+        while (true){
+
         }
     }
 
