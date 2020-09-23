@@ -1,6 +1,5 @@
 package org.imzdong.study.performance.throwable;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
 import java.io.*;
 
@@ -45,7 +44,7 @@ public class TryCatchDemo {
 
     private static void tyrWithResource(){
         //语法糖，自动关闭资源
-        try(InputStream io = new ByteInputStream()){
+        try(InputStream io = new ByteArrayInputStream("Winter".getBytes())){
 
         }catch (IOException e){
 

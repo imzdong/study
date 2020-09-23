@@ -11,13 +11,10 @@
     <modules>
         <module>spring</module>
         <module>spring-boot</module>
-        <module>design</module>
-        <module>ticket</module>
         <module>performance</module>
-        <module>netty</module>
         <module>msb_study</module>
         <module>mybatis</module>
-        <module>quartz</module>
+        <module>water</module>
     </modules>
 
     <name>study</name>
