@@ -1,4 +1,4 @@
-package org.imzdong.study.performance.size;
+package org.imzdong.study.stone.size;
 
 import org.apache.lucene.util.RamUsageEstimator;
 

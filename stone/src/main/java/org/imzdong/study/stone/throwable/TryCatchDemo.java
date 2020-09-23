@@ -1,4 +1,4 @@
-package org.imzdong.study.performance.throwable;
+package org.imzdong.study.stone.throwable;
 
 
 import java.io.*;

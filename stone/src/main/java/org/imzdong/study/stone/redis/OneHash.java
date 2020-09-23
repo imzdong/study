@@ -1,6 +1,6 @@
-package org.imzdong.study.performance.redis;
+package org.imzdong.study.stone.redis;
 
-import org.imzdong.study.performance.thread.ThreadPoolExecutorUtil;
+import org.imzdong.study.stone.thread.ThreadPoolExecutorUtil;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;

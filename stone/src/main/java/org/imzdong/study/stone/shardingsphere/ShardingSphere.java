@@ -1,4 +1,4 @@
-package org.imzdong.study.performance.shardingsphere;
+package org.imzdong.study.stone.shardingsphere;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.shardingsphere.api.config.sharding.KeyGeneratorConfiguration;
@@ -6,9 +6,8 @@ import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.StandardShardingStrategyConfiguration;
-import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
-import org.imzdong.study.performance.pool.DruidPool;
+import org.imzdong.study.stone.pool.DruidPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

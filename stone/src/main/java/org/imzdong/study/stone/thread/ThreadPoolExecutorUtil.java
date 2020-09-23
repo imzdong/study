@@ -1,4 +1,4 @@
-package org.imzdong.study.performance.thread;
+package org.imzdong.study.stone.thread;
 
 import java.util.concurrent.*;
 

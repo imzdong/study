@@ -1,4 +1,4 @@
-package org.imzdong.study.performance.thread.lock;
+package org.imzdong.study.stone.thread.lock;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
