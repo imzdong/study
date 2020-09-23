@@ -59,9 +59,7 @@ public class NioLoopThread implements Runnable{
                         client.register(selector, SelectionKey.OP_READ, buffer);
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -69,8 +67,18 @@ public class NioLoopThread implements Runnable{
 
     private void readHandler(SelectionKey next) {
         ByteBuffer buffer = (ByteBuffer) next.attachment();
+        System.out.println("read buffer:"+buffer);
         SocketChannel client = (SocketChannel) next.channel();
         while (true){
+            try {
+                int read = client.read(buffer);
+                if(read > 0) {
+                    System.out.println("client.read:" + buffer);
+                    client.write(buffer);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -80,7 +88,7 @@ public class NioLoopThread implements Runnable{
         try {
             SocketChannel client = channel.accept();
             client.configureBlocking(false);
-            client.register(selector,SelectionKey.OP_READ);
+            client.register(selector,SelectionKey.OP_READ,ByteBuffer.allocate(1024));
             System.out.println("acceptHandler:"+client.getRemoteAddress());
         } catch (IOException e) {
             e.printStackTrace();
