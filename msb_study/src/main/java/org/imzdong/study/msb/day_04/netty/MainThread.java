@@ -7,6 +7,5 @@ public class MainThread {
         NioLoopThreadGroup nioLoopThreadGroup = new NioLoopThreadGroup(3);
         //设置work组，并绑定
         nioLoopThreadGroup.bind(9090);
-
     }
 }

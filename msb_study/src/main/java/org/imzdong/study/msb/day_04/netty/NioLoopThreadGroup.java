@@ -15,7 +15,7 @@ public class NioLoopThreadGroup {
     public NioLoopThreadGroup(int num){
         nioLoopThreads = new NioLoopThread [num];
         for (int i=0;i<num;i++){
-            nioLoopThreads[i] = new NioLoopThread();
+            nioLoopThreads[i] = new NioLoopThread(this);
             new Thread(nioLoopThreads[i]).start();
         }
     }
@@ -28,9 +28,7 @@ public class NioLoopThreadGroup {
             ssc.bind(new InetSocketAddress(port));
             nlt.lbq.put(ssc);
             nlt.selector.wakeup();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

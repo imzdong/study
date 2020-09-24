@@ -11,11 +11,13 @@ public class NioLoopThread implements Runnable{
 
     Selector selector;
     LinkedBlockingQueue<SelectableChannel> lbq;
+    NioLoopThreadGroup group;
 
-    public NioLoopThread() {
+    public NioLoopThread(NioLoopThreadGroup group) {
         try {
             selector = Selector.open();
             lbq = new LinkedBlockingQueue();
+            this.group = group;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,6 +68,7 @@ public class NioLoopThread implements Runnable{
     }
 
     private void readHandler(SelectionKey next) {
+        String name = Thread.currentThread().getName();
         ByteBuffer buffer = (ByteBuffer) next.attachment();
         System.out.println("read buffer:"+buffer);
         SocketChannel client = (SocketChannel) next.channel();
@@ -73,14 +76,24 @@ public class NioLoopThread implements Runnable{
             try {
                 int read = client.read(buffer);
                 if(read > 0) {
-                    System.out.println("client.read:" + buffer);
+                    buffer.flip();
+                    byte[] say = new byte[buffer.remaining()];
+                    buffer.get(say);
+                    String sayStr = new String(say);
+                    System.out.println("thread："+name+"："+sayStr);
+                    System.out.println("thread："+name+"：client.read:" + buffer);
                     client.write(buffer);
+                    buffer.clear();
+                    if("close".equals(sayStr)){
+                        client.close();
+                        break;
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+
     }
 
     private void acceptHandler(SelectionKey next) {
@@ -88,9 +101,12 @@ public class NioLoopThread implements Runnable{
         try {
             SocketChannel client = channel.accept();
             client.configureBlocking(false);
-            client.register(selector,SelectionKey.OP_READ,ByteBuffer.allocate(1024));
+            NioLoopThread nlt = this.group.nextNlt();
+            nlt.lbq.put(client);
+            nlt.selector.wakeup();
+            //client.register(nlt.selector,SelectionKey.OP_READ,ByteBuffer.allocate(1024));
             System.out.println("acceptHandler:"+client.getRemoteAddress());
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
