@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_05;
+package org.imzdong.study.msb.day_05_netty;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;

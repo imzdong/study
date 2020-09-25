@@ -1,8 +1,7 @@
-package org.imzdong.study.msb.day_04.netty;
+package org.imzdong.study.msb.day_04_jdk_nio.netty;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.util.concurrent.atomic.AtomicInteger;
 

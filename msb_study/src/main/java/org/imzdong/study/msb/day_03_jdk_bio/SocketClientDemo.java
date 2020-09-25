@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_03;
+package org.imzdong.study.msb.day_03_jdk_bio;
 
 import java.io.InputStream;
 import java.io.OutputStream;

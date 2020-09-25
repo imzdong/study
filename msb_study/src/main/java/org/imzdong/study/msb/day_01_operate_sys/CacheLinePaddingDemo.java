@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_01;
+package org.imzdong.study.msb.day_01_operate_sys;
 
 import java.util.concurrent.CountDownLatch;
 

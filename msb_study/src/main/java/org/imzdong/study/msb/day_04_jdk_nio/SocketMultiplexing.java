@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_04;
+package org.imzdong.study.msb.day_04_jdk_nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

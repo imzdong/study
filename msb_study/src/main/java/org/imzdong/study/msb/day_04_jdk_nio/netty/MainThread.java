@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_04.netty;
+package org.imzdong.study.msb.day_04_jdk_nio.netty;
 
 public class MainThread {
 

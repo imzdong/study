@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_02;
+package org.imzdong.study.msb.day_02_operate_sys;
 
 /**
  * 最近不常用算法
