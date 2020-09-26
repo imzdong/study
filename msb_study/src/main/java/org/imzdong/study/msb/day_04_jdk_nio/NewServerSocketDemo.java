@@ -15,22 +15,24 @@ import java.util.List;
 public class NewServerSocketDemo {
 
     public static void main(String[] args) throws Exception{
-        ServerSocketChannel open = ServerSocketChannel.open();
-        open.bind(new InetSocketAddress(9090));
-        open.configureBlocking(false);//非阻塞
+        ServerSocketChannel server = ServerSocketChannel.open();
+        server.bind(new InetSocketAddress(9090));
+        server.configureBlocking(false);//非阻塞
         List<SocketChannel> list = new LinkedList<>();
         while (true){
-            Thread.sleep(1000);
-            SocketChannel accept = open.accept();
-            if(accept == null){
-                System.out.println("null....");
+            SocketChannel client = server.accept();
+            if(client == null){
+                //System.out.println("null....");
             }else {
-                accept.configureBlocking(false);
-                list.add(accept);
+                client.configureBlocking(false);//和客户端建立的连接非阻塞
+                System.out.println("server connect:"+client.getRemoteAddress());
+                list.add(client);
             }
             ByteBuffer allocate = ByteBuffer.allocate(1024);
             for(SocketChannel sc:list){
+                //System.out.println("server read:"+sc.getRemoteAddress());
                 int read = sc.read(allocate);//>0  -1  0   //不会阻塞
+                //System.out.println("server read length:"+read);
                 if(read > 0){
                     allocate.flip();
                     byte[] dist = new byte[allocate.limit()];
