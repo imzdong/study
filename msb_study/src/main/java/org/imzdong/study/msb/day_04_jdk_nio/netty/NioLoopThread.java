@@ -30,7 +30,7 @@ public class NioLoopThread implements Runnable{
                 //查看fd变更数量，阻塞执行
                 String name = Thread.currentThread().getName();
                 System.out.println(name + ":before ....."+selector.selectedKeys().size());
-                int nums = selector.select();
+                int nums = selector.select();//阻塞等待，等待变更的fd文件
                 System.out.println(name + ":after ....."+selector.selectedKeys().size());
                 if(nums > 0){
                     Set<SelectionKey> selectionKeys = selector.selectedKeys();
