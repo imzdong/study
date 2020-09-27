@@ -26,10 +26,10 @@ import java.util.concurrent.CountDownLatch;
  * @author: Winter
  * @time: 2020年9月25日, 0025 17:15
  */
-public class ProxyDemoV1 {
+public class ProxyDemo {
 
     public static void main(String[] args) throws InterruptedException {
-        new Thread(ProxyDemoV1::server).start();
+        new Thread(ProxyDemo::server).start();
         Thread.sleep(1000);
         for (int i = 0; i < 20; i++) {
             new Thread(()->{
