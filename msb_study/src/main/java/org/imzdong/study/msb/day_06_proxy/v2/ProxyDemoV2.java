@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_06_proxy;
+package org.imzdong.study.msb.day_06_proxy.v2;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
@@ -8,6 +8,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.imzdong.study.msb.day_06_proxy.SerializeUtil;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -26,10 +27,10 @@ import java.util.concurrent.CountDownLatch;
  * @author: Winter
  * @time: 2020年9月25日, 0025 17:15
  */
-public class ProxyDemo {
+public class ProxyDemoV2 {
 
     public static void main(String[] args) throws InterruptedException {
-        new Thread(ProxyDemo::server).start();
+        new Thread(ProxyDemoV2::server).start();
         Thread.sleep(1000);
         for (int i = 0; i < 20; i++) {
             new Thread(()->{
@@ -147,7 +148,7 @@ class ClientFactory{
         return clientPool.nscs[nextInt] = creatClientSocket(inetSocketAddress,clientPool, nextInt, coreSize);
     }
 
-    private static NioSocketChannel creatClientSocket(InetSocketAddress inetSocketAddress,ClientPool clientPool,
+    private static NioSocketChannel creatClientSocket(InetSocketAddress inetSocketAddress, ClientPool clientPool,
                                                       int nextInt, int coreSize) {
         Object lock = clientPool.locks[nextInt];
         synchronized (lock){
@@ -202,8 +203,8 @@ class ServerRequestHandler extends ChannelInboundHandlerAdapter{
         System.out.println("server readableBytes..."+buf.readableBytes());
         long requestId = 0;
         String arg = "";
-        if(buf.readableBytes() >= 112){
-            byte[] headers = new byte[112];
+        if(buf.readableBytes() >= 115){
+            byte[] headers = new byte[115];
             buf.readBytes(headers);
             MyHeader myHeader = SerializeUtil.deserialize(headers);
             requestId = myHeader.requestId;
@@ -239,6 +240,7 @@ class ResponseHandler extends ChannelInboundHandlerAdapter{
         ResponseCallBack.callBack(requestId,str);
     }
 }
+
 class ResponseCallBack{
     private static ConcurrentHashMap<String, CountDownLatch> requestMap = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<String, String> resMap = new ConcurrentHashMap<>();
