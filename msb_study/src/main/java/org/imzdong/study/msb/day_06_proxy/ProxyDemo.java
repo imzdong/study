@@ -17,7 +17,9 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @description:
@@ -27,11 +29,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ProxyDemo {
 
     public static void main(String[] args) throws InterruptedException {
-        new Thread(()->{
-            server();
-        }).start();
+        new Thread(ProxyDemo::server).start();
         Thread.sleep(1000);
-        client();
+        for (int i = 0; i < 20; i++) {
+            new Thread(()->{
+                Random random = new Random();
+                String name = Thread.currentThread().getName();
+                client(name+":"+"香蕉"+random.nextInt(20));
+            }).start();
+
+        }
     }
 
     private static void server() {
@@ -56,9 +63,9 @@ public class ProxyDemo {
     }
 
 
-    private static void client() {
+    private static void client(String args) {
         Animal animal = getProxy(Animal.class);
-        System.out.println(animal.eat("肉"));
+        System.out.println("client finished:"+animal.eat(args));
     }
 
     private static <T>T getProxy(Class<T> interfaceClass){
@@ -79,7 +86,8 @@ class DynamicProxy implements InvocationHandler{
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        //1、序列化数据
+        //1、通信协议（http://dubbo.apache.org/zh-cn/blog/dubbo-protocol.html）
+        // http://dubbo.apache.org/zh-cn/blog/Dubbo-supporting-gRPC-HTTP2-and-protobuf.html
         String name = interfaceClass.getName();
         String methodName = method.getName();
         System.out.println(String.format("real class name：%s，method：%s，parmas：%s", name , methodName, args[0]));
@@ -87,12 +95,15 @@ class DynamicProxy implements InvocationHandler{
         myContent.setInterfaceName(name);
         myContent.setMethodName(methodName);
         myContent.setArgs(args);
+        //2、序列化
         byte[] contentBytes = SerializeUtil.serialize(myContent);
         MyHeader myHeader = new MyHeader();
-        myHeader.setRequestId(1);
+        int f = 0x14141414;
+        long requestID =  Math.abs(UUID.randomUUID().getLeastSignificantBits());
+        myHeader.setRequestId(requestID);
         myHeader.setDateLength(contentBytes.length);
         byte[] headerBytes = SerializeUtil.serialize(myHeader);
-        //2、获取Socket连接
+        //3、网络通信（I/O模型）
         ClientFactory clientFactory = ClientFactory.getClientFactory();
         NioSocketChannel nioSocket = clientFactory.getNioSocket(new InetSocketAddress("127.0.0.1", 9090), 1);
         System.out.println("headerBytes size:"+headerBytes.length);
@@ -100,9 +111,13 @@ class DynamicProxy implements InvocationHandler{
         byteBuf.writeBytes(headerBytes);
         byteBuf.writeBytes(contentBytes);
         nioSocket.writeAndFlush(byteBuf);
-
-
-        return 1;
+        //4、动态代理
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        ResponseCallBack.putRequest(requestID+"",countDownLatch);
+        System.out.println("client await...");
+        countDownLatch.await();
+        System.out.println("client continue...");
+        return ResponseCallBack.getRes(requestID+"");
     }
 
 }
@@ -185,10 +200,10 @@ class ServerRequestHandler extends ChannelInboundHandlerAdapter{
         System.out.println("server...");
         ByteBuf buf = (ByteBuf) msg;
         System.out.println("server readableBytes..."+buf.readableBytes());
-        int requestId = 0;
+        long requestId = 0;
         String arg = "";
-        if(buf.readableBytes() >= 108){
-            byte[] headers = new byte[108];
+        if(buf.readableBytes() >= 112){
+            byte[] headers = new byte[112];
             buf.readBytes(headers);
             MyHeader myHeader = SerializeUtil.deserialize(headers);
             requestId = myHeader.requestId;
@@ -218,14 +233,35 @@ class ResponseHandler extends ChannelInboundHandlerAdapter{
         ByteBuf buf = (ByteBuf) msg;
         CharSequence charSequence = buf.getCharSequence(0, buf.readableBytes(), Charset.defaultCharset());
         System.out.println("client response..."+charSequence);
+        String str = (String) charSequence;
+        String[] res = str.split(",");
+        String requestId = res[0];
+        ResponseCallBack.callBack(requestId,str);
+    }
+}
+class ResponseCallBack{
+    private static ConcurrentHashMap<String, CountDownLatch> requestMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, String> resMap = new ConcurrentHashMap<>();
 
+    static void putRequest(String requestId, CountDownLatch countDownLatch){
+        requestMap.put(requestId, countDownLatch);
+    }
+
+    static void callBack(String requestId, String res){
+        CountDownLatch countDownLatch = requestMap.get(requestId);
+        countDownLatch.countDown();
+        resMap.put(requestId, res);
+    }
+
+    static String getRes(String requestId){
+        return resMap.get(requestId);
     }
 }
 
 class MyHeader implements Serializable {
     int flag;
     int dateLength;
-    int requestId;
+    long requestId;
 
     public int getFlag() {
         return flag;
@@ -243,11 +279,11 @@ class MyHeader implements Serializable {
         this.dateLength = dateLength;
     }
 
-    public int getRequestId() {
+    public long getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(int requestId) {
+    public void setRequestId(long requestId) {
         this.requestId = requestId;
     }
 
@@ -302,5 +338,5 @@ class MyContent implements Serializable{
 
 interface Animal{
 
-     int eat(String food);
+     String eat(String food);
 }
