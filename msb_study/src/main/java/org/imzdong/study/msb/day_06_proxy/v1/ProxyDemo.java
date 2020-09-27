@@ -125,10 +125,12 @@ class DynamicProxy implements InvocationHandler{
 
 class ClientFactory{
 
+    private static ClientFactory clientFactory = new ClientFactory();
+
     private ClientFactory(){}
 
     public synchronized static ClientFactory getClientFactory(){
-        return new ClientFactory();
+        return clientFactory;
     }
 
     private static ConcurrentHashMap<InetSocketAddress, ClientPool> pools = new ConcurrentHashMap();
