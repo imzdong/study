@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @description:
+ * @description: 简易版rpc，使用netty作为网络通信，粘包
  * @author: Winter
  * @time: 2020年9月25日, 0025 17:15
  */

@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_06_proxy.v2;
+package org.imzdong.study.msb.day_06_proxy.v3;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
@@ -24,14 +24,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @description: 解决粘包问题
+ * @description:
  * @author: Winter
  * @time: 2020年9月25日, 0025 17:15
  */
-public class ProxyDemoV2 {
+public class ProxyDemoV3 {
 
     public static void main(String[] args) throws InterruptedException {
-        new Thread(ProxyDemoV2::server).start();
+        new Thread(ProxyDemoV3::server).start();
         System.out.println("======================================================");
         for (int i = 0; i < 20; i++) {
             new Thread(()->{
