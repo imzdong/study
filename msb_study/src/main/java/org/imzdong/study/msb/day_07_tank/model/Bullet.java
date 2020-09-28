@@ -100,6 +100,7 @@ public class Bullet {
         if(rectangleBullet.intersects(rectangleTank)){
             tank.dead();
             this.dead();
+            tankFrame.booms.add(new Boom(tank.getX()+tank.width/2,tank.getY()+tank.height/2,tankFrame));
         }
     }
 

@@ -1,9 +1,6 @@
 package org.imzdong.study.msb.day_07_tank;
 
-import org.imzdong.study.msb.day_07_tank.model.Bullet;
-import org.imzdong.study.msb.day_07_tank.model.Dir;
-import org.imzdong.study.msb.day_07_tank.model.Group;
-import org.imzdong.study.msb.day_07_tank.model.Tank;
+import org.imzdong.study.msb.day_07_tank.model.*;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -12,7 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TankFrame extends Frame {
 
@@ -22,6 +18,7 @@ public class TankFrame extends Frame {
     Tank tank = new Tank(200,400, Dir.UP, this, Group.GOOD);
     public List<Bullet> bullets = new ArrayList<>();
     public List<Tank> enemyList = new ArrayList<>();
+    public List<Boom> booms = new ArrayList<>();
 
     public TankFrame(){
         setTitle("坦克大战");
@@ -74,6 +71,9 @@ public class TankFrame extends Frame {
         //添加敌人tank
         for (int i = 0; i < enemyList.size(); i++) {
             enemyList.get(i).paint(g);
+        }
+        for (int i = 0; i < booms.size(); i++) {
+            booms.get(i).paint(g);
         }
         //射击敌人
         for (int i = 0; i < bullets.size(); i++) {

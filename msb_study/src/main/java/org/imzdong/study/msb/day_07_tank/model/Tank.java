@@ -5,7 +5,6 @@ import org.imzdong.study.msb.day_07_tank.util.ImageMgr;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Random;
 
 public class Tank {
@@ -37,16 +36,32 @@ public class Tank {
         BufferedImage bi = null;
         switch (dir) {
             case UP:
-                bi = ImageMgr.tankU;
+                if(group.equals(Group.GOOD)) {
+                    bi = ImageMgr.tankU;
+                }else {
+                    bi = ImageMgr.badTankU;
+                }
                 break;
             case DOWN:
-                bi = ImageMgr.tankD;
+                if(group.equals(Group.GOOD)) {
+                    bi = ImageMgr.tankD;
+                }else {
+                    bi = ImageMgr.badTankD;
+                }
                 break;
             case LEFT:
-                bi = ImageMgr.tankL;
+                if(group.equals(Group.GOOD)) {
+                    bi = ImageMgr.tankL;
+                }else {
+                    bi = ImageMgr.badTankL;
+                }
                 break;
             case RIGHT:
-                bi = ImageMgr.tankR;
+                if(group.equals(Group.GOOD)) {
+                    bi = ImageMgr.tankR;
+                }else {
+                    bi = ImageMgr.badTankR;
+                }
                 break;
             default:
                 break;
