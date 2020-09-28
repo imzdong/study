@@ -1,5 +1,7 @@
 package org.imzdong.study.msb.day_07_tank.model;
 
+import org.imzdong.study.msb.day_07_tank.TankFrame;
+
 import java.awt.*;
 
 public class Tank {
@@ -9,11 +11,13 @@ public class Tank {
     private static final int speed = 5;
     private Dir dir;
     private boolean moving;
+    private TankFrame tankFrame;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
@@ -47,5 +51,9 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void fire() {
+        tankFrame.bullet = new Bullet(x, y, dir);
     }
 }

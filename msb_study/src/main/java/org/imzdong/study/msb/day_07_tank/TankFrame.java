@@ -15,8 +15,8 @@ public class TankFrame extends Frame {
     private int frameWith = 650;
     private int frameHeight = 500;
 
-    Tank tank = new Tank(200,200, Dir.DOWN);
-    Bullet bullet = new Bullet(200, 200, Dir.DOWN);
+    Tank tank = new Tank(200,200, Dir.DOWN, this);
+    public Bullet bullet = new Bullet(200, 200, Dir.DOWN);
 
     public TankFrame(){
         setTitle("Tank War!!!");
@@ -84,6 +84,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_RIGHT:
                     br = true;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    tank.fire();
                     break;
                 default:
                     break;
