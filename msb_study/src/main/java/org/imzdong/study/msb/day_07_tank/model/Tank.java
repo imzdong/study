@@ -3,6 +3,7 @@ package org.imzdong.study.msb.day_07_tank.model;
 import org.imzdong.study.msb.day_07_tank.TankFrame;
 
 import java.awt.*;
+import java.util.List;
 
 public class Tank {
 
@@ -12,17 +13,20 @@ public class Tank {
     private Dir dir;
     private boolean moving;
     private TankFrame tankFrame;
+    private Color tankColor;
+    private boolean live = true;
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Color color) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
+        this.tankColor = color;
     }
 
     public void paint(Graphics g) {
         Color color = g.getColor();
-        g.setColor(Color.green);
+        g.setColor(tankColor);
         g.fillRect(x, y,50,50);
         g.setColor(color);
         if(moving) {
@@ -60,5 +64,37 @@ public class Tank {
 
     public void fire() {
         tankFrame.bullets.add(new Bullet(x, y, dir,tankFrame));
+    }
+
+    public void dead(){
+        List<Bullet> bullets = tankFrame.bullets;
+        for (int i = 0; i < bullets.size(); i++) {
+            Bullet bullet = bullets.get(i);
+            if(bullet.isLive()) {
+                int bulletX = bullet.getX();
+                int bulletY = bullet.getY();
+                if (bulletX >= this.x && bulletX <= x+50 && bulletY >= this.y && bulletY <= y+50) {
+                    bullet.setLive(false);
+                    this.live = false;
+                }
+            }
+        }
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    @Override
+    public String toString() {
+        return "Tank{" +
+                "x=" + x +
+                ", y=" + y +
+                ", dir=" + dir +
+                ", moving=" + moving +
+                ", tankFrame=" + tankFrame +
+                ", tankColor=" + tankColor +
+                ", live=" + live +
+                '}';
     }
 }

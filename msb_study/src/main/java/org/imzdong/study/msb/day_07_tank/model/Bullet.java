@@ -3,6 +3,7 @@ package org.imzdong.study.msb.day_07_tank.model;
 import org.imzdong.study.msb.day_07_tank.TankFrame;
 
 import java.awt.*;
+import java.util.List;
 
 public class Bullet {
 
@@ -51,6 +52,25 @@ public class Bullet {
         if(x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
             live = false;
         }
+        List<Tank> enemyList = tankFrame.enemyList;
+        for (int i = 0; i < enemyList.size(); i++) {
+            enemyList.get(i).dead();
+        }
+    }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
     }
 }
