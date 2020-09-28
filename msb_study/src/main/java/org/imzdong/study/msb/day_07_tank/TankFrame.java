@@ -18,9 +18,9 @@ public class TankFrame extends Frame {
     private int frameWith = 650;
     private int frameHeight = 500;
 
-    Tank tank = new Tank(200,200, Dir.DOWN, this,Color.yellow);
+    Tank tank = new Tank(200,200, Dir.DOWN, this);
     public List<Bullet> bullets = new ArrayList<>();
-    public List<Tank> enemyList = new ArrayList<>();
+    //public List<Tank> enemyList = new ArrayList<>();
 
     public TankFrame(){
         setTitle("Tank War!!!");
@@ -34,12 +34,12 @@ public class TankFrame extends Frame {
             }
         });
         addKeyListener(new MyKeyListener());
-        Random random = new Random();
+        /*Random random = new Random();
         for (int i = 0; i < 6; i++) {
             Tank enemy = new Tank(random.nextInt(600), random.nextInt(550), Dir.DOWN, this,Color.green);
             enemyList.add(enemy);
         }
-        System.out.println(enemyList);
+        System.out.println(enemyList);*/
     }
 
     Image image = null;
@@ -76,14 +76,14 @@ public class TankFrame extends Frame {
             bullets.get(i).paint(g);
         }
         //添加敌人tank
-        for (int i = 0; i < enemyList.size(); i++) {
+        /*for (int i = 0; i < enemyList.size(); i++) {
             Tank enemy = enemyList.get(i);
             if(enemy.isLive()) {
                 enemy.paint(g);
             }else {
                 enemyList.remove(enemy);
             }
-        }
+        }*/
     }
 
     /**

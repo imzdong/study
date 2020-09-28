@@ -1,8 +1,10 @@
 package org.imzdong.study.msb.day_07_tank.model;
 
 import org.imzdong.study.msb.day_07_tank.TankFrame;
+import org.imzdong.study.msb.day_07_tank.util.ImageMgr;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class Tank {
@@ -16,19 +18,32 @@ public class Tank {
     private Color tankColor;
     private boolean live = true;
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Color color) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
-        this.tankColor = color;
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(tankColor);
-        g.fillRect(x, y,50,50);
-        g.setColor(color);
+        BufferedImage bi = null;
+        switch (dir) {
+            case UP:
+                bi = ImageMgr.tankU;
+                break;
+            case DOWN:
+                bi = ImageMgr.tankD;
+                break;
+            case LEFT:
+                bi = ImageMgr.tankL;
+                break;
+            case RIGHT:
+                bi = ImageMgr.tankR;
+                break;
+            default:
+                break;
+        }
+        g.drawImage(bi, x, y, null);
         if(moving) {
             move();
         }
