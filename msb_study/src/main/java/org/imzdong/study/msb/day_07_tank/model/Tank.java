@@ -19,7 +19,8 @@ public class Tank {
     public int width = ImageMgr.tankD.getWidth();
     public int height = ImageMgr.tankD.getHeight();
     private Random random = new Random();
-    private Group group = Group.BAD;
+    private Group group;
+    Rectangle rectangleTank;
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
@@ -27,6 +28,10 @@ public class Tank {
         this.dir = dir;
         this.tankFrame = tankFrame;
         this.group = group;
+        if(group == Group.GOOD){
+            moving = false;
+        }
+        rectangleTank = new Rectangle(x, y, width, height);
     }
 
     public void paint(Graphics g) {
@@ -89,8 +94,30 @@ public class Tank {
             default:
                 break;
         }
-        if(random.nextInt(10)>8){
+        if(group.equals(Group.BAD) && random.nextInt(100)>95){
             fire();
+        }
+        if(group.equals(Group.BAD) && random.nextInt(100)>95){
+            dir = Dir.values()[random.nextInt(4)];
+        }
+        //边界检测
+        boundCheck();
+        rectangleTank.x = x;
+        rectangleTank.y = y;
+    }
+
+    private void boundCheck(){
+        if(x < 25){
+            x = 20 ;
+        }
+        if(y < 25){
+            y = 20 ;
+        }
+        if(x > (tankFrame.getWidth() - width -2)){
+            x = tankFrame.getWidth() - width -2;
+        }
+        if(y > (tankFrame.getHeight() - height -2)){
+            y = tankFrame.getHeight() - height -2;
         }
     }
 

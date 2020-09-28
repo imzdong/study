@@ -10,7 +10,7 @@ public class TankFrameMain {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
         for (int i = 0; i < 6; i++) {
-            Tank enemy = new Tank(i*60+100, 100, Dir.DOWN, tankFrame, Group.BAD);
+            Tank enemy = new Tank(i*100+100, 300, Dir.DOWN, tankFrame, Group.BAD);
             tankFrame.enemyList.add(enemy);
         }
         new Thread(()->new Audio("audio/war1.wav").loop()).start();

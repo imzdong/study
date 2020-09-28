@@ -17,7 +17,8 @@ public class Bullet {
     private boolean living = true;
     public static int width = ImageMgr.bulletU.getWidth();
     public static int height = ImageMgr.bulletU.getHeight();
-    private Group group = Group.BAD;
+    private Group group;
+    Rectangle rectangleBullet;
 
     public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
@@ -25,6 +26,7 @@ public class Bullet {
         this.dir = dir;
         this.tankFrame = tankFrame;
         this.group = group;
+        rectangleBullet = new Rectangle(x, y, width, height);
     }
 
     public void paint(Graphics g) {
@@ -70,6 +72,8 @@ public class Bullet {
         if(x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
             living = false;
         }
+        rectangleBullet.x = x;
+        rectangleBullet.y = y;
     }
     public void dead(){
         living = false;
@@ -95,9 +99,7 @@ public class Bullet {
         if(tank.getGroup().equals(this.group)){
             return;
         }
-        Rectangle rectangleTank = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
-        Rectangle rectangleBullet = new Rectangle(this.x, this.y, this.width, this.height);
-        if(rectangleBullet.intersects(rectangleTank)){
+        if(rectangleBullet.intersects(tank.rectangleTank)){
             tank.dead();
             this.dead();
             tankFrame.booms.add(new Boom(tank.getX()+tank.width/2,tank.getY()+tank.height/2,tankFrame));

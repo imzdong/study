@@ -12,10 +12,10 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-    private int frameWith = 650;
-    private int frameHeight = 500;
+    private int frameWith = 1000;
+    private int frameHeight = 680;
 
-    Tank tank = new Tank(200,400, Dir.UP, this, Group.GOOD);
+    Tank tank = new Tank(400,500, Dir.UP, this, Group.GOOD);
     public List<Bullet> bullets = new ArrayList<>();
     public List<Tank> enemyList = new ArrayList<>();
     public List<Boom> booms = new ArrayList<>();
@@ -63,6 +63,7 @@ public class TankFrame extends Frame {
         g.setColor(Color.red);
         g.drawString("子弹数量："+bullets.size(),10,50);
         g.drawString("敌人数量："+enemyList.size(),10,70);
+        g.drawString("boom数量："+booms.size(),10,90);
         g.setColor(color);
         tank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
