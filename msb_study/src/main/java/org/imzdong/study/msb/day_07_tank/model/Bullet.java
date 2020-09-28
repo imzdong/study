@@ -11,6 +11,7 @@ public class Bullet {
     private final static int speed = 10;
     private Dir dir;
     private TankFrame tankFrame;
+    private boolean live = true;
 
     public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
@@ -20,6 +21,9 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
+        if(!live){
+            tankFrame.bullets.remove(this);
+        }
         Color color = g.getColor();
         g.setColor(Color.red);
         g.fillRect(x, y,10,10);
@@ -44,9 +48,9 @@ public class Bullet {
             default:
                 break;
         }
-    }
+        if(x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
+            live = false;
+        }
 
-    public void setDir(Dir dir) {
-        this.dir = dir;
     }
 }
