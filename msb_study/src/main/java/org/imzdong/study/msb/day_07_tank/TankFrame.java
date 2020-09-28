@@ -18,12 +18,12 @@ public class TankFrame extends Frame {
     private int frameWith = 650;
     private int frameHeight = 500;
 
-    Tank tank = new Tank(200,200, Dir.DOWN, this);
+    Tank tank = new Tank(200,400, Dir.UP, this);
     public List<Bullet> bullets = new ArrayList<>();
-    //public List<Tank> enemyList = new ArrayList<>();
+    public List<Tank> enemyList = new ArrayList<>();
 
     public TankFrame(){
-        setTitle("Tank War!!!");
+        setTitle("坦克大战");
         setVisible(true);
         setSize(frameWith,frameHeight);
         setResizable(false);
@@ -34,12 +34,6 @@ public class TankFrame extends Frame {
             }
         });
         addKeyListener(new MyKeyListener());
-        /*Random random = new Random();
-        for (int i = 0; i < 6; i++) {
-            Tank enemy = new Tank(random.nextInt(600), random.nextInt(550), Dir.DOWN, this,Color.green);
-            enemyList.add(enemy);
-        }
-        System.out.println(enemyList);*/
     }
 
     Image image = null;
@@ -70,20 +64,22 @@ public class TankFrame extends Frame {
         Color color = g.getColor();
         g.setColor(Color.red);
         g.drawString("子弹数量："+bullets.size(),10,50);
+        g.drawString("敌人数量："+enemyList.size(),10,70);
         g.setColor(color);
         tank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
         //添加敌人tank
-        /*for (int i = 0; i < enemyList.size(); i++) {
-            Tank enemy = enemyList.get(i);
-            if(enemy.isLive()) {
-                enemy.paint(g);
-            }else {
-                enemyList.remove(enemy);
+        for (int i = 0; i < enemyList.size(); i++) {
+            enemyList.get(i).paint(g);
+        }
+        //射击敌人
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int y = 0; y < enemyList.size(); y++) {
+                bullets.get(i).collision(enemyList.get(y));
             }
-        }*/
+        }
     }
 
     /**

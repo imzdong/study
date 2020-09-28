@@ -15,7 +15,7 @@ public class Tank {
     private Dir dir;
     private boolean moving;
     private TankFrame tankFrame;
-    private boolean live = true;
+    private boolean living = true;
     public int width = ImageMgr.tankD.getWidth();
     public int height = ImageMgr.tankD.getHeight();
 
@@ -27,6 +27,9 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if(!living){
+            tankFrame.enemyList.remove(this);
+        }
         BufferedImage bi = null;
         switch (dir) {
             case UP:
@@ -85,22 +88,15 @@ public class Tank {
     }
 
     public void dead(){
-        List<Bullet> bullets = tankFrame.bullets;
-        for (int i = 0; i < bullets.size(); i++) {
-            Bullet bullet = bullets.get(i);
-            if(bullet.isLive()) {
-                int bulletX = bullet.getX();
-                int bulletY = bullet.getY();
-                if (bulletX >= this.x && bulletX <= x+50 && bulletY >= this.y && bulletY <= y+50) {
-                    bullet.setLive(false);
-                    this.live = false;
-                }
-            }
-        }
+        living = false;
     }
 
-    public boolean isLive() {
-        return live;
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override
@@ -111,7 +107,6 @@ public class Tank {
                 ", dir=" + dir +
                 ", moving=" + moving +
                 ", tankFrame=" + tankFrame +
-                ", live=" + live +
                 '}';
     }
 }

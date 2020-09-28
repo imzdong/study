@@ -14,7 +14,7 @@ public class Bullet {
     private final static int speed = 10;
     private Dir dir;
     private TankFrame tankFrame;
-    private boolean live = true;
+    private boolean living = true;
     public static int width = ImageMgr.bulletU.getWidth();
     public static int height = ImageMgr.bulletU.getHeight();
 
@@ -26,7 +26,7 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        if(!live){
+        if(!living){
             tankFrame.bullets.remove(this);
         }
         switch (dir) {
@@ -66,12 +66,11 @@ public class Bullet {
                 break;
         }
         if(x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
-            live = false;
+            living = false;
         }
-        /*List<Tank> enemyList = tankFrame.enemyList;
-        for (int i = 0; i < enemyList.size(); i++) {
-            enemyList.get(i).dead();
-        }*/
+    }
+    public void dead(){
+        living = false;
     }
 
     public int getX() {
@@ -83,10 +82,19 @@ public class Bullet {
     }
 
     public boolean isLive() {
-        return live;
+        return living;
     }
 
     public void setLive(boolean live) {
-        this.live = live;
+        this.living = live;
+    }
+
+    public void collision(Tank tank) {
+        Rectangle rectangleTank = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
+        Rectangle rectangleBullet = new Rectangle(this.x, this.y, this.width, this.height);
+        if(rectangleBullet.intersects(rectangleTank)){
+            tank.dead();
+            this.dead();
+        }
     }
 }
