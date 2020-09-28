@@ -15,7 +15,7 @@ public class ImageMgr {
             tankU = ImageIO.read(classLoader.getResourceAsStream("images/tankU.gif"));
             tankD = ImageIO.read(classLoader.getResourceAsStream("images/tankD.gif"));
             tankL = ImageIO.read(classLoader.getResourceAsStream("images/tankL.gif"));
-            tankR = ImageIO.read(classLoader.getResourceAsStream("images/tankU.gif"));
+            tankR = ImageIO.read(classLoader.getResourceAsStream("images/tankR.gif"));
 
             bulletU = ImageIO.read(classLoader.getResourceAsStream("images/bulletU.gif"));
             bulletD = ImageIO.read(classLoader.getResourceAsStream("images/bulletD.gif"));

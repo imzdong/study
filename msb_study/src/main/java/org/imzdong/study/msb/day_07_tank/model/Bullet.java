@@ -15,6 +15,8 @@ public class Bullet {
     private Dir dir;
     private TankFrame tankFrame;
     private boolean live = true;
+    public static int width = ImageMgr.bulletU.getWidth();
+    public static int height = ImageMgr.bulletU.getHeight();
 
     public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;

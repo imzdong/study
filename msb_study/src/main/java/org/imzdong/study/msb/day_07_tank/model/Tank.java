@@ -15,8 +15,9 @@ public class Tank {
     private Dir dir;
     private boolean moving;
     private TankFrame tankFrame;
-    private Color tankColor;
     private boolean live = true;
+    public int width = ImageMgr.tankD.getWidth();
+    public int height = ImageMgr.tankD.getHeight();
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
@@ -78,7 +79,9 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bullets.add(new Bullet(x, y, dir,tankFrame));
+        int bulletX = this.x + this.width/2 - Bullet.width/2;
+        int bulletY = this.y + this.height/2 - Bullet.height/2;
+        tankFrame.bullets.add(new Bullet(bulletX, bulletY, dir,tankFrame));
     }
 
     public void dead(){
@@ -108,7 +111,6 @@ public class Tank {
                 ", dir=" + dir +
                 ", moving=" + moving +
                 ", tankFrame=" + tankFrame +
-                ", tankColor=" + tankColor +
                 ", live=" + live +
                 '}';
     }
