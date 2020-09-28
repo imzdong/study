@@ -6,30 +6,34 @@ public class Tank {
 
     private int x;
     private int y;
-    private int speed = 10;
+    private static final int speed = 5;
     private Dir dir;
     private boolean moving;
 
-    public Tank(int x, int y) {
+    public Tank(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
+        this.dir = dir;
     }
 
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.green);
         g.fillRect(x, y,50,50);
+        g.setColor(color);
         if(moving) {
             switch (dir) {
                 case UP:
-                    y -= 10;
+                    y -= speed;
                     break;
                 case DOWN:
-                    y += 10;
+                    y += speed;
                     break;
                 case LEFT:
-                    x -= 10;
+                    x -= speed;
                     break;
                 case RIGHT:
-                    x += 10;
+                    x += speed;
                     break;
                 default:
                     break;
