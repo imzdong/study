@@ -26,24 +26,29 @@ public class Tank {
         g.fillRect(x, y,50,50);
         g.setColor(color);
         if(moving) {
-            switch (dir) {
-                case UP:
-                    y -= speed;
-                    break;
-                case DOWN:
-                    y += speed;
-                    break;
-                case LEFT:
-                    x -= speed;
-                    break;
-                case RIGHT:
-                    x += speed;
-                    break;
-                default:
-                    break;
-            }
+            move();
         }
     }
+
+    private void move() {
+        switch (dir) {
+            case UP:
+                y -= speed;
+                break;
+            case DOWN:
+                y += speed;
+                break;
+            case LEFT:
+                x -= speed;
+                break;
+            case RIGHT:
+                x += speed;
+                break;
+            default:
+                break;
+        }
+    }
+
 
     public void setDir(Dir dir) {
         this.dir = dir;
@@ -54,6 +59,6 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bullet = new Bullet(x, y, dir);
+        tankFrame.bullets.add(new Bullet(x, y, dir,tankFrame));
     }
 }

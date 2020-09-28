@@ -1,5 +1,7 @@
 package org.imzdong.study.msb.day_07_tank.model;
 
+import org.imzdong.study.msb.day_07_tank.TankFrame;
+
 import java.awt.*;
 
 public class Bullet {
@@ -8,11 +10,13 @@ public class Bullet {
     private int y;
     private final static int speed = 10;
     private Dir dir;
+    private TankFrame tankFrame;
 
-    public Bullet(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
@@ -20,6 +24,10 @@ public class Bullet {
         g.setColor(Color.red);
         g.fillRect(x, y,10,10);
         g.setColor(color);
+        move();
+    }
+
+    private void move() {
         switch (dir) {
             case UP:
                 y -= speed;
