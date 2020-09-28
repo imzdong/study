@@ -17,12 +17,14 @@ public class Bullet {
     private boolean living = true;
     public static int width = ImageMgr.bulletU.getWidth();
     public static int height = ImageMgr.bulletU.getHeight();
+    private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -90,11 +92,18 @@ public class Bullet {
     }
 
     public void collision(Tank tank) {
+        if(tank.getGroup().equals(this.group)){
+            return;
+        }
         Rectangle rectangleTank = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
         Rectangle rectangleBullet = new Rectangle(this.x, this.y, this.width, this.height);
         if(rectangleBullet.intersects(rectangleTank)){
             tank.dead();
             this.dead();
         }
+    }
+
+    public Group getGroup() {
+        return group;
     }
 }

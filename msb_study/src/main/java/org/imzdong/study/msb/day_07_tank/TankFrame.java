@@ -2,6 +2,7 @@ package org.imzdong.study.msb.day_07_tank;
 
 import org.imzdong.study.msb.day_07_tank.model.Bullet;
 import org.imzdong.study.msb.day_07_tank.model.Dir;
+import org.imzdong.study.msb.day_07_tank.model.Group;
 import org.imzdong.study.msb.day_07_tank.model.Tank;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ public class TankFrame extends Frame {
     private int frameWith = 650;
     private int frameHeight = 500;
 
-    Tank tank = new Tank(200,400, Dir.UP, this);
+    Tank tank = new Tank(200,400, Dir.UP, this, Group.GOOD);
     public List<Bullet> bullets = new ArrayList<>();
     public List<Tank> enemyList = new ArrayList<>();
 
