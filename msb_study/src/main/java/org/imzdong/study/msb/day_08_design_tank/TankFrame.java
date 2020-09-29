@@ -1,6 +1,6 @@
-package org.imzdong.study.msb.day_08_refactor_tank;
+package org.imzdong.study.msb.day_08_design_tank;
 
-import org.imzdong.study.msb.day_08_refactor_tank.model.*;
+import org.imzdong.study.msb.day_08_design_tank.model.*;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

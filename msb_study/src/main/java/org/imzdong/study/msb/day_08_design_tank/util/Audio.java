@@ -1,5 +1,5 @@
 
-package org.imzdong.study.msb.day_08_refactor_tank.util;
+package org.imzdong.study.msb.day_08_design_tank.util;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

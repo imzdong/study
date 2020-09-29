@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_08_refactor_tank.model;
+package org.imzdong.study.msb.day_08_design_tank.model;
 
 public enum Dir {
     UP("UP","向上"),

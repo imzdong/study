@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_08_refactor_tank.util;
+package org.imzdong.study.msb.day_08_design_tank.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

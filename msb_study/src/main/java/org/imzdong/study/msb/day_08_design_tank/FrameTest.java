@@ -1,4 +1,4 @@
-package org.imzdong.study.msb.day_08_refactor_tank;
+package org.imzdong.study.msb.day_08_design_tank;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;

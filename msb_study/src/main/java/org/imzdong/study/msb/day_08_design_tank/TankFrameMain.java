@@ -1,10 +1,10 @@
-package org.imzdong.study.msb.day_08_refactor_tank;
+package org.imzdong.study.msb.day_08_design_tank;
 
-import org.imzdong.study.msb.day_08_refactor_tank.model.Dir;
-import org.imzdong.study.msb.day_08_refactor_tank.model.Group;
-import org.imzdong.study.msb.day_08_refactor_tank.model.Tank;
-import org.imzdong.study.msb.day_08_refactor_tank.util.Audio;
-import org.imzdong.study.msb.day_08_refactor_tank.util.PropertyMgr;
+import org.imzdong.study.msb.day_08_design_tank.model.Dir;
+import org.imzdong.study.msb.day_08_design_tank.model.Group;
+import org.imzdong.study.msb.day_08_design_tank.model.Tank;
+import org.imzdong.study.msb.day_08_design_tank.util.Audio;
+import org.imzdong.study.msb.day_08_design_tank.util.PropertyMgr;
 
 public class TankFrameMain {
 
