@@ -11,6 +11,8 @@ public class ImageMgr {
     public static BufferedImage [] booms = new BufferedImage[16];
     public static BufferedImage badTankU, badTankD, badTankL, badTankR;
 
+    private ImageMgr(){}
+
     static {
         ClassLoader classLoader = ImageMgr.class.getClassLoader();
         try {

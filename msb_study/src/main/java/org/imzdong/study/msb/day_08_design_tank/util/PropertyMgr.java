@@ -15,6 +15,8 @@ public class PropertyMgr {
         }
     }
 
+    private PropertyMgr(){}
+
     public static Object get(String key){
         return properties.get(key);
     }
