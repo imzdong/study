@@ -1,6 +1,7 @@
 package org.imzdong.study.msb.day_08_design_tank;
 
 import org.imzdong.study.msb.day_08_design_tank.model.*;
+import org.imzdong.study.msb.day_08_design_tank.tank.Tank;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

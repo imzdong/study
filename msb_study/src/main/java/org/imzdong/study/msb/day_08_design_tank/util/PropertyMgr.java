@@ -20,4 +20,8 @@ public class PropertyMgr {
     public static Object get(String key){
         return properties.get(key);
     }
+
+    public static Integer getInt(String key){
+        return Integer.parseInt((String)properties.get(key));
+    }
 }

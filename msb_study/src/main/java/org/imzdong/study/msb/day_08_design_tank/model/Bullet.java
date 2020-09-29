@@ -1,6 +1,7 @@
 package org.imzdong.study.msb.day_08_design_tank.model;
 
 import org.imzdong.study.msb.day_08_design_tank.TankFrame;
+import org.imzdong.study.msb.day_08_design_tank.tank.Tank;
 import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
@@ -25,6 +26,7 @@ public class Bullet {
         this.tankFrame = tankFrame;
         this.group = group;
         rectangleBullet = new Rectangle(x, y, width, height);
+        tankFrame.bullets.add(this);
     }
 
     public void paint(Graphics g) {

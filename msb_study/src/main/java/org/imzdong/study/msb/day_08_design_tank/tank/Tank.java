@@ -1,6 +1,9 @@
-package org.imzdong.study.msb.day_08_design_tank.model;
+package org.imzdong.study.msb.day_08_design_tank.tank;
 
 import org.imzdong.study.msb.day_08_design_tank.TankFrame;
+import org.imzdong.study.msb.day_08_design_tank.model.Bullet;
+import org.imzdong.study.msb.day_08_design_tank.model.Dir;
+import org.imzdong.study.msb.day_08_design_tank.model.Group;
 import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
@@ -11,7 +14,7 @@ public class Tank {
 
     private int x;
     private int y;
-    private static final int speed = 2;
+    private static final int speed = 5;
     private Dir dir;
     private boolean moving = true;
     private TankFrame tankFrame;
@@ -20,7 +23,8 @@ public class Tank {
     public int height = ImageMgr.tankD.getHeight();
     private Random random = new Random();
     private Group group;
-    Rectangle rectangleTank;
+    public Rectangle rectangleTank;
+    FireStrategy<Tank> fireStrategy = DefaultFireStrategy.getInstance();
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
@@ -30,6 +34,7 @@ public class Tank {
         this.group = group;
         if(group == Group.GOOD){
             moving = false;
+            fireStrategy = FourFireStrategy.getInstance();
         }
         rectangleTank = new Rectangle(x, y, width, height);
     }
@@ -130,10 +135,16 @@ public class Tank {
         this.moving = moving;
     }
 
+    public Dir getDir() {
+        return dir;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
     public void fire() {
-        int bulletX = this.x + this.width/2 - Bullet.width/2;
-        int bulletY = this.y + this.height/2 - Bullet.height/2;
-        tankFrame.bullets.add(new Bullet(bulletX, bulletY, dir,tankFrame,this.group));
+        fireStrategy.fire(this);
     }
 
     public void dead(){
