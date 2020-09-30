@@ -15,26 +15,24 @@ public class OvalBullet extends BaseBullet {
     private int y;
     private final static int speed = 10;
     private Dir dir;
-    private GameModelFacade gm;
     private boolean living = true;
     public static int width = ImageMgr.bulletU.getWidth();
     public static int height = ImageMgr.bulletU.getHeight();
     private Group group;
     Rectangle rectangleBullet;
 
-    public OvalBullet(int x, int y, Dir dir, GameModelFacade gm, Group group) {
+    public OvalBullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         rectangleBullet = new Rectangle(x, y, width, height);
-        gm.add(this);
+        GameModelFacade.getGm().add(this);
     }
 
     public void paint(Graphics g) {
         if(!living){
-            gm.remove(this);
+            GameModelFacade.getGm().remove(this);
         }
         Color color = g.getColor();
         g.setColor(Color.yellow);

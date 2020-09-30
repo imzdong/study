@@ -34,8 +34,6 @@ public abstract class BaseTank extends GameObject {
 
     public abstract Dir getDir();
 
-    public abstract GameModelFacade getGm();
-
     public void back(){
         this.x = oldX;
         this.y = oldY;

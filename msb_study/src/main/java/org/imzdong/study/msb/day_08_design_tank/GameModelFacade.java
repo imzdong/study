@@ -16,23 +16,26 @@ import java.util.List;
 
 public class GameModelFacade {
 
-    public AbstractStyleFactory abstractStyleFactory = new DefaultStyleFactory();
-    //public AbstractStyleFactory abstractStyleFactory = new CustomStyleFactory();
-    CollateChain collateChain = new CollateChain();
+    private final static GameModelFacade gm = new GameModelFacade();
+    //public final static AbstractStyleFactory abstractStyleFactory = new DefaultStyleFactory();
+    public final static AbstractStyleFactory abstractStyleFactory = new CustomStyleFactory();
+    public final static CollateChain collateChain = new CollateChain();
 
-    BaseTank tank = abstractStyleFactory.createTank(400,500, Dir.UP, this, Group.GOOD);
+    private static BaseTank tank;// = abstractStyleFactory.createTank(400,500, Dir.UP, Group.GOOD);
     public List<GameObject> gameObjects = new ArrayList<>();
 
-    public GameModelFacade(){
+    private GameModelFacade(){}
+
+    static {
+        tank = abstractStyleFactory.createTank(400,500, Dir.UP, Group.GOOD);
         int initEnemyCount = PropertyMgr.getInt("initEnemyCount");
         int enemySpace = PropertyMgr.getInt("enemySpace");
         for (int i = 0; i < initEnemyCount; i++) {
-            BaseTank enemy = abstractStyleFactory.createTank(i*enemySpace+50, 300, Dir.DOWN, this, Group.BAD);
-            this.add(enemy);
+            abstractStyleFactory.createTank(i*enemySpace+50, 300, Dir.DOWN , Group.BAD);
         }
-        add(new Wall(200,50,50,250));
-        add(new Wall(700,400,400,30));
-        add(new Wall(200,550,30,300));
+        new Wall(200,50,50,250);
+        new Wall(700,400,400,30);
+        new Wall(200,550,30,300);
         collateChain.add(new BulletCollision());
         collateChain.add(new TankCollision());
         collateChain.add(new BulletWallCollision());
@@ -42,7 +45,6 @@ public class GameModelFacade {
     public void add(GameObject gameObject){
         gameObjects.add(gameObject);
     }
-
 
     public void paint(Graphics g) {
         Color color = g.getColor();
@@ -69,5 +71,9 @@ public class GameModelFacade {
 
     public void remove(GameObject gameObject) {
         gameObjects.remove(gameObject);
+    }
+
+    public static GameModelFacade getGm() {
+        return gm;
     }
 }

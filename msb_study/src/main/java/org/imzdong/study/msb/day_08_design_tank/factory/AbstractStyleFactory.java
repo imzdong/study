@@ -1,6 +1,5 @@
 package org.imzdong.study.msb.day_08_design_tank.factory;
 
-import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBoom;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
@@ -9,7 +8,7 @@ import org.imzdong.study.msb.day_08_design_tank.model.Group;
 
 public abstract class AbstractStyleFactory {
 
-    public abstract BaseTank createTank(int x, int y, Dir dir, GameModelFacade gm, Group group);
-    public abstract BaseBullet createBullet(int x, int y, Dir dir, GameModelFacade gm, Group group);
-    public abstract BaseBoom createBoom(int x, int y, GameModelFacade gm);
+    public abstract BaseTank createTank(int x, int y, Dir dir, Group group);
+    public abstract BaseBullet createBullet(int x, int y, Dir dir, Group group);
+    public abstract BaseBoom createBoom(int x, int y);
 }

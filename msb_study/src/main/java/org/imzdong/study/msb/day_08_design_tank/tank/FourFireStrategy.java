@@ -29,12 +29,12 @@ public class FourFireStrategy implements FireStrategy<BaseTank>{
 
     @Override
     public void fire(BaseTank tank) {
-        GameModelFacade gm = tank.getGm();
+        GameModelFacade gm = GameModelFacade.getGm();
         AbstractStyleFactory abstractStyleFactory = gm.abstractStyleFactory;
         int bulletX = tank.getX() + tank.width/2 - Bullet.width/2;
         int bulletY = tank.getY() + tank.height/2 - Bullet.height/2;
         for(Dir dir:Dir.values()) {
-            abstractStyleFactory.createBullet(bulletX, bulletY, dir, gm, tank.getGroup());
+            abstractStyleFactory.createBullet(bulletX, bulletY, dir,tank.getGroup());
         }
     }
 }

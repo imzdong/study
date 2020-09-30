@@ -1,5 +1,6 @@
 package org.imzdong.study.msb.day_08_design_tank.model;
 
+import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
 import org.imzdong.study.msb.day_08_design_tank.GameObject;
 
 import java.awt.*;
@@ -16,6 +17,7 @@ public class Wall extends GameObject {
         this.w = w;
         this.h = h;
         rectangleWall = new Rectangle(x,y,w,h);
+        GameModelFacade.getGm().add(this);
     }
 
     @Override

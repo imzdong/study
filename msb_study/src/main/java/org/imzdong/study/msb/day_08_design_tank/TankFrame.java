@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    GameModelFacade gm = new GameModelFacade();
+    GameModelFacade gm = GameModelFacade.getGm();
 
     public TankFrame(){
         setTitle("坦克大战");

@@ -13,17 +13,17 @@ import org.imzdong.study.msb.day_08_design_tank.model.Tank;
 
 public class DefaultStyleFactory extends AbstractStyleFactory {
     @Override
-    public BaseTank createTank(int x, int y, Dir dir, GameModelFacade gm, Group group) {
-        return new Tank(x, y, dir, gm, group);
+    public BaseTank createTank(int x, int y, Dir dir, Group group) {
+        return new Tank(x, y, dir, group);
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, Dir dir, GameModelFacade gm, Group group) {
-        return new Bullet(x, y, dir, gm, group) ;
+    public BaseBullet createBullet(int x, int y, Dir dir, Group group) {
+        return new Bullet(x, y, dir, group) ;
     }
 
     @Override
-    public BaseBoom createBoom(int x, int y, GameModelFacade gm) {
-        return new Boom(x, y, gm);
+    public BaseBoom createBoom(int x, int y) {
+        return new Boom(x, y);
     }
 }

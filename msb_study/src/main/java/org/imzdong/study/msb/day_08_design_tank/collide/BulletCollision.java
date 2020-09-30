@@ -15,10 +15,10 @@ public class BulletCollision implements Collator {
                 return true;
             }
             if(bullet.getRectangleBullet().intersects(tank.rectangleTank)){
-                GameModelFacade gm = tank.getGm();
+                GameModelFacade gm = GameModelFacade.getGm();
                 tank.dead();
                 bullet.dead();
-                gm.abstractStyleFactory.createBoom(tank.getX()+tank.width/2,tank.getY()+tank.height/2,gm);
+                gm.abstractStyleFactory.createBoom(tank.getX()+tank.width/2,tank.getY()+tank.height/2);
                 return false;
             }
         }else if(o2 instanceof BaseTank && o1 instanceof BaseBullet){

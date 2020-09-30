@@ -17,15 +17,13 @@ public class SimpleTank extends BaseTank {
     private static final int speed = 5;
     private Dir dir;
     private boolean moving = true;
-    private GameModelFacade gm;
     private boolean living = true;
     private Random random = new Random();
     private Group group;
-    public SimpleTank(int x, int y, Dir dir, GameModelFacade gm, Group group) {
+    public SimpleTank(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         if(group == Group.GOOD){
             moving = false;
@@ -35,11 +33,14 @@ public class SimpleTank extends BaseTank {
         rectangleTank.y = y;
         rectangleTank.width = width;
         rectangleTank.height = height;
+        if(group != Group.GOOD) {
+            GameModelFacade.getGm().add(this);
+        }
     }
 
     public void paint(Graphics g) {
         if(!living){
-            gm.remove(this);
+            GameModelFacade.getGm().remove(this);
         }
         BufferedImage bi = null;
         switch (dir) {
@@ -137,10 +138,6 @@ public class SimpleTank extends BaseTank {
 
     public Dir getDir() {
         return dir;
-    }
-
-    public GameModelFacade getGm() {
-        return gm;
     }
 
     public void fire() {
