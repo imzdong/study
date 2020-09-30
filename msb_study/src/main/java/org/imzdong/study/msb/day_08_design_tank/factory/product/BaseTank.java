@@ -1,6 +1,6 @@
 package org.imzdong.study.msb.day_08_design_tank.factory.product;
 
-import org.imzdong.study.msb.day_08_design_tank.TankFrame;
+import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
 import org.imzdong.study.msb.day_08_design_tank.model.Group;
 import org.imzdong.study.msb.day_08_design_tank.tank.DefaultFireStrategy;
@@ -32,7 +32,7 @@ public abstract class BaseTank {
 
     public abstract int getY();
 
-    public abstract TankFrame getTankFrame();
-
     public abstract Dir getDir();
+
+    public abstract GameModelFacade getGm();
 }

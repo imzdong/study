@@ -1,6 +1,7 @@
 package org.imzdong.study.msb.day_08_design_tank.factory.product.impl;
 
-import org.imzdong.study.msb.day_08_design_tank.TankFrame;
+import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
+import org.imzdong.study.msb.day_08_design_tank.constant.Constant;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
@@ -15,26 +16,26 @@ public class OvalBullet extends BaseBullet {
     private int y;
     private final static int speed = 10;
     private Dir dir;
-    private TankFrame tankFrame;
+    private GameModelFacade gm;
     private boolean living = true;
     public static int width = ImageMgr.bulletU.getWidth();
     public static int height = ImageMgr.bulletU.getHeight();
     private Group group;
     Rectangle rectangleBullet;
 
-    public OvalBullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+    public OvalBullet(int x, int y, Dir dir, GameModelFacade gm, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tankFrame = tankFrame;
+        this.gm = gm;
         this.group = group;
         rectangleBullet = new Rectangle(x, y, width, height);
-        tankFrame.bullets.add(this);
+        gm.bullets.add(this);
     }
 
     public void paint(Graphics g) {
         if(!living){
-            tankFrame.bullets.remove(this);
+            gm.bullets.remove(this);
         }
         Color color = g.getColor();
         g.setColor(Color.yellow);
@@ -60,7 +61,7 @@ public class OvalBullet extends BaseBullet {
             default:
                 break;
         }
-        if(x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
+        if(x < 0 || y < 0 || x > Constant.frameWith || y > Constant.frameHeight) {
             living = false;
         }
         rectangleBullet.x = x;
@@ -93,7 +94,7 @@ public class OvalBullet extends BaseBullet {
         if(rectangleBullet.intersects(tank.rectangleTank)){
             tank.dead();
             this.dead();
-            tankFrame.abstractStyleFactory.createBoom(tank.getX()+tank.width/2,tank.getY()+tank.height/2,tankFrame);
+            gm.abstractStyleFactory.createBoom(tank.getX()+tank.width/2,tank.getY()+tank.height/2,gm);
         }
     }
 

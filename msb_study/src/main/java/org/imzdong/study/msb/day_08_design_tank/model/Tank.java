@@ -1,9 +1,8 @@
 package org.imzdong.study.msb.day_08_design_tank.model;
 
-import org.imzdong.study.msb.day_08_design_tank.TankFrame;
+import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
+import org.imzdong.study.msb.day_08_design_tank.constant.Constant;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
-import org.imzdong.study.msb.day_08_design_tank.tank.DefaultFireStrategy;
-import org.imzdong.study.msb.day_08_design_tank.tank.FireStrategy;
 import org.imzdong.study.msb.day_08_design_tank.tank.FourFireStrategy;
 import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
@@ -18,15 +17,15 @@ public class Tank extends BaseTank {
     private static final int speed = 5;
     private Dir dir;
     private boolean moving = true;
-    private TankFrame tankFrame;
+    private GameModelFacade gm;
     private boolean living = true;
     private Random random = new Random();
     private Group group;
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+    public Tank(int x, int y, Dir dir, GameModelFacade gm, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tankFrame = tankFrame;
+        this.gm = gm;
         this.group = group;
         if(group == Group.GOOD){
             moving = false;
@@ -40,7 +39,7 @@ public class Tank extends BaseTank {
 
     public void paint(Graphics g) {
         if(!living){
-            tankFrame.enemyList.remove(this);
+            gm.enemyList.remove(this);
         }
         BufferedImage bi = null;
         switch (dir) {
@@ -117,11 +116,11 @@ public class Tank extends BaseTank {
         if(y < 25){
             y = 20 ;
         }
-        if(x > (tankFrame.getWidth() - width -2)){
-            x = tankFrame.getWidth() - width -2;
+        if(x > (Constant.frameWith - width -2)){
+            x = Constant.frameWith - width -2;
         }
-        if(y > (tankFrame.getHeight() - height -2)){
-            y = tankFrame.getHeight() - height -2;
+        if(y > (Constant.frameHeight - height -2)){
+            y = Constant.frameHeight - height -2;
         }
     }
 
@@ -138,8 +137,8 @@ public class Tank extends BaseTank {
         return dir;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public GameModelFacade getGm() {
+        return gm;
     }
 
     public void fire() {
@@ -169,7 +168,6 @@ public class Tank extends BaseTank {
                 ", y=" + y +
                 ", dir=" + dir +
                 ", moving=" + moving +
-                ", tankFrame=" + tankFrame +
                 '}';
     }
 }

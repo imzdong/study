@@ -1,10 +1,6 @@
 package org.imzdong.study.msb.day_08_design_tank;
 
-import org.imzdong.study.msb.day_08_design_tank.factory.AbstractStyleFactory;
-import org.imzdong.study.msb.day_08_design_tank.factory.factory.CustomStyleFactory;
-import org.imzdong.study.msb.day_08_design_tank.factory.factory.DefaultStyleFactory;
-import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBoom;
-import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
+import org.imzdong.study.msb.day_08_design_tank.constant.Constant;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
 import org.imzdong.study.msb.day_08_design_tank.model.*;
 
@@ -13,25 +9,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TankFrame extends Frame {
 
-    private int frameWith = 1000;
-    private int frameHeight = 680;
-    //public AbstractStyleFactory abstractStyleFactory = new DefaultStyleFactory();
-    public AbstractStyleFactory abstractStyleFactory = new CustomStyleFactory();
-
-    BaseTank tank = abstractStyleFactory.createTank(400,500, Dir.UP, this, Group.GOOD);
-    public List<BaseBullet> bullets = new ArrayList<>();
-    public List<BaseTank> enemyList = new ArrayList<>();
-    public List<BaseBoom> booms = new ArrayList<>();
+    GameModelFacade gm = new GameModelFacade();
 
     public TankFrame(){
         setTitle("坦克大战");
         setVisible(true);
-        setSize(frameWith,frameHeight);
+        setSize(Constant.frameWith,Constant.frameHeight);
         setResizable(false);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -50,12 +36,12 @@ public class TankFrame extends Frame {
     @Override
     public void update(Graphics g) {
         if(image == null) {
-            image = createImage(frameWith, frameHeight);
+            image = createImage(Constant.frameWith, Constant.frameHeight);
         }
         Graphics graphics = image.getGraphics();
         Color color = graphics.getColor();
         graphics.setColor(Color.BLACK);
-        graphics.fillRect(0,0, frameWith, frameHeight);
+        graphics.fillRect(0,0, Constant.frameWith, Constant.frameHeight);
         graphics.setColor(color);
         paint(graphics);
         g.drawImage(image,0,0,null);
@@ -67,29 +53,7 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.red);
-        g.drawString("子弹数量："+bullets.size(),10,50);
-        g.drawString("敌人数量："+enemyList.size(),10,70);
-        g.drawString("boom数量："+booms.size(),10,90);
-        g.setColor(color);
-        tank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-        //添加敌人tank
-        for (int i = 0; i < enemyList.size(); i++) {
-            enemyList.get(i).paint(g);
-        }
-        for (int i = 0; i < booms.size(); i++) {
-            booms.get(i).paint(g);
-        }
-        //射击敌人
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int y = 0; y < enemyList.size(); y++) {
-                bullets.get(i).collision(enemyList.get(y));
-            }
-        }
+        gm.paint(g);
     }
 
     /**
@@ -117,7 +81,7 @@ public class TankFrame extends Frame {
                     br = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    tank.fire();
+                    gm.createMainTank().fire();
                     break;
                 default:
                     break;
@@ -126,6 +90,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainFrame() {
+            BaseTank tank = gm.createMainTank();
             if(!bu&&!bd&!bl&!br){
                 tank.setMoving(false);
             }else {
