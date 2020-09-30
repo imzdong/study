@@ -1,13 +1,15 @@
-package org.imzdong.study.msb.day_08_design_tank.model;
+package org.imzdong.study.msb.day_08_design_tank.factory.product.impl;
 
 import org.imzdong.study.msb.day_08_design_tank.TankFrame;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
+import org.imzdong.study.msb.day_08_design_tank.model.Dir;
+import org.imzdong.study.msb.day_08_design_tank.model.Group;
 import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class OvalBullet extends BaseBullet {
 
     private int x;
     private int y;
@@ -20,7 +22,7 @@ public class Bullet extends BaseBullet {
     private Group group;
     Rectangle rectangleBullet;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+    public OvalBullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -34,22 +36,10 @@ public class Bullet extends BaseBullet {
         if(!living){
             tankFrame.bullets.remove(this);
         }
-        switch (dir) {
-            case UP:
-                g.drawImage(ImageMgr.bulletU, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ImageMgr.bulletD, x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(ImageMgr.bulletL, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ImageMgr.bulletR, x, y, null);
-                break;
-            default:
-                break;
-        }
+        Color color = g.getColor();
+        g.setColor(Color.yellow);
+        g.fillOval(x,y,20,20);
+        g.setColor(color);
         move();
     }
 

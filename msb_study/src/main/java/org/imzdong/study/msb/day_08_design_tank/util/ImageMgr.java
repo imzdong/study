@@ -7,9 +7,13 @@ import java.io.IOException;
 public class ImageMgr {
 
     public static BufferedImage tankU, tankD, tankL, tankR;
+    public static BufferedImage badTankU, badTankD, badTankL, badTankR;
     public static BufferedImage bulletU, bulletD, bulletL, bulletR;
     public static BufferedImage [] booms = new BufferedImage[16];
-    public static BufferedImage badTankU, badTankD, badTankL, badTankR;
+    public static BufferedImage [] blockBooms = new BufferedImage[11];
+
+    public static BufferedImage simpleTankU, simpleTankD, simpleTankL, simpleTankR;
+    public static BufferedImage simpleBadTankU, simpleBadTankD, simpleBadTankL, simpleBadTankR;
 
     private ImageMgr(){}
 
@@ -34,6 +38,21 @@ public class ImageMgr {
             for (int i = 0; i < 16; i++) {
                 booms[i] = ImageIO.read(classLoader.getResourceAsStream("images/e"+(i+1)+".gif"));
             }
+
+            simpleTankU = ImageIO.read(classLoader.getResourceAsStream("images/tankU.gif"));
+            simpleTankD = ImageUtil.rotateImage(simpleTankU,180);
+            simpleTankL = ImageUtil.rotateImage(simpleTankU,-90);
+            simpleTankR = ImageUtil.rotateImage(simpleTankU,90);
+
+            simpleBadTankU = ImageIO.read(classLoader.getResourceAsStream("images/BadTank2.png"));
+            simpleBadTankD = ImageUtil.rotateImage(simpleBadTankU,180);
+            simpleBadTankL = ImageUtil.rotateImage(simpleBadTankU,-90);
+            simpleBadTankR = ImageUtil.rotateImage(simpleBadTankU,90);
+
+            for (int i = 0; i < 11; i++) {
+                blockBooms[i] = ImageIO.read(classLoader.getResourceAsStream("images/"+i+".gif"));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

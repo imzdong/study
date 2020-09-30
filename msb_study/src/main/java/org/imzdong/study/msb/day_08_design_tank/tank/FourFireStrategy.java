@@ -1,13 +1,16 @@
 package org.imzdong.study.msb.day_08_design_tank.tank;
 
 import org.imzdong.study.msb.day_08_design_tank.TankFrame;
+import org.imzdong.study.msb.day_08_design_tank.factory.AbstractStyleFactory;
+import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
 import org.imzdong.study.msb.day_08_design_tank.model.Bullet;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
+import org.imzdong.study.msb.day_08_design_tank.model.Tank;
 
 /**
  * DoubleCheck单例模式
  */
-public class FourFireStrategy implements FireStrategy<Tank>{
+public class FourFireStrategy implements FireStrategy<BaseTank>{
 
     private static volatile FourFireStrategy fourFireStrategy;
     private final static byte[] lock = new byte[10];
@@ -26,12 +29,13 @@ public class FourFireStrategy implements FireStrategy<Tank>{
     }
 
     @Override
-    public void fire(Tank tank) {
+    public void fire(BaseTank tank) {
         TankFrame tankFrame = tank.getTankFrame();
+        AbstractStyleFactory abstractStyleFactory = tankFrame.abstractStyleFactory;
         int bulletX = tank.getX() + tank.width/2 - Bullet.width/2;
         int bulletY = tank.getY() + tank.height/2 - Bullet.height/2;
         for(Dir dir:Dir.values()) {
-            new Bullet(bulletX, bulletY, dir, tankFrame, tank.getGroup());
+            abstractStyleFactory.createBullet(bulletX, bulletY, dir, tankFrame, tank.getGroup());
         }
     }
 }

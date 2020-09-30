@@ -1,7 +1,12 @@
 package org.imzdong.study.msb.day_08_design_tank;
 
+import org.imzdong.study.msb.day_08_design_tank.factory.AbstractStyleFactory;
+import org.imzdong.study.msb.day_08_design_tank.factory.factory.CustomStyleFactory;
+import org.imzdong.study.msb.day_08_design_tank.factory.factory.DefaultStyleFactory;
+import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBoom;
+import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
+import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
 import org.imzdong.study.msb.day_08_design_tank.model.*;
-import org.imzdong.study.msb.day_08_design_tank.tank.Tank;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -15,11 +20,13 @@ public class TankFrame extends Frame {
 
     private int frameWith = 1000;
     private int frameHeight = 680;
+    //public AbstractStyleFactory abstractStyleFactory = new DefaultStyleFactory();
+    public AbstractStyleFactory abstractStyleFactory = new CustomStyleFactory();
 
-    Tank tank = new Tank(400,500, Dir.UP, this, Group.GOOD);
-    public List<Bullet> bullets = new ArrayList<>();
-    public List<Tank> enemyList = new ArrayList<>();
-    public List<Boom> booms = new ArrayList<>();
+    BaseTank tank = abstractStyleFactory.createTank(400,500, Dir.UP, this, Group.GOOD);
+    public List<BaseBullet> bullets = new ArrayList<>();
+    public List<BaseTank> enemyList = new ArrayList<>();
+    public List<BaseBoom> booms = new ArrayList<>();
 
     public TankFrame(){
         setTitle("坦克大战");

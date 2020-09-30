@@ -1,16 +1,17 @@
-package org.imzdong.study.msb.day_08_design_tank.tank;
+package org.imzdong.study.msb.day_08_design_tank.factory.product.impl;
 
 import org.imzdong.study.msb.day_08_design_tank.TankFrame;
-import org.imzdong.study.msb.day_08_design_tank.model.Bullet;
+import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
 import org.imzdong.study.msb.day_08_design_tank.model.Group;
+import org.imzdong.study.msb.day_08_design_tank.tank.FourFireStrategy;
 import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank {
+public class SimpleTank extends BaseTank {
 
     private int x;
     private int y;
@@ -19,14 +20,9 @@ public class Tank {
     private boolean moving = true;
     private TankFrame tankFrame;
     private boolean living = true;
-    public int width = ImageMgr.tankD.getWidth();
-    public int height = ImageMgr.tankD.getHeight();
     private Random random = new Random();
     private Group group;
-    public Rectangle rectangleTank;
-    FireStrategy<Tank> fireStrategy = DefaultFireStrategy.getInstance();
-
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+    public SimpleTank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -36,7 +32,10 @@ public class Tank {
             moving = false;
             fireStrategy = FourFireStrategy.getInstance();
         }
-        rectangleTank = new Rectangle(x, y, width, height);
+        rectangleTank.x = x;
+        rectangleTank.y = y;
+        rectangleTank.width = width;
+        rectangleTank.height = height;
     }
 
     public void paint(Graphics g) {
@@ -47,30 +46,30 @@ public class Tank {
         switch (dir) {
             case UP:
                 if(group.equals(Group.GOOD)) {
-                    bi = ImageMgr.tankU;
+                    bi = ImageMgr.simpleTankU;
                 }else {
-                    bi = ImageMgr.badTankU;
+                    bi = ImageMgr.simpleBadTankU;
                 }
                 break;
             case DOWN:
                 if(group.equals(Group.GOOD)) {
-                    bi = ImageMgr.tankD;
+                    bi = ImageMgr.simpleTankD;
                 }else {
-                    bi = ImageMgr.badTankD;
+                    bi = ImageMgr.simpleBadTankD;
                 }
                 break;
             case LEFT:
                 if(group.equals(Group.GOOD)) {
-                    bi = ImageMgr.tankL;
+                    bi = ImageMgr.simpleTankL;
                 }else {
-                    bi = ImageMgr.badTankL;
+                    bi = ImageMgr.simpleBadTankL;
                 }
                 break;
             case RIGHT:
                 if(group.equals(Group.GOOD)) {
-                    bi = ImageMgr.tankR;
+                    bi = ImageMgr.simpleTankR;
                 }else {
-                    bi = ImageMgr.badTankR;
+                    bi = ImageMgr.simpleBadTankR;
                 }
                 break;
             default:
