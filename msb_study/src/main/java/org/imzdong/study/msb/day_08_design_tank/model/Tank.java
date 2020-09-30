@@ -12,8 +12,6 @@ import java.util.Random;
 
 public class Tank extends BaseTank {
 
-    private int x;
-    private int y;
     private static final int speed = 5;
     private Dir dir;
     private boolean moving = true;
@@ -39,7 +37,7 @@ public class Tank extends BaseTank {
 
     public void paint(Graphics g) {
         if(!living){
-            gm.enemyList.remove(this);
+            gm.remove(this);
         }
         BufferedImage bi = null;
         switch (dir) {
@@ -81,6 +79,8 @@ public class Tank extends BaseTank {
     }
 
     private void move() {
+        oldX = x;
+        oldY = y;
         switch (dir) {
             case UP:
                 y -= speed;

@@ -3,7 +3,6 @@ package org.imzdong.study.msb.day_08_design_tank.model;
 import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
 import org.imzdong.study.msb.day_08_design_tank.constant.Constant;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
-import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
 import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
@@ -28,12 +27,12 @@ public class Bullet extends BaseBullet {
         this.gm = gm;
         this.group = group;
         rectangleBullet = new Rectangle(x, y, width, height);
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
     public void paint(Graphics g) {
         if(!living){
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case UP:
@@ -97,18 +96,12 @@ public class Bullet extends BaseBullet {
         this.living = live;
     }
 
-    public void collision(BaseTank tank) {
-        if(tank.getGroup().equals(this.group)){
-            return;
-        }
-        if(rectangleBullet.intersects(tank.rectangleTank)){
-            tank.dead();
-            this.dead();
-            gm.abstractStyleFactory.createBoom(tank.getX()+tank.width/2,tank.getY()+tank.height/2,gm);
-        }
-    }
-
     public Group getGroup() {
         return group;
+    }
+
+    @Override
+    public Rectangle getRectangleBullet() {
+        return rectangleBullet;
     }
 }

@@ -18,14 +18,14 @@ public class BlockBoom extends BaseBoom {
         this.x = x;
         this.y = y;
         this.gm = gm;
-        gm.booms.add(this);
+        gm.add(this);
         new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
     public void paint(Graphics g) {
         g.drawImage(ImageMgr.blockBooms[step++], x, y, null);
         if(step>= ImageMgr.blockBooms.length){
-            gm.booms.remove(this);
+            gm.remove(this);
         }
     }
 
