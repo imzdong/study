@@ -9,8 +9,6 @@ import java.awt.*;
 
 public class Boom extends BaseBoom {
 
-    private int x;
-    private int y;
     private int step = 0;
 
     public Boom(int x, int y) {

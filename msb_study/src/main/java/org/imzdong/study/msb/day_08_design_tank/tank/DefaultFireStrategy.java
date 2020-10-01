@@ -1,9 +1,11 @@
 package org.imzdong.study.msb.day_08_design_tank.tank;
 
 import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
+import org.imzdong.study.msb.day_08_design_tank.decorate.RectDecorator;
+import org.imzdong.study.msb.day_08_design_tank.decorate.TailDecorator;
 import org.imzdong.study.msb.day_08_design_tank.factory.AbstractStyleFactory;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
-import org.imzdong.study.msb.day_08_design_tank.model.Bullet;
+import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 public class DefaultFireStrategy implements FireStrategy<BaseTank>{
 
@@ -18,9 +20,13 @@ public class DefaultFireStrategy implements FireStrategy<BaseTank>{
     @Override
     public void fire(BaseTank tank) {
         GameModelFacade gm = GameModelFacade.getGm();
-        int bulletX = tank.getX() + tank.width/2 - Bullet.width/2;
-        int bulletY = tank.getY() + tank.height/2 - Bullet.height/2;
+        int bulletX = tank.getX() + tank.getW()/2 - ImageMgr.bulletU.getWidth()/2;
+        int bulletY = tank.getY() + tank.getH()/2 - ImageMgr.bulletU.getHeight()/2;
         AbstractStyleFactory abstractStyleFactory = gm.abstractStyleFactory;
         abstractStyleFactory.createBullet(bulletX, bulletY, tank.getDir(), tank.getGroup());
+        /*gm.add(new TailDecorator(
+                new RectDecorator(
+                        abstractStyleFactory.createBullet(bulletX, bulletY, tank.getDir(), tank.getGroup())
+                )));*/
     }
 }

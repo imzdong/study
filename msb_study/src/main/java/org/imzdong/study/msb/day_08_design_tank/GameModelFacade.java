@@ -1,6 +1,7 @@
 package org.imzdong.study.msb.day_08_design_tank;
 
 import org.imzdong.study.msb.day_08_design_tank.collide.*;
+import org.imzdong.study.msb.day_08_design_tank.decorate.RectDecorator;
 import org.imzdong.study.msb.day_08_design_tank.factory.AbstractStyleFactory;
 import org.imzdong.study.msb.day_08_design_tank.factory.factory.CustomStyleFactory;
 import org.imzdong.study.msb.day_08_design_tank.factory.factory.DefaultStyleFactory;
@@ -17,8 +18,8 @@ import java.util.List;
 public class GameModelFacade {
 
     private final static GameModelFacade gm = new GameModelFacade();
-    //public final static AbstractStyleFactory abstractStyleFactory = new DefaultStyleFactory();
-    public final static AbstractStyleFactory abstractStyleFactory = new CustomStyleFactory();
+    public final static AbstractStyleFactory abstractStyleFactory = new DefaultStyleFactory();
+    //public final static AbstractStyleFactory abstractStyleFactory = new CustomStyleFactory();
     public final static CollateChain collateChain = new CollateChain();
 
     private static BaseTank tank;// = abstractStyleFactory.createTank(400,500, Dir.UP, Group.GOOD);
@@ -27,13 +28,17 @@ public class GameModelFacade {
     private GameModelFacade(){}
 
     static {
+        gm.init();
+    }
+
+    private void init(){
         tank = abstractStyleFactory.createTank(400,500, Dir.UP, Group.GOOD);
         int initEnemyCount = PropertyMgr.getInt("initEnemyCount");
         int enemySpace = PropertyMgr.getInt("enemySpace");
         for (int i = 0; i < initEnemyCount; i++) {
             abstractStyleFactory.createTank(i*enemySpace+50, 300, Dir.DOWN , Group.BAD);
         }
-        new Wall(200,50,50,250);
+        new Wall(200,50,20,250);
         new Wall(700,400,400,30);
         new Wall(200,550,30,300);
         collateChain.add(new BulletCollision());

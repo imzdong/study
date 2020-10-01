@@ -18,7 +18,7 @@ public class BulletCollision implements Collator {
                 GameModelFacade gm = GameModelFacade.getGm();
                 tank.dead();
                 bullet.dead();
-                gm.abstractStyleFactory.createBoom(tank.getX()+tank.width/2,tank.getY()+tank.height/2);
+                gm.abstractStyleFactory.createBoom(tank.getX()+tank.getW()/2,tank.getY()+tank.getH()/2);
                 return false;
             }
         }else if(o2 instanceof BaseTank && o1 instanceof BaseBullet){

@@ -9,13 +9,9 @@ import java.awt.*;
 
 public class Bullet extends BaseBullet {
 
-    private int x;
-    private int y;
     private final static int speed = 10;
     private Dir dir;
     private boolean living = true;
-    public static int width = ImageMgr.bulletU.getWidth();
-    public static int height = ImageMgr.bulletU.getHeight();
     private Group group;
     Rectangle rectangleBullet;
 
@@ -24,7 +20,9 @@ public class Bullet extends BaseBullet {
         this.y = y;
         this.dir = dir;
         this.group = group;
-        rectangleBullet = new Rectangle(x, y, width, height);
+        w = ImageMgr.bulletU.getWidth();
+        h = ImageMgr.bulletU.getHeight();
+        rectangleBullet = new Rectangle(x, y, w, h);
         GameModelFacade.getGm().add(this);
     }
 

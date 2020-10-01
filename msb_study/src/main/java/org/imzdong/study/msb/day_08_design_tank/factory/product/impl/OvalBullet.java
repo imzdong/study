@@ -5,19 +5,14 @@ import org.imzdong.study.msb.day_08_design_tank.constant.Constant;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseBullet;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
 import org.imzdong.study.msb.day_08_design_tank.model.Group;
-import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
 
 public class OvalBullet extends BaseBullet {
 
-    private int x;
-    private int y;
     private final static int speed = 10;
     private Dir dir;
     private boolean living = true;
-    public static int width = ImageMgr.bulletU.getWidth();
-    public static int height = ImageMgr.bulletU.getHeight();
     private Group group;
     Rectangle rectangleBullet;
 
@@ -26,7 +21,9 @@ public class OvalBullet extends BaseBullet {
         this.y = y;
         this.dir = dir;
         this.group = group;
-        rectangleBullet = new Rectangle(x, y, width, height);
+        w = 20;
+        h = 20;
+        rectangleBullet = new Rectangle(x, y, w, h);
         GameModelFacade.getGm().add(this);
     }
 
@@ -36,7 +33,7 @@ public class OvalBullet extends BaseBullet {
         }
         Color color = g.getColor();
         g.setColor(Color.yellow);
-        g.fillOval(x,y,20,20);
+        g.fillOval(x,y,w,h);
         g.setColor(color);
         move();
     }

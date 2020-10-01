@@ -27,10 +27,12 @@ public class Tank extends BaseTank {
             moving = false;
             fireStrategy = FourFireStrategy.getInstance();
         }
+        w = ImageMgr.tankD.getWidth();
+        h = ImageMgr.tankD.getHeight();
         rectangleTank.x = x;
         rectangleTank.y = y;
-        rectangleTank.width = width;
-        rectangleTank.height = height;
+        rectangleTank.width = w;
+        rectangleTank.height = h;
         if(group != Group.GOOD) {
             GameModelFacade.getGm().add(this);
         }
@@ -117,11 +119,11 @@ public class Tank extends BaseTank {
         if(y < 25){
             y = 20 ;
         }
-        if(x > (Constant.frameWith - width -2)){
-            x = Constant.frameWith - width -2;
+        if(x > (Constant.frameWith - w -2)){
+            x = Constant.frameWith - w -2;
         }
-        if(y > (Constant.frameHeight - height -2)){
-            y = Constant.frameHeight - height -2;
+        if(y > (Constant.frameHeight - h -2)){
+            y = Constant.frameHeight - h -2;
         }
     }
 

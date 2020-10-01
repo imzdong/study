@@ -9,8 +9,6 @@ import java.awt.*;
 
 public class BlockBoom extends BaseBoom {
 
-    private int x;
-    private int y;
     private int step = 0;
 
     public BlockBoom(int x, int y) {

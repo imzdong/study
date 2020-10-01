@@ -3,8 +3,8 @@ package org.imzdong.study.msb.day_08_design_tank.tank;
 import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
 import org.imzdong.study.msb.day_08_design_tank.factory.AbstractStyleFactory;
 import org.imzdong.study.msb.day_08_design_tank.factory.product.BaseTank;
-import org.imzdong.study.msb.day_08_design_tank.model.Bullet;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
+import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 /**
  * DoubleCheck单例模式
@@ -31,8 +31,8 @@ public class FourFireStrategy implements FireStrategy<BaseTank>{
     public void fire(BaseTank tank) {
         GameModelFacade gm = GameModelFacade.getGm();
         AbstractStyleFactory abstractStyleFactory = gm.abstractStyleFactory;
-        int bulletX = tank.getX() + tank.width/2 - Bullet.width/2;
-        int bulletY = tank.getY() + tank.height/2 - Bullet.height/2;
+        int bulletX = tank.getX() + tank.getW()/2 - ImageMgr.bulletU.getWidth()/2;
+        int bulletY = tank.getY() + tank.getH()/2 - ImageMgr.bulletU.getHeight()/2;
         for(Dir dir:Dir.values()) {
             abstractStyleFactory.createBullet(bulletX, bulletY, dir,tank.getGroup());
         }

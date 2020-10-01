@@ -1,12 +1,10 @@
 package org.imzdong.study.msb.day_08_design_tank.factory.product;
 
-import org.imzdong.study.msb.day_08_design_tank.GameModelFacade;
 import org.imzdong.study.msb.day_08_design_tank.GameObject;
 import org.imzdong.study.msb.day_08_design_tank.model.Dir;
 import org.imzdong.study.msb.day_08_design_tank.model.Group;
 import org.imzdong.study.msb.day_08_design_tank.tank.DefaultFireStrategy;
 import org.imzdong.study.msb.day_08_design_tank.tank.FireStrategy;
-import org.imzdong.study.msb.day_08_design_tank.util.ImageMgr;
 
 import java.awt.*;
 
@@ -14,8 +12,6 @@ public abstract class BaseTank extends GameObject {
 
     protected FireStrategy<BaseTank> fireStrategy = DefaultFireStrategy.getInstance();
     public Rectangle rectangleTank = new Rectangle();
-    public int width = ImageMgr.tankD.getWidth();
-    public int height = ImageMgr.tankD.getHeight();
     protected int oldX,oldY;
 
     public abstract void fire();
@@ -27,10 +23,6 @@ public abstract class BaseTank extends GameObject {
     public abstract Group getGroup();
 
     public abstract void dead();
-
-    public abstract int getX();
-
-    public abstract int getY();
 
     public abstract Dir getDir();
 
