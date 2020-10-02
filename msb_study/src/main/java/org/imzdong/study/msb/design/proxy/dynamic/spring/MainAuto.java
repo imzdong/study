@@ -1,6 +1,5 @@
 package org.imzdong.study.msb.design.proxy.dynamic.spring;
 
-import org.imzdong.study.msb.design.proxy.Movable;
 import org.imzdong.study.msb.design.proxy.Woman;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
