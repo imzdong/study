@@ -1,9 +1,9 @@
 package org.imzdong.study;
 
-import org.imzdong.study.msb.desgin.single.SingleEnum;
-import org.imzdong.study.msb.desgin.single.SingleHungry;
-import org.imzdong.study.msb.desgin.single.SingleInnerClass;
-import org.imzdong.study.msb.desgin.single.SingleLazy;
+import org.imzdong.study.msb.design.single.SingleEnum;
+import org.imzdong.study.msb.design.single.SingleHungry;
+import org.imzdong.study.msb.design.single.SingleInnerClass;
+import org.imzdong.study.msb.design.single.SingleLazy;
 import org.junit.Test;
 
 public class SingleTest {

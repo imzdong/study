@@ -1,14 +1,14 @@
 package org.imzdong.study;
 
-import org.imzdong.study.msb.desgin.factory.abs.AbstractFactory;
-import org.imzdong.study.msb.desgin.factory.abs.factory.MagicFactory;
-import org.imzdong.study.msb.desgin.factory.abs.factory.ModelFactory;
-import org.imzdong.study.msb.desgin.factory.method.BusFactory;
-import org.imzdong.study.msb.desgin.factory.method.CarFactory;
-import org.imzdong.study.msb.desgin.factory.method.MethodFactory;
-import org.imzdong.study.msb.desgin.factory.model.Product;
-import org.imzdong.study.msb.desgin.factory.simple.ProductType;
-import org.imzdong.study.msb.desgin.factory.simple.SimpleFactory;
+import org.imzdong.study.msb.design.factory.abs.AbstractFactory;
+import org.imzdong.study.msb.design.factory.abs.factory.MagicFactory;
+import org.imzdong.study.msb.design.factory.abs.factory.ModelFactory;
+import org.imzdong.study.msb.design.factory.method.BusFactory;
+import org.imzdong.study.msb.design.factory.method.CarFactory;
+import org.imzdong.study.msb.design.factory.method.MethodFactory;
+import org.imzdong.study.msb.design.factory.model.Product;
+import org.imzdong.study.msb.design.factory.simple.ProductType;
+import org.imzdong.study.msb.design.factory.simple.SimpleFactory;
 import org.junit.Test;
 
 /**
