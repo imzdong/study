@@ -12,6 +12,7 @@ import org.imzdong.study.msb.day_08_design_tank.model.Wall;
 import org.imzdong.study.msb.day_08_design_tank.util.PropertyMgr;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,5 +81,31 @@ public class GameModelFacade {
 
     public static GameModelFacade getGm() {
         return gm;
+    }
+
+    public void save() {
+        String clazzPath = this.getClass().getResource("/").getPath();
+        System.out.println(clazzPath);
+        String path = clazzPath+"/save.data";
+        File file = new File(path);
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))){
+            outputStream.writeObject(tank);
+            outputStream.writeObject(gameObjects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load() {
+        String clazzPath = this.getClass().getResource("/").getPath();
+        System.out.println(clazzPath);
+        String path = clazzPath+"/save.data";
+        File file = new File(path);
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))){
+            tank = (BaseTank) inputStream.readObject();
+            gameObjects = (List) inputStream.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

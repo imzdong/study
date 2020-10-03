@@ -11,6 +11,7 @@ import static org.objectweb.asm.Opcodes.INVOKESTATIC;
 
 /**
  * asm读取，修改class
+ * https://asm.ow2.io/
  */
 public class AsmMain {
 
