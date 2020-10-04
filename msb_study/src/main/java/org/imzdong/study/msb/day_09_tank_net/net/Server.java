@@ -33,8 +33,8 @@ public class Server {
                         @Override
                         protected void initChannel(NioSocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new TankMsgEncoder())
-                                    .addLast(new TankMsgDecoder())
+                            pipeline//.addLast(new TankMsgEncoder())
+                                    //.addLast(new TankMsgDecoder())
                                     .addLast(new ServerHandler());
                         }
                     })

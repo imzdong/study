@@ -56,6 +56,7 @@ public class MsgTest {
 
         Assert.assertTrue(tm.getX() == 10 && tm.getY() == 10);
         Assert.assertTrue(tm.getDir() == Dir.LEFT && tm.getGroup() == Group.GOOD);
+        Assert.assertTrue(tm.getUuid().toString().equals(tm.getUuid().toString()));
 
     }
 }

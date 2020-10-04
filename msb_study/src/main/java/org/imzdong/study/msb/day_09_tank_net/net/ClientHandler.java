@@ -6,24 +6,25 @@ import org.imzdong.study.msb.day_09_tank_net.TankFrame;
 import org.imzdong.study.msb.day_09_tank_net.model.Tank;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class ClientHandler extends SimpleChannelInboundHandler<Msg> {
+
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Msg msg) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, Msg msg) throws Exception {
         TankMsg tankMsg = (TankMsg) msg;
-        UUID msgUuid = tankMsg.getUuid();
+        System.out.println("client channelRead..."+tankMsg);
+        String msgUuid = tankMsg.getUuid().toString();
         TankFrame instance = TankFrame.getInstance();
         Tank myTank = instance.getTank();
-        if(!Objects.equals(myTank.getUuid(), msgUuid)){
-            //不是自己都发一遍，但是不添加自己
-            ctx.writeAndFlush(new TankMsg(myTank));
+        String myUuid = myTank.getUuid().toString();
+        if(Objects.equals(myUuid, msgUuid) || instance.enemyList.containsKey(msgUuid)){
+            return;
         }
-        if(!instance.enemyList.containsKey(msgUuid)) {
-            //如果未添加就添加
-            Tank tank = new Tank(tankMsg.getX(), tankMsg.getY(), tankMsg.getDir(), instance, tankMsg.getGroup(), msgUuid);
-            instance.enemyList.put(tank.getUuid().toString(), tank);
-        }
+        //不是自己都发一遍，但是不添加自己
+        ctx.writeAndFlush(new TankMsg(myTank));
+        //如果未添加就添加
+        Tank tank = new Tank(tankMsg.getX(), tankMsg.getY(), tankMsg.getDir(), instance, tankMsg.getGroup(), tankMsg.getUuid());
+        instance.enemyList.put(tank.getUuid().toString(), tank);
     }
 
     @Override

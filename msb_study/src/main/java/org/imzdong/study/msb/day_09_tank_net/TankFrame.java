@@ -21,7 +21,7 @@ public class TankFrame extends Frame {
         return tankFrame;
     }
 
-    private Tank tank = new Tank(40+random.nextInt(500),50+random.nextInt(400), Dir.UP, this, Group.GOOD, UUID.randomUUID());
+    private Tank tank ;//= new Tank(40+random.nextInt(500),50+random.nextInt(400), Dir.UP, this, Group.GOOD, UUID.randomUUID());
     public List<Bullet> bullets = new ArrayList<>();
     public Map<String,Tank> enemyList = new HashMap<>();
     public List<Boom> booms = new ArrayList<>();
@@ -43,6 +43,7 @@ public class TankFrame extends Frame {
             }
         });
         addKeyListener(new MyKeyListener());
+        tank = new Tank(40+random.nextInt(500),50+random.nextInt(400), Dir.UP, this, Group.GOOD, UUID.randomUUID());
     }
 
     Image image = null;
@@ -76,8 +77,8 @@ public class TankFrame extends Frame {
         g.drawString("敌人数量："+enemyList.size(),10,70);
         g.drawString("boom数量："+booms.size(),10,90);
         g.setColor(color);
-        //tank.paint(g);
-        enemyList.put(tank.getUuid().toString(), tank);
+        tank.paint(g);
+        //enemyList.put(tank.getUuid().toString(), tank);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }

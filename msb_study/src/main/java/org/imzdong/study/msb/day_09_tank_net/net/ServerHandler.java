@@ -1,11 +1,11 @@
 package org.imzdong.study.msb.day_09_tank_net.net;
 
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.net.SocketAddress;
 
-public class ServerHandler extends SimpleChannelInboundHandler<Msg> {
+public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -15,7 +15,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Msg> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Msg msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("server input");
         Server.clients.writeAndFlush(msg);
     }

@@ -179,6 +179,13 @@ public class Tank {
                 ", dir=" + dir +
                 ", moving=" + moving +
                 ", tankFrame=" + tankFrame +
+                ", living=" + living +
+                ", width=" + width +
+                ", height=" + height +
+                ", random=" + random +
+                ", group=" + group +
+                ", rectangleTank=" + rectangleTank +
+                ", uuid=" + uuid +
                 '}';
     }
 }

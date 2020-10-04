@@ -95,8 +95,10 @@ public class TankMsg extends Msg{
             dot.writeInt(dir.ordinal());
             dot.writeBoolean(moving);
             dot.writeInt(group.ordinal());
-            dot.writeLong(uuid.getLeastSignificantBits());
+            //dos.writeLong(id.getMostSignificantBits());
+            //			dos.writeLong(id.getLeastSignificantBits());
             dot.writeLong(uuid.getMostSignificantBits());
+            dot.writeLong(uuid.getLeastSignificantBits());
         } catch (IOException e) {
             e.printStackTrace();
         }

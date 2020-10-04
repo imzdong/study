@@ -10,6 +10,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 public class TankMsgEncoder extends MessageToByteEncoder<TankMsg> {
     @Override
     protected void encode(ChannelHandlerContext ctx, TankMsg msg, ByteBuf out) throws Exception {
+        System.out.println("encode...");
         out.writeBytes(msg.toBytes());
     }
 }
