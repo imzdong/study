@@ -38,6 +38,10 @@ public class TankMsgDecoder extends ByteToMessageDecoder {
                 TankMovingMsg tankMovingMsg = new TankMovingMsg();
                 tankMovingMsg.parse(body);
                 out.add(tankMovingMsg);
+            case TANK_STOP:
+                TankStopMsg tankStopMsg = new TankStopMsg();
+                tankStopMsg.parse(body);
+                out.add(tankStopMsg);
             default:
                 break;
         }

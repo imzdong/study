@@ -3,6 +3,7 @@ package org.imzdong.study.msb.day_09_tank_net;
 import org.imzdong.study.msb.day_09_tank_net.model.*;
 import org.imzdong.study.msb.day_09_tank_net.net.Client;
 import org.imzdong.study.msb.day_09_tank_net.net.TankMovingMsg;
+import org.imzdong.study.msb.day_09_tank_net.net.TankStopMsg;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -133,6 +134,7 @@ public class TankFrame extends Frame {
         private void setMainFrame() {
             if(!bu&&!bd&!bl&!br){
                 tank.setMoving(false);
+                Client.getInstance().send(new TankStopMsg(tank));
             }else {
                 if (bu) {
                     tank.setDir(Dir.UP);
