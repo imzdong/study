@@ -171,6 +171,18 @@ public class Tank {
         return uuid;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
+    }
+
     @Override
     public String toString() {
         return "Tank{" +
