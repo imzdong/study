@@ -5,7 +5,8 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import org.imzdong.study.msb.day_09_tank_net.model.Dir;
 import org.imzdong.study.msb.day_09_tank_net.model.Group;
-import org.imzdong.study.msb.day_09_tank_net.net.TankMsg;
+import org.imzdong.study.msb.day_09_tank_net.net.MsgType;
+import org.imzdong.study.msb.day_09_tank_net.net.TankJoinMsg;
 import org.imzdong.study.msb.day_09_tank_net.net.TankMsgDecoder;
 import org.imzdong.study.msb.day_09_tank_net.net.TankMsgEncoder;
 import org.junit.Assert;
@@ -22,17 +23,22 @@ public class MsgTest {
     public void encode(){
         UUID uuid = UUID.randomUUID();
         System.out.println(uuid);
-        TankMsg msg = new TankMsg(5, 10, Dir.DOWN, false, Group.GOOD, uuid);
+        TankJoinMsg msg = new TankJoinMsg(5, 10, Dir.DOWN, false, Group.GOOD, uuid);
         EmbeddedChannel ch = new EmbeddedChannel(new TankMsgEncoder());
         ch.writeOutbound(msg);
 
         ByteBuf buf = ch.readOutbound();
-        int x = buf.readInt();
-        int y = buf.readInt();
+        MsgType msgType = MsgType.values()[buf.readInt()];
+        int bodyLength = buf.readInt();
+        byte[] body = new byte[bodyLength];
+        buf.readBytes(body);
+        TankJoinMsg tankJoinMsg = new TankJoinMsg();
+        tankJoinMsg.parse(body);
 
-        Assert.assertTrue(x == 5 && y == 10);
+        Assert.assertTrue(msgType == MsgType.TANK_JOIN && bodyLength == 33);
         buf.release();
         System.out.println(msg);
+        System.out.println(tankJoinMsg);
     }
 
     /**
@@ -42,16 +48,17 @@ public class MsgTest {
     public void decode() {
         UUID uuid = UUID.randomUUID();
         System.out.println(uuid);
-        TankMsg msg = new TankMsg(10, 10, Dir.LEFT, false, Group.GOOD, uuid);
+        TankJoinMsg msg = new TankJoinMsg(10, 10, Dir.LEFT, false, Group.GOOD, uuid);
 
         EmbeddedChannel ch = new EmbeddedChannel(new TankMsgEncoder(), new TankMsgDecoder());
         ByteBuf buf = Unpooled.buffer();
-        //buf.writeInt(msg.getX());
-        //buf.writeInt(msg.getY());
-        buf.writeBytes(msg.toBytes());
+        buf.writeInt(msg.getMsgType().ordinal());
+        byte[] bytes = msg.toBytes();
+        buf.writeInt(bytes.length);
+        buf.writeBytes(bytes);
         ch.writeInbound(buf.duplicate());
 
-        TankMsg tm = ch.readInbound();
+        TankJoinMsg tm = ch.readInbound();
         System.out.println(tm);
 
         Assert.assertTrue(tm.getX() == 10 && tm.getY() == 10);

@@ -7,10 +7,13 @@ import io.netty.handler.codec.MessageToByteEncoder;
 /**
  * model -> buf 经过msg
  */
-public class TankMsgEncoder extends MessageToByteEncoder<TankMsg> {
+public class TankMsgEncoder extends MessageToByteEncoder<Msg> {
     @Override
-    protected void encode(ChannelHandlerContext ctx, TankMsg msg, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Msg msg, ByteBuf out) throws Exception {
         System.out.println("encode...");
-        out.writeBytes(msg.toBytes());
+        byte[] bytes = msg.toBytes();
+        out.writeInt(msg.getMsgType().ordinal());
+        out.writeInt(bytes.length);
+        out.writeBytes(bytes);
     }
 }

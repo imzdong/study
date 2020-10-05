@@ -16,13 +16,27 @@ public class TankMsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         System.out.println("decode...");
-        if(in.readableBytes()<33) return;
-        int x = in.readInt();
-        int y = in.readInt();
-        Dir dir = Dir.values()[in.readInt()];
-        boolean moving = in.readBoolean();
-        Group group = Group.values()[in.readInt()];
-        UUID uuid = new UUID(in.readLong(), in.readLong());
-        out.add(new TankMsg(x, y, dir, moving, group, uuid));
+        if(in.readableBytes()<8) return;
+        //标记从这里开始读取
+        in.markReaderIndex();
+        MsgType msgType = MsgType.values()[in.readInt()];
+        int bodyLength = in.readInt();
+        if(in.readableBytes() < bodyLength){
+            //重置到标记位置，下次够了在读取，解决拆包问题
+            in.resetReaderIndex();
+            return;
+        }
+        byte[] body = new byte[bodyLength];
+        in.readBytes(body);
+        switch (msgType){
+            case TANK_JOIN:
+                TankJoinMsg tankJoinMsg = new TankJoinMsg();
+                tankJoinMsg.parse(body);
+                out.add(tankJoinMsg);
+                break;
+            default:
+                break;
+        }
+
     }
 }
