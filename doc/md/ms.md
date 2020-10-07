@@ -11,4 +11,8 @@ HashMap源码解析：
 4. 
 #### 3、框架
 #### 4、linux
-#### 5、
+#### 5、常用插件
+* jclasslib Bytecode viewer
+* Key Promoter X
+* maven-helper
+* plantuml-integration
