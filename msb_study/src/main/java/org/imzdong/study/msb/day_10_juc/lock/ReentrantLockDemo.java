@@ -3,6 +3,9 @@ package org.imzdong.study.msb.day_10_juc.lock;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * ReentrantLock：可重入独占锁
+ */
 public class ReentrantLockDemo {
     //可重入，支持公平锁
     private static ReentrantLock lock = new ReentrantLock();
