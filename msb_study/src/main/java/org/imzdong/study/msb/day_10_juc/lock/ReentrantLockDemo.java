@@ -11,8 +11,8 @@ public class ReentrantLockDemo {
     private static ReentrantLock lock = new ReentrantLock();
 
     public static void main(String[] args) {
-        //reentrantLock();
-        synLock();
+        reentrantLock();
+        //synLock();
     }
 
     private static void synLock() {
