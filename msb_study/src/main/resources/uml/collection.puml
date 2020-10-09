@@ -1,7 +1,35 @@
-@startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
-@enduml
+@startmindmap
+* 容器
+** Collection
+*** List
+**** CopyOnWriteArrayList
+**** Vector Stack
+**** ArrayList
+**** LinkedList
+*** Set
+**** HashSet LinkedHashSet
+**** SortedSet TreeSet
+**** EnumSet
+**** CopyOnWriteArraySet
+**** ConcurrentSkipListSet
+*** Queue
+**** Deque
+***** BlockingDeque
+****** LinkedBlockingDeque
+**** BlockingQueue
+***** ArrayBlockingQueue
+***** TransferQueue
+***** LinkedBlockingQueue
+***** SynchronousQueue
+***** PriorityBlockingQueue
+**** PriorityQueue
+**** ConcurrentLinkedDeque
+**** DelayQueue
+** Map
+*** HashMap
+*** TreeMap
+*** WeakHashMap
+*** IdentityHashMap
+*** ConcurrentHashMap
+*** ConcurrentSkipListMap
+@endmindmap
