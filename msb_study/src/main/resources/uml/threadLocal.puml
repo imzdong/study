@@ -1,0 +1,7 @@
+@startuml
+ThreadLocal -> Thread: set()
+Thread --> Thread: t.threadLocals
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
