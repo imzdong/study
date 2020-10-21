@@ -1,0 +1,77 @@
+@startuml
+
+abstract class AbstractAutowireCapableBeanFactory{
+整合AbstractBeanFactory并对
+AutowireCapableBeanFactory进行实现
+}
+interface ConfigurableListableBeanFactory{
+
+}
+interface BeanDefinitionRegistry{
+}
+interface Serializable
+class DefaultListableBeanFactory {
+综合上面所有的功能，
+主要处理bean注册后处理
+}
+
+Serializable <|-- DefaultListableBeanFactory
+BeanDefinitionRegistry <|-- DefaultListableBeanFactory
+ConfigurableListableBeanFactory <|-- DefaultListableBeanFactory
+AbstractAutowireCapableBeanFactory <|--- DefaultListableBeanFactory
+
+interface AliasRegistry
+AliasRegistry <|-- BeanDefinitionRegistry
+
+interface ListableBeanFactory{
+根据条件获取各种bean的列表清单
+}
+interface AutowireCapableBeanFactory{
+
+}
+interface ConfigurableBeanFactory{
+提供配置BeanFactory的各种方法
+}
+ListableBeanFactory <|-- ConfigurableListableBeanFactory
+AutowireCapableBeanFactory <|-- ConfigurableListableBeanFactory
+ConfigurableBeanFactory <|--- ConfigurableListableBeanFactory
+
+interface BeanFactory{
+}
+BeanFactory <|-- ListableBeanFactory
+
+interface HierarchicalBeanFactory{
+}
+interface SingletonBeanRegistry{
+}
+HierarchicalBeanFactory <|-- ConfigurableBeanFactory
+SingletonBeanRegistry <|-- ConfigurableBeanFactory
+
+BeanFactory <|-- HierarchicalBeanFactory
+
+abstract class AbstractBeanFactory{
+}
+AbstractBeanFactory <|-- AbstractAutowireCapableBeanFactory
+AutowireCapableBeanFactory <|-- AbstractAutowireCapableBeanFactory
+
+abstract class FactoryBeanRegistrySupport{
+}
+
+FactoryBeanRegistrySupport <|-- AbstractBeanFactory
+AutowireCapableBeanFactory <|-- AbstractBeanFactory
+
+class DefaultSingletonBeanRegistry{
+
+}
+class SimpleAliasRegistry{
+
+}
+interface SingletonBeanRegistry{
+}
+DefaultSingletonBeanRegistry <|-- FactoryBeanRegistrySupport
+SimpleAliasRegistry <|-- DefaultSingletonBeanRegistry
+SingletonBeanRegistry <|-- DefaultSingletonBeanRegistry
+AliasRegistry <|-- SimpleAliasRegistry
+
+
+@enduml
