@@ -1,13 +1,14 @@
 @startuml
 
 abstract class AbstractAutowireCapableBeanFactory{
-整合AbstractBeanFactory并对
+综合AbstractBeanFactory并对接口
 AutowireCapableBeanFactory进行实现
 }
 interface ConfigurableListableBeanFactory{
-
+BeanFactory的配置清单，指定忽略类型及接口等
 }
 interface BeanDefinitionRegistry{
+定义对BeanDefinition的各种增删改操作
 }
 interface Serializable
 class DefaultListableBeanFactory {
@@ -20,29 +21,35 @@ BeanDefinitionRegistry <|-- DefaultListableBeanFactory
 ConfigurableListableBeanFactory <|-- DefaultListableBeanFactory
 AbstractAutowireCapableBeanFactory <|--- DefaultListableBeanFactory
 
-interface AliasRegistry
+interface AliasRegistry{
+定义对alias的简单增删改等操作
+}
 AliasRegistry <|-- BeanDefinitionRegistry
 
 interface ListableBeanFactory{
-根据条件获取各种bean的列表清单
+根据条件获取各种bean的配置清单
 }
 interface AutowireCapableBeanFactory{
-
+提供创建bean、自动注入、初始化以及应用bean的后置处理器
 }
 interface ConfigurableBeanFactory{
-提供配置BeanFactory的各种方法
+提供配置Factory的各种方法
 }
 ListableBeanFactory <|-- ConfigurableListableBeanFactory
 AutowireCapableBeanFactory <|-- ConfigurableListableBeanFactory
 ConfigurableBeanFactory <|--- ConfigurableListableBeanFactory
 
 interface BeanFactory{
+定义获取bean及bean的各种属性
 }
 BeanFactory <|-- ListableBeanFactory
 
 interface HierarchicalBeanFactory{
+继承BeanFactory，也就是在BeanFactory定义的功能的基础上
+增加了对ParentFactory的支持
 }
 interface SingletonBeanRegistry{
+定义对单例的注册及获取
 }
 HierarchicalBeanFactory <|-- ConfigurableBeanFactory
 SingletonBeanRegistry <|-- ConfigurableBeanFactory
@@ -50,24 +57,27 @@ SingletonBeanRegistry <|-- ConfigurableBeanFactory
 BeanFactory <|-- HierarchicalBeanFactory
 
 abstract class AbstractBeanFactory{
+综合FactoryBeanRegistrySupport和ConfigurableBeanFactory的功能
 }
 AbstractBeanFactory <|-- AbstractAutowireCapableBeanFactory
 AutowireCapableBeanFactory <|-- AbstractAutowireCapableBeanFactory
 
 abstract class FactoryBeanRegistrySupport{
+在DefaultSingletonBeanRegistry基础上增加了对FactoryBean的特殊处理功能
 }
 
 FactoryBeanRegistrySupport <|-- AbstractBeanFactory
-AutowireCapableBeanFactory <|-- AbstractBeanFactory
+ConfigurableBeanFactory <|-- AbstractBeanFactory
+
+BeanFactory <|-- AutowireCapableBeanFactory
 
 class DefaultSingletonBeanRegistry{
-
+对接口SingletonBeanRegistry各函数的实现
 }
 class SimpleAliasRegistry{
+主要使用map作为alias的缓存，并对接口AliasRegistry进行实现
+}
 
-}
-interface SingletonBeanRegistry{
-}
 DefaultSingletonBeanRegistry <|-- FactoryBeanRegistrySupport
 SimpleAliasRegistry <|-- DefaultSingletonBeanRegistry
 SingletonBeanRegistry <|-- DefaultSingletonBeanRegistry
