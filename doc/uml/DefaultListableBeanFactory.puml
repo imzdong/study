@@ -1,5 +1,6 @@
 @startuml
 
+/'DefaultListableBeanFactory的上级'/
 abstract class AbstractAutowireCapableBeanFactory{
 综合AbstractBeanFactory并对接口
 AutowireCapableBeanFactory进行实现
@@ -15,17 +16,16 @@ class DefaultListableBeanFactory {
 综合上面所有的功能，
 主要处理bean注册后处理
 }
-
 Serializable <|-- DefaultListableBeanFactory
 BeanDefinitionRegistry <|-- DefaultListableBeanFactory
 ConfigurableListableBeanFactory <|-- DefaultListableBeanFactory
 AbstractAutowireCapableBeanFactory <|--- DefaultListableBeanFactory
-
+/'BeanDefinitionRegistry上级'/
 interface AliasRegistry{
 定义对alias的简单增删改等操作
 }
 AliasRegistry <|-- BeanDefinitionRegistry
-
+/'ConfigurableListableBeanFactory'/
 interface ListableBeanFactory{
 根据条件获取各种bean的配置清单
 }
