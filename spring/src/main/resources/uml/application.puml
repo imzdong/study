@@ -1,0 +1,84 @@
+@startuml
+AbstractApplicationContext -> AbstractApplicationContext: refresh()
+
+AbstractApplicationContext -> AbstractApplicationContext: prepareRefresh()
+
+AbstractApplicationContext -> AbstractApplicationContext: obtainFreshBeanFactory()
+AbstractApplicationContext -> AbstractApplicationContext: refreshBeanFactory()
+AbstractApplicationContext -> GenericApplicationContext: refreshBeanFactory()
+'GenericApplicationContext() {this.beanFactory = new DefaultListableBeanFactory();}'
+'public AbstractAutowireCapableBeanFactory() {''
+'		super();'
+'		ignoreDependencyInterface(BeanNameAware.class);'
+'		ignoreDependencyInterface(BeanFactoryAware.class);'
+'		ignoreDependencyInterface(BeanClassLoaderAware.class);'
+'	}'
+AbstractApplicationContext -> GenericApplicationContext: getBeanFactory()返回DefaultListableBeanFactory
+
+AbstractApplicationContext -> AbstractApplicationContext: prepareBeanFactory(beanFactory);
+'Configure the factory's standard context characteristics,such as the context's ClassLoader and post-processors.'
+'beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));'
+'beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));'
+
+AbstractApplicationContext -> AbstractApplicationContext: postProcessBeanFactory(beanFactory);空实现
+'Modify the application context's internal bean factory after its standard initialization. All bean definitions will have been loaded, but no beans
+'will have been instantiated yet. This allows for registering special BeanPostProcessors etc in certain ApplicationContext implementations'
+
+AbstractApplicationContext -> AbstractApplicationContext: invokeBeanFactoryPostProcessors(beanFactory);
+PostProcessorRegistrationDelegate -> PostProcessorRegistrationDelegate: invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory, List<BeanFactoryPostProcessor> beanFactoryPostProcessors)
+PostProcessorRegistrationDelegate -> PostProcessorRegistrationDelegate: invokeBeanDefinitionRegistryPostProcessors
+'postProcessor.postProcessBeanDefinitionRegistry(registry);'
+ConfigurationClassPostProcessor -> ConfigurationClassPostProcessor: processConfigBeanDefinitions(BeanDefinitionRegistry registry)
+ConfigurationClassPostProcessor -> ConfigurationClassUtils: checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)
+'configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));'
+ConfigurationClassPostProcessor -> ConfigurationClassPostProcessor: new ConfigurationClassParser(this.metadataReaderFactory, this.problemReporter, this.environment,this.resourceLoader, this.componentScanBeanNameGenerator, registry)
+ConfigurationClassParser -> ConfigurationClassParser: parse(Set<BeanDefinitionHolder> configCandidates) 解析配置类
+ConfigurationClassParser -> ConfigurationClassParser: processConfigurationClass(ConfigurationClass configClass, Predicate<String> filter)
+ConfigurationClassParser -> ConfigurationClassParser: doProcessConfigurationClass(ConfigurationClass configClass, SourceClass sourceClass, Predicate<String> filter)
+ConfigurationClassParser -> ConfigurationClassParser: processMemberClasses(ConfigurationClass configClass, SourceClass sourceClass,Predicate<String> filter)
+ConfigurationClassParser -> ConfigurationClassParser: processImports
+ConfigurationClassParser -> ConfigurationClassParser: retrieveBeanMethodMetadata(SourceClass sourceClass)
+ConfigurationClassParser -> ConfigurationClassParser: processInterfaces(ConfigurationClass configClass, SourceClass sourceClass)
+'this.reader = new ConfigurationClassBeanDefinitionReader('
+'						registry, this.sourceExtractor, this.resourceLoader, this.environment,'
+'						this.importBeanNameGenerator, parser.getImportRegistry())'
+ConfigurationClassBeanDefinitionReader -> ConfigurationClassBeanDefinitionReader: loadBeanDefinitionsForConfigurationClass(ConfigurationClass configClass, TrackedConditionEvaluator trackedConditionEvaluator)
+ConfigurationClassBeanDefinitionReader -> ConfigurationClassBeanDefinitionReader: loadBeanDefinitionsForBeanMethod(BeanMethod beanMethod)
+ConfigurationClassBeanDefinitionReader -> ConfigurationClassBeanDefinitionReader: loadBeanDefinitionsFromImportedResources(Map<String, Class<? extends BeanDefinitionReader>> importedResources)
+ConfigurationClassBeanDefinitionReader -> ConfigurationClassBeanDefinitionReader: loadBeanDefinitionsFromRegistrars(Map<ImportBeanDefinitionRegistrar, AnnotationMetadata> registrars)
+PostProcessorRegistrationDelegate -> PostProcessorRegistrationDelegate: invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
+PostProcessorRegistrationDelegate -> PostProcessorRegistrationDelegate: invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
+
+AbstractApplicationContext -> AbstractApplicationContext: initMessageSource();Initialize message source for this context.
+
+AbstractApplicationContext -> AbstractApplicationContext: initApplicationEventMulticaster();Initialize event multicaster for this context.
+
+AbstractApplicationContext -> AbstractApplicationContext: onRefresh();Initialize other special beans in specific context subclasses.空实现
+
+AbstractApplicationContext -> AbstractApplicationContext: registerListeners();Check for listener beans and register them.
+
+AbstractApplicationContext -> AbstractApplicationContext: finishBeanFactoryInitialization() Finish the initialization of this context's bean factory,initializing all remaining singleton beans.
+'Initialize conversion service for this context.'
+' Register a default embedded value resolver if no bean post-processor'
+'(such as a PropertyPlaceholderConfigurer bean) registered any before:'
+'at this point, primarily for resolution in annotation attribute values.'
+'Initialize LoadTimeWeaverAware beans early to allow for registering their transformers early.'
+'Stop using the temporary ClassLoader for type matching.'
+'Allow for caching all bean definition metadata, not expecting further changes.'
+
+DefaultListableBeanFactory -> DefaultListableBeanFactory: preInstantiateSingletons()
+DefaultListableBeanFactory -> DefaultListableBeanFactory: getBean() 见getBean的uml图
+
+DefaultListableBeanFactory -> DefaultListableBeanFactory: finishRefresh()
+'Clear context-level resource caches (such as ASM metadata from scanning).'
+DefaultResourceLoader -> DefaultResourceLoader: clearResourceCaches()
+AbstractApplicationContext -> AbstractApplicationContext: initLifecycleProcessor 'Initialize lifecycle processor for this context.'
+'Propagate refresh to lifecycle processor first.'
+AbstractApplicationContext -> AbstractApplicationContext: getLifecycleProcessor().onRefresh();
+AbstractApplicationContext -> AbstractApplicationContext: publishEvent(new ContextRefreshedEvent(this))
+'Participate in LiveBeansView MBean, if active.'
+AbstractApplicationContext -> AbstractApplicationContext: LiveBeansView.registerApplicationContext(this)
+'Reset common introspection caches in Spring's core, since we'
+ ' might not ever need metadata for singleton beans anymore...'
+AbstractApplicationContext -> AbstractApplicationContext: resetCommonCaches
+@enduml
