@@ -64,4 +64,20 @@ public class SortUtil {
         }
         System.out.println("Success!!!");
     }
+
+    /**
+     * 生成随机有序数组
+     * @param maxSize 数组最大长度
+     * @param maxValue 数组最大值
+     * @return 数组
+     */
+    public static int[] randomSortArray(int maxSize,int maxValue){
+        int[] ints = new int[(int) (maxSize * Math.random()+1)];
+        int intVal = (int) (maxValue*Math.random()+1);
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] = (intVal + (int) (maxValue*Math.random()+1));
+            intVal = ints[i];
+        }
+        return ints;
+    }
 }
