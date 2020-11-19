@@ -15,23 +15,31 @@ public class BinarySearchExist {
      * start=5;end=8;i=5+(8-5)/2=6;int[i]=70;70=70;return
      */
     public static void main(String[] args) {
-        int[] ints = {1,3,5,6,8,46,70,77,324,567,789};
-        int exist = 77;
-        bsExistV2(ints, exist);
+        for (int i = 0; i < 1000; i++) {
+            int[] ints = SortUtil.randomSortArray(10, 50);
+            int index = (int) (Math.random() * ints.length);
+            int indexValue = ints[index];
+            boolean existV2 = bsExistV2(ints, indexValue);
+            if(!existV2){
+                System.out.println("Fuck!!!!,i:"+i);
+                System.out.println(indexValue);
+                SortUtil.printArray(ints);
+                break;
+            }
+        }
+
     }
 
-    private static void bsExistV1(int[] ints, int exist) {
+    private static boolean bsExistV1(int[] ints, int exist) {
         int start = 0, end = ints.length,i = (end-start)>>1;
         int num = 0;
         for (;;i = start+((end-start)>>1)) {
             num++;
             if(ints[i] == exist){
-                System.out.println(exist+" index of ints :"+i);
-                break;
+                return true;
             }
             if(i==start||i==end){
-                System.out.println(exist + " not in ints");
-                break;
+                return false;
             }
             if(ints[i] > exist){
                 end = i;
@@ -39,10 +47,9 @@ public class BinarySearchExist {
                 start = i;
             }
         }
-        System.out.println(String.format("size:%s,num:%s",ints.length,num));
     }
 
-    private static void bsExistV2(int[] ints, int exist) {
+    private static boolean bsExistV2(int[] ints, int exist) {
         int start = 0, end = ints.length,mid;
         int num = 0;
         /**
@@ -54,19 +61,19 @@ public class BinarySearchExist {
          *         8<30  start=4,end=5,n_mid=4
          *         ...
          *         */
-        while (start < end) {
+        while (start <= end) {
             num++;
             mid = start + ((end-start)>>1);
             if(ints[mid] == exist){
-                System.out.println(exist+" index of ints :"+mid);
-                break;
+                System.out.println(String.format("size:%s,num:%s,exist:%s,index of ints:%s",ints.length,num,exist,mid));
+                return true;
             }else if(ints[mid] > exist){
                 end = mid - 1;
             }else {
                 start = mid + 1;
             }
         }
-        System.out.println(String.format("size:%s,num:%s",ints.length,num));
+        return false;
     }
 
 
