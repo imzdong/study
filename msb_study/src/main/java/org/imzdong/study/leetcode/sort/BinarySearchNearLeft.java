@@ -8,32 +8,28 @@ package org.imzdong.study.leetcode.sort;
 public class BinarySearchNearLeft {
 
     public static void main(String[] args) {
-        for (int i = 0; i < 1000; i++) {
-            int index = (int) (Math.random() * 10);
-            System.out.println(index);
+        for (int i = 0; i < 10; i++) {
+            nearLeft();
         }
-        //nearLeft();
     }
 
     private static void nearLeft() {
         int[] ints = SortUtil.randomSortArray(10, 50);
         SortUtil.printArray(ints);
-        int index = (int) Math.random() * ints.length;
+        int index = (int) (Math.random() * ints.length);
         int indexValue = ints[index];
-        System.out.println(String.format("indexValue:%s",indexValue));
+        System.out.println("indexValue:"+indexValue);
         //二分查找
-        int start=0,end=ints.length-1,mid;
-        while (start < end){
+        int start=0,end=ints.length-1,mid,left=0;
+        while (start <= end){
             mid = start + ((end-start)>>1);
-            if(ints[mid] == indexValue){
-                System.out.println(String.format("index:%s,findIndex:%s",index,mid));
-                break;
-            }else if(ints[mid] > indexValue){
+            if(ints[mid] >= indexValue){
+                left = mid;
                 end = mid -1;
             }else {
                 start = mid + 1;
             }
-            System.out.println(String.format("start:%s,end:%s,mid:%s",start,end,mid));
         }
+        System.out.println(ints[left]);
     }
 }
