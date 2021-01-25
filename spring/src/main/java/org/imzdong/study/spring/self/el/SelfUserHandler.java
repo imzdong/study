@@ -5,6 +5,6 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 public class SelfUserHandler extends NamespaceHandlerSupport {
     @Override
     public void init() {
-        registerBeanDefinitionParser("selfUser", new SelfUserBeanDefinitionParser());
+        registerBeanDefinitionParser("self-user", new SelfUserBeanDefinitionParser());
     }
 }
