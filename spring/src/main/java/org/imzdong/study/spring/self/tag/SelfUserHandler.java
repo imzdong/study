@@ -1,4 +1,4 @@
-package org.imzdong.study.spring.self.el;
+package org.imzdong.study.spring.self.tag;
 
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
