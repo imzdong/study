@@ -1,11 +1,15 @@
 package org.imzdong.study.spring.self.annotation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
 public class Person {
+
+    @Autowired
+    private GoodMan goodMan;
 
     private String name;
 
