@@ -1,0 +1,8 @@
+@startuml
+'XmlBeanFactory factory = new XmlBeanFactory(resource);'
+BeanFactoryDemo -> ClassPathResource: new ClassPathResource("META-INF/spring-config.xml")
+ClassPathResource --> XmlBeanFactory: new XmlBeanFactory(resource)
+
+XmlBeanFactory -> XmlBeanDefinitionReader: loadBeanDefinitions
+XmlBeanFactory <-- XmlBeanDefinitionReader: loadBeanDefinitions
+@enduml

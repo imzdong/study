@@ -1,13 +1,7 @@
 @startuml
-(*)  --> "ThreadLocal.set('Winter')"
-If "ThreadLocal.get(currentThread)" then
---> [ThreadLocalMap] "ThreadLocalMap.set(this,value)"
--->(*)
-else
---> [null] "currentThread.threadLocals = new ThreadLocalMap(this, firstValue);"
-note right
-ThreadLocalMap->Entry[] extends WeakReference<ThreadLocal<?>>
-(Entry(ThreadLocal<?> k, Object v))
-end note
--->(*)
+ThreadLocal -> Thread: set()
+Thread --> Thread: t.threadLocals
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
 @enduml

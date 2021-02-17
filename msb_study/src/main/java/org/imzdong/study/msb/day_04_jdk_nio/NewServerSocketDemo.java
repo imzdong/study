@@ -20,7 +20,7 @@ public class NewServerSocketDemo {
         server.configureBlocking(false);//非阻塞
         List<SocketChannel> list = new LinkedList<>();
         while (true){
-            SocketChannel client = server.accept();
+            SocketChannel client = server.accept();//非阻塞，不等待
             if(client == null){
                 //System.out.println("null....");
             }else {

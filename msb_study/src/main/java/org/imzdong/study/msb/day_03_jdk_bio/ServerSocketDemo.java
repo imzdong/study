@@ -10,6 +10,7 @@ public class ServerSocketDemo {
     public static void main(String[] args) throws Exception{
         ServerSocket serverSocket = new ServerSocket(9090);
         while (true) {
+            //阻塞等待
             Socket server = serverSocket.accept();
             new Thread(()->{
                 try {

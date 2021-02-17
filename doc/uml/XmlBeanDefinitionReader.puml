@@ -1,0 +1,43 @@
+@startuml
+
+class XmlBeanDefinitionReader{
+}
+abstract class AbstractBeanDefinitionReader{
+对EnvironmentCapable、BeanDefinitionReader类定义的功能进行实现
+}
+interface BeanDefinitionReader{
+主要定义资源文件读取并转换为BeanDefinition的各个功能
+}
+interface EnvironmentCapable{
+定义获取Environment方法
+}
+
+AbstractBeanDefinitionReader <|-- XmlBeanDefinitionReader
+BeanDefinitionReader <|-- AbstractBeanDefinitionReader
+EnvironmentCapable <|-- AbstractBeanDefinitionReader
+
+interface BeanDefinitionDocumentReader{
+定于读取Document并注册BeanDefinition功能
+}
+class DefaultBeanDefinitionDocumentReader{
+}
+
+XmlBeanDefinitionReader *-- BeanDefinitionDocumentReader
+BeanDefinitionDocumentReader <|-- DefaultBeanDefinitionDocumentReader
+
+interface DocumentLoader{
+定义资源文件加载并转换为Document的功能
+}
+XmlBeanDefinitionReader *-- DocumentLoader
+
+interface ResourceLoader{
+定义资源加载器，主要用于根据给定的资源文件地址
+返回对应的Resource
+}
+AbstractBeanDefinitionReader *-- ResourceLoader
+class BeanDefinitionParserDelegate{
+定义解析Element的各种方法
+}
+DefaultBeanDefinitionDocumentReader *-- BeanDefinitionParserDelegate
+
+@enduml

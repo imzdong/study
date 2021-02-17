@@ -1,0 +1,19 @@
+@startuml
+AnnotationConfigApplicationContext -> AbstractApplicationContext: 1、refresh()
+AbstractApplicationContext --> AbstractApplicationContext: 2、prepareRefresh
+
+AbstractApplicationContext -> AbstractApplicationContext: 3、obtainFreshBeanFactory
+AbstractApplicationContext -> AbstractApplicationContext: 4、prepareBeanFactory
+
+AbstractApplicationContext -> AbstractApplicationContext: 5、postProcessBeanFactory
+AbstractApplicationContext -> AbstractApplicationContext: 6、invokeBeanFactoryPostProcessors
+
+AbstractApplicationContext -> AbstractApplicationContext: 7、registerBeanPostProcessors
+AbstractApplicationContext -> AbstractApplicationContext: 8、initMessageSource
+
+AbstractApplicationContext -> AbstractApplicationContext: 9、onRefresh
+AbstractApplicationContext -> AbstractApplicationContext: 10、registerListeners
+
+AbstractApplicationContext -> AbstractApplicationContext: 11、finishBeanFactoryInitialization
+AbstractApplicationContext -> AbstractApplicationContext: 12、finishRefresh
+@enduml

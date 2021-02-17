@@ -1,0 +1,92 @@
+@startuml
+BeanFactory -> AbstractBeanFactory: getBean
+AbstractBeanFactory -> AbstractBeanFactory: doGetBean
+AbstractBeanFactory -> SimpleAliasRegistry: canonicalName：规范名称
+
+SimpleAliasRegistry -> AbstractBeanFactory
+'singletonsCurrentlyInCreation当前正在构建bean的set（beanName）'
+'singletonObject缓存单例的Map<beanName,Object>'
+AbstractBeanFactory -> DefaultSingletonBeanRegistry: getSingleton(String beanName)
+'ThreadLocal<Object> prototypesCurrentlyInCreation当前线程的bean作用域'
+'DefaultListableBeanFactory.beanDefinitionMap<beanName,BeanDefinition>当前容器BeanDefinition'
+AbstractBeanFactory -> AbstractBeanFactory: getParentBeanFactory获取父容器，\n如果不为空，并且当前容器不包含beanName去父容器找
+
+'alreadyCreated(beanName)已创建Set'
+AbstractBeanFactory -> AbstractBeanFactory:markBeanAsCreated(标记已创建bean)
+'Map<String, RootBeanDefinition> mergedBeanDefinitions clear'
+AbstractBeanFactory -> AbstractBeanFactory:clearMergedBeanDefinition()
+
+AbstractBeanFactory -> AbstractBeanFactory:getMergedBeanDefinition(合并BeanDefinition：如果有父,子合并父)\nGeneric bean->RootBeanDefinition
+'mergedBeanDefinitions.add()'
+
+AbstractBeanFactory -> AbstractBeanFactory: md.getDependsOn;
+AbstractBeanFactory -> AbstractBeanFactory: mbd.isSingleton()
+AbstractBeanFactory -> DefaultSingletonBeanRegistry: getSingleton(String beanName, ObjectFactory<?> singletonFactory)
+'singletonsCurrentlyInCreation.add(beanName)'
+
+ObjectFactory -> ObjectFactory: singletonFactory.getObject()(() -> {return createBean(beanName, mbd, args);})
+
+AbstractBeanFactory -> AbstractBeanFactory: createBean(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: createBean(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
+
+AbstractBeanFactory -> AbstractBeanFactory: doResolveBeanClass(RootBeanDefinition mbd, Class<?>... typesToMatch)获取实例class并合并重写方法
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: resolveBeforeInstantiation(beanName, mbdToUse);实例初始化前
+'hasInstantiationAwareBeanPostProcessors() (mbd.getFactoryMethodName() != null ? getTypeForFactoryMethod(beanName, mbd, typesToMatch) :resolveBeanClass(mbd, beanName, typesToMatch))'
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: applyBeanPostProcessorsBeforeInstantiation BeanPostProcessor.postProcessBeforeInitialization
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: applyBeanPostProcessorsAfterInitialization BeanPostProcessor.postProcessAfterInitialization
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: doCreateBean(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: createBeanInstance(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
+'mbd.getFactoryMethodName() 初始化'
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: determineConstructorsFromBeanPostProcessors(@Nullable Class<?> beanClass, String beanName)
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: instantiateBean(String beanName, RootBeanDefinition mbd)
+
+InstantiationStrategy -> InstantiationStrategy: instantiate(RootBeanDefinition bd, @Nullable String beanName, BeanFactory owner)
+SimpleInstantiationStrategy -> SimpleInstantiationStrategy: instantiate BeanUtils.instantiateClass(constructorToUse)
+
+InstantiationStrategy -> AbstractAutowireCapableBeanFactory beanInstance 初始实例化
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: initBeanWrapper（new BeanWrapperImpl(beanInstance)）
+'registerCustomEditors'
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: applyMergedBeanDefinitionPostProcessors(RootBeanDefinition mbd, Class<?> beanType, String beanName)\nBeanPostProcessor.postProcessMergedBeanDefinition
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+'this.singletonFactories.put(beanName, singletonFactory);'
+'this.earlySingletonObjects.remove(beanName);'
+'this.registeredSingletons.add(beanName);'
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: getEarlyBeanReference(String beanName, RootBeanDefinition mbd, Object bean) BeanPostProcessor.getEarlyBeanReference(exposedObject, beanName)
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw)设置实例属性
+'BeanPostProcessor.postProcessAfterInstantiation'
+'BeanPostProcessor.postProcessPropertyValues'
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: initializeBean(String beanName, Object bean, @Nullable RootBeanDefinition mbd)
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: invokeAwareMethods(String beanName, Object bean)
+'BeanNameAware BeanClassLoaderAware BeanFactoryAware'
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: applyBeanPostProcessorsBeforeInitialization(BeanPostProcessor.postProcessBeforeInitialization)
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: invokeInitMethods(String beanName, Object bean, @Nullable RootBeanDefinition mbd)
+'InitializingBean'
+'afterPropertiesSet'
+'getInitMethodName'
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: applyBeanPostProcessorsAfterInitialization(BeanPostProcessor.postProcessAfterInitialization)
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: initializeBean结束
+
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: registerDisposableBeanIfNecessary(beanName, bean, mbd);
+'hasDestroyMethod'
+AbstractAutowireCapableBeanFactory -> AbstractAutowireCapableBeanFactory: doCreateBean结束
+
+DefaultSingletonBeanRegistry -> DefaultSingletonBeanRegistry: addSingleton(String beanName, Object singletonObject)
+'this.singletonObjects.put(beanName, singletonObject);'
+'this.singletonFactories.remove(beanName);'
+'this.earlySingletonObjects.remove(beanName);'
+'this.registeredSingletons.add(beanName);'
+
+DefaultSingletonBeanRegistry -> DefaultSingletonBeanRegistry: getSingleton(String beanName, ObjectFactory<?> singletonFactory)结束
+AbstractBeanFactory -> AbstractBeanFactory: getObjectForBeanInstance
+'处理FactoryBean'
+
+AbstractBeanFactory -> AbstractBeanFactory: doGetBean结束
+@enduml
