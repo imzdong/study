@@ -10,7 +10,6 @@
     <version>0.0.1</version>
     <modules>
         <module>spring</module>
-        <module>spring-boot</module>
         <module>stone</module>
         <module>msb_study</module>
         <module>mybatis</module>
