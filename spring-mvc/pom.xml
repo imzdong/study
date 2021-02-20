@@ -4,8 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.imzdong.study</groupId>
-  <version>0.0.1</version>
+  <parent>
+    <artifactId>study</artifactId>
+    <groupId>org.imzdong.study</groupId>
+    <version>0.0.1</version>
+  </parent>
+
   <artifactId>spring-mvc</artifactId>
   <packaging>war</packaging>
 
@@ -23,18 +27,15 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>5.2.8.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
     </dependency>
   </dependencies>
 

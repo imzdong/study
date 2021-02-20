@@ -14,6 +14,7 @@
         <module>msb_study</module>
         <module>mybatis</module>
         <module>water</module>
+        <module>spring-mvc</module>
     </modules>
 
     <name>study</name>
