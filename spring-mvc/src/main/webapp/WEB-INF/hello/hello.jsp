@@ -2,5 +2,9 @@
 <html>
 <body>
 <h2>Hello World! 你好呀 画画拉 ${pp}</h2>
+
+<form action="update">
+    <input type="submit">
+</form>
 </body>
 </html>
