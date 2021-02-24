@@ -9,10 +9,12 @@
         ">
     <!--除了具有<context:annotation-config>的功能之外，
     <context:component-scan>还可以在指定的package下扫描以及注册javabean-->
-    <!--
+    <!-- -->
     <context:component-scan base-package="org.imzdong.study.spring.self.factory"/>
-    -->
+    <!---->
+    <!--
     <context:annotation-config/>
+    -->
     <!--是用于激活那些已经在spring容器里注册过的bean（无论是通过xml的方式还是通过package sanning的方式）上面的注解。-->
 
 </beans>
