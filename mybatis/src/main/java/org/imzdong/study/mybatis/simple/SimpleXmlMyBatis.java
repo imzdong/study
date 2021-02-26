@@ -1,4 +1,4 @@
-package org.imzdong.study.mybatis.demo;
+package org.imzdong.study.mybatis.simple;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
