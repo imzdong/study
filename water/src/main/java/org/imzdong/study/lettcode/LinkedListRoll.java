@@ -14,35 +14,71 @@ package org.imzdong.study.lettcode;
 public class LinkedListRoll {
 
     public static void main(String[] args) {
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
-        ListNode next = head.next;
-        boolean flag = true;
-        int num = 3;
-        while (flag){
-            next.next = new ListNode(num++);
-            next = next.next;
-            if(num>8){
-                flag = false;
-            }
-        }
+        ListNode head = createListNode(5, 0);
         System.out.println(head);
-        head = reverse(head);
+        //head = reverseRecursion(head);
+        head = reversePointer(head);
         System.out.println(head);
     }
 
-    private static ListNode reverse(ListNode head) {
-        //1 2 3 4 5 6
-        if (head != null) {
-            ListNode next = head.next;
-            head.next = null;
-            next = reverse(next);
-            if(next != null) {
-                next.next = head;
-                head = next;
+    private static ListNode reversePointer(ListNode head) {
+        //1 2 3 4 5
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode current = head;
+        ListNode pre = null;
+        ListNode next = head.next;
+        while (next != null){
+            ListNode temp = next.next;
+            current.next = pre;
+            next.next = current;
+            pre = current;
+            current = next;
+            next = temp;
+        }
+        return current;
+    }
+
+    /**
+     * 生成链表
+     * @param length 链表长度
+     * @param headValue 头节点值
+     * @return 头节点
+     */
+    private static ListNode createListNode(int length, int headValue){
+        ListNode head = new ListNode(headValue);
+        ListNode temp = head;
+        boolean flag = true;
+        while (flag){
+            temp.next = new ListNode(++headValue);
+            temp = temp.next;
+            if(headValue > length){
+                flag = false;
             }
         }
         return head;
+    }
+
+    /**
+     *  1 head=1 reverse = reverse(2) = 5 2.next=1 1.next=null
+     *  2 head=2 reverse = reverse(3) = 5 3.next=2 2.next=null
+     *  3 head=3 reverse = reverse(4) = 5 4.next=3 3.next=null
+     *  4 head=4 reverse = reverse(5) = 5 5.next=4 4.next=null
+     *  5 head=5 return 5
+     *  递归调用
+     * @param head 链表头节点
+     * @return ListNode 头节点
+     */
+    private static ListNode reverseRecursion(ListNode head) {
+        //1 2 3 4 5
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode reverse = reverseRecursion(head.next);
+        head.next.next = head;
+        head.next = null;
+        return reverse;
     }
 
     private static class ListNode {
@@ -51,7 +87,6 @@ public class LinkedListRoll {
         ListNode() {}
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-
         @Override
         public String toString() {
             return "ListNode{" +

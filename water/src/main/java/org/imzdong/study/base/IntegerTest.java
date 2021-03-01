@@ -1,5 +1,8 @@
 package org.imzdong.study.base;
 
+import java.util.HashMap;
+import java.util.Hashtable;
+
 /**
  * 1、==判断两个对象的地址是否相等（基本类型比较的是值，引用类型比较的是内存地址）
  * equals默认比较地址，可以重写
@@ -11,8 +14,16 @@ package org.imzdong.study.base;
 public class IntegerTest {
 
     public static void main(String[] args) {
+        HashMap<String, String> map = new HashMap<>(1);
+        map.put("123", "333");
+        map.put("4444", "333");
+        map.get("123");
         int parseInt = Integer.parseInt("123");
         System.out.println(parseInt);
+        Object nullObject = null;
+        Hashtable<String, String> strTable = new Hashtable<>();
+        strTable.put(null, "123");
+        System.out.println(strTable);
     }
 
     private static void testEquals() {
