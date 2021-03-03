@@ -1,10 +1,6 @@
 package org.imzdong.tool.geektime;
 
 import com.alibaba.fastjson.JSONObject;
-import okhttp3.FormBody;
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import org.imzdong.tool.util.OkHttpUtils;
 
 import java.io.IOException;
@@ -31,20 +27,18 @@ public class GeekTimeArticles {
     }
 
     public List<String> getArticleList(){
-        String url = GeekTimeConstant.articlesUrl;;
+        String url = GeekTimeConstant.articlesUrl;
         Map<String, String> headerMap = GeekTimeConstant.headers;
         headerMap.put(GeekTimeConstant.cookie,cookie);
-        Headers headers = Headers.of(headerMap);
         String resp = null;
         try {
-            //{"error":{"msg":"无效的文章ID","code":-2202},"extra":{"internal":[]},"data":[],"code":-1}
             JSONObject bodyJson = new JSONObject();
             bodyJson.put("cid", columnId);
             bodyJson.put("size", size);
             bodyJson.put("prev", prev);
             bodyJson.put("order", order);
-            RequestBody body = FormBody.create(bodyJson.toJSONString(), MediaType.parse("text"));
-            resp = OkHttpUtils.get(url, headers, body);
+            resp = OkHttpUtils.http(url, OkHttpUtils.getHeaders(headerMap),
+                    OkHttpUtils.getRequestBody(OkHttpUtils.TEXT, bodyJson.toJSONString()));
             System.out.println(resp);
             JSONObject result = JSONObject.parseObject(resp);
             if(result.containsKey("code")&&"0".equals(result.getString("code"))){
