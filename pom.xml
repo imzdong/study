@@ -13,7 +13,7 @@
         <module>stone</module>
         <module>msb_study</module>
         <module>mybatis</module>
-        <module>water</module>
+        <module>tool</module>
         <module>spring-mvc</module>
     </modules>
 

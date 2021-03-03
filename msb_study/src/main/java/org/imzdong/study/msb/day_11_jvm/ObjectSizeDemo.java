@@ -1,19 +1,24 @@
+/*
 package org.imzdong.study.msb.day_11_jvm;
 
 import com.imzdong.jvm.ObjectSizeAgent;
 
+*/
 /**
  * -javaagent:object_size.jar
  * java -XX:+PrintCommandLineFlags -version
- */
+ *//*
+
 public class ObjectSizeDemo {
 
-    /**
+    */
+/**
      * openjdk version "1.8.0_252"
      * -XX:+UseCompressedClassPointers 默认开启类指针压缩
      * -XX:+UseCompressedOops 默认开启引用变量压缩
      * @param args
-     */
+     *//*
+
     public static void main(String[] args) {
         demoSize();
         System.out.println("boolean(1位):"+ObjectSizeAgent.sizeOf(true));
@@ -50,7 +55,8 @@ public class ObjectSizeDemo {
         System.out.println(ObjectSizeAgent.sizeOf(new P()));
     }
 
-    /**
+    */
+/**
      * boolean 布尔型              1/8  
      * byte 字节类型               1 
      * char 字符型                 2  一个字符能存储一个中文汉字 
@@ -62,7 +68,8 @@ public class ObjectSizeDemo {
      *
      * 非基本类型都是引用类型长度4字节
      * 基本类型按照基本类型的位数
-     */
+     *//*
+
     private static class P{
         private char[] value = {'1','2','3'}; //4
         private String a = "123"; //4
@@ -78,3 +85,4 @@ public class ObjectSizeDemo {
 
     }
 }
+*/
