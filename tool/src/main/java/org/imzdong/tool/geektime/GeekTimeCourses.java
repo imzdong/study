@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 极客时间课程列表
+ * @author winter
+ * @date 2021-03-04
+ */
 public class GeekTimeCourses {
 
     private int prev;

@@ -1,6 +1,7 @@
 package org.imzdong.tool.geektime;
 
 /**
+ * 课程信息
  * @author zhoud
  * @since 2021/3/3 21:52
  */

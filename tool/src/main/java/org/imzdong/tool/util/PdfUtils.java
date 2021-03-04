@@ -4,11 +4,10 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfWriter;
+import org.imzdong.tool.pdf.ChineseHtmlParser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class PdfUtils {
 
@@ -36,15 +35,25 @@ public class PdfUtils {
         copy.close();
     }
 
-    public static void main(String[] args) throws Exception{
-        String result = "D:/work/pdf/result.pdf";
-        File resultFile = new File(result);
-        String [] mergePdfs = new String[]{"D:\\work\\pdf\\before\\1.pdf","D:\\work\\pdf\\before\\2.pdf"};
-        File[] resultFiles = new File[2];
-        for (int i = 0; i < mergePdfs.length; i++) {
-            resultFiles[i] = new File(mergePdfs[i]);
+    /**
+     * html转换pdf
+     * @param htmlText html文件内容
+     * @param pdf pdf文件地址
+     */
+    public static void html2Pdf(String htmlText, String pdf) {
+        // step 1: creation of a document-object
+        try (Document document = new Document()) {
+            PdfWriter.getInstance(document, new FileOutputStream(pdf));
+            // step 2: we open the document
+            document.open();
+            // step 3: parsing the HTML document to convert it in PDF
+            ChineseHtmlParser chineseHtmlParser = new ChineseHtmlParser();
+            byte[] bytes = htmlText.getBytes();
+            ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
+            chineseHtmlParser.parseGbk(document, stream);
+        } catch (DocumentException | IOException de) {
+            System.err.println(de.getMessage());
         }
-        mergePDF(resultFile, resultFiles);
     }
 
 }

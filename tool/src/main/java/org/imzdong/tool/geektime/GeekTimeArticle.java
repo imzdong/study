@@ -2,11 +2,17 @@ package org.imzdong.tool.geektime;
 
 import com.alibaba.fastjson.JSONObject;
 import org.imzdong.tool.util.OkHttpUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class GeekTimeArticle {
+/**
+ * 极客时间课程文章
+ * @author winter
+ * @date 2021-03-04
+ */
+public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
 
     private String articleId;
     private String cookie;
@@ -55,5 +61,10 @@ public class GeekTimeArticle {
 
     public String getAudioDownloadUrl() {
         return audioDownloadUrl;
+    }
+
+    @Override
+    public int compareTo(@NotNull GeekTimeArticle o) {
+        return this.articleId.compareTo(o.articleId);
     }
 }

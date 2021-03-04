@@ -6,6 +6,11 @@ import org.imzdong.tool.util.OkHttpUtils;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * 极客时间课程总数
+ * @author winter
+ * @date 2021-03-04
+ */
 public class GeekTimeData {
 
     private String cookie;

@@ -3,6 +3,11 @@ package org.imzdong.tool.geektime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 极客时间常量池
+ * @author winter
+ * @date 2021-03-04
+ */
 public class GeekTimeConstant {
 
     public final static String origin = "https://time.geekbang.org";
@@ -11,6 +16,13 @@ public class GeekTimeConstant {
     public final static String articlesUrl = origin + "/serv/v1/column/articles";
     public final static String articleUrl = origin + "/serv/v1/article";
     public final static String cookie = "Cookie";
+
+    public final static String htmlStart = "<html>";
+    public final static String htmlEnd = "</html>";
+    public final static String htmlHeaderStart = "<head>";
+    public final static String htmlHeaderEnd = "</head>";
+    public final static String htmlBodyStart = "<body>";
+    public final static String htmlBodyEnd = "</body>";
 
     public final static Map<String, String> headers = new HashMap<>();
     public final static String accept = "application/json, text/plain, */*";

@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 极客时间课程列表
+ * 极客时间课程文章列表
+ * @author winter
+ * @date 2021-03-04
  */
 public class GeekTimeArticles {
 
@@ -25,7 +27,7 @@ public class GeekTimeArticles {
     public List<GeekTimeArticle> getArticleList(){
         String url = GeekTimeConstant.articlesUrl;
         Map<String, String> headerMap = GeekTimeConstant.headers;
-        headerMap.put(GeekTimeConstant.cookie,cookie);
+        headerMap.put(GeekTimeConstant.cookie, cookie);
         try {
             String articles = "{\"cid\":100006601,\"size\":500,\"prev\":0,\"order\":\"earliest\",\"sample\":false," +
                     "\"chapter_ids\":[\"359\",\"360\",\"361\",\"362\",\"363\",\"364\",\"365\",\"366\",\"1310\"]}";
