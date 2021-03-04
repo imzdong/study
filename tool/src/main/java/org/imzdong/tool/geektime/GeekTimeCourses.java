@@ -21,10 +21,6 @@ public class GeekTimeCourses {
         this.cookie = cookie;
     }
 
-    public void next() {
-        prev = prev + size;
-    }
-
     public List<GeekTimeCourse> getCourses(){
         String url = GeekTimeConstant.courseUrl;
         Map<String, String> headerMap = GeekTimeConstant.headers;

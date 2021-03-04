@@ -6,9 +6,10 @@ import java.util.Map;
 public class GeekTimeConstant {
 
     public final static String origin = "https://time.geekbang.org";
+    public final static String dataUrl = origin + "/serv/v1/my/data";
+    public final static String courseUrl = origin + "/serv/v3/learn/product";
     public final static String articlesUrl = origin + "/serv/v1/column/articles";
     public final static String articleUrl = origin + "/serv/v1/article";
-    public final static String courseUrl = origin + "/serv/v3/learn/product";
     public final static String cookie = "Cookie";
 
     public final static Map<String, String> headers = new HashMap<>();
