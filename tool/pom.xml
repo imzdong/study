@@ -94,6 +94,18 @@
       <artifactId>snakeyaml</artifactId>
       <version>1.28</version>
     </dependency>
+    <!--itext7-->
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>html2pdf</artifactId>
+      <version>3.0.3</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.31</version>
+    </dependency>
 
   </dependencies>
 

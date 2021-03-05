@@ -2,7 +2,6 @@ package org.imzdong.tool.geektime;
 
 import org.imzdong.tool.util.YamlUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GeekTimeHandler {
@@ -28,7 +27,7 @@ public class GeekTimeHandler {
     private static void getArticle(String cookie, String articleId) {
         articleId = "6458";
         GeekTimeArticle geekTimeArticle = new GeekTimeArticle(articleId, cookie);
-        String articleContent = geekTimeArticle.getArticleContent();
+        String articleContent = geekTimeArticle.getContent();
         System.out.println(articleContent);
     }
 

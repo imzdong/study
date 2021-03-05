@@ -5,6 +5,8 @@ import org.imzdong.tool.util.OkHttpUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -20,13 +22,21 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
     private String articleTitle;
     //audio_download_url
     private String audioDownloadUrl;
+    //article_cover
+    private String articleCover;
+    private String articleContent;
+    //author_name
+    private String authorName;
+    //article_ctime
+    private String articleCtime;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
 
     public GeekTimeArticle(String articleId, String cookie){
         this.articleId = articleId;
         this.cookie = cookie;
     }
 
-    public String getArticleContent(){
+    public String getContent(){
         String url = GeekTimeConstant.articleUrl;
         Map<String, String> headerMap = GeekTimeConstant.headers;
         headerMap.put(GeekTimeConstant.cookie,cookie);
@@ -45,14 +55,16 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
                 JSONObject data = result.getJSONObject("data");
                 articleTitle = data.getString("article_title");
                 audioDownloadUrl = data.getString("audio_download_url");
-                return data.getString("article_content");
-            }else {
-                return result.getString("error");
+                articleContent = data.getString("article_content");
+                articleCover = data.getString("article_cover");
+                authorName = data.getString("author_name");
+                articleCtime = simpleDateFormat.format(data.getDate("article_ctime"));
+                return articleContent;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resp;
+        return null;
     }
 
     public String getArticleTitle() {
@@ -63,8 +75,44 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
         return audioDownloadUrl;
     }
 
+    public String getArticleCover() {
+        return articleCover;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setArticleCtime(String articleCtime) {
+        this.articleCtime = articleCtime;
+    }
+
     @Override
     public int compareTo(@NotNull GeekTimeArticle o) {
         return this.articleId.compareTo(o.articleId);
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    public void setArticleCover(String articleCover) {
+        this.articleCover = articleCover;
+    }
+
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getArticleCtime() {
+        return articleCtime;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
     }
 }
