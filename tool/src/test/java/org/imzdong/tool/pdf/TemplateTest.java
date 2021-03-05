@@ -5,14 +5,13 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.commons.text.StringEscapeUtils;
-import org.imzdong.tool.geektime.GeekTimeArticle;
 import org.imzdong.tool.util.Itext7HtmlPdfUtil;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class TemplateTest {
     @Test
     public void runAll(){
         article2Html();
-        //html2Pdf();
+        html2Pdf();
     }
 
     private void init(){
@@ -72,13 +71,13 @@ public class TemplateTest {
         JSONObject parse = JSONObject.parseObject(html);
         JSONObject data = parse.getJSONObject("data");
         String content = data.getString("article_content");
-        content = StringEscapeUtils.escapeHtml4(content);
-        GeekTimeArticle article = new GeekTimeArticle("1", "2");
-        article.setArticleContent(content);
-        article.setArticleCover(data.getString("article_cover"));
-        article.setArticleTitle(data.getString("article_title"));
-        article.setAuthorName(data.getString("author_name"));
-        article.setArticleCtime(simpleDateFormat.format(data.getDate("article_ctime")));
+        JSONObject article = new JSONObject();
+        article.put("articleContent", content);
+        article.put("articleCover", data.getString("article_cover"));
+        article.put("articleTitle", data.getString("article_title"));
+        article.put("authorName", data.getString("author_name"));
+        long articleCtime = data.getLongValue("article_ctime");
+        article.put("articleCtime", simpleDateFormat.format(new Date(articleCtime)));
         root.put("article", article);
         try (FileWriter fileWriter = new FileWriter(htmlPath);){
             Template temp = cfg.getTemplate(template);

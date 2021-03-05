@@ -749,14 +749,14 @@
 
         @font-face {
             font-family: iconfont;
-            src: url(//at.alicdn.com/t/font_372689_yntec4rlp8.eot);
-            src: url(//at.alicdn.com/t/font_372689_yntec4rlp8.eot#iefix) format("embedded-opentype"), url(//at.alicdn.com/t/font_372689_yntec4rlp8.woff2) format("woff2"), url(//at.alicdn.com/t/font_372689_yntec4rlp8.woff) format("woff"), url(//at.alicdn.com/t/font_372689_yntec4rlp8.ttf) format("truetype"), url(//at.alicdn.com/t/font_372689_yntec4rlp8.svg#iconfont) format("svg")
+            src: url(http://at.alicdn.com/t/font_372689_yntec4rlp8.eot);
+            src: url(http://at.alicdn.com/t/font_372689_yntec4rlp8.eot#iefix) format("embedded-opentype"), url(http://at.alicdn.com/t/font_372689_yntec4rlp8.woff2) format("woff2"), url(http://at.alicdn.com/t/font_372689_yntec4rlp8.woff) format("woff"), url(http://at.alicdn.com/t/font_372689_yntec4rlp8.ttf) format("truetype"), url(http://at.alicdn.com/t/font_372689_yntec4rlp8.svg#iconfont) format("svg")
         }
 
         @font-face {
             font-family: player-font;
-            src: url(//at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.eot);
-            src: url(//at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.eot#iefix) format("embedded-opentype"), url(//at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.woff) format("woff"), url(//at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.ttf) format("truetype"), url(//at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.svg#player-font) format("svg")
+            src: url(http://at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.eot);
+            src: url(http://at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.eot#iefix) format("embedded-opentype"), url(http://at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.woff) format("woff"), url(http://at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.ttf) format("truetype"), url(http://at.alicdn.com/t/font_509397_1cyjv4o90qiod2t9.svg#player-font) format("svg")
         }
 
         .iconfont {
@@ -1872,9 +1872,9 @@
             display: block;
             max-width: 100%;
             position: relative;
-            left: 50%;
+            /*left: 50%;
             -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+            transform: translateX(-50%);*/
             background-color: #eee;
             vertical-align: top;
             border-radius: 0
@@ -3029,7 +3029,7 @@
                         <img src="${article.articleCover}" class="_1-ZfmNK8_0" />
                         <div class="_3IatBmhv_0">
                             <div class="_29HP61GA_0">
-                                ${article.articleContent}
+                                ${article.articleContent?no_esc}
                             </div>
                         </div>
                         <div class="_22WJb59B_0"><span class="_3ODTLCec_0">©</span>版权归极客邦科技所有，未经许可不得传播售卖。

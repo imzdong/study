@@ -18,6 +18,8 @@ import org.imzdong.tool.util.PdfUtils;
 import org.junit.Test;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,13 @@ import java.util.Map;
 public class PdfTest {
 
     private String rootPath = "D:/work/pdf/";
+
+    @Test
+    public void testForm(){
+        long article_ctime = 1524870000l;
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sd.format(new Date(article_ctime)));
+    }
 
     @Test
     public void testMergePdf(){

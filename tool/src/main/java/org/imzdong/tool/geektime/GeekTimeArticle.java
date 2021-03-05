@@ -58,7 +58,8 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
                 articleContent = data.getString("article_content");
                 articleCover = data.getString("article_cover");
                 authorName = data.getString("author_name");
-                articleCtime = simpleDateFormat.format(data.getDate("article_ctime"));
+                long article_ctime = data.getLongValue("article_ctime");
+                articleCtime = simpleDateFormat.format(new Date(article_ctime));
                 return articleContent;
             }
         } catch (IOException e) {
@@ -83,6 +84,14 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
         return authorName;
     }
 
+    public String getArticleCtime() {
+        return articleCtime;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
+    }
+
     public void setArticleCtime(String articleCtime) {
         this.articleCtime = articleCtime;
     }
@@ -92,27 +101,4 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
         return this.articleId.compareTo(o.articleId);
     }
 
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
-    }
-
-    public void setArticleCover(String articleCover) {
-        this.articleCover = articleCover;
-    }
-
-    public void setArticleContent(String articleContent) {
-        this.articleContent = articleContent;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getArticleCtime() {
-        return articleCtime;
-    }
-
-    public String getArticleContent() {
-        return articleContent;
-    }
 }
