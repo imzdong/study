@@ -2,14 +2,13 @@ package org.imzdong.tool.pdf;
 
 import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 import org.imzdong.tool.util.Itext7HtmlPdfUtil;
+import org.imzdong.tool.util.TemplateUtil;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,46 +21,21 @@ public class TemplateTest {
     private String rootPath = "D:\\work\\pdf\\itext7\\";
     private String htmlPath = rootPath + "20210305_01.html";
     private String destPdf = rootPath + "20210305_01.pdf";
-    private Configuration cfg;
+    private Configuration init;
 
     @Before
     public void before(){
-        init();
+        init = TemplateUtil.init("src/test/resources/template");
     }
 
     @Test
     public void runAll(){
         article2Html();
-        html2Pdf();
-    }
-
-    private void init(){
-        // Create your Configuration instance, and specify if up to what FreeMarker
-        // version (here 2.3.29) do you want to apply the fixes that are not 100%
-        // backward-compatible. See the Configuration JavaDoc for details.
-        cfg = new Configuration(Configuration.VERSION_2_3_29);
-        // Specify the source where the template files come from. Here I set a
-        // plain directory for it, but non-file-system sources are possible too:
         try {
-            cfg.setDirectoryForTemplateLoading(new File("src/test/resources/template/"));
+            html2Pdf();
         } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
-        // From here we will set the settings recommended for new projects. These
-        // aren't the defaults for backward compatibilty.
-        // Set the preferred charset template files are stored in. UTF-8 is
-        // a good choice in most applications:
-        cfg.setDefaultEncoding("UTF-8");
-        // Sets how errors will appear.
-        // During web page *development* TemplateExceptionHandler.HTML_DEBUG_HANDLER is better.
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        // Don't log exceptions inside FreeMarker that it will thrown at you anyway:
-        cfg.setLogTemplateExceptions(false);
-        // Wrap unchecked exceptions thrown during template processing into TemplateException-s:
-        cfg.setWrapUncheckedExceptions(true);
-        // Do not fall back to higher scopes when reading a null loop variable:
-        cfg.setFallbackOnNullLoopVariable(false);
     }
 
     private void article2Html() {
@@ -79,18 +53,16 @@ public class TemplateTest {
         long articleCtime = data.getLongValue("article_ctime");
         article.put("articleCtime", simpleDateFormat.format(new Date(articleCtime)));
         root.put("article", article);
-        try (FileWriter fileWriter = new FileWriter(htmlPath);){
-            Template temp = cfg.getTemplate(template);
-            /* Merge data-model with template */
-            temp.process(root, fileWriter);
-            // Note: Depending on what `out` is, you may need to call `out.close()`.
-            // This is usually the case for file output, but not for servlet output.
-        } catch (IOException | TemplateException e) {
+        try {
+            TemplateUtil.template2Html(init, template, htmlPath, root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
             e.printStackTrace();
         }
     }
 
-    private void html2Pdf(){
+    private void html2Pdf() throws IOException {
         Itext7HtmlPdfUtil.html2Pdf(htmlPath, destPdf);
     }
 }

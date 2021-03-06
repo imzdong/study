@@ -3,6 +3,8 @@ package org.imzdong.tool.geektime;
 import com.alibaba.fastjson.JSONObject;
 import org.imzdong.tool.util.OkHttpUtils;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -15,6 +17,8 @@ import java.util.Map;
  * @date 2021-03-04
  */
 public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
+
+    private final static Logger logger = LoggerFactory.getLogger(GeekTimeArticle.class);
 
     private String articleId;
     private String cookie;
@@ -45,13 +49,12 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
         bodyJson.put("id", articleId);
         bodyJson.put("include_neighbors", true);
         bodyJson.put("is_freelyread", true);
-        String resp = null;
         try {
             //{"error":{"msg":"无效的文章ID","code":-2202},"extra":{"internal":[]},"data":[],"code":-1}
-            resp = OkHttpUtils.http(url, OkHttpUtils.getHeaders(headerMap),
+            String resp = OkHttpUtils.http(url, OkHttpUtils.getHeaders(headerMap),
                     OkHttpUtils.getRequestBody(OkHttpUtils.TEXT, bodyJson.toJSONString()));
             JSONObject result = JSONObject.parseObject(resp);
-            if(result.containsKey("code")&&"0".equals(result.getString("code"))){
+            if(result != null && result.containsKey("code")&&"0".equals(result.getString("code"))){
                 JSONObject data = result.getJSONObject("data");
                 articleTitle = data.getString("article_title");
                 audioDownloadUrl = data.getString("audio_download_url");
@@ -61,9 +64,13 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
                 long article_ctime = data.getLongValue("article_ctime");
                 articleCtime = simpleDateFormat.format(new Date(article_ctime));
                 return articleContent;
+            }else {
+                logger.error("获取文章返回code：{}，返回错误信息：{}",
+                        result != null?result.getString("code"):resp,
+                        result != null?result.getString("error"):"");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("获取文章详情异常：", e);
         }
         return null;
     }

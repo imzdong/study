@@ -8,8 +8,34 @@ import com.lowagie.text.pdf.PdfWriter;
 import org.imzdong.tool.pdf.ChineseHtmlParser;
 
 import java.io.*;
+import java.util.List;
 
 public class PdfUtils {
+
+
+    /**
+     * 合并多个 PDF 文件
+     *
+     * @param mergedPdf 合并后的文件
+     * @param pdfNames      待合并的文件
+     * @throws DocumentException 读取 PDF 文件异常
+     * @throws IOException       合并异常
+     */
+    public static void mergePdfByPath(String mergedPdf, List<String> pdfNames) throws DocumentException, IOException {
+        Document doc = new Document();
+        PdfCopy copy = new PdfCopy(doc, new FileOutputStream(mergedPdf));
+        doc.open();
+        for (String pdf : pdfNames) {
+            PdfReader pdfreader = new PdfReader(new FileInputStream(pdf));
+            int n = pdfreader.getNumberOfPages();
+            for (int i = 1; i <= n; i++) {
+                copy.addPage(copy.getImportedPage(pdfreader, i));
+            }
+            copy.freeReader(pdfreader);
+        }
+        doc.close();
+        copy.close();
+    }
 
     /**
      * 合并多个 PDF 文件
@@ -19,7 +45,7 @@ public class PdfUtils {
      * @throws DocumentException 读取 PDF 文件异常
      * @throws IOException       合并异常
      */
-    public static void mergePDF(File mergedPdf, File... pdfs) throws DocumentException, IOException {
+    public static void mergePdf(File mergedPdf, File... pdfs) throws DocumentException, IOException {
         Document doc = new Document();
         PdfCopy copy = new PdfCopy(doc, new FileOutputStream(mergedPdf));
         doc.open();

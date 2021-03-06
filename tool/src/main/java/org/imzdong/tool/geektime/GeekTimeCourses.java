@@ -3,6 +3,8 @@ package org.imzdong.tool.geektime;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.imzdong.tool.util.OkHttpUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.Map;
  * @date 2021-03-04
  */
 public class GeekTimeCourses {
+
+    private final static Logger logger = LoggerFactory.getLogger(GeekTimeCourses.class);
 
     private int prev;
     private String cookie;
@@ -46,8 +50,7 @@ public class GeekTimeCourses {
             String resp = OkHttpUtils.http(url, OkHttpUtils.getHeaders(headerMap),
                     OkHttpUtils.getRequestBody(OkHttpUtils.JSON, bodyJson.toJSONString()));
             JSONObject result = JSONObject.parseObject(resp);
-            System.out.println(result.get("error"));
-            if(result.containsKey("code")&&"0".equals(result.getString("code"))){
+            if(result != null && result.containsKey("code")&&"0".equals(result.getString("code"))){
                 JSONObject data = result.getJSONObject("data");
                 JSONArray products = data.getJSONArray("products");
                 if(products != null && products.size() > 0){
@@ -61,9 +64,13 @@ public class GeekTimeCourses {
                     });
                     return list;
                 }
+            }else {
+                logger.error("获取课程信息返回code：{}，返回错误信息：{}",
+                        result != null?result.getString("code"):resp,
+                        result != null?result.getString("error"):"");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("获取课程信息异常：", e);
         }
         return null;
     }

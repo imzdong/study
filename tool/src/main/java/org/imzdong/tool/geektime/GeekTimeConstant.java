@@ -17,6 +17,9 @@ public class GeekTimeConstant {
     public final static String articleUrl = origin + "/serv/v1/article";
     public final static String cookie = "Cookie";
 
+    public final static String templateDir = "template";
+    public final static String template = "article.ftlh";
+
     public final static String htmlStart = "<html>";
     public final static String htmlEnd = "</html>";
     public final static String htmlHeaderStart = "<head>";

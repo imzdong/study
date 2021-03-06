@@ -5,14 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.html.HtmlParser;
 import com.lowagie.text.html.HtmlWriter;
 import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.html.simpleparser.StyleSheet;
 import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.text.StringEscapeUtils;
-import org.imzdong.tool.geektime.GeekTimeConstant;
 import org.imzdong.tool.geektime.GeekTimeUtil;
 import org.imzdong.tool.util.PdfUtils;
 import org.junit.Test;
@@ -45,7 +42,7 @@ public class PdfTest {
             resultFiles[i] = new File(mergePdfs[i]);
         }
         try {
-            PdfUtils.mergePDF(resultFile, resultFiles);
+            PdfUtils.mergePdf(resultFile, resultFiles);
         } catch (IOException e) {
             e.printStackTrace();
         }

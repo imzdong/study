@@ -2,6 +2,7 @@ package org.imzdong.tool.util;
 
 import okhttp3.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class OkHttpUtils {
@@ -35,6 +36,10 @@ public class OkHttpUtils {
 
     public static Headers getHeaders(Map<String, String> headerMap){
         return Headers.of(headerMap);
+    }
+
+    public static RequestBody getEmptyRequestBody(){
+        return RequestBody.create("{}".getBytes(StandardCharsets.UTF_8));
     }
 
 }

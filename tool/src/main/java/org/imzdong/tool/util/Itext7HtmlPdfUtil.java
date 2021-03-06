@@ -28,18 +28,14 @@ public class Itext7HtmlPdfUtil {
      * @param orgHtml 源html文件地址
      * @param destPdf 目标pdf
      */
-    public static void html2Pdf(String orgHtml, String destPdf){
+    public static void html2Pdf(String orgHtml, String destPdf) throws IOException {
         FontProvider fontProvider = new DefaultFontProvider();
         for (String font : FONTS) {
             fontProvider.addFont(font);
         }
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setFontProvider(fontProvider);
-        try {
-            HtmlConverter.convertToPdf(new File(orgHtml),
-                    new File(destPdf), converterProperties);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HtmlConverter.convertToPdf(new File(orgHtml),
+                new File(destPdf), converterProperties);
     }
 }
