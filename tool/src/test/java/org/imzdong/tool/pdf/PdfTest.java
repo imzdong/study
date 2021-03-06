@@ -16,14 +16,29 @@ import org.junit.Test;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PdfTest {
 
     private String rootPath = "D:/work/pdf/";
+
+    @Test
+    public void testMergePdfPath(){
+        String redisRootPath = "D:/WorkSpace/geekTimePdf/redis课程";
+        String result = redisRootPath + "/pdf/redis.pdf";
+        String mergePath = redisRootPath + "/html";
+        File file = new File(mergePath);
+        File[] files = file.listFiles();
+        if(files != null) {
+            System.out.println(files.length);
+            File mergeResult = new File(result);
+            try {
+                PdfUtils.mergePdf(mergeResult, files);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Test
     public void testForm(){
