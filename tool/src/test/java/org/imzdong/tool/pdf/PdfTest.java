@@ -29,7 +29,7 @@ public class PdfTest {
     public void testForm(){
         long article_ctime = 1524870000l;
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sd.format(new Date(article_ctime)));
+        System.out.println(sd.format(new Date(article_ctime*1000L)));
     }
 
     @Test

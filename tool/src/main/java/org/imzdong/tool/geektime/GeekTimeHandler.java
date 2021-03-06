@@ -89,6 +89,11 @@ public class GeekTimeHandler {
                             }else {
                                 logger.info("未获取到文章内容");
                             }
+                            try {
+                                Thread.sleep(1000L*3);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }else {
                         logger.info("未获取到文章列表");
@@ -97,7 +102,6 @@ public class GeekTimeHandler {
                         mergePDF(courseMergePdfDirName, title, coursePdfPaths);
                     }
                     logger.info("获取课程：{}：结束。", title);
-                    return;
                 }
             }else {
                 logger.info("未获取到课程信息");
@@ -166,6 +170,7 @@ public class GeekTimeHandler {
          */
         dirPath = dirPath.replaceAll("[/\\\\:*?|]", "");
         dirPath = dirPath.replaceAll("[\"<>]", "");
+        dirPath = dirPath.replaceAll("\\s*", "");
         return dirPath;
     }
 }

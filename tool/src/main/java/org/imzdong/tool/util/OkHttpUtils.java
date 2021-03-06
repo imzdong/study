@@ -1,12 +1,16 @@
 package org.imzdong.tool.util;
 
 import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class OkHttpUtils {
 
+    private final static Logger logger = LoggerFactory.getLogger(OkHttpUtils.class);
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     public static final MediaType TEXT = MediaType.parse("text");
     private final static OkHttpClient client = new OkHttpClient();
@@ -26,7 +30,11 @@ public class OkHttpUtils {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+            String resp = response.body().string();
+            if(resp == null ||resp.length() == 0){
+                logger.info("获取http信息异常：{}", response);
+            }
+            return resp;
         }
     }
 

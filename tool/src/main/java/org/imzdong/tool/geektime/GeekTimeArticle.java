@@ -49,6 +49,10 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
         bodyJson.put("id", articleId);
         bodyJson.put("include_neighbors", true);
         bodyJson.put("is_freelyread", true);
+        logger.info("文章id：{}：获取文章开始。", articleId);
+        if(articleId == null){
+            return null;
+        }
         try {
             //{"error":{"msg":"无效的文章ID","code":-2202},"extra":{"internal":[]},"data":[],"code":-1}
             String resp = OkHttpUtils.http(url, OkHttpUtils.getHeaders(headerMap),
@@ -62,7 +66,7 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
                 articleCover = data.getString("article_cover");
                 authorName = data.getString("author_name");
                 long article_ctime = data.getLongValue("article_ctime");
-                articleCtime = simpleDateFormat.format(new Date(article_ctime));
+                articleCtime = simpleDateFormat.format(new Date(article_ctime*1000L));
                 return articleContent;
             }else {
                 logger.error("获取文章返回code：{}，返回错误信息：{}",
