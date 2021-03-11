@@ -1,6 +1,8 @@
 package org.imzdong.study.stone.lettcode.tree;
 
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author zhoud
@@ -9,14 +11,16 @@ import java.util.LinkedList;
 public class TreeSort {
 
     public static void main(String[] args) {
-        Node node = new Node(0);
-        LinkedList<Integer> list = new LinkedList<>();
-        for (int i = 0; i < 7; i++) {
-            list.add(i);
-        }
+        String [] trees =  {"1","2","4",null,null,"5",null,null,
+                "3","6",null,null,"7",null,null};
         //createTreeByLR(node, list);
-        Node tree = createTree(list);
+        List<String> list = Arrays.asList(trees);
+        Node tree = TreeUtil.createTree(new LinkedList<>(list));
         preSort(tree);
+        System.out.println("-------------");
+        middleSort(tree);
+        System.out.println("-------------");
+        afterSort(tree);
     }
 
     private static void preSort(Node head){
@@ -28,48 +32,22 @@ public class TreeSort {
         preSort(head.right);
     }
 
-    private static Node createTree(LinkedList<Integer> list){
-        if(list.size()<=0){
-            return null;
-        }
-        Integer first = list.removeFirst();
-        if(first != null) {
-            Node node = new Node(first);
-            node.left = createTree(list);
-            node.right = createTree(list);
-            return node;
-        }
-        return null;
-
-    }
-
-    private static void createTreeByLR(Node node, LinkedList<Integer> list){
-        if(list.size() <= 0){
+    private static void middleSort(Node head){
+        if (head == null){
             return;
         }
-        Node leftTree = createLeftTree(node, list.removeFirst());
-        Node rightTree = createRightTree(node, list.removeFirst());
-        createTreeByLR(leftTree, list);
-        createTreeByLR(rightTree, list);
+        middleSort(head.left);
+        System.out.println(head.value);
+        middleSort(head.right);
     }
 
-    private static Node createLeftTree(Node node, int value){
-        node.left = new Node(value);
-        return node.left;
-    }
-
-    private static Node createRightTree(Node node, int value){
-        node.right = new Node(value);
-        return node.right;
-    }
-
-    private static class Node{
-        public Node(int value){
-            this.value = value;
+    private static void afterSort(Node head){
+        if (head == null){
+            return;
         }
-
-        int value;
-        Node left;
-        Node right;
+        afterSort(head.left);
+        afterSort(head.right);
+        System.out.println(head.value);
     }
+
 }

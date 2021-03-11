@@ -24,9 +24,9 @@ public class PdfTest {
 
     @Test
     public void testMergePdfPath(){
-        String redisRootPath = "D:/WorkSpace/geekTimePdf/redis课程";
-        String result = redisRootPath + "/pdf/redis.pdf";
-        String mergePath = redisRootPath + "/html";
+        String redisRootPath = "D:\\Downloads\\BaiduNetdiskDownload\\合并";
+        String result = redisRootPath + "/redis.pdf";
+        String mergePath = redisRootPath;
         File file = new File(mergePath);
         File[] files = file.listFiles();
         if(files != null) {
