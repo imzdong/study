@@ -1,4 +1,4 @@
-package org.imzdong.study.stone.lettcode.tree;
+package org.imzdong.study.stone.lettcode.sort;
 
 /**
  * 冒泡排序及升级版本
