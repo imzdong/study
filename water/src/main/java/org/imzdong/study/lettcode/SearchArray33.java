@@ -30,8 +30,10 @@ package org.imzdong.study.lettcode;
 public class SearchArray33 {
 
     public static void main(String[] args) {
-
-
+        int[] nums = {4, 5, 6, 1, 2, 3};
+        int search = search(nums, 3);
+        System.out.println(search);
+        System.out.println(searchJava(nums, 3));
     }
 
     private static int copy(int []nums, int target){
@@ -113,21 +115,27 @@ public class SearchArray33 {
          * 1    mid < first :  4,1,2,3,5
          *
          */
-
-
-        while (left < right){
-            mid = (right - left)/2;
+        while (left <= right){
+            mid = (right + left)/2;
             int midV = nums[mid];
             if(midV == target){
                 return mid;
             }
-            //first
-            if(target < midV && midV >= first){
-                //right移动
-                right = mid - 1;
-
+            if(first <= midV){
+                if(target <= midV && target >first){
+                    right = mid - 1;
+                }else{
+                    left = mid + 1;
+                }
+            }else {
+                if(target > midV && target <= nums[nums.length-1]){
+                    left = mid + 1;
+                }else{
+                    //两边都有可能
+                    right = mid - 1;
+                }
+                // target > midV
             }
-            //right移动
         }
         return -1;
     }

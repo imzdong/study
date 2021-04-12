@@ -3,9 +3,10 @@ package org.imzdong.study.hbase;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.client.*;
+
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * 使用者会通过接口而不是具体类型来工作。在 HBase 1.0 中，从 ConnectionFactory 中获取一个 Connection 对象，
@@ -22,17 +23,33 @@ public class HBaseDemo {
     public static void main(String[] args) throws Exception{
         Configuration config = HBaseConfiguration.create();
         String hbaseHost = "127.0.0.1";
+        String tableName = "table_test";
         // Until 2.x.y versions
         config.set("hbase.zookeeper.quorum", hbaseHost);
         //or Starting 3.0.0 version
         //config.set("hbase.masters", "localhost:1234");
         Connection connection = ConnectionFactory.createConnection(config);
-        Table table = connection.getTable(TableName.valueOf("table1"));
+        Table table = connection.getTable(TableName.valueOf(tableName));
         try {
             // Use the table as needed, for a single operation and a single thread
+            //selfPut(table);
+            ResultScanner scanner = table.getScanner("col_name".getBytes());
+            Iterator<Result> iterator = scanner.iterator();
+            while (iterator.hasNext()){
+                Result next = iterator.next();
+                System.out.println(new String(next.getRow()));
+            }
         } finally {
             table.close();
             connection.close();
         }
+    }
+
+    private static void selfPut(Table table) throws IOException {
+        String putOperate = "put_01";
+        Put put = new Put(putOperate.getBytes());
+        //liezu
+        put.addColumn("col_name".getBytes(), "row1".getBytes(), "ddd".getBytes());
+        table.put(put);
     }
 }
