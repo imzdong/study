@@ -10,10 +10,21 @@ public class ReverseLink {
     public static void main(String[] args) {
         Node node = createLink("node", 4);
         System.out.println(node);
+        Node reverse = reverse(node);
+        System.out.println(reverse);
     }
 
     private static Node reverse(Node head){
-        return head;
+        Node pre = null;
+        Node cur = head;
+        Node next = head.next;
+        while (next != null){
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+            next = cur.next;
+        }
+        return pre;
     }
 
     private static Node createLink(String head, int heap){
@@ -33,6 +44,14 @@ public class ReverseLink {
 
         public Node(String value) {
             this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "value='" + value + '\'' +
+                    ", next=" + next +
+                    '}';
         }
     }
 }
