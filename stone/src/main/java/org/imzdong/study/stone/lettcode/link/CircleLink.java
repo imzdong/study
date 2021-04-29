@@ -14,13 +14,16 @@ public class CircleLink {
     }
 
     private static boolean checkCircleLink(Node node){
-        Node slow = node.next;
-        Node quick = node.next.next;
+        Node slow = node;
+        Node quick = node.next;
         while (quick!=null){
-            if(slow.value.equals(quick.value)){
+            if(slow.equals(quick)){
                 return true;
             }
             slow = slow.next;
+            if(quick.next == null){
+                return false;
+            }
             quick = quick.next.next;
         }
         return false;
