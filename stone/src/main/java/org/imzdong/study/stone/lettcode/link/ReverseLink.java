@@ -8,7 +8,7 @@ package org.imzdong.study.stone.lettcode.link;
 public class ReverseLink {
 
     public static void main(String[] args) {
-        Node node = createLink("node", 2);
+        Node node = NodeUtil.createLink("node", 2);
         System.out.println(node);
         //Node reverse = threeReverse(node);
         Node reverse = twoReverse(node);
@@ -70,31 +70,4 @@ public class ReverseLink {
         return cur;
     }
 
-    private static Node createLink(String head, int heap){
-        Node node = new Node(head + heap);
-        Node cur = node;
-        while (heap > 0){
-            heap--;
-            cur.next = new Node(head+heap);
-            cur = cur.next;
-        }
-        return node;
-    }
-
-    private static class Node{
-        String value;
-        Node next;
-
-        public Node(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "value='" + value + '\'' +
-                    ", next=" + next +
-                    '}';
-        }
-    }
 }
