@@ -6,24 +6,24 @@ package org.imzdong.study.stone.lettcode.link;
  */
 public class NodeUtil {
 
-    public static Node createLink(String head, int heap){
-        Node node = new Node(head + heap);
-        Node cur = node;
+    public static ListNode createLink(int heap){
+        ListNode listNode = new ListNode(heap);
+        ListNode cur = listNode;
         while (heap > 0){
             heap--;
-            cur.next = new Node(head+heap);
+            cur.next = new ListNode(heap);
             cur = cur.next;
         }
-        return node;
+        return listNode;
     }
 
-    public static Node createCircleLink(String head, int heap){
-        Node node = new Node(head + heap);
-        Node cur = node;
-        Node circle = null;
+    public static ListNode createCircleLink(int heap){
+        ListNode listNode = new ListNode(heap);
+        ListNode cur = listNode;
+        ListNode circle = null;
         while (heap > 0){
             heap--;
-            cur.next = new Node(head+heap);
+            cur.next = new ListNode(heap);
             cur = cur.next;
             if(heap == 3){
                 circle = cur;
@@ -32,6 +32,6 @@ public class NodeUtil {
                 cur.next = circle;
             }
         }
-        return node;
+        return listNode;
     }
 }

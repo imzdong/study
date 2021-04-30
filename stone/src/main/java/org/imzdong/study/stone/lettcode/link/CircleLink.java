@@ -8,14 +8,14 @@ package org.imzdong.study.stone.lettcode.link;
 public class CircleLink {
 
     public static void main(String[] args) {
-        Node circle = NodeUtil.createCircleLink("circle", 5);
+        ListNode circle = NodeUtil.createCircleLink( 5);
         boolean b = checkCircleLink(circle);
         System.out.println(b);
     }
 
-    private static boolean checkCircleLink(Node node){
-        Node slow = node;
-        Node quick = node.next;
+    private static boolean checkCircleLink(ListNode listNode){
+        ListNode slow = listNode;
+        ListNode quick = listNode.next;
         while (quick!=null){
             if(slow.equals(quick)){
                 return true;

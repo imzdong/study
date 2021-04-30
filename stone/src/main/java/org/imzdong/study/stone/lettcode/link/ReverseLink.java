@@ -8,10 +8,10 @@ package org.imzdong.study.stone.lettcode.link;
 public class ReverseLink {
 
     public static void main(String[] args) {
-        Node node = NodeUtil.createLink("node", 2);
-        System.out.println(node);
+        ListNode listNode = NodeUtil.createLink(2);
+        System.out.println(listNode);
         //Node reverse = threeReverse(node);
-        Node reverse = twoReverse(node);
+        ListNode reverse = twoReverse(listNode);
         System.out.println(reverse);
     }
 
@@ -23,25 +23,25 @@ public class ReverseLink {
      * dummy->3->2->1->4->5
      * dummy->4>-3->2->1->5
      * dummy->5->4->3->2->1
-     * @param node
+     * @param listNode
      * @return
      */
-    private static Node twoReverse(Node node){
-        if(node == null || node.next == null){
-            return node;
+    private static ListNode twoReverse(ListNode listNode){
+        if(listNode == null || listNode.next == null){
+            return listNode;
         }
-        Node xn = new Node("xn");
-        xn.next = node;
-        Node next = node.next;
+        ListNode xn = new ListNode(1000);
+        xn.next = listNode;
+        ListNode next = listNode.next;
         //xn->1->2->3
         //node:1;next=2;node.next=3;xn.next=2;2.next=1;next=3;
         //xn->2->1->3
         //一定要注意链表边界问题，很容易丢失结点
         while (next != null){
-            node.next = next.next;
+            listNode.next = next.next;
             next.next = xn.next;
             xn.next = next;
-            next = node.next;
+            next = listNode.next;
         }
         return xn.next;
     }
@@ -51,13 +51,13 @@ public class ReverseLink {
      * @param head
      * @return
      */
-    private static Node threeReverse(Node head){
+    private static ListNode threeReverse(ListNode head){
         if(head == null || head.next == null){
             return head;
         }
-        Node pre = null;
-        Node cur = head;
-        Node next = head.next;
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode next = head.next;
         while (true){
             cur.next = pre;
             if(next == null){
