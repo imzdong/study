@@ -44,4 +44,30 @@ public class MergeTwoNode {
         }
         return rr.next;
     }
+
+    /**
+     * 上述思路也可以通过递归来实现。
+     * 从两个输入链表的头结点l1、l2开始进行比较，将结点值较小者设为头结点，
+     * 递归调用自身计算l1.next和l2(或l1和l2.next)的合并，使头节点指向合并后的链表头。
+     * @param l1
+     * @param l2
+     * @return
+     */
+    private static ListNode recurseMerge(ListNode l1, ListNode l2){
+        if(l1 == null){
+            return l2;
+        }
+        if(l2 == null){
+            return l1;
+        }
+        ListNode head;
+        if(l1.val <= l2.val){
+            head = l1;
+            head.next = recurseMerge(l1.next, l2);
+        }else {
+            head = l2;
+            head.next = recurseMerge(l2.next, l1);
+        }
+        return head;
+    }
 }
