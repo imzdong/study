@@ -29,4 +29,22 @@ public class RemoveNthFromEnd {
         delPre.next = delPre.next.next;
         return dummary.next;
     }
+
+
+    private static ListNode secondMethod(ListNode head, int n){
+        ListNode dummary = new ListNode(0);
+        dummary.next = head;
+        ListNode first = dummary;
+        while (n>=0){
+            n--;
+            first = first.next;
+        }
+        ListNode second = dummary;
+        while (first != null){
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return dummary.next;
+    }
 }
