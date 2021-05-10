@@ -11,16 +11,16 @@ public class MiddleNode {
     }
 
     private static ListNode middleNode(ListNode head){
-        ListNode dummary = new ListNode(0);
+        ListNode dummary = new ListNode(-1);
         dummary.next = head;
         ListNode first = dummary;
         ListNode second = dummary.next;
         while (true){
             //[1,2,3,4,5]
-            if(second == null){
+            first = first.next;
+            if(second == null || second.next == null){
                 return first;
             }
-            first = first.next;
             second = second.next.next;
         }
     }
