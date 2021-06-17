@@ -28,7 +28,7 @@ public class ZkMain {
             }
         };
 
-        ZooKeeper zookeeper = new ZooKeeper(connStr, 5000,watcher );
+        ZooKeeper zookeeper = new ZooKeeper(connStr, 5000,watcher);
         countDown.await();
 
         //注册监听,每次都要重新注册，否则监听不到
