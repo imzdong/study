@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的class与style绑定</title>
+
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+  <div class="static"
+       :class="{active: isActive, 'text-danger': hasError}"
+       ></div>
+
+  <div :class="classObject">数组</div>
+
+  <div :class="classObjectC">Computed</div>
+
+  <div v-bind:class="[activeClass, errorClass]"></div>
+
+  <my-component class="baz boo"></my-component>
+
+    <my-component v-bind:class="{ active: isActive }"></my-component>
+
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">123</div>
+
+    <div v-bind:style="styleObject">123</div>
+
+</div>
+
+<script>
+  Vue.component('my-component', {
+    template: '<p class="foo bar">Hi</p>'
+  })
+
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      isActive: true,
+      hasError: false,
+      error: null,
+      classObject: {
+        active: true,
+        'text-danger': false
+      },
+      activeClass: 'active',
+      errorClass: 'text-danger',
+        activeColor: 'red',
+        fontSize: 30,
+        styleObject: {
+            color: 'red',
+            fontSize: '13px'
+        }
+    },
+    computed: {
+      classObjectC: function () {
+        return {
+          active: this.isActive && !this.error,
+          'text-danger': this.error && this.error.type === 'fatal'
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>
