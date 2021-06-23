@@ -1,0 +1,6 @@
+nasm boot.asm -0 boot.bin
+
+bximage -> fd -> 1.44 -> a.img
+
+dd if=boot.bin of=a.img bs=512 count=1 conv=notrunc
+
