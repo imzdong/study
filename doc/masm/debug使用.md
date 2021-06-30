@@ -1,3 +1,8 @@
+### DosBox使用
+* mount c 本地机器工作目录
+* 设置环境变量 set path=%path%;c:\tool
+* debug开始调试
+
 ### 汇编debug命令使用
 * -R 查看修改CPU寄存器内容
 
