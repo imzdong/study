@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue实例</title>
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      {{a}}
+    </div>
+
+  <script>
+      //https://vuejs.bootcss.com/api/#%E5%AE%9E%E4%BE%8B-property
+    const data = {a:1};
+    //Object.freeze(data);
+    const vm = new Vue({
+      el: '#app',
+      data: data
+    });
+
+    console.log(vm.a == data.a);
+    vm.a = 2;
+    vm.b = "hi";//不影响数据显示
+
+    vm.a = 3;
+    data.a = 4;
+
+    console.log(vm.$data === data);
+    console.log(vm.$el === document.getElementById('app'));
+
+    // $watch 是一个实例方法
+    vm.$watch('a', function (newValue, oldValue) {
+      // 这个回调将在 `vm.a` 改变后调用
+      console.log("change")
+      console.log(newValue);
+      console.log(oldValue);
+    })
+
+    vm.a = 5;
+  </script>
+</body>
+</html>
