@@ -14,7 +14,9 @@ start: mov ax,0
        mov ax,cs:[si]
        mov cs:[di],ax
 
-   s0: mov ax,0
+   s0: jmp short s1
+
+   s1: mov ax,0
        int 21h
        mov ax,0
 
