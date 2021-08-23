@@ -1,27 +1,39 @@
-/*
 package org.imzdong.study.msb.day_11_jvm;
 
 import com.imzdong.jvm.ObjectSizeAgent;
 
-*/
 /**
  * -javaagent:object_size.jar
  * java -XX:+PrintCommandLineFlags -version
- *//*
+ *
+ * -javaagent:/Users/admin/IdeaWorkSpace/study/msb_study/lib/object_size.jar
+ */
 
 public class ObjectSizeDemo {
 
-    */
-/**
+    private static class OneM {
+        public static final int _1M = 1024*1024;
+    }
+
+    /**
      * openjdk version "1.8.0_252"
      * -XX:+UseCompressedClassPointers 默认开启类指针压缩
      * -XX:+UseCompressedOops 默认开启引用变量压缩
      * @param args
-     *//*
-
+     */
     public static void main(String[] args) {
-        demoSize();
-        System.out.println("boolean(1位):"+ObjectSizeAgent.sizeOf(true));
+        //testTwo();
+        OneM oneM = new OneM();
+        System.out.println(ObjectSizeAgent.sizeOf(oneM));
+        System.out.println(ObjectSizeAgent.sizeOf(OneM._1M));
+        byte[] oneMR = new byte[OneM._1M];
+        System.out.println(ObjectSizeAgent.sizeOf(oneMR)/1024);
+        testTwo();
+    }
+
+    private static void testTwo() {
+        //demoSize();
+        System.out.println("boolean(1位):"+ ObjectSizeAgent.sizeOf(true));
         byte b = 1;
         System.out.println("byte("+Byte.SIZE+"位):"+ObjectSizeAgent.sizeOf(b));
         System.out.println("char("+Character.SIZE+"位):"+ObjectSizeAgent.sizeOf('1'));
@@ -54,22 +66,19 @@ public class ObjectSizeDemo {
         //8+4 =12
         System.out.println(ObjectSizeAgent.sizeOf(new P()));
     }
-
-    */
 /**
-     * boolean 布尔型              1/8  
-     * byte 字节类型               1 
-     * char 字符型                 2  一个字符能存储一个中文汉字 
-     * short 短整型                2 
-     * int 整数类型                4 
-     * float 浮点类型（单精度）    4 
-     * long 长整形                 8 
-     * double 双精度类型（双精度） 8 
+     * boolean 布尔型              1/8  
+     * byte 字节类型               1 
+     * char 字符型                 2  一个字符能存储一个中文汉字 
+     * short 短整型                2 
+     * int 整数类型                4 
+     * float 浮点类型（单精度）    4 
+     * long 长整形                 8 
+     * double 双精度类型（双精度） 8 
      *
      * 非基本类型都是引用类型长度4字节
      * 基本类型按照基本类型的位数
-     *//*
-
+     */
     private static class P{
         private char[] value = {'1','2','3'}; //4
         private String a = "123"; //4
@@ -85,4 +94,3 @@ public class ObjectSizeDemo {
 
     }
 }
-*/
