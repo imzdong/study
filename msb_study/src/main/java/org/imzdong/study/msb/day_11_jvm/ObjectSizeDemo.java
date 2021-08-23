@@ -31,6 +31,17 @@ public class ObjectSizeDemo {
         testTwo();
     }
 
+    private static void testOne(){
+        int i = 1;
+        ObjectSizeAgent.sizeOf(i);
+        Integer a = 2;
+        //testInt(i);
+    }
+
+    private static void testInt(int i){
+        int b = i;
+    }
+
     private static void testTwo() {
         //demoSize();
         System.out.println("boolean(1位):"+ ObjectSizeAgent.sizeOf(true));
