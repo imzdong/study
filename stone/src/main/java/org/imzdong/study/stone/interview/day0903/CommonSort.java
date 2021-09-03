@@ -10,6 +10,13 @@ public class CommonSort {
         int arrays[] = {3, 2, 5, 8, 10, 2, 13, 15,18};
         //bubbleSort(arrays);
         //insertSort(arrays);
+        selectSort(arrays);
+        for (int arr : arrays) {
+            System.out.println(arr);
+        }
+    }
+
+    private static void selectSort(int[] arrays) {
         /**
          * 选择排序算法的实现思路有点类似插入排序，
          * 也分已排序区间和未排序区间。
@@ -28,9 +35,6 @@ public class CommonSort {
                 arrays[i] = arrays[minIndex];
                 arrays[minIndex] = tmp;
             }
-        }
-        for (int arr : arrays) {
-            System.out.println(arr);
         }
     }
 
