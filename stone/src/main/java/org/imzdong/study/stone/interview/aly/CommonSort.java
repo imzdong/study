@@ -1,4 +1,4 @@
-package org.imzdong.study.stone.interview.day0903;
+package org.imzdong.study.stone.interview.aly;
 
 /**
  * @author admin
