@@ -13,7 +13,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author admin
@@ -30,7 +32,8 @@ public class DomParseXml {
         System.out.println(path);
         String xmlPath = path + "pxml/" + "data.xml";
         //dom4j(xmlPath);
-        orgDomParseXml(xmlPath);
+        List<Order> orders = orgDomParseXml(xmlPath);
+        System.out.println(orders.size());
     }
 
     private static void dom4j(String xmlPath) throws DocumentException {
@@ -49,7 +52,7 @@ public class DomParseXml {
         }
     }
 
-    private static void orgDomParseXml(String xmlPath) throws ParserConfigurationException, SAXException, IOException {
+    public static List<Order> orgDomParseXml(String xmlPath) throws ParserConfigurationException, SAXException, IOException {
         //获取解析器工厂
         DocumentBuilderFactory factory= DocumentBuilderFactory.newInstance();
         //获取解析器
@@ -58,16 +61,19 @@ public class DomParseXml {
         Document parse = builder.parse(xmlPath);
         NodeList childNodes = parse.getElementsByTagName("order");
         System.out.println(childNodes.getLength());
+        List<Order> orders = new ArrayList<>();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node item = childNodes.item(i);
             NodeList subChild = item.getChildNodes();
+            Order order = new Order();
             for (int j = 0; j < subChild.getLength(); j++) {
                 Node subNode = subChild.item(j);
                 if (subNode.getNodeType() == Node.ELEMENT_NODE){
-                    System.out.println(subNode.getNodeName()+"---"+subNode.getTextContent());
+                    Xml2Model.xml2Model(subNode, order);
                 }
             }
-            System.out.println("---------");
+            orders.add(order);
         }
+        return orders;
     }
 }
