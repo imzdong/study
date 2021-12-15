@@ -1,6 +1,7 @@
 package org.imzdong.server;
 
 import org.imzdong.server.config.SpringConfig;
+import org.imzdong.server.serlevt.HelloWorldServlet;
 import org.springframework.web.context.AbstractContextLoaderInitializer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -18,6 +19,7 @@ public class SpringInitial extends AbstractContextLoaderInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
+        servletContext.addServlet("myServlet", HelloWorldServlet.class);
     }
 
     @Override
