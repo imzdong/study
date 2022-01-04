@@ -38,8 +38,9 @@
 * [JobConverter](https://sourceforge.net/projects/jodconverter/) + [OpenOffice](https://www.openoffice.org/download/) ,支持跨平台，免费 (一般格式实现效果还行，复杂格式容易有错位)
 * [SaveAsPDFandXPS](https://www.microsoft.com/en-us/download) + msOfficeWord + [jacob](https://sourceforge.net/projects/jacob-project/) ,仅支持Windows，免费 (完美保持原doc格式，效率最慢)
 ###### 利用jar进行转换
-* poi读取doc + itext生成pdf （实现最方便，效果最差，跨平台）
-* [docx4j-export-FO](https://github.com/plutext/docx4j-export-FO),需要依赖 [plutext](https://converter-eval.plutext.com/) ，已经停止对外服务。
+* poi读取doc + Jsoup格式化Html + itext生成pdf （实现最方便，效果最差，跨平台）
+* jdoctopdf 
+* [docx4j-export-FO](https://github.com/plutext/docx4j-export-FO) ,需要依赖 [plutext](https://converter-eval.plutext.com/) ，已经停止对外服务。
 * [Spire.Doc for Java](https://www.e-iceblue.cn/spiredocforjavaconversion/java-convert-word-to-pdf.html) ，收费（免费的有限制）
 * [itext-7-pdfoffice](https://kb.itextpdf.com/home/it7kb/installation-guidelines/installing-itext-7-pdfoffice-for-java-developers) ,收费
 ###### 命令行及图形工具
