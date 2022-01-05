@@ -39,11 +39,20 @@
 * [SaveAsPDFandXPS](https://www.microsoft.com/en-us/download) + msOfficeWord + [jacob](https://sourceforge.net/projects/jacob-project/) ,仅支持Windows，免费 (完美保持原doc格式，效率最慢)
 ###### 利用jar进行转换
 * poi读取doc + Jsoup格式化Html + itext生成pdf （实现最方便，效果最差，跨平台）
-* jdoctopdf 
+* jdoctopdf - Dead as of 2016-02-11 Uses Apache POI to read the Word document and iText to write the PDF
+* [Docx4j](https://github.com/plutext/docx4j) 
 * [docx4j-export-FO](https://github.com/plutext/docx4j-export-FO) ,需要依赖 [plutext](https://converter-eval.plutext.com/) ，已经停止对外服务。
 * [Spire.Doc for Java](https://www.e-iceblue.cn/spiredocforjavaconversion/java-convert-word-to-pdf.html) ，收费（免费的有限制）
 * [itext-7-pdfoffice](https://kb.itextpdf.com/home/it7kb/installation-guidelines/installing-itext-7-pdfoffice-for-java-developers) ,收费
 ###### 命令行及图形工具
 * [OfficeToPDF](https://github.com/cognidox/OfficeToPDF)
 * [docx2pdf](https://github.com/AlJohri/docx2pdf)
+* [docs-to-pdf-converter](https://github.com/yeokm1/docs-to-pdf-converter)
+* [xdocreport](https://github.com/opensagres/xdocreport)
+* [MS Word](https://snowbound.com/products/formats/word)
+
+
+###### 引用
+* [stackoverflow](https://stackoverflow.com/questions/3022376/how-can-i-convert-a-word-document-to-pdf)
+* [java如何实现word转PDF？](https://www.zhihu.com/question/54953944)
 
