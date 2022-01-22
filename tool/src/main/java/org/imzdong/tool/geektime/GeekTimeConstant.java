@@ -41,7 +41,7 @@ public class GeekTimeConstant {
     //Referer: https://time.geekbang.org/column/article/6458
     static {
         headers.put("Accept", accept);
-        headers.put("Accept-Encoding", acceptEncoding);
+        //headers.put("Accept-Encoding", acceptEncoding);
         headers.put("Accept-Language", acceptLanguage);
         headers.put("Connection", connection);
         headers.put("Content-Type", contentType);

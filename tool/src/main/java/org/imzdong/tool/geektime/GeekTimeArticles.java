@@ -33,10 +33,21 @@ public class GeekTimeArticles {
         Map<String, String> headerMap = GeekTimeConstant.headers;
         headerMap.put(GeekTimeConstant.cookie, cookie);
         try {
-            String articles = "{\"cid\":100006601,\"size\":500,\"prev\":0,\"order\":\"earliest\",\"sample\":false," +
-                    "\"chapter_ids\":[\"359\",\"360\",\"361\",\"362\",\"363\",\"364\",\"365\",\"366\",\"1310\"]}";
-            JSONObject bodyJson = JSONObject.parseObject(articles);
+            // {
+            //  "cid": "100084301",
+            //  "size": 500,
+            //  "prev": 0,
+            //  "order": "earliest",
+            //  "sample": false
+            //}
+            /*String articles = "{\"cid\":100006601,\"size\":500,\"prev\":0,\"order\":\"earliest\",\"sample\":false," +
+                    "\"chapter_ids\":[\"359\",\"360\",\"361\",\"362\",\"363\",\"364\",\"365\",\"366\",\"1310\"]}";*/
+            JSONObject bodyJson = new JSONObject();//JSONObject.parseObject(articles);
             bodyJson.put("cid", cid);
+            bodyJson.put("size", 500);
+            bodyJson.put("prev", 0);
+            bodyJson.put("order", "earliest");
+            bodyJson.put("sample", false);
             String resp = OkHttpUtils.http(url, OkHttpUtils.getHeaders(headerMap),
                     OkHttpUtils.getRequestBody(OkHttpUtils.TEXT, bodyJson.toJSONString()));
             JSONObject result = JSONObject.parseObject(resp);
