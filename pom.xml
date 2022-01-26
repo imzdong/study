@@ -252,6 +252,12 @@
                 <artifactId>zookeeper</artifactId>
                 <version>3.6.3</version>
             </dependency>
+            <!--html转换成pdf-->
+            <dependency>
+                <groupId>com.kotcrab.remark</groupId>
+                <artifactId>remark</artifactId>
+                <version>1.2.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

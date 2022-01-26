@@ -57,8 +57,8 @@ public class GeekTimeCourseHandler {
             throw new RuntimeException("初始化失败");
         }
         GeekTimeCourse course = new GeekTimeCourse();
-        course.setId("100084301");
-        course.setTitle("Redis 源码剖析与实战");
+        course.setId("100095401");
+        course.setTitle("超级访谈：对话张雪峰");
         String title = course.getTitle();
         logger.info("获取课程：{}：开始。", title);
         String courseDirName = outPath + separator + title;
@@ -120,8 +120,7 @@ public class GeekTimeCourseHandler {
         String articlePath = courseHtmlDirName + separator + articleTitle + ".html";
         logger.info("转换文章为html格式开始：{}，路径：{}", articleTitle, articlePath);
         map.put("article", article);
-        TemplateUtil.template2Html(init, GeekTimeConstant.template,
-                articlePath, map);
+        TemplateUtil.template2Html(init, GeekTimeConstant.template, articlePath, map);
         return articlePath;
     }
 

@@ -3,6 +3,7 @@ package org.imzdong.tool.util;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.font.FontProvider;
 
 import java.io.File;
@@ -35,7 +36,16 @@ public class Itext7HtmlPdfUtil {
         }
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setFontProvider(fontProvider);
-        HtmlConverter.convertToPdf(new File(orgHtml),
-                new File(destPdf), converterProperties);
+        HtmlConverter.convertToPdf(new File(orgHtml), new File(destPdf), converterProperties);
+    }
+
+    public static void orgHtml2Pdf(String orgHtml, String destPdf) throws IOException {
+        FontProvider fontProvider = new DefaultFontProvider();
+        for (String font : FONTS) {
+            fontProvider.addFont(font);
+        }
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setFontProvider(fontProvider);
+        HtmlConverter.convertToPdf(orgHtml, new PdfWriter(new File(destPdf)), converterProperties);
     }
 }

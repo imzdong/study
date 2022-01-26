@@ -120,6 +120,11 @@
       <artifactId>mysql-connector-java</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.kotcrab.remark</groupId>
+      <artifactId>remark</artifactId>
+    </dependency>
+
   </dependencies>
 
 </project>
