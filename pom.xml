@@ -15,7 +15,6 @@
         <module>mybatis</module>
         <module>tool</module>
         <module>spring-mvc</module>
-        <module>server</module>
     </modules>
 
     <name>study</name>
