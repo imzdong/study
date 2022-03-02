@@ -15,6 +15,7 @@
         <module>mybatis</module>
         <module>tool</module>
         <module>spring-mvc</module>
+        <module>server</module>
     </modules>
 
     <name>study</name>
@@ -69,10 +70,12 @@
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <scope>provided</scope>
             </dependency>
             <!--spring-study依赖end-->
             <!--spring-boot依赖start-->
@@ -242,6 +245,18 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
                 <version>2.0.5</version>
+            </dependency>
+            <!--操作zk-->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>3.6.3</version>
+            </dependency>
+            <!--html转换成pdf-->
+            <dependency>
+                <groupId>com.kotcrab.remark</groupId>
+                <artifactId>remark</artifactId>
+                <version>1.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

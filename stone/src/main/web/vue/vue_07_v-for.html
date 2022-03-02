@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue列表渲染</title>
+
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <ul>
+        <li v-for="item in items" :key="item.message">
+            {{item.message}}
+        </li>
+    </ul>
+
+    <ul>
+        <li v-for="(item, index) in items">
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+
+    <ul id="v-for-object" class="demo">
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+    </ul>
+
+    <div v-for="(value, name) in object">
+        {{ name }}: {{ value }}
+    </div>
+
+    <div v-for="(value, name, index) in object">
+        {{ index }}. {{ name }}: {{ value }}
+    </div>
+
+    <!--
+    Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括：
+push()
+pop()
+shift()
+unshift()
+splice()
+sort()
+reverse()
+
+vm.items.push({message:'Baz'});
+    -->
+
+    <li v-for="n in evenNumbers">{{ n }}</li>
+
+    <div>
+        <span v-for="n in 10">{{ n }} </span>
+    </div>
+
+    <ul>
+        <template v-for="item in items">
+            <li>{{ item.message }}</li>
+            <li class="divider" role="presentation"></li>
+        </template>
+    </ul>
+
+</div>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data:{
+            parentMessage: 'Parent',
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ],
+            object: {
+                title: 'How to do lists in Vue',
+                author: 'Jane Doe',
+                publishedAt: '2016-04-10'
+            },
+            numbers: [ 1, 2, 3, 4, 5 ]
+        },
+        computed: {
+            evenNumbers: function () {
+                return this.numbers.filter(function (number) {
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

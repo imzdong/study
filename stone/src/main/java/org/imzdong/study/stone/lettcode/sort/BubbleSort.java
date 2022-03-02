@@ -19,7 +19,7 @@ public class BubbleSort {
 
     private static void bubbleSortV3(int[] arrays) {
         int sortIndex = arrays.length - 1;
-        int lastExchage = 0;
+        int lastExchange = 0;
         for (int i = 0; i < arrays.length-1; i++) {
             boolean isSort = true;
             for (int j = 0; j < sortIndex; j++) {
@@ -28,10 +28,10 @@ public class BubbleSort {
                     arrays[j] = arrays[j+1];
                     arrays[j+1] = temp;
                     isSort = false;
-                    lastExchage = j;
+                    lastExchange = j;
                 }
             }
-            sortIndex = lastExchage;
+            sortIndex = lastExchange;
             if(isSort){
                 break;
             }

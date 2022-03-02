@@ -1,6 +1,5 @@
 package org.imzdong.study.spring.ioc.di;
 
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

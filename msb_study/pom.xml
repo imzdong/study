@@ -37,5 +37,19 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
         </dependency>
+        <!--
+        mvn install:install-file -DgroupId=com.imzdong -DartifactId=object-size -Dversion=0.0.1
+-Dpackaging=jar -Dfile=object_size.jar
+        -->
+        <dependency>
+            <groupId>com.imzdong</groupId>
+            <artifactId>object-size</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <!--
+        mvn install:install-file -Dfile=object-size-0.0.1.jar -DgroupId=com.imzdong -DartifactId=object-size -Dversion=0.0.1 -Dpackaging=jar
+        -->
+
     </dependencies>
 </project>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue生命周期</title>
+
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <img src="lifecycle.png">
+    </div>
+
+    <script>
+      new Vue({
+        data:{a:1},
+        created: function (){
+          console.log("vue实例化后被调用："+ this.a);
+        }
+      })
+    </script>
+</body>
+</html>
