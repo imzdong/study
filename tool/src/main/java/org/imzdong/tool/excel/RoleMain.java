@@ -21,7 +21,7 @@ public class RoleMain {
     private static String filePath = "D:\\WorkSpace\\task\\7c4role\\";
 
     public static void main(String[] args) {
-        String excelName = "TLF-Resources.xlsx";
+        String excelName = "Resources.xlsx";
         List<Resource> roots = new ArrayList<>();
         List<Resource> subs = new ArrayList<>();
         List<ResourceAction> actionList = new ArrayList<>();
@@ -82,7 +82,7 @@ public class RoleMain {
                 }
             }
         });
-        String wExcelName = "TLF-Resources-result_3.xlsx";
+        String wExcelName = "Resources-result_3.xlsx";
         EasyExcel.write(filePath + wExcelName, Result.class).sheet("resources").doWrite(results);
 
     }
