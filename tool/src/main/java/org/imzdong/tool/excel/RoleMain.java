@@ -61,6 +61,7 @@ public class RoleMain {
             Result rootResult = new Result();
             rootResult.setIdOne(r.getResourceId());
             rootResult.setShowName(r.getShowName());
+            rootResult.setCode(r.getResourceName());
             results.add(rootResult);
             List<Resource> subResources = subListMap.get(r.getResourceId());
             if(CollectionUtils.isNotEmpty(subResources)) {
@@ -69,17 +70,16 @@ public class RoleMain {
                     subResult.setShowName(s.getShowName());
                     subResult.setParentIdTwo(r.getResourceId());
                     subResult.setIdTwo(s.getResourceId());
+                    subResult.setCode(s.getResourceName());
                     results.add(subResult);
-                    List<Result> fillActions = fillActions(s, actionListMap, actionPathListMap);
+                    List<ResourceAction> subResourceActions = actionListMap.get(s.getResourceId());
+                    List<Result> fillActions = fillActions(s, subResourceActions, actionPathListMap);
                     if(fillActions != null) {
                         results.addAll(fillActions);
                     }
                 });
             }else {
-                List<Result> fillRootActions = fillActions(r, actionListMap, actionPathListMap);
-                if(fillRootActions != null) {
-                    results.addAll(fillRootActions);
-                }
+                System.out.println("-----:"+r.getResourceId());
             }
         });
         String wExcelName = "Resources-result_3.xlsx";
@@ -87,24 +87,30 @@ public class RoleMain {
 
     }
 
-    private static List<Result> fillActions(Resource s, Map<String, List<ResourceAction>> actionListMap,
+    private static List<Result> fillActions(Resource s, List<ResourceAction> subResourceActions,
                                    Map<String, List<ResourceActionPath>> actionPathListMap){
-        List<ResourceAction> actions = actionListMap.get(s.getResourceId());
-        if(CollectionUtils.isEmpty(actions)){
+        if(CollectionUtils.isEmpty(subResourceActions)){
             System.out.println(s.getResourceId());
             return null;
         }
-        AtomicInteger atomicInteger = new AtomicInteger(0);
         List<Result> list = new ArrayList<>();
-        actions.forEach(m -> {
+        subResourceActions.forEach(m -> {
+            Result subActionResult = new Result();
+            subActionResult.setShowName(m.getShowName());
+            subActionResult.setParentIdThree(s.getResourceId());
+            subActionResult.setIdThree(m.getActionId());
+            subActionResult.setCode(m.getActionName());
+            list.add(subActionResult);
+            AtomicInteger atomicInteger = new AtomicInteger(0);
             String actionId = m.getActionId();
             List<ResourceActionPath> paths = actionPathListMap.get(actionId);
             List<Result> actionResults = paths.stream().map(path -> {
+                int dd = atomicInteger.incrementAndGet();
                 Result actionResult = new Result();
-                actionResult.setShowName(m.getShowName());
-                actionResult.setParentIdThree(s.getResourceId());
-                actionResult.setIdTwo(atomicInteger.decrementAndGet() + "");
-                actionResult.setPath(path.getPath());
+                actionResult.setShowName(m.getActionName()+"_"+dd);
+                actionResult.setParentIdFour(m.getResourceId());
+                actionResult.setIdFour(dd + "");
+                actionResult.setCode(path.getPath());
                 return actionResult;
             }).collect(Collectors.toList());
             list.addAll(actionResults);

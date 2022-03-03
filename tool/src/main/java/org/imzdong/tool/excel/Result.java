@@ -34,8 +34,6 @@ public class Result {
     private String showName;
     @ExcelProperty("code")
     private String code;
-    @ExcelProperty("path")
-    private String path;
 
 
 }
