@@ -7,3 +7,5 @@
 * 4、netstat -antp 查看网络连接
 * 5、lsof -op 进程号  查看进程打开的文件
 * 6、strace -ff -o out 命令 追踪系统调用
+
+* 在线编辑可以切换分支
