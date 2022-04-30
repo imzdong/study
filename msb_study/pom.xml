@@ -45,6 +45,8 @@
             <groupId>com.imzdong</groupId>
             <artifactId>object-size</artifactId>
             <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/object_size.jar</systemPath>
         </dependency>
 
         <!--
