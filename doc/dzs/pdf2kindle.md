@@ -9,3 +9,14 @@
 
 ### Sigil转换html为eupd
 [Sigil](https://github.com/Sigil-Ebook/Sigil/releases/tag/1.9.10)
+
+### 工具
+[github](https://github.com/jmrozanec/pdf-converter)
+
+```
+<dependency>
+    <groupId>com.bit-scout</groupId>
+    <artifactId>pdf-converter</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
