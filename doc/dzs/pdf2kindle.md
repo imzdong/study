@@ -22,5 +22,5 @@
 ```
 
 ### 转换工具
-* [pdfdom](https://github.com/radkovo/Pdf2Dom)将pdf转成html
-* 
+* [pdfdom](https://github.com/radkovo/Pdf2Dom) 将pdf转成html
+* [epublib](https://github.com/psiegman/epublib)
