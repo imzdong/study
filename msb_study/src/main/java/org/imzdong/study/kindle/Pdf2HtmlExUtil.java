@@ -14,7 +14,7 @@ public class Pdf2HtmlExUtil {
         String exePath = "D:\\Program Files (x86)\\pdf2htmlEX\\pdf2htmlEX.exe";
         String rootPath = "D:\\WorkSpace\\study\\dzs\\";
         String pdfFileName = rootPath + "table.pdf";
-        pdf2html(exePath, pdfFileName, "tttt.html");
+        pdf2html(exePath, pdfFileName, rootPath + "table-pdf2HtmlEx.html");
     }
 
     /**
