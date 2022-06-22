@@ -26,3 +26,8 @@
 * [pdfdom](https://github.com/radkovo/Pdf2Dom) 将pdf转成html
 * [epublib](https://github.com/psiegman/epublib)
 * [js](https://www.jianshu.com/p/e752dfeb628f)
+
+
+### 总结
+* Pdf2Dom读取扫描版报错，tika读取扫描版读取的是img文字，pdf2HtmlEx生成的是img
+* Pdf2Dom读取非扫描版是html，tika读取非扫描版读取的是正常文字，pdf2HtmlEx生成的是img
