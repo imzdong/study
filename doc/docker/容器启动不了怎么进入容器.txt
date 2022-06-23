@@ -1,0 +1,8 @@
+windows下：
+1、获取可访问Docker守护程序的容器
+docker run --privileged -it -v /var/run/docker.sock:/var/run/docker.sock jongallant/ubuntu-docker-client 
+2、运行具有完全root访问权限的容器
+docker run --net=host --ipc=host --uts=host --pid=host -it --security-opt=seccomp=unconfined --privileged --rm -v /:/host alpine /bin/sh
+3、切换到主机文件系统
+chroot /host
+4、docker inspect cid
