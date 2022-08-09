@@ -28,7 +28,7 @@ public class DddMain {
         urlMap.put("4.详解DDD", html4);
         urlMap.put("5.详解DDD", html5);
         String yamlPath = "geekTime.yaml";
-        Map<String, String> yamlProperties = YamlUtil.getYamlProperties(yamlPath);
+        Map<String, Object> yamlProperties = YamlUtil.getYamlProperties(yamlPath);
         String outPath = yamlProperties.get("outPath") + File.separator + "DDD";
 
         for (Map.Entry<String, String> entry : urlMap.entrySet()) {

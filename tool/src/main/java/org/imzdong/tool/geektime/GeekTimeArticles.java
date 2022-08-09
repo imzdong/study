@@ -21,17 +21,14 @@ public class GeekTimeArticles {
     private final static Logger logger = LoggerFactory.getLogger(GeekTimeArticles.class);
 
     private String cid;
-    private String cookie;
 
-    public GeekTimeArticles(String cid, String cookie){
+    public GeekTimeArticles(String cid){
         this.cid = cid;
-        this.cookie = cookie;
     }
 
     public List<GeekTimeArticle> getArticleList(){
         String url = GeekTimeConstant.articlesUrl;
         Map<String, String> headerMap = GeekTimeConstant.headers;
-        headerMap.put(GeekTimeConstant.cookie, cookie);
         try {
             // {
             //  "cid": "100084301",
@@ -57,7 +54,7 @@ public class GeekTimeArticles {
                 List<GeekTimeArticle> geekTimeArticles = new ArrayList<>(list.size());
                 list.forEach(m->{
                     JSONObject articleJson = (JSONObject) m;
-                    GeekTimeArticle timeArticle = new GeekTimeArticle(articleJson.getString("id"), cookie);
+                    GeekTimeArticle timeArticle = new GeekTimeArticle(articleJson.getString("id"));
                     geekTimeArticles.add(timeArticle);
                 });
                 return geekTimeArticles;

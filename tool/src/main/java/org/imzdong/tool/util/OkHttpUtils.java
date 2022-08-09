@@ -7,13 +7,20 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class OkHttpUtils {
 
     private final static Logger logger = LoggerFactory.getLogger(OkHttpUtils.class);
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     public static final MediaType TEXT = MediaType.parse("text");
-    private final static OkHttpClient client = new OkHttpClient();
+    private final static OkHttpClient client = new OkHttpClient.Builder()
+        //.connectTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//连接时间
+        //.readTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//读时间
+        //.writeTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//写时间
+        .retryOnConnectionFailure(true)//连接失败后是否重新连接
+        .cookieJar(new CookieJarManager())//自动管理Cookie
+        .build();
 
     /**
      * 支持GET/POST请求

@@ -22,10 +22,12 @@ import java.util.*;
 public class GeekTimeHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(GeekTimeHandler.class);
-    private Configuration init;
-    private String separator;
-    private String cookie;
+    private String separator = File.separator;
+    private String account;
+    private String password;
     private String outPath;
+    private String courseName;
+    private String mergePdf;
 
     public GeekTimeHandler(){
         init();
@@ -33,13 +35,12 @@ public class GeekTimeHandler {
 
     private void init() {
         String yamlPath = "geekTime.yaml";
-        Map<String, String> yamlProperties = YamlUtil.getYamlProperties(yamlPath);
-        cookie = yamlProperties.get("cookie");
-        outPath = yamlProperties.get("outPath");
-        Properties properties = System.getProperties();
-        separator = properties.getProperty("file.separator");
-        String fileName = this.getClass().getClassLoader().getResource(GeekTimeConstant.templateDir).getPath();
-        init = TemplateUtil.init(fileName);
+        Map<String, Object> yamlProperties = YamlUtil.getYamlProperties(yamlPath);
+        account = yamlProperties.get("account").toString();
+        password = yamlProperties.get("password").toString();
+        outPath = yamlProperties.get("outPath").toString();
+        courseName = yamlProperties.get("courseName").toString();
+        mergePdf = yamlProperties.get("mergePdf").toString();
     }
 
     /**
@@ -48,15 +49,27 @@ public class GeekTimeHandler {
      * @throws TemplateException
      */
     public void start() throws IOException, TemplateException {
-        if(cookie == null || init == null){
+        String fileName = Objects.requireNonNull(this.getClass().getClassLoader().getResource(GeekTimeConstant.templateDir)).getPath();
+        Configuration cfg = TemplateUtil.init(fileName);
+        if(cfg == null){
             throw new RuntimeException("初始化失败");
         }
-        GeekTimeData geekTimeData = new GeekTimeData(cookie);
-        String courseCount = geekTimeData.getCourseCount();
+        GeekTimeLogin geekTimeLogin = new GeekTimeLogin(account, password);
+        boolean login = geekTimeLogin.login();
+        if(!login){
+            throw new RuntimeException("login fail");
+        }
+        GeekTimeData geekTimeData = new GeekTimeData();
+        Integer courseCount = geekTimeData.getCourseCount();
         logger.info("获取课程总数：{}", courseCount);
-        if(courseCount != null){
-            GeekTimeCourses geekTimeCourses = new GeekTimeCourses(0, Integer.parseInt(courseCount), cookie);
-            List<GeekTimeCourse> courses = geekTimeCourses.getCourses();
+        if(courseCount > 0){
+            GeekTimeCourses geekTimeCourses = new GeekTimeCourses(0, courseCount);
+            List<GeekTimeCourse> courses = null;
+            if(courseName != null){
+                courses = geekTimeCourses.getCoursesByName(courseName);
+            }else {
+                courses = geekTimeCourses.getCourses();
+            }
             if(courses != null){
                 logger.info("获取到课程信息：{}", courses.size());
                 for (GeekTimeCourse course : courses) {
@@ -66,39 +79,11 @@ public class GeekTimeHandler {
                     String courseHtmlDirName = courseDirName + separator + "html";
                     String coursePdfDirName = courseDirName + separator + "pdf";
                     String courseMergePdfDirName = courseDirName + separator + "mergePdf";
-                    File titleDir = new File(courseDirName);
-                    if(!titleDir.exists()){
-                        titleDir.mkdir();
-                        new File(courseHtmlDirName).mkdir();
-                        new File(coursePdfDirName).mkdir();
-                        new File(courseMergePdfDirName).mkdir();
-                        logger.info("创建课程文件夹：{}, html目录：{} ,pdf目录：{}，合并pdf目录：{}"
-                                , courseDirName, courseHtmlDirName, coursePdfDirName, courseMergePdfDirName);
-                    }
+                    initCourseDir(courseDirName, courseHtmlDirName, coursePdfDirName, courseMergePdfDirName);
                     List<String> coursePdfPaths = new ArrayList<>(courses.size());
-                    GeekTimeArticles articles = new GeekTimeArticles(course.getId(), cookie);
-                    List<GeekTimeArticle> articleList = articles.getArticleList();
-                    if(articleList != null){
-                        logger.info("获取到文章列表：{}", articleList.size());
-                        for (GeekTimeArticle article : articleList) {
-                            String content = article.getContent();
-                            if(content != null){
-                                String htmlPath = article2Html(article, courseHtmlDirName);
-                                String pdf = html2Pdf(htmlPath, coursePdfDirName, article.getArticleTitle());
-                                coursePdfPaths.add(pdf);
-                            }else {
-                                logger.info("未获取到文章内容");
-                            }
-                            try {
-                                Thread.sleep(1000L*3);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }else {
-                        logger.info("未获取到文章列表");
-                    }
-                    if(coursePdfPaths.size() > 0){
+
+                    listArticlesOfCourse(cfg, course, courseHtmlDirName, coursePdfDirName, coursePdfPaths);
+                    if(Objects.equals(mergePdf, "true") && coursePdfPaths.size() > 0){
                         mergePDF(courseMergePdfDirName, title, coursePdfPaths);
                     }
                     logger.info("获取课程：{}：结束。", title);
@@ -106,6 +91,44 @@ public class GeekTimeHandler {
             }else {
                 logger.info("未获取到课程信息");
             }
+        }
+    }
+
+    private void listArticlesOfCourse(Configuration cfg, GeekTimeCourse course, String courseHtmlDirName, String coursePdfDirName,
+        List<String> coursePdfPaths) throws IOException, TemplateException {
+        GeekTimeArticles articles = new GeekTimeArticles(course.getId());
+        List<GeekTimeArticle> articleList = articles.getArticleList();
+        if(articleList != null){
+            logger.info("获取到文章列表：{}", articleList.size());
+            for (GeekTimeArticle article : articleList) {
+                String content = article.getContent();
+                if(content != null){
+                    String htmlPath = article2Html(article, courseHtmlDirName, cfg);
+                    String pdf = html2Pdf(htmlPath, coursePdfDirName, article.getArticleTitle());
+                    coursePdfPaths.add(pdf);
+                }else {
+                    logger.info("未获取到文章内容");
+                }
+                try {
+                    Thread.sleep(1000L*3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }else {
+            logger.info("未获取到文章列表");
+        }
+    }
+
+    private void initCourseDir(String courseDirName, String courseHtmlDirName, String coursePdfDirName,
+        String courseMergePdfDirName) {
+        File titleDir = new File(courseDirName);
+        if(!titleDir.exists()){
+            new File(courseHtmlDirName).mkdirs();
+            new File(coursePdfDirName).mkdirs();
+            new File(courseMergePdfDirName).mkdirs();
+            logger.info("创建课程文件夹：{}, html目录：{} ,pdf目录：{}，合并pdf目录：{}"
+                    , courseDirName, courseHtmlDirName, coursePdfDirName, courseMergePdfDirName);
         }
     }
 
@@ -117,7 +140,7 @@ public class GeekTimeHandler {
      * @throws IOException
      * @throws TemplateException
      */
-    private String article2Html(GeekTimeArticle article, String courseHtmlDirName)
+    private String article2Html(GeekTimeArticle article, String courseHtmlDirName, Configuration cfg)
             throws IOException, TemplateException {
         Map<String, Object> map = new HashMap<>();
         String articleTitle = article.getArticleTitle();
@@ -125,8 +148,7 @@ public class GeekTimeHandler {
         String articlePath = courseHtmlDirName + separator + articleTitle + ".html";
         logger.info("转换文章为html格式开始：{}，路径：{}", articleTitle, articlePath);
         map.put("article", article);
-        TemplateUtil.template2Html(init, GeekTimeConstant.template,
-                articlePath, map);
+        TemplateUtil.template2Html(cfg, GeekTimeConstant.template, articlePath, map);
         return articlePath;
     }
 

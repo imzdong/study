@@ -2,6 +2,7 @@ package org.imzdong.tool.geektime;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.collections.CollectionUtils;
 import org.imzdong.tool.util.OkHttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 极客时间课程列表
@@ -21,19 +23,24 @@ public class GeekTimeCourses {
     private final static Logger logger = LoggerFactory.getLogger(GeekTimeCourses.class);
 
     private int prev;
-    private String cookie;
     private int size;
 
-    public GeekTimeCourses(int prev, int size, String cookie){
+    public GeekTimeCourses(int prev, int size){
         this.prev = prev;
         this.size = size;
-        this.cookie = cookie;
+    }
+
+    public List<GeekTimeCourse> getCoursesByName(String name){
+        List<GeekTimeCourse> courses = this.getCourses();
+        if(CollectionUtils.isNotEmpty(courses)){
+            return courses.stream().filter(m->m.getTitle().equals(name)).collect(Collectors.toList());
+        }
+        return null;
     }
 
     public List<GeekTimeCourse> getCourses(){
         String url = GeekTimeConstant.courseUrl;
         Map<String, String> headerMap = GeekTimeConstant.headers;
-        headerMap.put(GeekTimeConstant.cookie, cookie);
         //{"desc":true,"expire":1,"last_learn":0,"learn_status":0,"prev":0,"size":20,
         // "sort":1,"type":"","with_learn_count":1}
         JSONObject bodyJson = new JSONObject();

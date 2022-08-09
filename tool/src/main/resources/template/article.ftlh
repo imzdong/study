@@ -3036,6 +3036,26 @@
                             页面已增加防盗追踪，如有侵权极客邦将依法追究其法律责任。
                         </div>
                     </div>
+
+                    <div class="_3Jbcj4Iu_0 _2QmGFWqF_0">
+                        <h2> 精选留言(${article.articleComments?size}) </h2>
+                        <ul>
+                            <#list article.articleComments as comment>
+
+                                <li>
+                                    <div class="_3IatBmhv_0">
+                                        <div class="_29HP61GA_0">
+                                            ${comment.commentContent?no_esc}
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </#list>
+
+                        </ul>
+
+                    </div>
+
                 </div>
             </div>
         </div>

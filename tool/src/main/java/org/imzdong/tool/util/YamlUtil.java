@@ -7,17 +7,17 @@ import java.util.Map;
 
 public class YamlUtil {
 
-    public static Map<String, String> getYamlProperties(String path){
+    public static Map<String, Object> getYamlProperties(String path){
         InputStream resourceAsStream = YamlUtil.class.getClassLoader().getResourceAsStream(path);
         Yaml yaml = new Yaml();
-        Map<String, String> load = yaml.load(resourceAsStream);
+        Map<String, Object> load = yaml.load(resourceAsStream);
         return load;
     }
 
     public static String getYamlValueByProperty(String path, String key){
-        Map<String, String> yamlProperties = getYamlProperties(path);
+        Map<String, Object> yamlProperties = getYamlProperties(path);
         if(yamlProperties != null){
-            return yamlProperties.get(key);
+            return yamlProperties.get(key).toString();
         }
         return null;
     }
