@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	ErrNoIdleWorkerInPool = errors.New("no idle worker in pool") // workerpool中任务已满，没有空闲goroutine用于处理新任务
-	ErrWorkerPoolFreed    = errors.New("workerpool freed")       // workerpool已终止运行
+	ErrNoIdleWorkerInPool = errors.New("no idle worker in study-base") // workerpool中任务已满，没有空闲goroutine用于处理新任务
+	ErrWorkerPoolFreed    = errors.New("workerpool freed")             // workerpool已终止运行
 )
 
 type Pool struct {
@@ -41,7 +41,7 @@ func NewPool(c int) *Pool {
 		tasks:    make(chan Task),
 		quit:     make(chan struct{}),
 	}
-	fmt.Printf("pool start\n")
+	fmt.Printf("study-base start\n")
 
 	/**
 	Go语言通过go关键字+函数/方法的方式创建一个goroutine。创建后，新goroutine将拥有独立的代码执行流，

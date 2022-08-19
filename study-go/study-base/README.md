@@ -20,7 +20,7 @@ type Pool struct {
 }
 
 func NewPool(c int) Pool {
-	pool := Pool{
+	study-base := Pool{
 		c
 	}
 }
