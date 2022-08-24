@@ -10,7 +10,8 @@ func main() {
 	//testArray2()
 	//testSlices()
 	//testSlices2()
-	testPanic()
+	//testPanic()
+	testMap()
 }
 
 func testArray() {
@@ -128,4 +129,42 @@ func testPanic() {
 	    2.recover 处理异常后，逻辑并不会恢复到 panic 那个点去，函数跑到 defer 之后的那个点。
 	    3.多个 defer 会形成 defer 栈，后定义的 defer 语句会被最先调用。
 	*/
+}
+
+func testMap() {
+	/**
+	map[KeyType]ValueType  KeyType:表示键的类型。 ValueType:表示键对应的值的类型。
+	make(map[KeyType]ValueType, [cap])
+	*/
+	m := make(map[string]string, 6)
+	m["Winter"] = "nn"
+	fmt.Println(m)
+
+	m2 := map[string]int{
+		"xiaohong":  19,
+		"lilei":     20,
+		"hanmeimei": 21,
+	}
+
+	fmt.Println(m2)
+
+	v, ok := m2["xiaoli"]
+	println(v)
+	println(ok)
+
+	v1, ok1 := m["xiaoli"]
+	println(v1)
+	println(ok1)
+
+	for k, v := range m2 {
+		fmt.Println(k, v)
+	}
+
+	for k := range m2 {
+		fmt.Println(k)
+	}
+
+	for _, v := range m2 {
+		fmt.Println(v)
+	}
 }
