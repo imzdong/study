@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bookstore/store"
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -28,30 +30,59 @@ func handleServer(w http.ResponseWriter, r *http.Request) {
 	//username := request.Form.Get("username")
 	//password := request.Form.Get("password")
 
-	// 处理application/json类型的POST请求
-	// 根据请求body创建一个json解析器实例
-	/*decoder := json.NewDecoder(r.Body)
-	fmt.Println(decoder)*/
 	method := r.Method
+	ff := false
 	if http.MethodGet == method {
 		fmt.Println("get")
+		//查询
 	} else if http.MethodPost == method {
 		fmt.Println("post")
+		ff = true
+		//新增
+	} else if http.MethodPut == method {
+		fmt.Println("put")
+		ff = true
+		//新增
 	} else if http.MethodDelete == method {
 		fmt.Println("DELETE")
+		//删除
 	}
-	fmt.Println(r)
-	fmt.Println("------------------")
+	if ff {
+		// 处理application/x-www-form-urlencoded类型的POST请求
+		header := r.Header
+		cType := header.Get("Content-Type")
+		fmt.Println(cType)
+		//application/x-www-form-urlencoded（表格） 和 multipart/form-data（文件）
+		if cType == "application/x-www-form-urlencoded" {
+			r.ParseForm()
+			name := r.Form.Get("name")
+			author := r.Form.Get("author")
+			date := r.Form.Get("date")
 
-	fmt.Printf("get url:%v\n", r.URL)
-	fmt.Println("------------------")
+			s := newStore(name, author, date)
+			fmt.Println(s)
+			fmt.Println(*s)
+		} else if cType == "application/json" {
+			// 处理application/json类型的POST请求
+			// 根据请求body创建一个json解析器实例
+			decoder := json.NewDecoder(r.Body)
+			// 用于存放参数key=value数据
+			var params map[string]string
 
-	fmt.Printf("get form:%T\n", r.Form)
-	fmt.Printf("get body:%T\n", r.Body)
-	fmt.Printf("get PostForm:%T\n", r.PostForm)
-	fmt.Println("------------------")
-	fmt.Printf("get form:%v\n", r.Form)
-	fmt.Printf("get body:%v\n", r.Body)
-	fmt.Printf("get PostForm:%v\n", r.PostForm)
+			// 解析参数 存入map
+			decoder.Decode(&params)
+			fmt.Println(params)
+		}
+	}
+	//get&post 参数在url
+	query := r.URL.Query()
+	fmt.Println(query.Get("name"))
+	fmt.Println(query.Get("author"))
+	fmt.Println(query.Get("date"))
 
+}
+
+func newStore(n string, a string, d string) *store.Store {
+	s := store.Store{Name: n, Author: a, Date: d}
+	return &s
 }
