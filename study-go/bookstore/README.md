@@ -90,3 +90,7 @@ single-pkg-lib-layout
 ![方法](./doc/images/support.png)
 #### 3.2 主流程
 ![流程图](./doc/images/main.png)
+
+
+### 4. 常用go命令
+* go mod tidy ： 这个命令会下载缺失依赖，并清理无用的依赖（包括清理 go.mod 中的记录）

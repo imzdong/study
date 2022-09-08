@@ -82,7 +82,7 @@ func handleServer(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func newStore(n string, a string, d string) *store.Store {
-	s := store.Store{Name: n, Author: a, Date: d}
+func newStore(n string, a string, d string) *store.Book {
+	s := store.Book{Name: n, Author: a, Date: d}
 	return &s
 }

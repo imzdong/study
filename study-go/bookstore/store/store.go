@@ -2,14 +2,26 @@ package store
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type Store struct {
+var (
+	ErrNotFound = errors.New("not found")
+	ErrExist    = errors.New("exist")
+)
+
+type Book struct {
+	Id     string
 	Name   string
 	Author string
 	Date   string
+}
+
+type Store interface {
+	Insert(s *Book) error
+	GetById(id string) (Book, error)
 }
 
 func GetConnection() {
