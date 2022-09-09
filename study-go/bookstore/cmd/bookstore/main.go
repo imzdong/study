@@ -1,13 +1,33 @@
 package main
 
 import (
+	"bookstore/server"
 	"bookstore/store"
+	"bookstore/store/factory"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
 func main() {
+	router := mux.NewRouter()
+	storeServer := new(server.BookStoreServer)
+	db, err := factory.GetDb("memory")
+	if err != nil {
+		fmt.Printf("getDb error %v", err)
+		return
+	}
+	storeServer.S = db
+	router.HandleFunc("/book", storeServer.CreateBookHandler).Methods("POST")
+	router.HandleFunc("/book/{id}", storeServer.GetBookHandler).Methods("GET")
+
+	h := http.Server{Addr: ":8989"}
+	err = h.ListenAndServe()
+	fmt.Println(err)
+}
+
+func commonHttp() {
 	//1. 创建客户端请求，等待访问
 	http.HandleFunc("/book", handleServer) //注册函数
 	//http.HandleFunc("/book/{id}", handleServer) //注册函数
@@ -18,7 +38,6 @@ func main() {
 	}
 	//2. 创建book，更新book，查询特定book，查询所有book，删除特定book
 	// post /book   put /book get /book/{id} get /book delete /book/{id}
-
 }
 
 func handleServer(w http.ResponseWriter, r *http.Request) {

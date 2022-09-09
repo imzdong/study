@@ -35,7 +35,6 @@ func (m *MemoryStore) Insert(s *store.Book) error {
 	}
 
 	m.books[s.Id] = s
-	fmt.Println(m)
 	return nil
 }
 
