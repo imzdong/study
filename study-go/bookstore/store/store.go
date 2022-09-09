@@ -12,6 +12,10 @@ var (
 	ErrExist    = errors.New("exist")
 )
 
+func init() {
+	fmt.Println("store.store.go init")
+}
+
 type Book struct {
 	Id     string
 	Name   string

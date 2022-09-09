@@ -1,4 +1,4 @@
-package store
+package memory
 
 import (
 	"bookstore/store"
@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	fmt.Println("init")
+	fmt.Println("store.memestore init")
 	// 方法设置了* 需要使用&
 	factory.InitDb("memory", &MemoryStore{
 		books: make(map[string]*store.Book),
