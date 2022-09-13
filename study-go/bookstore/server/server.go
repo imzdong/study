@@ -4,6 +4,8 @@ import (
 	_ "bookstore/internal/store"
 	"bookstore/store"
 	"encoding/json"
+	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
@@ -27,8 +29,14 @@ func (bs *BookStoreServer) CreateBookHandler(w http.ResponseWriter, r *http.Requ
 }
 
 func (bs *BookStoreServer) GetBookHandler(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	id := query.Get("id")
+	/*query := r.URL.Query()
+	id := query.Get("id")*/
+	id, ok := mux.Vars(r)["id"]
+	if !ok {
+		http.Error(w, "no id found in request", http.StatusBadRequest)
+		return
+	}
+	fmt.Println(id)
 	byId, err := bs.S.GetById(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -44,5 +52,6 @@ func response(w http.ResponseWriter, v interface{}) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
+	//fmt.Println(data)
 	w.Write(data)
 }

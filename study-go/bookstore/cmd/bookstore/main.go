@@ -22,8 +22,7 @@ func main() {
 	router.HandleFunc("/book", storeServer.CreateBookHandler).Methods("POST")
 	router.HandleFunc("/book/{id}", storeServer.GetBookHandler).Methods("GET")
 
-	h := http.Server{Addr: ":8989"}
-	err = h.ListenAndServe()
+	err = http.ListenAndServe(":8989", router)
 	fmt.Println(err)
 }
 
