@@ -3,8 +3,10 @@ package main
 import (
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 	"sort"
 	"strings"
 )
@@ -18,11 +20,48 @@ func main() {
 	/**
 	https://juejin.cn/post/6844904114707496973
 	*/
-	router := gin.Default()
+	/*router := gin.Default()
+	router.GET("/hello", func(c *gin.Context) {
+		log.Fatalln("hello go")
+		c.String(http.StatusOK, "hello go, docker")
+	})
+	//router.GET("/wx", WXCheckSignature)
+	//router.POST("/wx", WXMsgReceive)
 
-	router.GET("/wx", WXCheckSignature)
+	router.Run(":8088")*/
 
-	log.Fatalln(router.Run(":80"))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hello go, docker"))
+	})
+	server := &http.Server{
+		Addr: ":8888",
+	}
+	fmt.Println("server startup...")
+	if err := server.ListenAndServe(); err != nil {
+		fmt.Printf("server startup failed, err:%v\n", err)
+	}
+}
+
+// WXTextMsg 微信文本消息结构体
+type WXTextMsg struct {
+	ToUserName   string
+	FromUserName string
+	CreateTime   int64
+	MsgType      string
+	Content      string
+	MsgId        int64
+}
+
+// WXMsgReceive 微信消息接收
+func WXMsgReceive(c *gin.Context) {
+	var textMsg WXTextMsg
+	err := c.ShouldBindXML(&textMsg)
+	if err != nil {
+		log.Printf("[消息接收] - XML数据包解析失败: %v\n", err)
+		return
+	}
+
+	log.Printf("[消息接收] - 收到消息, 消息类型为: %s, 消息内容为: %s\n", textMsg.MsgType, textMsg.Content)
 }
 
 // WXCheckSignature 微信接入校验
