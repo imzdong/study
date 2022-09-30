@@ -4,7 +4,8 @@ FROM golang:alpine
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=amd64
+    GOARCH=amd64 \
+    GOPROXY=https://goproxy.cn,direct
 
 # 移动到工作目录：/build
 WORKDIR /build
@@ -21,4 +22,4 @@ RUN go build -o app
 EXPOSE 8888
 
 # 启动容器时运行的命令
-CMD ["/build/app"]
+CMD ["/build/cmd/app"]

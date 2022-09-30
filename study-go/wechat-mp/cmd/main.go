@@ -23,7 +23,7 @@ func main() {
 	router.GET("/wx", WXCheckSignature)
 	router.POST("/wx", WXMsgReceive)
 
-	router.Run(":8088")
+	router.Run(":8888")
 
 	/*http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello go, docker"))
@@ -88,17 +88,18 @@ func checkSignature(signature, timestamp, nonce, token string) bool {
 	      将排序后的 token、timestamp、nonce 三个参数按顺序拼接成一个字符串，并对该字符串进行 sha1 加密；
 	      使用加密后的字符串与 signature 参数进行比较，如果字符串值相同，则表示校验通过，将 echostr 参数原样返回即可。
 	*/
-	wa := []string{
-		signature, timestamp, nonce,
-	}
-	//字典排序
-	sort.Strings(wa)
+	arr := []string{timestamp, nonce, token}
+	// 字典序排序
+	sort.Strings(arr)
+
+	n := len(timestamp) + len(nonce) + len(token)
 	var b strings.Builder
-	b.Grow(len(signature) + len(token) + len(nonce))
-	for _, s := range wa {
-		b.WriteString(s)
+	b.Grow(n)
+	for i := 0; i < len(arr); i++ {
+		b.WriteString(arr[i])
 	}
-	return Sha1(b.String()) == token
+
+	return Sha1(b.String()) == signature
 }
 
 // 进行Sha1编码
