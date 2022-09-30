@@ -3,34 +3,29 @@ package main
 import (
 	"crypto/sha1"
 	"encoding/hex"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
-	"net/http"
 	"sort"
 	"strings"
 )
 
 const (
 	//微信公众平台获取
-	Token = "ZP48P12W04Bew3y829Eg0Y8y1O9Z2r91"
+	Token = "ZP48P12W04Bew3y829Eg0Y8y1O9Z2r9111"
 )
 
 func main() {
 	/**
 	https://juejin.cn/post/6844904114707496973
 	*/
-	/*router := gin.Default()
-	router.GET("/hello", func(c *gin.Context) {
-		log.Fatalln("hello go")
-		c.String(http.StatusOK, "hello go, docker")
-	})
-	//router.GET("/wx", WXCheckSignature)
-	//router.POST("/wx", WXMsgReceive)
+	router := gin.Default()
 
-	router.Run(":8088")*/
+	router.GET("/wx", WXCheckSignature)
+	router.POST("/wx", WXMsgReceive)
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	router.Run(":8088")
+
+	/*http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello go, docker"))
 	})
 	server := &http.Server{
@@ -39,7 +34,7 @@ func main() {
 	fmt.Println("server startup...")
 	if err := server.ListenAndServe(); err != nil {
 		fmt.Printf("server startup failed, err:%v\n", err)
-	}
+	}*/
 }
 
 // WXTextMsg 微信文本消息结构体
