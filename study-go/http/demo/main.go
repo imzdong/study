@@ -1,5 +1,8 @@
 package main
 
 func main() {
-	TestContext()
+	//TestContext()
+	//TestEmptyStruct()
+	//TestNoCacheChan()
+	TestCacheChan()
 }
