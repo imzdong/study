@@ -40,11 +40,16 @@ func FooControllerHandler(ctx *framework.Context) error {
 	select {
 	//监听异常事件
 	case <-panicChan:
+		ctx.WriterMux().Lock()
+		defer ctx.WriterMux().Unlock()
 		ctx.Json(500, "panic")
 	case <-finish:
 		fmt.Println("ok")
 	case <-dCtx.Done():
+		ctx.WriterMux().Lock()
+		defer ctx.WriterMux().Unlock()
 		ctx.Json(500, "time out")
+		ctx.SetHasTimeOut()
 	}
 
 	return nil
