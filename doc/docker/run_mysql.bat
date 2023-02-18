@@ -23,7 +23,7 @@ rem -p 8081:80 端口绑定 外部端口 ： 容器内端口# 对端口进行映
 rem --name # 设置创建的容器名称
 rem -v # 将本地目录(文件)挂载到容器指定目录；  -v 本地文件夹:容器里的文件夹:读写权限
 rem --link answer-server:answerserver 这计划是指需要转向本机docker容器的别名
-rem docker run -d name mysql -p 3307:3306 mysql
+rem docker run -d --name mysql -p 3307:3306 mysql
 
 rem docker cp mysql:/etc/mysql/my.cnf $PWD/conf
 
