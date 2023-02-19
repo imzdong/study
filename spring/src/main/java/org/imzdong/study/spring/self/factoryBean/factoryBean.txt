@@ -1,3 +1,0 @@
-FactoryBean和BeanFactory的区别？
-都是用来创建对象的，当使用BeanFactory获取对象，必须遵循完整的创建过程，这个过程由Spring来管理控制
-当使用FactoryBean只需要条用getObject就可以返回具体的对象，对象的创建有用户自己来控制，更加灵活，创建的更加丰富。创建的对象延时创建，容器初始化并没有创建。

@@ -1,0 +1,46 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'org.imzdong'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	// 依赖lib目录下的所有以.jar结尾的文件
+	implementation fileTree(dir: 'lib', includes: ['*.jar'])
+
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'com.itextpdf:html2pdf:4.0.2'
+	implementation 'com.bit-scout:pdf-converter:1.0.2'
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+	implementation 'org.apache.tika:tika-core:2.7.0'
+	implementation 'org.apache.tika:tika-parsers-standard-package:2.7.0'
+	// https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+	implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.27'
+	// https://mvnrepository.com/artifact/net.sf.cssbox/pdf2dom
+	implementation 'net.sf.cssbox:pdf2dom:2.0.3'
+	// https://mvnrepository.com/artifact/org.apache.tika/tika-langdetect-optimaize
+	implementation 'org.apache.tika:tika-langdetect-optimaize:2.7.0'
+	// https://mvnrepository.com/artifact/io.netty/netty-all
+	implementation 'io.netty:netty-all:4.1.89.Final'
+
+
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

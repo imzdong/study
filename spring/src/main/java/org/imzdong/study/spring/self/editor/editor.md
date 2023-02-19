@@ -1,2 +1,0 @@
-1、实现自己的解析器PropertyEditorSupport
-2、注册自己的解析器PropertyEditorRegistrar,application.xml注册
