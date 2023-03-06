@@ -2,20 +2,22 @@ package org.imzdong.tool.ticket.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.http.*;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
+import org.apache.hc.client5.http.ClientProtocolException;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.cookie.BasicCookieStore;
+import org.apache.hc.client5.http.cookie.Cookie;
+import org.apache.hc.client5.http.cookie.CookieStore;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,12 +46,12 @@ public class HttpUtil {
     public static final String REQUEST_HOST = "https://kyfw.12306.cn";
     public final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36";
 
-    public static CloseableHttpClient getHttpClient(int timeOut){
+    public static CloseableHttpClient getHttpClient(){
         RequestConfig globalConfig = RequestConfig.custom()
-                .setCookieSpec(CookieSpecs.DEFAULT)
-                .setConnectTimeout(timeOut)
-                .setConnectionRequestTimeout(timeOut)
-                .setSocketTimeout(timeOut)
+                //.setCookieSpec(CookieSpecs.DEFAULT)
+                //.setConnectTimeout(timeOut)
+                //.setConnectionRequestTimeout(timeOut)
+                //.setSocketTimeout(timeOut)
                 .build();
         List<Header> headers = new ArrayList<>();
         cookieStore = new BasicCookieStore();
@@ -69,10 +71,10 @@ public class HttpUtil {
      * @return
      */
     public static String httpRequest(HttpClient httpClient,
-                                     HttpRequestBase httpRequestBase){
+                                     HttpUriRequestBase httpRequestBase){
         try {
             return httpClient.execute(httpRequestBase,httpResponse -> {
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                int statusCode = httpResponse.getCode();
                 if(statusCode >= 200 && statusCode < 300){
                     return EntityUtils.toString(httpResponse.getEntity());
                 }
@@ -92,9 +94,9 @@ public class HttpUtil {
      * @throws IOException
      */
     public static String httpRequestImage(HttpClient httpClient,
-                                          HttpRequestBase request) throws IOException {
+                                          HttpUriRequestBase request) throws IOException {
         return httpClient.execute(request,response->{
-            int status = response.getStatusLine().getStatusCode();
+            int status = response.getCode();
             if (status >= 200 && status < 300) {
                 List<Cookie> cookies = cookieStore.getCookies();
                 for (int i = 0; i < cookies.size(); i++) {
@@ -131,8 +133,8 @@ public class HttpUtil {
         cookieStore.addCookie(dfpCookie);
     }
 
-    public static void setDefaultHeader(HttpRequestBase request,
-                                          UrlConf urlConf){
+    public static void setDefaultHeader(HttpUriRequestBase request,
+                                        UrlConf urlConf){
         request.addHeader("User-Agent", USER_AGENT);
         request.addHeader("Host", HOST);
         if(urlConf.isJson()) {
@@ -144,7 +146,7 @@ public class HttpUtil {
             request.addHeader("X-Requested-With", "XMLHttpRequest");
         }
         try {
-            request.setURI(new URI(REQUEST_HOST+urlConf.getRequestPath()));
+            request.setUri(new URI(REQUEST_HOST+urlConf.getRequestPath()));
         } catch (URISyntaxException e) {
             logger.error("setDefaultHeader异常：",e);
         }

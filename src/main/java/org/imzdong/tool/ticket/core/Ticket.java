@@ -3,11 +3,11 @@ package org.imzdong.tool.ticket.core;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.net.URIBuilder;
 import org.imzdong.tool.ticket.dto.TicketInfoDTO;
 import org.imzdong.tool.ticket.util.HttpUtil;
 import org.imzdong.tool.ticket.util.UrlConf;
@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +68,7 @@ public class Ticket {
         //String to_station = "NFF";
         String result = "";
         boolean queryUrlFlag = true;
-        HttpGet httpGet = new HttpGet();
+        HttpGet httpGet = new HttpGet(UrlConf.QUERY_TICKET.getRequestPath());
         while (queryUrlFlag){
             String realQuery = UrlConf.QUERY_TICKET.getRequestPath();
             if(result.contains("c_url")){
@@ -81,7 +82,7 @@ public class Ticket {
                         .setParameter("leftTicketDTO.to_station", toStation)
                         .setParameter("purpose_codes", purposeCode)
                         .build();
-                httpGet.setURI(queryUri);
+                httpGet.setUri(queryUri);
             }catch (URISyntaxException e){
                 logger.error("查询余票异常：",e);
             }
@@ -165,7 +166,7 @@ public class Ticket {
         //String query_to_station_name = "NFF";//终点车站
         //"secretStr=%s&train_date=%s&back_train_date=%s&tour_flag=%s" +
         //                        "&purpose_codes=%s&query_from_station_name=%s&query_to_station_name=%s"
-        HttpPost httpPost = new HttpPost();
+        HttpPost httpPost = new HttpPost("");
         JSONObject params = new JSONObject();
         params.put("secretStr",secretStr);
         params.put("train_date",trainDate);
@@ -174,7 +175,7 @@ public class Ticket {
         params.put("purpose_codes",purpose_codes);
         params.put("query_from_station_name",queryFromStationName);
         params.put("query_to_station_name",queryToStationName);
-        StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
+        StringEntity entity = new StringEntity(params.toJSONString(), StandardCharsets.UTF_8);
         httpPost.setEntity(entity);
         String response = HttpUtil.httpRequest(httpClient,httpPost);//HttpClientUtil.httpRequest(confirmStationPath,httpPost);
         //{"validateMessagesShowId":"_validatorMessage",
@@ -285,8 +286,8 @@ public class Ticket {
                 randCode,
                 "",
                 submitToken.getString("globalRepeatSubmitToken"));
-        HttpPost httpPost = new HttpPost();
-        StringEntity entity = new StringEntity(body,"UTF");
+        HttpPost httpPost = new HttpPost("");
+        StringEntity entity = new StringEntity(body,StandardCharsets.UTF_8);
         httpPost.setEntity(entity);
         String response = "";//HttpClientUtil.httpRequest(confirmQueue,httpPost);
         logger.info("第13步确认队列提交订单：{}",response);

@@ -2,14 +2,14 @@ package org.imzdong.tool.ticket.core;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.http.Consts;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.message.BasicNameValuePair;
 import org.imzdong.tool.ticket.dto.LoginResult;
 import org.imzdong.tool.ticket.util.HttpUtil;
 import org.imzdong.tool.ticket.util.UrlConf;
@@ -66,7 +66,7 @@ public class Login {
         params.add(new BasicNameValuePair("appid", "otn"));
         params.add(new BasicNameValuePair("answer", code));
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, Consts.UTF_8);
-        HttpPost httpPost = new HttpPost();
+        HttpPost httpPost = new HttpPost(UrlConf.WEB_LOGIN.getRequestPath());
         httpPost.setEntity(entity);
         HttpUtil.setDefaultHeader(httpPost, UrlConf.WEB_LOGIN);
         String response=  HttpUtil.httpRequest(httpClient,httpPost);
@@ -85,9 +85,9 @@ public class Login {
      */
     public boolean checkUser(){
         String body = String.format("_json_att=%s","");
-        HttpPost httpPost = new HttpPost();
+        HttpPost httpPost = new HttpPost(UrlConf.CHECK_USER.getRequestPath());
         HttpUtil.setDefaultHeader(httpPost,UrlConf.CHECK_USER);
-        httpPost.setEntity(new StringEntity(body, "UTF-8"));
+        httpPost.setEntity(new StringEntity(body, Consts.UTF_8));
         String response = HttpUtil.httpRequest(httpClient,httpPost);//HttpClientUtil.httpRequest(checkUserUrl,httpPost);
         JSONObject responseJson = JSONObject.parseObject(response);
         boolean status = responseJson.getBoolean("status");
@@ -106,10 +106,10 @@ public class Login {
      */
     private boolean logDevice(String logDeviceUrl){
         logger.info("初始化登录：1.2、设置cookie（RAIL_EXPIRATION+RAIL_DEVICEID）");
-        HttpGet httpGetLog = new HttpGet();
+        HttpGet httpGetLog = new HttpGet(logDeviceUrl);
         httpGetLog.addHeader("User-Agent", HttpUtil.USER_AGENT);
         try {
-            httpGetLog.setURI(new URI(logDeviceUrl));
+            httpGetLog.setUri(new URI(logDeviceUrl));
         } catch (URISyntaxException e) {
             logger.error("logDevice异常：",e);
         }
@@ -130,7 +130,7 @@ public class Login {
      */
     private boolean loginConf(){
         logger.info("初始化登录：1.3、登录状态");
-        HttpPost httpPost = new HttpPost();
+        HttpPost httpPost = new HttpPost(UrlConf.LOGIN_CONF.getRequestPath());
         HttpUtil.setDefaultHeader(httpPost,UrlConf.LOGIN_CONF);
         String confStr = HttpUtil.httpRequest(httpClient, httpPost);
         logger.info("first5Conf:{}",confStr);
@@ -147,7 +147,7 @@ public class Login {
 
     private void loginBanner(){
         logger.info("初始化登录：1.4、登录banner");
-        HttpGet httpPost = new HttpGet();
+        HttpGet httpPost = new HttpGet(UrlConf.LOGIN_BANNER.getRequestPath());
         HttpUtil.setDefaultHeader(httpPost,UrlConf.LOGIN_BANNER);
         String confStr = HttpUtil.httpRequest(httpClient, httpPost);
         logger.info("LoginBanner:{}",confStr);
@@ -155,7 +155,7 @@ public class Login {
 
     private void uamtkStatic(){
         logger.info("初始化登录：1.5、uamtkStatic初始化");
-        HttpPost httpPost = new HttpPost();
+        HttpPost httpPost = new HttpPost(UrlConf.UAMTK_STATIC.getRequestPath());
         HttpUtil.setDefaultHeader(httpPost,UrlConf.UAMTK_STATIC);
         //appid=otn
         List<NameValuePair> params = new ArrayList<>();

@@ -3,11 +3,11 @@ package org.imzdong.tool.ticket.core;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.net.URIBuilder;
 import org.imzdong.tool.ticket.dto.CaptchaResult;
 import org.imzdong.tool.ticket.util.HttpUtil;
 import org.imzdong.tool.ticket.util.UrlConf;
@@ -18,7 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.*;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @description:
@@ -51,8 +54,7 @@ public class Captcha {
         logger.info("2：下载验证码");
         CaptchaResult captchaResult = new CaptchaResult();
         captchaResult.setSuccess(false);
-        HttpGet httpGetCode = new HttpGet();
-        HttpUtil.setDefaultHeader(httpGetCode, UrlConf.CAPTCHA_IMAGE64);
+
         try {
             URI uri = new URIBuilder(HttpUtil.REQUEST_HOST + UrlConf.CAPTCHA_IMAGE64.getRequestPath())
                     .setParameter("login_site", "E")
@@ -62,7 +64,8 @@ public class Captcha {
                     .setParameter("callback", paramsCallback)
                     .setParameter("_ ", timeValue)
                     .build();
-            httpGetCode.setURI(uri);
+            HttpGet httpGetCode = new HttpGet(uri);
+            HttpUtil.setDefaultHeader(httpGetCode, UrlConf.CAPTCHA_IMAGE64);
             String requestImage = HttpUtil.httpRequestImage(httpClient, httpGetCode);
             if(StringUtils.isNotBlank(requestImage)){
                 captchaResult.setSuccess(true);
@@ -106,14 +109,10 @@ public class Captcha {
                 "%s&rand=sjrand&login_site=E&_=%s",
                 paramsCallback,
                 code, timeValue);
-        HttpGet httpGetCode = new HttpGet();
+
+        HttpGet httpGetCode =new HttpGet(HttpUtil.REQUEST_HOST+checkCodePath);
         HttpUtil.setDefaultHeader(httpGetCode,UrlConf.CAPTCHA_CHECK);
-        try {
-            httpGetCode.setURI(new URI(HttpUtil.REQUEST_HOST+checkCodePath));
-        } catch (URISyntaxException e) {
-            logger.error("验证验证码异常：",e);
-            captchaResult.setMsg(e.getMessage());
-        }
+
         String response = HttpUtil.httpRequest(httpClient, httpGetCode);
         logger.info("4：转换12306验证码{}验证body:{}",code,response);
         ///**/jQuery191025909781158866285_1577623706238({"result_message":"验证码校验成功","result_code":"4"});
@@ -210,8 +209,8 @@ public class Captcha {
         JSONObject params = new JSONObject();
         //"appid=otn"
         params.put("appid","otn");
-        StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
-        HttpPost httpPost = new HttpPost();
+        StringEntity entity = new StringEntity(params.toJSONString(), UTF_8);
+        HttpPost httpPost = new HttpPost(authPath);
         httpPost.setEntity(entity);
         String response=  "";//HttpClientUtil.httpRequest(authPath,httpPost);
         String umk=null;
@@ -232,8 +231,8 @@ public class Captcha {
         JSONObject params = new JSONObject();
         //{"tk": uamtk}
         params.put("tk",uamtk);
-        StringEntity entity = new StringEntity(params.toJSONString(), "UTF-8");
-        HttpPost httpPost = new HttpPost();
+        StringEntity entity = new StringEntity(params.toJSONString(), UTF_8);
+        HttpPost httpPost = new HttpPost(uamAuthPath);
         httpPost.setEntity(entity);
         //HttpClientUtil.httpRequest(uamAuthPath,httpPost);
     }

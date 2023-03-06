@@ -1,5 +1,6 @@
 package org.imzdong.tool.geektime;
 
+import com.lowagie.text.DocumentException;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import org.imzdong.tool.util.Itext7HtmlPdfUtil;
@@ -180,7 +181,11 @@ public class GeekTimeHandler {
         courseName = replace(courseName);
         String mergePdfPath = courseMergePdfDirName + separator + courseName + ".pdf";
         logger.info("课程：{}，合并pdf开始：{}", courseName, mergePdfPath);
-        PdfUtils.mergePdfByPath(mergePdfPath, pdfPaths);
+        try {
+            PdfUtils.mergePdfByPath(mergePdfPath, pdfPaths);
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        }
         return mergePdfPath;
     }
 

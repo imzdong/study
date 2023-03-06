@@ -4,8 +4,8 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfWriter;
-import org.imzdong.tool.pdf.ChineseHtmlParser;
+//import com.lowagie.text.pdf.PdfWriter;
+//import org.imzdong.tool.pdf.ChineseHtmlParser;
 
 import java.io.*;
 import java.util.List;
@@ -68,7 +68,7 @@ public class PdfUtils {
      */
     public static void html2Pdf(String htmlText, String pdf) {
         // step 1: creation of a document-object
-        try (Document document = new Document()) {
+        /*try (Document document = new Document()) {
             PdfWriter.getInstance(document, new FileOutputStream(pdf));
             // step 2: we open the document
             document.open();
@@ -79,7 +79,7 @@ public class PdfUtils {
             chineseHtmlParser.parseGbk(document, stream);
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
-        }
+        }*/
     }
 
 }
