@@ -35,6 +35,7 @@ docker run --name adguardhome ^
 [官网](https://adguard.com/kb/zh-CN/)
 [网友配置参考](https://isedu.top/index.php/archives/23/)
 [网友二](https://sspai.com/post/63088)
+[网友三](https://suadnim.com/?p=313)
 
 ### DNS 封锁清单
 halflife
