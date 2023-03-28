@@ -1,56 +1,12 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.2'
-	id 'io.spring.dependency-management' version '1.1.0'
+	id "com.vanniktech.maven.publish" version "0.19.0" apply false
+	//false，表示当前项目不需要应用该插件，只是为了让其他项目可以应用该插件
 }
 
-group = 'org.imzdong'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
-
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-
-	// 依赖lib目录下的所有以.jar结尾的文件
-	implementation fileTree(dir: 'lib', includes: ['*.jar'])
-
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	implementation 'com.itextpdf:html2pdf:4.0.2'
-	implementation 'com.bit-scout:pdf-converter:1.0.2'
-	// https://mvnrepository.com/artifact/com.google.guava/guava
-	implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
-	implementation 'org.apache.tika:tika-core:2.7.0'
-	implementation 'org.apache.tika:tika-parsers-standard-package:2.7.0'
-	// https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
-	implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.27'
-	// https://mvnrepository.com/artifact/net.sf.cssbox/pdf2dom
-	implementation 'net.sf.cssbox:pdf2dom:2.0.3'
-	// https://mvnrepository.com/artifact/org.apache.tika/tika-langdetect-optimaize
-	implementation 'org.apache.tika:tika-langdetect-optimaize:2.7.0'
-	// https://mvnrepository.com/artifact/io.netty/netty-all
-	implementation 'io.netty:netty-all:4.1.89.Final'
-	// https://mvnrepository.com/artifact/com.alibaba/fastjson
-	implementation 'com.alibaba:fastjson:2.0.23'
-	implementation 'org.projectlombok:lombok'
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
-	implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
-	// https://mvnrepository.com/artifact/org.freemarker/freemarker
-	implementation 'org.freemarker:freemarker:2.3.32'
-// https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
-	implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
-// https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit
-	implementation 'net.sourceforge.htmlunit:htmlunit:2.70.0'
-// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-	implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
-
-
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
+allprojects {
+	plugins.withId("com.vanniktech.maven.publish") {
+		mavenPublish {
+			sonatypeHost = "S01"
+		}
+	}
 }

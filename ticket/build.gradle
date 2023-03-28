@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    //https://juejin.cn/post/7023219116534136840
+    id 'com.vanniktech.maven.publish'
+}
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0-rc1'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation 'com.alibaba:fastjson:2.0.23'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+    // https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit
+    implementation 'net.sourceforge.htmlunit:htmlunit:2.70.0'
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+
+    testImplementation(platform('org.junit:junit-bom:5.9.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
+test {
+    useJUnitPlatform()
+}

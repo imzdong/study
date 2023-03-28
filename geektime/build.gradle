@@ -1,0 +1,41 @@
+plugins {
+    id 'java-library' // so that we can use 'implementation', 'testImplementation' for dependencies
+    //https://juejin.cn/post/7023219116534136840
+    id 'com.vanniktech.maven.publish'
+}
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+
+    api project(":model")
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+
+    implementation 'com.itextpdf:html2pdf:4.0.2'
+    implementation 'com.bit-scout:pdf-converter:1.0.2'
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation 'com.alibaba:fastjson:2.0.23'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    // https://mvnrepository.com/artifact/org.freemarker/freemarker
+    implementation 'org.freemarker:freemarker:2.3.32'
+
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0-rc1'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    testImplementation(platform('org.junit:junit-bom:5.9.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+
+}
+
+test {
+    useJUnitPlatform()
+}
