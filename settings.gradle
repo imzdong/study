@@ -3,10 +3,12 @@ rootProject.name = 'study'
 include 'model'
 include 'geektime'
 include 'ticket'
+include 'openai'
 
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
     }
 }
+
 
