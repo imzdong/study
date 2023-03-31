@@ -1,6 +1,7 @@
 package org.imzdong.openai;
 
 import feign.Feign;
+import feign.Logger;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
@@ -36,6 +37,8 @@ public class FeignClientBuilder {
     private static Feign.Builder initFeignBuilder(String token) {
         return Feign.builder()
                 .client(new OkHttpClient(initOkhttp3Client(token)))
+                .logger(new Logger.ErrorLogger())
+                .logLevel(feign.Logger.Level.FULL)
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder());
     }
@@ -44,6 +47,7 @@ public class FeignClientBuilder {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new java.net.InetSocketAddress(proxyHost, proxyPort));
         return new okhttp3.OkHttpClient.Builder()
                 .addInterceptor(new TokenHeaderInterceptor(token))
+                .addInterceptor(new RequestInterceptor())
                 .retryOnConnectionFailure(false)//是否开启缓存
                 .connectionPool(pool())//连接池
                 .connectTimeout(10L, TimeUnit.SECONDS)
@@ -66,7 +70,26 @@ public class FeignClientBuilder {
             Request updateRequest = originalRequest.newBuilder().header("Authorization", authToken).build();
             return chain.proceed(updateRequest);
         }
+    }
+    /**
+     * 请求拦截器，修改请求header
+     */
+    private static class RequestInterceptor implements Interceptor{
 
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request()
+                    .newBuilder()
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Connection", "keep-alive")
+                    .addHeader("Accept", "*/*")
+                    .addHeader("Access-Control-Allow-Origin", "*")
+                    .addHeader("Access-Control-Allow-Headers", "X-Requested-With")
+                    .addHeader("Vary", "Accept-Encoding")
+                    .build();
+
+            return chain.proceed(request);
+        }
     }
     private static ConnectionPool pool() {
         return new ConnectionPool(100, Duration.ofMinutes(1).toMillis(), TimeUnit.MILLISECONDS);

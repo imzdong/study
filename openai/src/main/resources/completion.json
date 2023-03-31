@@ -1,0 +1,19 @@
+{
+  "id": "cmpl-702Qt4kb7HVOnXdNwy3srB6ryjxbJ",
+  "object": "text_completion",
+  "created": 1680243707,
+  "model": "text-davinci-003",
+  "choices": [
+    {
+      "text": "\n\nThis is a test sentence to demonstrate the use of the phrase \"This is a test\".",
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4,
+    "completion_tokens": 20,
+    "total_tokens": 24
+  }
+}
