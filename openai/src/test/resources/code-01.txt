@@ -1,0 +1,23 @@
+private List<TlfAuthority> filterRepeatTable(Map<Integer, List<TlfTable>> tableMap, List<TlfAuthority> authorities) {
+        if(CollectionUtils.isEmpty(authorities)){
+            return Collections.emptyList();
+        }
+        List<Integer> tableIds = Optional.ofNullable(tableMap)
+                .map(Map::values)
+                .orElse(Collections.emptyList())
+                .stream()
+                .flatMap(Collection::stream)
+                .map(TlfTable::getTableId).toList();
+        Iterator<TlfAuthority> iterator = authorities.iterator();
+        while (iterator.hasNext()){
+            TlfAuthority next = iterator.next();
+            String nodeType = next.getNodeType();
+            if(!AuthorityNodeTypeEnum.infoTypes.contains(nodeType)){
+                Integer tableId = next.getTableId();
+                if(!tableIds.contains(tableId)){
+                    iterator.remove();
+                }
+            }
+        }
+        return CollectionUtils.isEmpty(authorities)?Collections.emptyList():authorities;
+    }

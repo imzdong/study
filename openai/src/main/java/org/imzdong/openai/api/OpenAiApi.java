@@ -43,8 +43,7 @@ public interface OpenAiApi {
     ChatCompletionResult createChatCompletion(ChatCompletionRequest request);
 
     @RequestLine("POST /v1/edits")
-    @Body("{request}")
-    EditResult createEdit(@Param("request") EditRequest request);
+    EditResult createEdit(EditRequest request);
 
     @RequestLine("POST /v1/embeddings")
     @Body("{request}")
