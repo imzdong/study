@@ -29,31 +29,34 @@ public class FeignClientBuilder {
     private static final String proxyHost = "127.0.0.1";
     private static final int proxyPort = 7890;
 
-    public static <T> T build(String baseUrl, Class<T> clazz, String token) {
-        Feign.Builder builder = initFeignBuilder(token);
+    public static <T> T build(String baseUrl, Class<T> clazz, String token, boolean useProxy) {
+        Feign.Builder builder = initFeignBuilder(token, useProxy);
         return builder.target(clazz, baseUrl);
     }
 
-    private static Feign.Builder initFeignBuilder(String token) {
+    private static Feign.Builder initFeignBuilder(String token, boolean useProxy) {
         return Feign.builder()
-                .client(new OkHttpClient(initOkhttp3Client(token)))
+                .client(new OkHttpClient(initOkhttp3Client(token, useProxy)))
                 .logger(new Logger.ErrorLogger())
                 .logLevel(feign.Logger.Level.FULL)
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder());
     }
 
-    private static okhttp3.OkHttpClient initOkhttp3Client(String token) {
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new java.net.InetSocketAddress(proxyHost, proxyPort));
-        return new okhttp3.OkHttpClient.Builder()
+    private static okhttp3.OkHttpClient initOkhttp3Client(String token, boolean userProxy) {
+        okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder()
                 .addInterceptor(new TokenHeaderInterceptor(token))
                 .addInterceptor(new RequestInterceptor())
                 .retryOnConnectionFailure(false)//是否开启缓存
                 .connectionPool(pool())//连接池
                 .connectTimeout(10L, TimeUnit.SECONDS)
                 .readTimeout(10L, TimeUnit.SECONDS)
-                .sslSocketFactory(sslSocketFactory(), x509TrustManager())
-                .proxy(proxy)
+                .sslSocketFactory(sslSocketFactory(), x509TrustManager());
+        if(userProxy){
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new java.net.InetSocketAddress(proxyHost, proxyPort));
+            builder.proxy(proxy);
+        }
+        return builder
                 //.proxyAuthenticator(proxyAuthenticator)
                 //.authenticator(proxyAuthenticator)
                 .build();
@@ -62,7 +65,7 @@ public class FeignClientBuilder {
     private static class TokenHeaderInterceptor implements Interceptor {
         private String authToken;
         public TokenHeaderInterceptor(String authToken){
-            this.authToken = authToken;
+            this.authToken = "Bearer " + authToken;
         }
         @Override
         public Response intercept(Chain chain) throws IOException {

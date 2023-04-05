@@ -14,16 +14,14 @@ import org.junit.jupiter.api.Test;
  */
 public class CompletionTest {
 
-    private static final String BASE_URL = "https://api.openai.com/";
-
-    private static final String token = TestStr.token;
+    private static final String token = OpenAiConstant.TOKEN;
     private ObjectMapper objectMapper;
     private OpenAiApi openAiApi;
 
     @BeforeEach
     public void init(){
         objectMapper = new ObjectMapper();
-        openAiApi = FeignClientBuilder.build(BASE_URL, OpenAiApi.class, token);
+        openAiApi = FeignClientBuilder.build(OpenAiConstant.BASE_URL, OpenAiApi.class, token, true);
     }
 
     @Test
