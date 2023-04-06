@@ -16,6 +16,8 @@ dependencies {
     implementation 'io.github.openfeign:feign-jackson:12.2'
 
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0-rc1'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
     testImplementation(platform('org.junit:junit-bom:5.9.2'))
     testImplementation('org.junit.jupiter:junit-jupiter')

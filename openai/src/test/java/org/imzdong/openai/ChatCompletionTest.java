@@ -7,6 +7,7 @@ import org.imzdong.model.openai.completion.chat.ChatCompletionResult;
 import org.imzdong.model.openai.completion.chat.ChatMessage;
 import org.imzdong.model.openai.completion.chat.ChatMessageRole;
 import org.imzdong.openai.api.OpenAiApi;
+import org.imzdong.openai.builder.FeignClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,16 +19,11 @@ import java.util.List;
  * @author DongZhou
  * @since 2023/3/31 13:39
  */
-public class ChatCompletionTest {
-
-    private static final String token = OpenAiConstant.TOKEN;
-    private ObjectMapper objectMapper;
-    private OpenAiApi openAiApi;
+public class ChatCompletionTest extends BaseTest {
 
     @BeforeEach
     public void init(){
-        objectMapper = new ObjectMapper();
-        openAiApi = FeignClientBuilder.build(OpenAiConstant.BASE_URL_CF, OpenAiApi.class, token, false);
+        initChat(false);
     }
 
     @Test
@@ -45,7 +41,7 @@ public class ChatCompletionTest {
                 .maxTokens(50)
                 .logitBias(new HashMap<>())
                 .build();
-        ChatCompletionResult completion = openAiApi.createChatCompletion(build);
+        ChatCompletionResult completion = chatGpt.chat(build);
         String s = null;
         try {
             s = objectMapper.writeValueAsString(completion);

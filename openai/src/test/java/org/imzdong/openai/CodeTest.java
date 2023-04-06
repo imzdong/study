@@ -1,18 +1,15 @@
 package org.imzdong.openai;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.imzdong.model.openai.completion.CompletionRequest;
-import org.imzdong.model.openai.completion.CompletionResult;
 import org.imzdong.model.openai.edit.EditChoice;
 import org.imzdong.model.openai.edit.EditRequest;
 import org.imzdong.model.openai.edit.EditResult;
 import org.imzdong.openai.api.OpenAiApi;
+import org.imzdong.openai.builder.FeignClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -26,16 +23,11 @@ import java.util.List;
  * @author DongZhou
  * @since 2023/3/31 16:12
  */
-public class CodeTest {
-
-    private static final String token = OpenAiConstant.TOKEN;
-    private ObjectMapper objectMapper;
-    private OpenAiApi openAiApi;
+public class CodeTest extends BaseTest {
 
     @BeforeEach
     public void init(){
-        objectMapper = new ObjectMapper();
-        openAiApi = FeignClientBuilder.build(OpenAiConstant.BASE_URL, OpenAiApi.class, token, true);
+        initChat(false);
     }
 
     @Test
@@ -49,8 +41,8 @@ public class CodeTest {
                 .temperature(1.0)
                 .instruction("优化代码")
                 .build();
-        EditResult edit = openAiApi.createEdit(build);
-        List<EditChoice> choices = edit.getChoices();
+        //EditResult edit = openAiApi.createEdit(build);
+        //List<EditChoice> choices = edit.getChoices();
 
     }
 

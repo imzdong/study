@@ -1,4 +1,4 @@
-package org.imzdong.openai;
+package org.imzdong.openai.builder;
 
 import feign.Feign;
 import feign.Logger;
@@ -26,24 +26,22 @@ import java.util.concurrent.TimeUnit;
  */
 public class FeignClientBuilder {
 
-    private static final String proxyHost = "127.0.0.1";
-    private static final int proxyPort = 7890;
 
-    public static <T> T build(String baseUrl, Class<T> clazz, String token, boolean useProxy) {
-        Feign.Builder builder = initFeignBuilder(token, useProxy);
+    public static <T> T build(String baseUrl, Class<T> clazz, String token, Proxy proxy) {
+        Feign.Builder builder = initFeignBuilder(token, proxy);
         return builder.target(clazz, baseUrl);
     }
 
-    private static Feign.Builder initFeignBuilder(String token, boolean useProxy) {
+    private static Feign.Builder initFeignBuilder(String token, Proxy proxy) {
         return Feign.builder()
-                .client(new OkHttpClient(initOkhttp3Client(token, useProxy)))
+                .client(new OkHttpClient(initOkhttp3Client(token, proxy)))
                 .logger(new Logger.ErrorLogger())
                 .logLevel(feign.Logger.Level.FULL)
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder());
     }
 
-    private static okhttp3.OkHttpClient initOkhttp3Client(String token, boolean userProxy) {
+    private static okhttp3.OkHttpClient initOkhttp3Client(String token, Proxy proxy) {
         okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder()
                 .addInterceptor(new TokenHeaderInterceptor(token))
                 .addInterceptor(new RequestInterceptor())
@@ -52,14 +50,10 @@ public class FeignClientBuilder {
                 .connectTimeout(10L, TimeUnit.SECONDS)
                 .readTimeout(10L, TimeUnit.SECONDS)
                 .sslSocketFactory(sslSocketFactory(), x509TrustManager());
-        if(userProxy){
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new java.net.InetSocketAddress(proxyHost, proxyPort));
+        if(proxy != null){
             builder.proxy(proxy);
         }
-        return builder
-                //.proxyAuthenticator(proxyAuthenticator)
-                //.authenticator(proxyAuthenticator)
-                .build();
+        return builder.build();
     }
 
     private static class TokenHeaderInterceptor implements Interceptor {
@@ -121,14 +115,5 @@ public class FeignClientBuilder {
             }
         };
     }
-
-    /*private static Authenticator autheticator() {
-        return  (route, response) -> {
-            String credential = Credentials.basic(username, password);
-            return response.request().newBuilder()
-                    .header("Proxy-Authorization", credential)
-                    .build();
-        };
-    }*/
 
 }
