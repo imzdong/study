@@ -11,9 +11,7 @@ import org.imzdong.openai.builder.FeignClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author DongZhou
@@ -23,32 +21,56 @@ public class ChatCompletionTest extends BaseTest {
 
     @BeforeEach
     public void init(){
-        initChat(false);
+        initChat(true);
     }
 
     @Test
     public void testCompletion(){
+        doChat();
+    }
+
+    public static void main(String[] args) {
+        ChatCompletionTest chatCompletionTest = new ChatCompletionTest();
+        chatCompletionTest.init();
+        chatCompletionTest.doChat();
+    }
+
+    private void doChat() {
         //text-davinci-003 gpt-3.5-turbo-0301
         final List<ChatMessage> messages = new ArrayList<>();
-        final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), "You are a dog and will speak as such.");
-        messages.add(systemMessage);
+        ChatCompletionResult completion;
+        ChatCompletionRequest build;
 
-        ChatCompletionRequest build = ChatCompletionRequest
-                .builder()
-                .model("gpt-3.5-turbo")
-                .messages(messages)
-                .n(5)
-                .maxTokens(50)
-                .logitBias(new HashMap<>())
-                .build();
-        ChatCompletionResult completion = chatGpt.chat(build);
-        String s = null;
-        try {
-            s = objectMapper.writeValueAsString(completion);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        // 创建 Scanner 对象以获取用户输入
+        Scanner scanner = new Scanner(System.in);
+
+        while (true){
+            // 提示用户输入消息
+            System.out.println("请输入消息：");
+            // 从用户输入中获取字符串消息
+            String message = scanner.nextLine();
+            // 输出用户输入的消息
+            System.out.println("您输入的消息是：" + message);
+            ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), message);
+            messages.add(systemMessage);
+            build = ChatCompletionRequest
+                    .builder()
+                    .model("gpt-3.5-turbo")
+                    .messages(messages)
+                    .n(1)
+                    .maxTokens(4000)
+                    .logitBias(new HashMap<>())
+                    .build();
+            completion = chatGpt.chat(build);
+            String s = completion.getChoices().get(0).getMessage().getContent();
+            System.out.println("ChatGpt回复的消息是：" + s);
+            if(Objects.equals(message, "bye")){
+                System.out.println("ChatGpt结束");
+                break;
+            }
         }
-        System.out.println(s);
+        // 关闭 Scanner 对象
+        scanner.close();
     }
 
 }
