@@ -1,0 +1,55 @@
+{
+  "error": [],
+  "extra": [],
+  "data": [
+    {
+      "source_id": 5269,
+      "title": "第二季回归",
+      "article_count": 1,
+      "id": "4287"
+    },
+    {
+      "source_id": 3795,
+      "title": "开篇词",
+      "article_count": 1,
+      "id": "3381"
+    },
+    {
+      "source_id": 3796,
+      "title": "热身篇",
+      "article_count": 4,
+      "id": "3382"
+    },
+    {
+      "source_id": 3798,
+      "title": "架构基础篇",
+      "article_count": 7,
+      "id": "3384"
+    },
+    {
+      "source_id": 3811,
+      "title": "技术原理篇",
+      "article_count": 7,
+      "id": "3397"
+    },
+    {
+      "source_id": 3884,
+      "title": "架构实战篇",
+      "article_count": 12,
+      "id": "3470"
+    },
+    {
+      "source_id": 4230,
+      "title": "前沿拓展篇",
+      "article_count": 5,
+      "id": "3772"
+    },
+    {
+      "source_id": 4233,
+      "title": "结束语&结课测试",
+      "article_count": 2,
+      "id": "3774"
+    }
+  ],
+  "code": 0
+}

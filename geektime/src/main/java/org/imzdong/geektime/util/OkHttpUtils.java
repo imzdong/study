@@ -10,10 +10,21 @@ import java.util.Map;
 
 public class OkHttpUtils {
 
+    private static final String TOKEN = "";
+
     private final static Logger logger = LoggerFactory.getLogger(OkHttpUtils.class);
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     public static final MediaType TEXT = MediaType.parse("text");
     private final static OkHttpClient client = new OkHttpClient.Builder()
+            /*.addInterceptor(chain -> {
+                Request originalRequest = chain.request();
+                // 添加Token到请求头
+                Request authorisedRequest = originalRequest.newBuilder()
+                        .header("Authorization", "Bearer " + TOKEN)
+                        .build();
+                return chain.proceed(authorisedRequest);
+            })*/
+
         //.connectTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//连接时间
         //.readTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//读时间
         //.writeTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//写时间
@@ -37,7 +48,7 @@ public class OkHttpUtils {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String resp = response.body().string();
-            if(resp == null ||resp.length() == 0){
+            if(resp.isEmpty()){
                 logger.info("获取http信息异常：{}", response);
             }
             return resp;

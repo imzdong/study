@@ -31,6 +31,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
+    //https://mustache.github.io/mustache.5.html
+    implementation("com.samskivert:jmustache:1.15")
+
     testImplementation(platform('org.junit:junit-bom:5.9.2'))
     testImplementation('org.junit.jupiter:junit-jupiter')
 
