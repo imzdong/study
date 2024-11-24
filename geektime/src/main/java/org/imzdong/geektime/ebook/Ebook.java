@@ -4,16 +4,13 @@ import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -56,22 +53,22 @@ public class Ebook {
         return fileName.replaceAll("[/\\\\?%*:\"'<>.,;=\\s+]", "");
     }
 
-    public List<Map<String, Object>> generateHeadings() {
-        List<Map<String, Object>> headings = new ArrayList<>();
+    public List<Heading> generateHeadings() {
+        List<Heading> headings = new ArrayList<>();
         AtomicInteger order = new AtomicInteger(1);
         for (Chapter chapter : chapterList) {
             order.incrementAndGet();
-            Map<String, Object> heading = new HashMap<>();
-            heading.put("title", chapter.getTitle());
-            heading.put("playOrder", order);
-            heading.put("fileName", chapter.getFilePath().getFileName().toString());
-            heading.put("subHeadings", chapter.getSubChapters().stream()
+            Heading heading = new Heading();
+            heading.setTitle( chapter.getTitle());
+            heading.setPlayOrder(order.get());
+            heading.setFileName(chapter.getFilePath().getFileName().toString());
+            heading.setSubHeadings(chapter.getSubChapters().stream()
                     .map(subChapter -> {
                         order.incrementAndGet();
-                        Map<String, Object> subHeading = new HashMap<>();
-                        subHeading.put("title", subChapter.getTitle());
-                        subHeading.put("playOrder", order.get());
-                        subHeading.put("fileName", subChapter.getFilePath().getFileName().toString());
+                        Heading subHeading = new Heading();
+                        subHeading.setTitle(subChapter.getTitle());
+                        subHeading.setPlayOrder(order.get());
+                        subHeading.setFileName(subChapter.getFilePath().getFileName().toString());
                         return subHeading;
                     })
                     .collect(Collectors.toList()));

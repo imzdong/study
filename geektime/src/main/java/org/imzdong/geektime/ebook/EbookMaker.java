@@ -89,9 +89,11 @@ public class EbookMaker {
             for (int i = titleLine + 1; i < lines.length; i++) {
                 String line = lines[i].trim();
                 if (line.startsWith("# ")) {
+                    line = line.substring(2);
                     fTitle = line;
                     headersInfo.putIfAbsent(line, new ArrayList<>());
                 } else if (line.startsWith("## ")) {
+                    line = line.substring(3);
                     List<String> subTitles = headersInfo.putIfAbsent(fTitle, new ArrayList<>());
                     subTitles.add(line);
                 }

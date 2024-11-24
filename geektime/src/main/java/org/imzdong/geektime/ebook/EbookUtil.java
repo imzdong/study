@@ -1,7 +1,6 @@
 package org.imzdong.geektime.ebook;
 
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.*;
@@ -9,9 +8,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -20,7 +17,7 @@ public class EbookUtil {
 
     private final Configuration freemarkerConfig;
     private final Ebook ebook;
-    private List<Map<String, Object>> headings;
+    private List<Heading> headings;
     private String templateDir = getSourceDirPath();
 
     private String getSourceDirPath() {
@@ -39,7 +36,7 @@ public class EbookUtil {
         this.freemarkerConfig.setDirectoryForTemplateLoading(new File(templateDir));
     }
 
-    public List<Map<String, Object>> getHeadings() {
+    public List<Heading> getHeadings() {
         if (headings != null) {
             return headings;
         }
@@ -47,37 +44,29 @@ public class EbookUtil {
         return headings;
     }
 
-    private void renderFile(String templateName, Map<String, Object> context, String toFilename) throws IOException, TemplateException {
-        Template template = freemarkerConfig.getTemplate(templateName);
+    private void writeFile(String context, String toFilename) throws IOException {
         Writer out = new FileWriter(new File(ebook.getWorkFolder().toFile(), toFilename));
-        template.process(context, out);
+        out.write(context);
         out.close();
     }
 
-    private void renderContainerXml() throws IOException, TemplateException {
-        renderFile("container.xml", new HashMap<>(), "container.xml");
+    private void renderContainerXml() throws IOException {
+        writeFile(FileUtil.generateContainContent(), "container.xml");
     }
 
-    private void renderTocNcx() throws IOException, TemplateException {
-        Map<String, Object> context = new HashMap<>();
-        context.put("headings", getHeadings());
-        context.put("title", ebook.getTitle());
-        context.put("author", ebook.getAuthor() != null ? ebook.getAuthor() : "Unknown");
-        renderFile("toc.xml", context, "toc.ncx");
+    private void renderTocNcx() throws IOException {
+        String ncxContent = FileUtil.generateNCXContent(ebook.getTitle(), ebook.getAuthor(), getHeadings());
+        writeFile(ncxContent, "toc.ncx");
     }
 
-    private void renderTocHtml() throws IOException, TemplateException {
-        Map<String, Object> context = new HashMap<>();
-        context.put("headings", getHeadings());
-        renderFile("toc.html", context, "toc.html");
+    private void renderTocHtml() throws IOException {
+        String tocFile = FileUtil.generateTOCContent(getHeadings());
+        writeFile(tocFile, "toc.html");
     }
 
-    private void renderOpf() throws IOException, TemplateException {
-        Map<String, Object> context = new HashMap<>();
-        context.put("headings", getHeadings());
-        context.put("title", ebook.getTitle());
-        context.put("author", ebook.getAuthor() != null ? ebook.getAuthor() : "Unknown");
-        renderFile("opf.xml", context, "content.opf");
+    private void renderOpf() throws IOException {
+        writeFile(FileUtil.generateOPFContent(ebook.getTitle(),ebook.getAuthor(),
+                getHeadings()), "content.opf");
     }
 
     private void saveCover() throws IOException {
