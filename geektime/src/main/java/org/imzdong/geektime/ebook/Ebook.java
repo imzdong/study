@@ -1,5 +1,7 @@
 package org.imzdong.geektime.ebook;
 
+import static org.imzdong.geektime.TocUtil.escapeFileName;
+
 import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -34,7 +36,7 @@ public class Ebook {
             throw new RuntimeException("Source folder not found: " + sourceFolder);
         }
         this.sourceFolder = sourceFolder;
-        this.workFolder = sourceFolder.resolve("." + sanitizeFileName(title) + "." + RandomStringUtils.randomNumeric(3));
+        this.workFolder = sourceFolder.resolve("." + escapeFileName(title) + "." + RandomStringUtils.randomNumeric(3));
         try {
             Files.createDirectories(workFolder);
             Path imgsFolder = workFolder.resolve("imgs");
@@ -47,10 +49,6 @@ public class Ebook {
             throw new RuntimeException("Failed to create work folder", e);
         }
         this.ebookUtil = new EbookUtil(this);
-    }
-
-    private String sanitizeFileName(String fileName) {
-        return fileName.replaceAll("[/\\\\?%*:\"'<>.,;=\\s+]", "");
     }
 
     public List<Heading> generateHeadings() {
@@ -138,14 +136,15 @@ public class Ebook {
         try {
             create(Paths.get(filePath));
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("try delete work folder:"+this.workFolder);
-            Files.delete(this.workFolder);
+            //Files.delete(this.workFolder);
             throw e;
         }
     }
 
     public void show() throws IOException, TemplateException, InterruptedException {
-        Path tempFile = Paths.get(System.getProperty("user.dir"), "." + sanitizeFileName(title) + "." + format);
+        Path tempFile = Paths.get(System.getProperty("user.dir"), "." + escapeFileName(title) + "." + format);
         create(tempFile);
         if (!Files.isRegularFile(tempFile)) {
             throw new FileNotFoundException("File not found: " + tempFile);

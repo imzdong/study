@@ -1,21 +1,23 @@
 package org.imzdong.geektime.ebook;
 
-import freemarker.template.Configuration;
+import com.alibaba.fastjson.JSONObject;
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+@Slf4j
 public class EbookUtil {
 
-    private final Configuration freemarkerConfig;
     private final Ebook ebook;
     private List<Heading> headings;
     private String templateDir = getSourceDirPath();
@@ -32,8 +34,6 @@ public class EbookUtil {
 
     public EbookUtil(Ebook ebook) throws IOException {
         this.ebook = ebook;
-        this.freemarkerConfig = new Configuration(Configuration.VERSION_2_3_31);
-        this.freemarkerConfig.setDirectoryForTemplateLoading(new File(templateDir));
     }
 
     public List<Heading> getHeadings() {
@@ -82,7 +82,7 @@ public class EbookUtil {
                 .filter(Files::isRegularFile)
                 .forEach(source -> {
                     try {
-                        Files.copy(source, ebook.getWorkFolder().resolve(source.getFileName()));
+                        Files.copy(source, ebook.getWorkFolder().resolve(source.getFileName()), StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -107,7 +107,7 @@ public class EbookUtil {
         generateAllFiles();
         String fn = filePath.getFileName().toString();
         String[] command = {KindleGenUtil.getKindlegenPath(), "-dont_append_source", ebook.getWorkFolder().resolve("content.opf").toString(), "-o", fn};
-        System.out.println(command);
+        log.info("command:{}", JSONObject.toJSONString(command));
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         Process process = processBuilder.start();
         int exitCode = process.waitFor();

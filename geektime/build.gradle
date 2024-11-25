@@ -33,6 +33,7 @@ dependencies {
 
     //https://mustache.github.io/mustache.5.html
     implementation("com.samskivert:jmustache:1.15")
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
 
     testImplementation(platform('org.junit:junit-bom:5.9.2'))
     testImplementation('org.junit.jupiter:junit-jupiter')

@@ -29,7 +29,7 @@ public class OkHttpUtils {
         //.readTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//读时间
         //.writeTimeout(ROConstants.nettimeout, TimeUnit.SECONDS)//写时间
         .retryOnConnectionFailure(true)//连接失败后是否重新连接
-        .cookieJar(new CookieJarManager())//自动管理Cookie
+        //.cookieJar(new CookieJarManager())//自动管理Cookie
         .build();
 
     /**

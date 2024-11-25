@@ -11,6 +11,6 @@ import java.util.List;
 public class Toc {
 
     private String title;
-    private LinkedHashMap<String, List<String>> firstTitle;
+    private LinkedHashMap<String, List<String>> subTitle;
 
 }

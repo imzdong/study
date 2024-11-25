@@ -11,8 +11,6 @@ import java.util.*;
 
 public class EbookMaker {
 
-    private static final String sourceDir = getSourceDirPath();
-
     private static String getSourceDirPath() {
         URL resource = Objects.requireNonNull(EbookMaker.class.getClassLoader().getResource("examples/source"));
         try {
@@ -25,6 +23,7 @@ public class EbookMaker {
 
     public static void main(String[] args) {
 
+        String sourceDir = getSourceDirPath();
         String outputDir = "D:\\Downloads\\geektime\\test";
 
         String author = "Winter";
@@ -46,7 +45,7 @@ public class EbookMaker {
                 ebook.setCover(coverPath);
             }
 
-            LinkedHashMap<String, List<String>> firstTitle = toc.getFirstTitle();
+            LinkedHashMap<String, List<String>> firstTitle = toc.getSubTitle();
             firstTitle.forEach((chapterTitle,subChapters) -> {
                 Path chapterFilePath = Paths.get(sourceDir, chapterTitle + ".html");
                 Chapter chapter = ebook.createChapter(chapterTitle, chapterFilePath);
@@ -60,6 +59,7 @@ public class EbookMaker {
             ebook.saveTo(fileName);
             System.out.println("Success");
         } catch (IOException | IllegalArgumentException | TemplateException | InterruptedException e) {
+            e.printStackTrace();
             System.err.println("Error: " + e.getMessage());
         }
     }
@@ -101,7 +101,7 @@ public class EbookMaker {
             if (headersInfo.isEmpty()) {
                 throw new IllegalArgumentException("Invalid toc.md file: headings are empty");
             }
-            toc.setFirstTitle(headersInfo);
+            toc.setSubTitle(headersInfo);
         }
 
         return toc;

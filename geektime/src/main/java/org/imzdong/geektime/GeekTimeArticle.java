@@ -65,7 +65,7 @@ public class GeekTimeArticle implements Comparable<GeekTimeArticle>{
                 authorName = data.getString("author_name");
                 long article_ctime = data.getLongValue("article_ctime");
                 articleCtime = simpleDateFormat.format(new Date(article_ctime*1000L));
-                articleComments = getComments();
+                //articleComments = getComments();
                 return articleContent;
             }else {
                 log.error("获取文章返回code：{}，返回错误信息：{}",

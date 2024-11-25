@@ -53,3 +53,28 @@
   ],
   "code": 0
 }
+
+
+
+[ {
+  "articleCount" : 1,
+  "title" : "开篇词"
+}, {
+  "articleCount" : 3,
+  "title" : "第一章：小试牛刀，理解基础概念"
+}, {
+  "articleCount" : 4,
+  "title" : "第二章：超燃实战，深度玩转 AI 模型"
+}, {
+  "articleCount" : 8,
+  "title" : "第三章：打入核心，挑战底层技术原理"
+}, {
+  "articleCount" : 10,
+  "title" : "第四章：终极玩法，从0到1构建大模型"
+}, {
+  "articleCount" : 5,
+  "title" : "第五章：热点速递，AI行业发展趋势解读"
+}, {
+  "articleCount" : 2,
+  "title" : "结束语"
+} ]
