@@ -35,15 +35,16 @@ public class GeekTimeEbookUtil {
     }
 
     private static final String courseHtmlDirName = "D:\\Download\\geektime\\test\\";
-    private static final String CUSTOM_COOKIE = "";
+    public static final String CUSTOM_COOKIE = "";
+
 
     public static void main(String[] args) throws Exception{
         GeekTimeConstant.headers.put("Cookie", CUSTOM_COOKIE);
-        //startBook();
+        startBook();
         //testGetArticle();
         /*List<CourseChapter> chapters = getChapters("100770601");
         System.out.println(chapters.size());*/
-        testMobi();
+        //testMobi();
     }
 
     private static void testGetArticle() {
@@ -157,6 +158,8 @@ public class GeekTimeEbookUtil {
                 String content = article.getContent();
                 if(content != null){
                     String articleTitle = escapeFileName(article.getArticleTitle());
+                    ImageParser parser = new ImageParser(courseHtmlDirName);
+                    content = parser.parseImage(content);
                     article2Html(articleTitle, content, courseHtmlDirName);
                     articleNames.add(articleTitle);
                 }else {
@@ -174,7 +177,7 @@ public class GeekTimeEbookUtil {
         return articleNames;
     }
 
-    private static String article2Html(String articleTitle, String content,
+    public static String article2Html(String articleTitle, String content,
                                        String courseHtmlDirName)
             throws IOException {
         articleTitle = replace(articleTitle);
