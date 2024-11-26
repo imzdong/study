@@ -55,7 +55,7 @@ public class EbookMaker {
                 }
             });
 
-            String fileName = Paths.get(outputDir, title + "." + format).toString();
+            String fileName = Paths.get(outputDir, title + "." + format).toAbsolutePath().toString();
             ebook.saveTo(fileName);
             System.out.println("Success");
         } catch (IOException | IllegalArgumentException | TemplateException | InterruptedException e) {

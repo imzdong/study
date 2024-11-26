@@ -3,6 +3,8 @@ package org.imzdong.geektime.ebook;
 import com.alibaba.fastjson.JSONObject;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.net.URL;
@@ -12,6 +14,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -78,15 +81,18 @@ public class EbookUtil {
     }
 
     private void moveSourceFiles() throws IOException {
-        Files.walk(ebook.getSourceFolder())
-                .filter(Files::isRegularFile)
-                .forEach(source -> {
-                    try {
-                        Files.copy(source, ebook.getWorkFolder().resolve(source.getFileName()), StandardCopyOption.REPLACE_EXISTING);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+        //Files.walk(ebook.getSourceFolder())
+        try (Stream<Path> stream = Files.list(ebook.getSourceFolder())) {
+            stream.filter(Files::isRegularFile)
+                    .filter(m -> !m.getFileName().toString().contains("images"))
+                    .forEach(source -> {
+                        try {
+                            Files.copy(source, ebook.getWorkFolder().resolve(source.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+        }
     }
 
     private void generateAllFiles() throws IOException, TemplateException {
@@ -107,7 +113,7 @@ public class EbookUtil {
         generateAllFiles();
         String fn = filePath.getFileName().toString();
         String[] command = {KindleGenUtil.getKindlegenPath(), "-dont_append_source", ebook.getWorkFolder().resolve("content.opf").toString(), "-o", fn};
-        log.info("command:{}", JSONObject.toJSONString(command));
+        log.info("command:{}", StringUtils.join(command, " "));
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         Process process = processBuilder.start();
         int exitCode = process.waitFor();
@@ -115,6 +121,7 @@ public class EbookUtil {
             throw new IOException("KindleGen failed with exit code: " + exitCode);
         }
         Files.copy(ebook.getWorkFolder().resolve(fn), filePath);
+        FileUtils.deleteDirectory(ebook.getWorkFolder().toFile());
     }
 
     private void createEpub(Path filePath) throws IOException, TemplateException {

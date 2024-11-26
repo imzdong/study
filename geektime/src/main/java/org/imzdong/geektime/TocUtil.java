@@ -146,8 +146,20 @@ public class TocUtil {
             return null;
         }
         // 使用正则表达式移除非法字符
-        return fileName.replaceAll("[/\\\\?%*:\"'<>,.;=？\\s+]+", "");
+        return fileName.replaceAll("[/\\\\?%*:\"'<>,.;=|？\\s+]+", "");
 
+    }
+
+    private static String replace(String dirPath){
+        /*
+         * windows下文件名中不能含有：\ / : * ? " < > | 英文的这些字符 ，这里使用"."、"'"进行替换。
+         * \/:?| 用.替换
+         * "<> 用'替换
+         */
+        dirPath = dirPath.replaceAll("[/\\\\:*?|]", "");
+        dirPath = dirPath.replaceAll("[\"<>]", "");
+        dirPath = dirPath.replaceAll("\\s*", "");
+        return dirPath;
     }
 
     private static void createEmptyHtml(String courseHtmlPath, String fileName){

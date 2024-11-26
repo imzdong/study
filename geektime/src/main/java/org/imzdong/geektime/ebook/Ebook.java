@@ -39,9 +39,9 @@ public class Ebook {
         this.workFolder = sourceFolder.resolve("." + escapeFileName(title) + "." + RandomStringUtils.randomNumeric(3));
         try {
             Files.createDirectories(workFolder);
-            Path imgsFolder = workFolder.resolve("imgs");
+            Path imgsFolder = workFolder.resolve("images");
             Files.createDirectories(imgsFolder);
-            Path sourceImgsFolder = sourceFolder.resolve("imgs");
+            Path sourceImgsFolder = sourceFolder.resolve("images");
             if (Files.exists(sourceImgsFolder)) {
                 FileUtils.copyDirectory(sourceImgsFolder.toFile(), imgsFolder.toFile());
             }
