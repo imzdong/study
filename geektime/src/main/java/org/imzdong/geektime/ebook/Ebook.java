@@ -87,10 +87,6 @@ public class Ebook {
         return this;
     }
 
-    public List<Chapter> getChapterList() {
-        return chapterList;
-    }
-
     public Ebook addChapter(Chapter chapter) {
         if (!chapter.isTopChapter()) {
             throw new IllegalArgumentException("Only top-level chapters are accepted");
@@ -125,7 +121,7 @@ public class Ebook {
         return workFolder;
     }
 
-    public void create(Path filePath) throws IOException, TemplateException, InterruptedException {
+    private void create(Path filePath) throws IOException, TemplateException, InterruptedException {
         if (chapterList.isEmpty()) {
             throw new IllegalArgumentException("Chapter list is empty");
         }
@@ -137,36 +133,8 @@ public class Ebook {
             create(Paths.get(filePath));
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("try delete work folder:"+this.workFolder);
-            //Files.delete(this.workFolder);
             throw e;
         }
     }
 
-    public void show() throws IOException, TemplateException, InterruptedException {
-        Path tempFile = Paths.get(System.getProperty("user.dir"), "." + escapeFileName(title) + "." + format);
-        create(tempFile);
-        if (!Files.isRegularFile(tempFile)) {
-            throw new FileNotFoundException("File not found: " + tempFile);
-        }
-
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("linux")) {
-            Runtime.getRuntime().exec("xdg-open " + tempFile.toString());
-        } else if (os.contains("mac")) {
-            Runtime.getRuntime().exec("open " + tempFile.toString());
-        } else {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + tempFile.toString());
-        }
-    }
-
-    protected void finalize() throws Throwable {
-        try {
-            if (Files.exists(workFolder)) {
-                FileUtils.deleteDirectory(workFolder.toFile());
-            }
-        } finally {
-            super.finalize();
-        }
-    }
 }

@@ -22,35 +22,23 @@ import java.util.*;
 @Slf4j
 public class GeekTimeEbookUtil {
 
-    private static final String fileName = Objects.requireNonNull(GeekTimeEbookUtil.class.getClassLoader().getResource("ebbok-article.mustache")).getPath();
-    // 加载模板文件
-    private static final FileReader templateFile;
-
-    static {
-        try {
-            templateFile = new FileReader(fileName);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final String basePath = "D:\\Downloads\\geektime\\1126\\";
+    private static final String basePath = "D:\\Download\\geektime\\1128\\";
     private static final String courseHtmlDirName = basePath + "org\\";
-    public static final String CUSTOM_COOKIE = "_ga=GA1.2.862048808.1679818512; LF_ID=6b93249-de85e48-3d28884-6df1e9f; mantis5539=9950a03d0c64485f87fba01a33178d1c@5539; _ga_MTX5SQH9CV=GS1.2.1720104229.1.0.1720104229.0.0.0; MEIQIA_TRACK_ID=2NXoVZD67mAsW8zVLnuwPk4FD0h; MEIQIA_VISIT_ID=2immhkfMP4Zxn34VIrlDfO4P9AD; GCID=1194a91-98492ae-6bdb82a-5356ec1; GRID=1194a91-98492ae-6bdb82a-5356ec1; gksskpitn=0dfc3f21-4c7d-45e5-ab23-d0791a1adebc; Hm_lvt_022f847c4e3acd44d4a2481d9187f1e6=1732430516,1732546334; HMACCOUNT=593342EE700F4024; Hm_lvt_59c4ff31a9ee6263811b23eb921a5083=1732430516,1732546334; _gid=GA1.2.316603876.1732546334; _ga_JW698SFNND=GS1.2.1732628555.9.1.1732628558.0.0.0; gk_process_ev={%22count%22:2%2C%22utime%22:1732628558246%2C%22referrer%22:%22https://time.geekbang.org/course/intro/100767801%22%2C%22target%22:%22page_geektime_login%22%2C%22referrerTarget%22:%22page_geektime_login%22}; GCESS=BgkBAQUEAAAAAAoEAAAAAAwBAQIEV9BFZwYE60hsLAEIYkYPAAAAAAAHBE03SosLAgYACAEDBAQAjScADQEBAwRX0EVn; tfstk=ftnSa2mHp_fWVzLy59p4GDSO5NqIPXtwR9wKIvIPpuE8AWGKiazUTvCCAflkKLDE4qGIdfV8YuoyA2Zo04SUaQqIpfrB_C-wbYDu-kdw_9thZEqTQ8QdTWeYMNfPfrKwbYDRvpkB6hoPmAua_WELyyUAHS2hwkeLJKNYdRbdwXhKHKwQFJB8vgQvDReLvWhLvKMxtFRbnUN-FKR8l_fffjD8GGMmm8C31hV5vMobFmNteFIdvmw7yDlYgTBbz2HgS0kyAiqrCqEYFXK9woHtlAzSVCsztyijN2GyLw2jRvngql6p2xZ7NPn7r9js6xMK7ri2Bhq7273UqvW6axiSaYmjL9QYVuub50Z9j_FEuAiQdDAHcfM-WX3C4rIa1EyFRtaGA-NwhK_h-xPHfDStqjLzy-2qbK9fNw48n-NwhK_h-ze03PJXh__h.; _gat=1; Hm_lpvt_59c4ff31a9ee6263811b23eb921a5083=1732628892; Hm_lpvt_022f847c4e3acd44d4a2481d9187f1e6=1732628892; __tea_cache_tokens_20000743={%22web_id%22:%227440732456057097485%22%2C%22user_unique_id%22:%221001058%22%2C%22timestamp%22:1732628892230%2C%22_type_%22:%22default%22}; _ga_03JGDGP9Y3=GS1.2.1732628552.14.1.1732628892.0.0.0; SERVERID=3431a294a18c59fc8f5805662e2bd51e|1732628896|1732628554";
+    public static final String CUSTOM_COOKIE = "LF_ID=544be84-ccd118c-86b410f-8db7582; _ga=GA1.2.841203803.1703505414; gksskpitn=f3445897-a1a8-47ce-8494-16331879fd50; Hm_lvt_59c4ff31a9ee6263811b23eb921a5083=1732506342; HMACCOUNT=38F5FD8E33B82642; Hm_lvt_022f847c4e3acd44d4a2481d9187f1e6=1732506342; GCID=8bd4688-df0d6e7-0f970e9-c9094f2; GRID=8bd4688-df0d6e7-0f970e9-c9094f2; _gid=GA1.2.1867160501.1732678293; _ga_JW698SFNND=GS1.2.1732678295.4.1.1732678564.0.0.0; gk_process_ev={%22count%22:2%2C%22utime%22:1732678565082%2C%22referrer%22:%22https://time.geekbang.org/%22%2C%22target%22:%22page_geektime_login%22%2C%22referrerTarget%22:%22page_geektime_login%22}; GCESS=BgIEqZNGZwgBAwoEAAAAAAsCBgANAQEGBE0lh2gFBAAAAAADBKmTRmcEBACNJwAMAQEBCGJGDwAAAAAACQEBBwQM8TcZ; tfstk=f-HSa2908ab7MaOy1MK4l4-1162IN29wOMZKjDBPv8e8dygKo_PU8DQCdVukx3mEUjgIAV48L8kydXwo3bWUzU2IvVyB7FJwQ0munJLw7EduHW2T2yCR8uBYH1bPCSpwQ0mRpHoBWdkPiy877yeLwWFADrqF2JEL9naYAlfdy23KDnZQVkERwJBxDlqLpy3LpnixNjs_AQaoVn8uIab56ig8l9B1juVRO01FBOH7V7MK2rZ7VxZ7NPNfPDSoeqoKUYVDMswn0fgI9VLVazh_fqNZNF6S54qKAk3WIGaxFDMbZjSNCmNQPjH8GMBKX0czMXgWP_4-aqNgDSIBIouak0D-GHbx2Vz7eoF2BhiY9jkusY8AFRhi48lKWE5zyfZd4UXa5N-GOiNGdoawcn1htmzHCvPBipT4woq7gntfyXV8moawcn1ht7E0Vl-Xcahh.; _gat=1; Hm_lpvt_022f847c4e3acd44d4a2481d9187f1e6=1732679235; Hm_lpvt_59c4ff31a9ee6263811b23eb921a5083=1732679235; _ga_03JGDGP9Y3=GS1.2.1732678294.16.1.1732679235.0.0.0; __tea_cache_tokens_20000743={%22web_id%22:%227441058074707792906%22%2C%22user_unique_id%22:%221001058%22%2C%22timestamp%22:1732679235332%2C%22_type_%22:%22default%22}; SERVERID=1fa1f330efedec1559b3abbcb6e30f50|1732679236|1732678290";
     public static final String courseOut = basePath + "out\\";
 
     public static void main(String[] args) throws Exception{
         GeekTimeConstant.headers.put("Cookie", CUSTOM_COOKIE);
-        String cid = "100036501";
+        String cid = "100617601";
 
         new File(courseHtmlDirName).mkdirs();
         new File(courseOut).mkdirs();
 
-        //startBook(cid);
+        startBook(cid);
         //testGetArticle();
         /*List<CourseChapter> chapters = getChapters("100770601");
         System.out.println(chapters.size());*/
-        testMobi();
+        //testMobi();
     }
 
     private static void testGetArticle() {
@@ -162,7 +150,7 @@ public class GeekTimeEbookUtil {
                 String content = article.getContent();
                 if(content != null){
                     String articleTitle = escapeFileName(article.getArticleTitle());
-                    ImageParser parser = new ImageParser(courseHtmlDirName+"\\images");
+                    ImageParser parser = new ImageParser(courseHtmlDirName);
                     content = parser.parseImage(content);
                     article2Html(articleTitle, content, courseHtmlDirName);
                     articleNames.add(articleTitle);

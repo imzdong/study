@@ -18,7 +18,7 @@ public class ImageParser {
     private final String outputFolder;
 
     public ImageParser(String outputFolder) {
-        this.outputFolder = outputFolder;
+        this.outputFolder = outputFolder+"\\images";
     }
 
     public String parseImage(String content) {
@@ -47,15 +47,15 @@ public class ImageParser {
         }
 
         for (String url : imgUrls) {
+            String imageName = getImagesNameFromUrl(url);
             try {
-                String urlLocal = formatUrlPath(url);
                 URL imageUrl = new URL(url);
                 InputStream inputStream = imageUrl.openStream();
                 byte[] imageData = inputStream.readAllBytes();
-                new File(outputFolder, urlLocal).mkdirs();
-                String imgFn = Paths.get(outputFolder, urlLocal).toString();
+                new File(outputFolder, imageName).mkdirs();
+                String imgFn = Paths.get(outputFolder, imageName).toString();
                 saveImage(imageData, imgFn, 500, 500, 0.5f);
-                content = content.replace(url, urlLocal);
+                content = content.replace(url, "images/"+imageName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,7 +119,7 @@ public class ImageParser {
         return "png"; // 默认格式
     }
 
-    private String formatUrlPath(String url) {
+    private String getImagesNameFromUrl(String url) {
         try {
             URL o = new URL(url);
             String path = o.getPath();

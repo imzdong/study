@@ -114,14 +114,38 @@ public class EbookUtil {
         String fn = filePath.getFileName().toString();
         String[] command = {KindleGenUtil.getKindlegenPath(), "-dont_append_source", ebook.getWorkFolder().resolve("content.opf").toString(), "-o", fn};
         log.info("command:{}", StringUtils.join(command, " "));
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        Process process = processBuilder.start();
-        int exitCode = process.waitFor();
-        if (exitCode != 0) {
-            throw new IOException("KindleGen failed with exit code: " + exitCode);
-        }
+        execCmd(command);
         Files.copy(ebook.getWorkFolder().resolve(fn), filePath);
         FileUtils.deleteDirectory(ebook.getWorkFolder().toFile());
+    }
+
+    private static String execCmd(String[] commands) {
+        ProcessBuilder pb = new ProcessBuilder(commands);
+        String errorStr;
+        try {
+            Process p = pb.start();
+            BufferedReader inBr = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            StringBuilder inSb = new StringBuilder();
+            while ((errorStr = inBr.readLine()) != null) {
+                inSb.append(errorStr);
+            }
+            log.info("kindle gen out log :{}", inSb);
+            BufferedReader errorBr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            StringBuilder errorSb = new StringBuilder();
+            while ((errorStr = errorBr.readLine()) != null) {
+                errorSb.append(errorStr);
+            }
+            log.info("[kindle gen ]: start running command");
+            int statusCode = p.waitFor();
+            log.info("[kindle gen ]: finish running command, status code ={} , error ={} ", statusCode, errorSb);
+            if (statusCode != 0) {
+                log.info("[kindle gen ]: fail running command, status code ={} ", statusCode);
+            }
+            return inSb.toString();
+        } catch (Exception e) {
+            log.error("[kindle gen ]: run command error, exception = ", e);
+            throw new RuntimeException(e);
+        }
     }
 
     private void createEpub(Path filePath) throws IOException, TemplateException {
